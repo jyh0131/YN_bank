@@ -1,0 +1,31 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql5-1712f59917e-756c9e5c36547496": {
+			"provider": "mysql",
+			"driver": "mysql5",
+			"name": "MySQL - bank",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "bank",
+				"url": "jdbc:mysql://localhost:3306/bank",
+				"home": "C:\\Program Files\\MySQL\\MySQL Server 5.7",
+				"type": "dev",
+				"handlers": {}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false
+		}
+	}
+}

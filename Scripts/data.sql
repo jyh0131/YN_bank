@@ -4,7 +4,7 @@ use bank;
 insert into department values
 (1,'인사'),
 (2,'고객');
-
+#퇴사 사원 구분은 0을 근무사원, 1를 퇴사사원으로 한다
 insert into employee values
 ('A001','나인사','부장','HR',6000000,'010-1233-1111','HRid1',password('testforHR1'),1,null,null),
 ('A002','정아름','차장','HR',5000000,'010-5840-1111','HRid2',password('testforHR2'),1,null,null),
@@ -36,7 +36,7 @@ insert into employee values
 ('B020','차은우','사원','CS',2000000,'010-5834-8555','CSid20',password('testforCS'),2,null,null),
 ('B021','배소경','사원','CS',2000000,'010-3290-3343','CSid21',password('testforCS'),2,null,null),
 ('B022','김천경','사원','CS',2000000,'010-1385-4577','CSid22',password('testforCS'),2,null,null);
-
+#고객 구분은 0을 일반고객, 1를 기업고객으로 한다
 insert into customer values 
 ("C001", "김서형", "D", 1, "서울시 강남구 논현동", "010-7598-4533",0), 
 ("C002", "김혜수", "D", 1, "서울시 강남구 역삼동", "010-9325-5412",0),

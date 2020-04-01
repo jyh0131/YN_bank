@@ -86,10 +86,48 @@
 		div#table tr:hover td { background: goldenrod;}
 		
 </style>
+<script>
+   $(function(){
+	  $("button").eq(0).click(function(){
+		  var ii = $("#searchMenu option:selected").val();
+		  var div = $("#searchMenu option:selected").val();
+	      var search = $("input[name='search']").val();
+			alert(search);
+		  if(ii =="검색구분"){
+			  alert("검색 조건을 선택하세요");
+			  return;
+		  }else if(ii =="사원번호"){
+			
+			  $.ajax({
+				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    type: "post", 
+				    data: {"search":search,"div":div},
+				    dataType: "json",
+				    success : function(res){
+				    	console.log(res);
+				    	
+				    	
+				    }
+				  
+				  
+			  })
+			  
+			  
+			  
+		  }
+		  
+	  })
+	   
+	   
+   })
+
+
+</script>
 <body>
 	<section>
 		<div id="search">
 				<select id="searchMenu">
+				    <option>검색구분</option>
 					<option>사원번호</option>
 					<option>사원이름</option>
 					<option>부서(인사 or 고객)</option>

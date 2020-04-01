@@ -24,7 +24,7 @@ public class MgnHandler implements CommandHandler {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			List<Card> list = service.showCards();
 			req.setAttribute("list", list);
-			return "/WEB-INF/view/bankwork/card/bankbookMgn.jsp";
+			return "/WEB-INF/view/bankwork/card/cardMgn.jsp";
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");

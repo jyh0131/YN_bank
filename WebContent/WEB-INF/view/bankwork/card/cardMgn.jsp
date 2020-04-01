@@ -49,7 +49,7 @@
 				 background: goldenrod;  
 				 cursor: pointer;  
 				 border-radius: 0 5px 5px 0;
-				 background-image: url("images/search.png");
+				 background-image: url("${pageContext.request.contextPath}/images/search.png");
 				 background-size: 25px; 
 				 background-repeat: no-repeat; 
 				 background-position: center;}
@@ -98,6 +98,10 @@
 			case "고객이름":
 				var div = $("#searchMenu option:selected").val();
 				var search = $("input[name='search']").val();
+				if(search=="") {
+					alert("고객이름을 입력하세요");
+					return;
+				}
 				$.ajax({
 					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do",
 				    data: {search:search,div:div},
@@ -106,34 +110,42 @@
 				    success : function(res) {
 				    	if(res.errorCustName!=null) {
 				    		alert("그런 고객은 없습니다. 다시 입력하세요");
+				    		$("input[name='search']").val("");
 				    	}
 				    	else {
 				    		console.log(res);
 				    		$("#table table").remove();
 				    		var table = $("<table>");
 				    		var tr = $("<tr>");
-				    		var th1 = $("<th>").html("계좌번호");
+				    		var th1 = $("<th>").html("카드번호");
 				    		var th2 = $("<th>").html("고객이름");
 				    		var th3 = $("<th>").html("상품명");
-				    		var th4 = $("<th>").html("통장구분");
-				    		var th5 = $("<th>").html("계좌개설일");
-				    		var th6 = $("<th>").html("이자율");
-				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
+				    		var th4 = $("<th>").html("카드구분");
+				    		var th5 = $("<th>").html("카드보안코드");
+				    		var th6 = $("<th>").html("카드발급일");
+				    		var th7 = $("<th>").html("카드한도");
+				    		var th8 = $("<th>").html("카드잔액");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7).append(th8);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>");
-								var td1 = $("<td>").html(obj.accountNum);
-								var td2 = $("<td>").html(obj.custCode.custName);
-								var td3 = $("<td>").html(obj.accountPlanCode.planName);
-								var str = obj.accountNum;
-								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
-								var td4 = $("<td>").html(div);
-								var date = new Date(obj.accountOpenDate);
+								var a = [];
+								a[0] = $("<a>").html(obj.cardNum).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[2] = $("<a>").html(obj.planCode.planName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								var str = obj.cardNum;
+								var div = str.substring(6, 7)=='1'?"체크카드":"신용카드";
+								a[3] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[4] = $("<a>").html(obj.cardSecuCode).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								var date = new Date(obj.cardIssueDate);
 								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
-								var td5 = $("<td>").html(dateFormat);
-								var interestToPercent = obj.accountInterest * 100;
-								var td6 = $("<td>").html(interestToPercent + "%");
-								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								$(a).each(function(i, obj) {
+									var td = $("<td>").append(a[i]);
+									tr.append(td);
+								})
 								table.append(tr);
 							})
 							$("#table").append(table);
@@ -144,6 +156,10 @@
 			case "상품명":
 				var div = $("#searchMenu option:selected").val();
 				var search = $("input[name='search']").val();
+				if(search=="") {
+					alert("상품명을 입력하세요");
+					return;
+				}
 				$.ajax({
 					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do",
 				    data: {search:search,div:div},
@@ -152,34 +168,42 @@
 				    success : function(res) {
 				    	if(res.errorPlanName!=null) {
 				    		alert("그런 상품은 없습니다. 다시 입력하세요");
+				    		$("input[name='search']").val("");
 				    	}
 				    	else {
 				    		console.log(res);
 				    		$("#table table").remove();
 				    		var table = $("<table>");
 				    		var tr = $("<tr>");
-				    		var th1 = $("<th>").html("계좌번호");
+				    		var th1 = $("<th>").html("카드번호");
 				    		var th2 = $("<th>").html("고객이름");
 				    		var th3 = $("<th>").html("상품명");
-				    		var th4 = $("<th>").html("통장구분");
-				    		var th5 = $("<th>").html("계좌개설일");
-				    		var th6 = $("<th>").html("이자율");
-				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
+				    		var th4 = $("<th>").html("카드구분");
+				    		var th5 = $("<th>").html("카드보안코드");
+				    		var th6 = $("<th>").html("카드발급일");
+				    		var th7 = $("<th>").html("카드한도");
+				    		var th8 = $("<th>").html("카드잔액");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7).append(th8);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>");
-								var td1 = $("<td>").html(obj.accountNum);
-								var td2 = $("<td>").html(obj.custCode.custName);
-								var td3 = $("<td>").html(obj.accountPlanCode.planName);
-								var str = obj.accountNum;
-								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
-								var td4 = $("<td>").html(div);
-								var date = new Date(obj.accountOpenDate);
+								var a = [];
+								a[0] = $("<a>").html(obj.cardNum).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[2] = $("<a>").html(obj.planCode.planName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								var str = obj.cardNum;
+								var div = str.substring(6, 7)=='1'?"체크카드":"신용카드";
+								a[3] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[4] = $("<a>").html(obj.cardSecuCode).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								var date = new Date(obj.cardIssueDate);
 								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
-								var td5 = $("<td>").html(dateFormat);
-								var interestToPercent = obj.accountInterest * 100;
-								var td6 = $("<td>").html(interestToPercent + "%");
-								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								$(a).each(function(i, obj) {
+									var td = $("<td>").append(a[i]);
+									tr.append(td);
+								})
 								table.append(tr);
 							})
 							$("#table").append(table);
@@ -190,42 +214,54 @@
 			case "카드구분":
 				var div = $("#searchMenu option:selected").val();
 				var search = $("input[name='search']").val();
+				if(search=="") {
+					alert("카드 구분을 입력하세요");
+					return;
+				}
 				$.ajax({
 					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
 				    success : function(res) {
-				    	if(res.errorBankBookName!=null) {
-				    		alert("예금,적금,마이너스만 입력하세요");
+				    	if(res.errorCardDiv!=null) {
+				    		alert("체크카드,신용카드만 입력하세요");
+				    		$("input[name='search']").val("");
 				    	}
 				    	else {
 				    		console.log(res);
 				    		$("#table table").remove();
 				    		var table = $("<table>");
 				    		var tr = $("<tr>");
-				    		var th1 = $("<th>").html("계좌번호");
+				    		var th1 = $("<th>").html("카드번호");
 				    		var th2 = $("<th>").html("고객이름");
 				    		var th3 = $("<th>").html("상품명");
-				    		var th4 = $("<th>").html("통장구분");
-				    		var th5 = $("<th>").html("계좌개설일");
-				    		var th6 = $("<th>").html("이자율");
-				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
+				    		var th4 = $("<th>").html("카드구분");
+				    		var th5 = $("<th>").html("카드보안코드");
+				    		var th6 = $("<th>").html("카드발급일");
+				    		var th7 = $("<th>").html("카드한도");
+				    		var th8 = $("<th>").html("카드잔액");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7).append(th8);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>");
-								var td1 = $("<td>").html(obj.accountNum);
-								var td2 = $("<td>").html(obj.custCode.custName);
-								var td3 = $("<td>").html(obj.accountPlanCode.planName);
-								var str = obj.accountNum;
-								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
-								var td4 = $("<td>").html(div);
-								var date = new Date(obj.accountOpenDate);
+								var a = [];
+								a[0] = $("<a>").html(obj.cardNum).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[2] = $("<a>").html(obj.planCode.planName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								var str = obj.cardNum;
+								var div = str.substring(6, 7)=='1'?"체크카드":"신용카드";
+								a[3] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[4] = $("<a>").html(obj.cardSecuCode).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								var date = new Date(obj.cardIssueDate);
 								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
-								var td5 = $("<td>").html(dateFormat);
-								var interestToPercent = obj.accountInterest * 100;
-								var td6 = $("<td>").html(interestToPercent + "%");
-								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
+								$(a).each(function(i, obj) {
+									var td = $("<td>").append(a[i]);
+									tr.append(td);
+								})
 								table.append(tr);
 							})
 							$("#table").append(table);
@@ -234,10 +270,6 @@
 				})
 				break;
 			}
-		})
-		$("button").eq(1).click(function() {
-			$("input[name='search']").val("");
-			 location.reload();
 		})
 	})
 </script>
@@ -253,7 +285,7 @@
 					<option>카드구분</option>
 				</select>
 				<fieldset>
-					<input type="search" />
+					<input type="search" name="search"/>
 					<button type="submit">
 						<i class="fa fa-search"></i>
 					</button>	
@@ -264,12 +296,12 @@
 				<tr>
 					<th>카드번호</th>
 					<th>고객이름</th>
-					<th>상품이름</th>
+					<th>상품명</th>
 					<th>카드구분</th>
 					<th>카드보안코드</th>
 					<th>카드발급일</th>
-					<th>카드잔액</th>
 					<th>카드한도</th>
+					<th>카드잔액</th>
 				</tr>
 				<c:forEach var="card" items="${list}">
 				<tr>

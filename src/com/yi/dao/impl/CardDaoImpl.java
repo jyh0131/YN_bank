@@ -221,7 +221,7 @@ public class CardDaoImpl implements CardDao {
 	@Override
 	public List<Card> showCardByPlanName(Card card) throws SQLException {
 		List<Card> list = new ArrayList<>();
-		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where p.planname = ?";
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where p.planname like ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + card.getPlanCode().getPlanName() + "%");
@@ -321,6 +321,21 @@ public class CardDaoImpl implements CardDao {
 		BankBook bankbook = new BankBook();
 		bankbook.setAccountNum(rs.getString("accountnum"));
 		return new Card(cardNum, custCode, planCode, cardSecuCode, cardIssueDate, cardLimit, cardBalance, employee, bankbook);
+	}
+	@Override
+	public Card showCardByCardNumAndCustName(Card card) throws SQLException {
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where c.cardnum = ? and cs.custname = ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, card.getCardNum());
+			pstmt.setString(2, card.getCustCode().getCustName());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					return getCardInfo(rs);
+				}
+			}
+		}
+		return null;
 	}
 
 }

@@ -18,30 +18,34 @@
 	<section>
 		<jsp:include page="../../include/menu.jsp"/>
 		<div id="detailMenu">
-			<h1>통장 상세정보</h1>
+			<h1>카드 상세정보</h1>
 			<p>
-				<label>계좌번호</label>
-				<span>${bankbook.accountNum}</span>
+				<label>카드번호</label>
+				<span>${card.cardNum}</span>
 			</p>
 			<p>
 				<label>고객이름</label>
-				<span>${bankbook.custCode.custName}</span>
+				<span>${card.custCode.custName}</span>
 			</p>
 			<p>
 				<label>상품명</label>
-				<span>${bankbook.accountPlanCode.planName}</span>
+				<span>${card.planCode.planName}</span>
 			</p>
 			<p>
-				<label>통장구분</label>
-				<span>${fn:substring(bankbook.accountNum,8,9) eq '1'?'예금':fn:substring(bankbook.accountNum,8,9) eq '2'?'적금':'마이너스'}</span>
+				<label>카드구분</label>
+				<span>${fn:substring(card.cardNum,6,7) eq '1'?'체크카드':'신용카드'}</span>
 			</p>
 			<p>
-				<label>계좌개설일</label>
-				<span><fmt:formatDate value="${bankbook.accountOpenDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+				<label>카드발급일</label>
+				<span><fmt:formatDate value="${card.cardIssueDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 			</p>
 			<p>
-				<label>이자율</label>
-				<span><fmt:formatNumber value="${bankbook.accountInterest}" type="percent"/></span>
+				<label>카드한도</label>
+				<span><fmt:formatNumber value="${card.cardLimit}" type="number" maxFractionDigits="3"/></span>
+			</p>
+			<p>
+				<label>카드잔액</label>
+				<span><fmt:formatNumber value="${card.cardBalance}" type="number" maxFractionDigits="3"/></span>
 			</p>
 		</div>
 	</section>

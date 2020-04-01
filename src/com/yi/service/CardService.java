@@ -126,5 +126,8 @@ public class CardService {
 	public Card showCardByCheckAccountNum(Card card) throws SQLException {
 		return cardDao.showCardByCheckAccountNum(card);
 	}
+	public Card showCardByCardNumAndCustName(Card card) throws SQLException {
+		return cardDao.showCardByCardNumAndCustName(card);
+	}
 }
 

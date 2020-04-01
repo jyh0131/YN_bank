@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"mysql5-1713538a53d-62c435f598c21299": {
+		"mysql5-1712f59917e-756c9e5c36547496": {
 			"provider": "mysql",
 			"driver": "mysql5",
 			"name": "MySQL - bank",

@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-</head>
 <style>
 	* { margin: 0; padding: 0; /* font-family: 'Noto Serif KR', serif; */font-family: 'Noto Sans KR', sans-serif;}
 	body { min-width: 1900px;  }
@@ -66,7 +62,7 @@
 		</div>
 		<div id="staff">
 			<ul>
-				<li><img src="images/staff1.jpg"></li>
+				<li><img src="../../../images/staff1.jpg"></li>
 				<li id="greeting"><span id="name">이주빈 </span>님 환영합니다.</li>
 				<li id="btns">
 					<a href="#">내 프로필</a>
@@ -82,11 +78,11 @@
 				<li id="list" class="side2"><a href="#">사원 목록</a></li>
 				<li id="auth" class="side1"><a href="#">사원 권한 관리</a></li>
 				<li id="authAdd" class="side2"><a href="#">사원 권한 추가</a></li>
-				<li id="bonus" class="side1"><a href="#">인센티브 관리</a></li>
-				<li id="authAdd" class="side2"><a href="#">인센티브 목록</a></li>
+				<li id="bonus" class="side1"><a href="#">인센티브</a></li>
+				<li id="authAdd" class="side2"><a href="#">인센티브 조회</a></li>
+				<li id="authAdd" class="side1"><a href="#">통계</a></li>
 			</ul>
 			
 		</div>
 	</nav>
 </body>
-</html>

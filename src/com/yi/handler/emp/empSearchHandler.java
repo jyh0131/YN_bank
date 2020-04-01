@@ -1,6 +1,7 @@
 package com.yi.handler.emp;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,34 +28,52 @@ public class empSearchHandler implements CommandHandler {
 			String search = req.getParameter("search");
 			String div = req.getParameter("div");
 			
-			if(div.equals("사원번호")) {
-				Employee emp = new Employee();
-				emp.setEmpCode(search);
-				List<Employee> list = service.showPickedEmpByEmpNo(search);
-				  
-				if(list.size()== 0) {
-					HashMap<String,String> map = new HashMap<>();
-					map.put("error", "error");
-					ObjectMapper om = new ObjectMapper();
-					String json = om.writeValueAsString(map);
-					res.setContentType("application/json;charset=UTF-8");
-					PrintWriter out = res.getWriter();
-					out.write(json);
-					out.flush();
-				}else {
+		
+			    
+				switch(div) {
+				
+				case "사원번호":
+					Employee emp = service.showPikedEmpByCode(search);
+					if(emp == null) {
+						
+					}
+					List<Employee> list = new ArrayList<Employee>();
+					list.add(emp);
 					ObjectMapper om = new ObjectMapper();
 					String json = om.writeValueAsString(list);
 					res.setContentType("application/json;charset=UTF-8");
-					PrintWriter out = res.getWriter();
+					PrintWriter out = res.getWriter();     
 					out.write(json);
-					out.flush();
+					out.flush(); 
+					
+					break;
+				case "사원이름":
+					List<Employee> list2 = new ArrayList<Employee>();
+					list2 = service.showPickedEmpList(search);
+					ObjectMapper om2 = new ObjectMapper();
+					String json2 = om2.writeValueAsString(list2);
+					res.setContentType("application/json;charset=UTF-8");
+					PrintWriter out2 = res.getWriter();     
+					out2.write(json2);
+					out2.flush(); 
+					
+					break;
+				
+				case "부서(인사 or 고객)":
+					
+					break;
+				case "직급":
+					
+					break;
+					
+				
+				
+				
 				}
-				req.setAttribute("list", list);
-				return "/WEB-INF/view/emp/empSearch.jsp";
+				
+				
 			}
-			
-			
-		}
+
 		  
 		return null;
 	}

@@ -89,30 +89,136 @@
 <script>
    $(function(){
 	  $("button").eq(0).click(function(){
-		  var ii = $("#searchMenu option:selected").val();
 		  var div = $("#searchMenu option:selected").val();
 	      var search = $("input[name='search']").val();
     //			alert(search);
-		  if(div =="검색구분"){
-			  alert("검색 조건을 선택하세요");
-			  return;
-		  }else if(ii =="사원번호"){
-			
-			  $.ajax({
+    
+    
+        var $table = $("<table>").addClass("tableList");
+        var $tr = $("<tr>");
+        
+        var $menutr = $("<tr>");
+        var $menutd1 = $("<td>").html("사원코드");
+        var $menutd2 = $("<td>").html("사원이름");
+        var $menutd3 = $("<td>").html("직책");
+        var $menutd4 = $("<td>").html("권한");
+        var $menutd5 = $("<td>").html("월급");
+        var $menutd6 = $("<td>").html("연락처");
+        var $menutd7 = $("<td>").html("아이디");
+        var $menutd8 = $("<td>").html("비밀번호");
+        var $menutd9 = $("<td>").html("부서");
+        $menutr.append($menutd1);
+        $menutr.append($menutd2);
+        $menutr.append($menutd3);
+        $menutr.append($menutd4);
+        $menutr.append($menutd5);
+        $menutr.append($menutd6);
+        $menutr.append($menutd7);
+        $menutr.append($menutd8);
+        $menutr.append($menutd9);
+        
+        
+		  switch(div) {
+			case "검색구분":
+				alert("검색 조건을 선택해주세요.");
+				  break;
+			 
+			case "사원번호":
+				
+				
+				  $.ajax({
 				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
 				    success : function(res){
 				    	console.log(res);
-				    	
-				    	
+				    	if(res == null){
+				    		alert("존재하지 않는 사원입니다");
+				    	}else{
+				    		
+				    		$(".tableList").remove();
+		
+				    		$(res).each(function(i,obj){
+				    			
+				    			var $td1 = $("<td>").html(obj.empCode);
+				    			var $td2 = $("<td>").html(obj.empName);
+				    			var $td3 = $("<td>").html(obj.empTitle);
+				    			var $td4 = $("<td>").html(obj.empAuth);
+				    			var $td5 = $("<td>").html(obj.empSalary);
+				    			var $td6 = $("<td>").html(obj.empTel);
+				    			var $td7 = $("<td>").html(obj.empId);
+				    			var $td8 = $("<td>").html("**********");
+				    			var $td9 = $("<td>").html(obj.dept.deptName);
+	                         
+				    			$tr.append($td1);
+				    			$tr.append($td2);
+				    			$tr.append($td3);
+				    			$tr.append($td4);
+				    			$tr.append($td5);
+				    			$tr.append($td6);
+				    			$tr.append($td7);
+				    			$tr.append($td8);
+				    			$tr.append($td9);
+				    			
+				    			$table.append($menutr);
+				    			$table.append($tr);
+				    		})
+				    		//테이블 div
+				    		$("#table").append($table);
+				    	}
 				    }
 				  
+			    })
+			  break; 
+			case "사원이름":
+				
+				
+				  $.ajax({
+				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    type: "post", 
+				    data: {"search":search,"div":div},
+				    dataType: "json",
+				    success : function(res){
+				    	console.log(res);
+				    	if(res == null){
+				    		alert("존재하지 않는 사원입니다");
+				    	}else{
+				    		
+				    		$(".tableList").remove();
+		
+				    		$(res).each(function(i,obj){
+				    			
+				    			var $td1 = $("<td>").html(obj.empCode);
+				    			var $td2 = $("<td>").html(obj.empName);
+				    			var $td3 = $("<td>").html(obj.empTitle);
+				    			var $td4 = $("<td>").html(obj.empAuth);
+				    			var $td5 = $("<td>").html(obj.empSalary);
+				    			var $td6 = $("<td>").html(obj.empTel);
+				    			var $td7 = $("<td>").html(obj.empId);
+				    			var $td8 = $("<td>").html("**********");
+				    			var $td9 = $("<td>").html(obj.dept.deptName);
+	                         
+				    			$tr.append($td1);
+				    			$tr.append($td2);
+				    			$tr.append($td3);
+				    			$tr.append($td4);
+				    			$tr.append($td5);
+				    			$tr.append($td6);
+				    			$tr.append($td7);
+				    			$tr.append($td8);
+				    			$tr.append($td9);
+				    			
+				    			$table.append($menutr);
+				    			$table.append($tr);
+				    		})
+				    		//테이블 div
+				    		$("#table").append($table);
+				    	}
+				    }
 				  
-			  })
-			  
-			  
+			    })
+			  break;  
 			  
 		  }
 		  
@@ -143,7 +249,7 @@
 				
 		</div>
 		<div id="table">
-			<table>
+			<table class="tableList">
 				<tr>
 					<th>사원코드</th>
 					<th>사원이름</th>
@@ -156,6 +262,7 @@
 					<th>부서</th>
 
 				</tr>
+				<span id="renew">
 				<c:forEach var='empList' items="${list }">
 				<a href="#"><tr>
 					<td>${empList.empCode }</td>
@@ -170,6 +277,7 @@
 				</tr>
 	            </a>
 				</c:forEach>
+				</span>
 		</table>
 		
 		</div>

@@ -62,7 +62,7 @@
 		</div>
 		<div id="staff">
 			<ul>
-				<li><img src="../../../images/staff1.jpg"></li>
+				<li><img src="${pageContext.request.contextPath}/images/staff1.jpg"></li>
 				<li id="greeting"><span id="name">이주빈 </span>님 환영합니다.</li>
 				<li id="btns">
 					<a href="#">내 프로필</a>

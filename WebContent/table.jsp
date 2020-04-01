@@ -86,6 +86,7 @@
 		
 </style>
 <body>
+	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<section>
 		<div id="search">
 				<select id="searchMenu">
@@ -95,7 +96,6 @@
 					<option>상품명</option>
 					<option>통장상품</option>
 				</select>
-			
 					<fieldset><input type="search" />
 						<button type="submit">
 							<i class="fa fa-search"></i>

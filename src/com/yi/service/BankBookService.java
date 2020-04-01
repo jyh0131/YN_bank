@@ -124,4 +124,7 @@ public class BankBookService {
 	public int updateCardBalance(Customer customer) throws SQLException {
 		return bankBookDao.updateCardBalance(customer);
 	}
+	public BankBook showBankBookByCustNameAndAccountNum(BankBook bankbook) throws SQLException {
+		return bankBookDao.showBankBookByCustNameAndAccountNum(bankbook);
+	}
 }

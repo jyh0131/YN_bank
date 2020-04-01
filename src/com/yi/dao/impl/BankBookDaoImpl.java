@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mysql.jdbc.Driver;
 import com.yi.dao.BankBookDao;
 import com.yi.dto.AccountInfo;
 import com.yi.dto.BankBook;
@@ -530,5 +531,21 @@ public class BankBookDaoImpl implements BankBookDao {
 			res = pstmt.executeUpdate();
 		}
 		return res;
+	}
+
+	@Override
+	public BankBook showBankBookByCustNameAndAccountNum(BankBook bankbook) throws SQLException {
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountnum = ? and c.custname = ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, bankbook.getAccountNum());
+			pstmt.setString(2, bankbook.getCustCode().getCustName());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					return getBankBook(rs);
+				}
+			}
+		}
+		return null;
 	}
 }

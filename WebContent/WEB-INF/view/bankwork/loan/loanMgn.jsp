@@ -8,8 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-</head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		div#search {
@@ -51,7 +49,7 @@
 				 background: goldenrod;  
 				 cursor: pointer;  
 				 border-radius: 0 5px 5px 0;
-				 background-image: url("http://localhost:8080${pageContext.request.contextPath}/images/search.png");
+				 background-image: url("images/search.png");
 				 background-size: 25px; 
 				 background-repeat: no-repeat; 
 				 background-position: center;}
@@ -96,7 +94,6 @@
 			case "검색구분":
 				alert("검색 구분을 선택해주세요");
 				$("input[name='search']").val("");
-				location.reload();
 				break;
 			case "계좌번호":
 				var div = $("#searchMenu option:selected").val();
@@ -109,7 +106,6 @@
 				    success : function(res) {
 				    	if(res.errorAccountNum!=null) {
 				    		alert("그런 계좌번호는 없습니다. 다시 입력하세요");
-				    		location.reload();
 				    	}
 				    	else {
 				    		console.log(res);
@@ -126,29 +122,17 @@
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>");
-								var a1 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.accountNum);
-								var a2 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.custCode.custName);
-								var a3 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.accountPlanCode.planName);
+								var td1 = $("<td>").html(obj.accountNum);
+								var td2 = $("<td>").html(obj.custCode.custName);
+								var td3 = $("<td>").html(obj.accountPlanCode.planName);
 								var str = obj.accountNum;
 								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
-								var a4 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(div);
+								var td4 = $("<td>").html(div);
 								var date = new Date(obj.accountOpenDate);
 								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
-								var a5 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(dateFormat);
+								var td5 = $("<td>").html(dateFormat);
 								var interestToPercent = obj.accountInterest * 100;
-								var a6 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(interestToPercent + "%");
-								var td1 = $("<td>");
-								var td2 = $("<td>");
-								var td3 = $("<td>");
-								var td4 = $("<td>");
-								var td5 = $("<td>");
-								var td6 = $("<td>");
-								a1.wrap(td1);
-								a2.wrap(td2);
-								a3.wrap(td3);
-								a4.wrap(td4);
-								a5.wrap(td5);
-								a6.wrap(td6);
+								var td6 = $("<td>").html(interestToPercent + "%");
 								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 								table.append(tr);
 							})
@@ -168,7 +152,6 @@
 				    success : function(res) {
 				    	if(res.errorCustName!=null) {
 				    		alert("그런 고객은 없습니다. 다시 입력하세요");
-				    		location.reload();
 				    	}
 				    	else {
 				    		console.log(res);
@@ -185,24 +168,18 @@
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>");
-								var a1 = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}");
-								var a2 = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}");
-								var a3 = $("<a>").html(obj.accountPlanCode.planName).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}");
+								var td1 = $("<td>").html(obj.accountNum);
+								var td2 = $("<td>").html(obj.custCode.custName);
+								var td3 = $("<td>").html(obj.accountPlanCode.planName);
 								var str = obj.accountNum;
 								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
-								var a4 = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}");
+								var td4 = $("<td>").html(div);
 								var date = new Date(obj.accountOpenDate);
 								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
-								var a5 = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}");
+								var td5 = $("<td>").html(dateFormat);
 								var interestToPercent = obj.accountInterest * 100;
-								var a6 = $("<a>").html(interestToPercent + "%").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}");
-								a1.wrap("<td></td>");
-								a2.wrap("<td></td>");
-								a3.wrap("<td></td>");
-								a4.wrap("<td></td>");
-								a5.wrap("<td></td>");
-								a6.wrap("<td></td>");
-								tr.append(a1).append(a2).append(a3).append(a4).append(a5).append(a6);
+								var td6 = $("<td>").html(interestToPercent + "%");
+								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 								table.append(tr);
 							})
 							$("#table").append(table);
@@ -221,7 +198,6 @@
 				    success : function(res) {
 				    	if(res.errorPlanName!=null) {
 				    		alert("그런 상품은 없습니다. 다시 입력하세요");
-				    		location.reload();
 				    	}
 				    	else {
 				    		console.log(res);
@@ -238,29 +214,17 @@
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>");
-								var a1 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.accountNum);
-								var a2 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.custCode.custName);
-								var a3 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.accountPlanCode.planName);
+								var td1 = $("<td>").html(obj.accountNum);
+								var td2 = $("<td>").html(obj.custCode.custName);
+								var td3 = $("<td>").html(obj.accountPlanCode.planName);
 								var str = obj.accountNum;
 								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
-								var a4 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(div);
+								var td4 = $("<td>").html(div);
 								var date = new Date(obj.accountOpenDate);
 								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
-								var a5 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(dateFormat);
+								var td5 = $("<td>").html(dateFormat);
 								var interestToPercent = obj.accountInterest * 100;
-								var a6 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(interestToPercent + "%");
-								var td1 = $("<td>");
-								var td2 = $("<td>");
-								var td3 = $("<td>");
-								var td4 = $("<td>");
-								var td5 = $("<td>");
-								var td6 = $("<td>");
-								a1.wrap(td1);
-								a2.wrap(td2);
-								a3.wrap(td3);
-								a4.wrap(td4);
-								a5.wrap(td5);
-								a6.wrap(td6);
+								var td6 = $("<td>").html(interestToPercent + "%");
 								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 								table.append(tr);
 							})
@@ -280,7 +244,6 @@
 				    success : function(res) {
 				    	if(res.errorBankBookName!=null) {
 				    		alert("예금,적금,마이너스만 입력하세요");
-				    		location.reload();
 				    	}
 				    	else {
 				    		console.log(res);
@@ -297,29 +260,17 @@
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>");
-								var a1 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.accountNum);
-								var a2 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.custCode.custName);
-								var a3 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(obj.accountPlanCode.planName);
+								var td1 = $("<td>").html(obj.accountNum);
+								var td2 = $("<td>").html(obj.custCode.custName);
+								var td3 = $("<td>").html(obj.accountPlanCode.planName);
 								var str = obj.accountNum;
 								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
-								var a4 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(div);
+								var td4 = $("<td>").html(div);
 								var date = new Date(obj.accountOpenDate);
 								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
-								var a5 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(dateFormat);
+								var td5 = $("<td>").html(dateFormat);
 								var interestToPercent = obj.accountInterest * 100;
-								var a6 = $("<a>").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}").html(interestToPercent + "%");
-								var td1 = $("<td>");
-								var td2 = $("<td>");
-								var td3 = $("<td>");
-								var td4 = $("<td>");
-								var td5 = $("<td>");
-								var td6 = $("<td>");
-								a1.wrap(td1);
-								a2.wrap(td2);
-								a3.wrap(td3);
-								a4.wrap(td4);
-								a5.wrap(td5);
-								a6.wrap(td6);
+								var td6 = $("<td>").html(interestToPercent + "%");
 								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
 								table.append(tr);
 							})
@@ -329,6 +280,10 @@
 				})
 				break;
 			}
+		})
+		$("button").eq(1).click(function() {
+			$("input[name='search']").val("");
+			 location.reload();
 		})
 	})
 </script>
@@ -344,12 +299,11 @@
 					<option>상품명</option>
 					<option>통장상품</option>
 				</select>
-					<fieldset><input type="search" name="search"/>
-						<button type="submit">
-							<i class="fa fa-search"></i>
-						</button>	
-					</fieldset>
-				
+				<input type="text" name='search'>
+				<p>
+					<button>조회</button>
+					<button>취소</button>
+				</p>
 		</div>
 		<div id="table">
 			<table>

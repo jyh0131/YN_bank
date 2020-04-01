@@ -133,8 +133,8 @@
 				    dataType: "json",
 				    success : function(res){
 				    	console.log(res);
-				    	if(res == null){
-				    		alert("존재하지 않는 사원입니다");
+				    	if(res.error == "notExist"){
+				    		alert("존재하지 않는 사원입니다. 사원번호를 확인해주세요");
 				    	}else{
 				    		
 				    		$(".tableList").remove();
@@ -181,14 +181,15 @@
 				    dataType: "json",
 				    success : function(res){
 				    	console.log(res);
-				    	if(res == null){
+				    	if(res.error == "notExist"){
 				    		alert("존재하지 않는 사원입니다");
+				    	
 				    	}else{
 				    		
 				    		$(".tableList").remove();
-		
+				    		$table.append($menutr);
 				    		$(res).each(function(i,obj){
-				    			
+				    			var $tr = $("<tr>");
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -209,7 +210,7 @@
 				    			$tr.append($td8);
 				    			$tr.append($td9);
 				    			
-				    			$table.append($menutr);
+				    			
 				    			$table.append($tr);
 				    		})
 				    		//테이블 div
@@ -219,7 +220,103 @@
 				  
 			    })
 			  break;  
-			  
+			case "부서(인사 or 고객)":
+				
+				
+				  $.ajax({
+				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    type: "post", 
+				    data: {"search":search,"div":div},
+				    dataType: "json",
+				    success : function(res){
+				    	console.log(res);
+				    	if(res.error == "notExist"){
+				    		alert("존재하지 않는 부서입니다.");
+				    	}else{
+				    		
+				    		$(".tableList").remove();
+				    		$table.append($menutr);
+				    		$(res).each(function(i,obj){
+				    			var $tr = $("<tr>");
+				    			var $td1 = $("<td>").html(obj.empCode);
+				    			var $td2 = $("<td>").html(obj.empName);
+				    			var $td3 = $("<td>").html(obj.empTitle);
+				    			var $td4 = $("<td>").html(obj.empAuth);
+				    			var $td5 = $("<td>").html(obj.empSalary);
+				    			var $td6 = $("<td>").html(obj.empTel);
+				    			var $td7 = $("<td>").html(obj.empId);
+				    			var $td8 = $("<td>").html("**********");
+				    			var $td9 = $("<td>").html(obj.dept.deptName);
+	                         
+				    			$tr.append($td1);
+				    			$tr.append($td2);
+				    			$tr.append($td3);
+				    			$tr.append($td4);
+				    			$tr.append($td5);
+				    			$tr.append($td6);
+				    			$tr.append($td7);
+				    			$tr.append($td8);
+				    			$tr.append($td9);
+				    			
+				    			
+				    			$table.append($tr);
+				    		})
+				    		//테이블 div
+				    		$("#table").append($table);
+				    	}
+				    }
+				  
+			    })
+			  break;  
+			
+			case "직급":
+				
+				
+				  $.ajax({
+				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    type: "post", 
+				    data: {"search":search,"div":div},
+				    dataType: "json",
+				    success : function(res){
+				    	console.log(res);
+				    	if(res.error == "notExist"){
+				    		alert("존재하지 않는 직급입니다");
+				    	}else{
+				    		
+				    		$(".tableList").remove();
+				    		$table.append($menutr);
+				    		$(res).each(function(i,obj){
+				    			var $tr = $("<tr>");
+				    			var $td1 = $("<td>").html(obj.empCode);
+				    			var $td2 = $("<td>").html(obj.empName);
+				    			var $td3 = $("<td>").html(obj.empTitle);
+				    			var $td4 = $("<td>").html(obj.empAuth);
+				    			var $td5 = $("<td>").html(obj.empSalary);
+				    			var $td6 = $("<td>").html(obj.empTel);
+				    			var $td7 = $("<td>").html(obj.empId);
+				    			var $td8 = $("<td>").html("**********");
+				    			var $td9 = $("<td>").html(obj.dept.deptName);
+	                         
+				    			$tr.append($td1);
+				    			$tr.append($td2);
+				    			$tr.append($td3);
+				    			$tr.append($td4);
+				    			$tr.append($td5);
+				    			$tr.append($td6);
+				    			$tr.append($td7);
+				    			$tr.append($td8);
+				    			$tr.append($td9);
+				    			
+				    			
+				    			$table.append($tr);
+				    		})
+				    		//테이블 div
+				    		$("#table").append($table);
+				    	}
+				    }
+				  
+			    })
+			  break;
 		  }
 		  
 	  })

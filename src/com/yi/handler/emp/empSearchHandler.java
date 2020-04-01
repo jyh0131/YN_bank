@@ -20,6 +20,7 @@ public class empSearchHandler implements CommandHandler {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			List<Employee> list = service.showEmpList();
 	//		System.out.println(list);
+
 			req.setAttribute("list", list);
 			return "/WEB-INF/view/emp/empSearch.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
@@ -54,8 +55,8 @@ public class empSearchHandler implements CommandHandler {
 			
 			
 		}
-		
+		  
 		return null;
 	}
-
-}
+  
+}             

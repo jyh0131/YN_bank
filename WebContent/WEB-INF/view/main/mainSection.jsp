@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-</head>
 <style>
+	* { margin: 0; padding: 0; /* font-family: 'Noto Serif KR', serif; */font-family: 'Noto Sans KR', sans-serif;}
 	ul li { list-style: none; }
 	a { text-decoration: none; color: #000; }
 	/* 섹션 */
@@ -26,13 +23,13 @@
 						    text-indent: 10px;
 						    border-bottom: 3px solid goldenrod; }					    
 	section div#notice ul { margin-top: 10px; }
-	section div#notice ul li {height: 30px; }
+	section div#notice ul li { height: 30px; }
 	section div#notice span { display: block; float: left;}
-	section div#notice span#no { width: 30px;  text-align: center; }
-	section div#notice span#content { width: 300px;}
+	section div#notice span#no { width: 20px;  text-align: center; }
+	section div#notice span#content { width: 340px;}
 	section div#notice span#content a { display: block;}
 	section div#notice span#writer { width: 100px; text-align: right;}
-	section div#notice span#date { width: 150px; text-align: right;}
+	section div#notice span#date { width: 100px; text-align: right;}
 	
 	/* 우수사원 */  
 	section div#bestStaff { width: 600px; height: 300px; overflow:hidden;  margin-top: 100px; }
@@ -166,7 +163,7 @@
     	<ul>
     		<li>
     			<div id="bestImg">
-    				<img alt="우수사원" src="images/staff2.jpg">
+    				<img alt="우수사원" src="../../images/staff2.jpg">
     			</div>
     			<span id="bestTeam">YN 인사팀</span>
     			<span id="bestWho">이지은 대리</span>
@@ -175,4 +172,3 @@
     </div> 
 	</section> 
 </body>
-</html>

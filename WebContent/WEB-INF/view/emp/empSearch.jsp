@@ -49,7 +49,7 @@
 				 background: goldenrod;  
 				 cursor: pointer;  
 				 border-radius: 0 5px 5px 0;
-				 background-image: url("images/search.png");
+				 background-image: url("${pageContext.request.contextPath}/images/search.png");
 				 background-size: 25px; 
 				 background-repeat: no-repeat; 
 				 background-position: center;}
@@ -92,8 +92,8 @@
 		  var ii = $("#searchMenu option:selected").val();
 		  var div = $("#searchMenu option:selected").val();
 	      var search = $("input[name='search']").val();
-			alert(search);
-		  if(ii =="검색구분"){
+    //			alert(search);
+		  if(div =="검색구분"){
 			  alert("검색 조건을 선택하세요");
 			  return;
 		  }else if(ii =="사원번호"){
@@ -135,7 +135,7 @@
 					
 				</select>
 			
-					<fieldset><input type="search" />
+					<fieldset><input type="search" name="search" />
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>	

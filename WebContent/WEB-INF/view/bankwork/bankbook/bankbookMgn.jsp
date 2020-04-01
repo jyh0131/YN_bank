@@ -68,14 +68,168 @@
 				    		var table = $("<table>");
 				    		var tr = $("<tr>");
 				    		var th1 = $("<th>").html("계좌번호");
-				    		var th2 = $("<th>").html("계좌번호");
-				    		var th3 = $("<th>").html("계좌번호");
-				    		var th4 = $("<th>").html("계좌번호");
-				    		var th5 = $("<th>").html("계좌번호");
-				    		var th6 = $("<th>").html("계좌번호");
-							res.each(function(i, obj) {
-								
+				    		var th2 = $("<th>").html("고객이름");
+				    		var th3 = $("<th>").html("상품명");
+				    		var th4 = $("<th>").html("통장구분");
+				    		var th5 = $("<th>").html("계좌개설일");
+				    		var th6 = $("<th>").html("이자율");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
+				    		table.append(tr);
+							$(res).each(function(i, obj) {
+								var tr = $("<tr>");
+								var td1 = $("<td>").html(obj.accountNum);
+								var td2 = $("<td>").html(obj.custCode.custName);
+								var td3 = $("<td>").html(obj.accountPlanCode.planName);
+								var str = obj.accountNum;
+								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
+								var td4 = $("<td>").html(div);
+								var date = new Date(obj.accountOpenDate);
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var td5 = $("<td>").html(dateFormat);
+								var interestToPercent = obj.accountInterest * 100;
+								var td6 = $("<td>").html(interestToPercent + "%");
+								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								table.append(tr);
 							})
+							$("#table").append(table);
+				    	}
+				    }
+				})
+				break;
+			case "고객이름":
+				var div = $("#searchMenu option:selected").val();
+				var search = $("input[name='search']").val();
+				$.ajax({
+					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do",
+				    data: {search:search,div:div},
+				    type: "POST", 
+				    dataType: "json",
+				    success : function(res) {
+				    	if(res.errorCustName!=null) {
+				    		alert("그런 고객은 없습니다. 다시 입력하세요");
+				    	}
+				    	else {
+				    		console.log(res);
+				    		$("#table table").remove();
+				    		var table = $("<table>");
+				    		var tr = $("<tr>");
+				    		var th1 = $("<th>").html("계좌번호");
+				    		var th2 = $("<th>").html("고객이름");
+				    		var th3 = $("<th>").html("상품명");
+				    		var th4 = $("<th>").html("통장구분");
+				    		var th5 = $("<th>").html("계좌개설일");
+				    		var th6 = $("<th>").html("이자율");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
+				    		table.append(tr);
+							$(res).each(function(i, obj) {
+								var tr = $("<tr>");
+								var td1 = $("<td>").html(obj.accountNum);
+								var td2 = $("<td>").html(obj.custCode.custName);
+								var td3 = $("<td>").html(obj.accountPlanCode.planName);
+								var str = obj.accountNum;
+								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
+								var td4 = $("<td>").html(div);
+								var date = new Date(obj.accountOpenDate);
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var td5 = $("<td>").html(dateFormat);
+								var interestToPercent = obj.accountInterest * 100;
+								var td6 = $("<td>").html(interestToPercent + "%");
+								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								table.append(tr);
+							})
+							$("#table").append(table);
+				    	}
+				    }
+				})
+				break;
+			case "상품명":
+				var div = $("#searchMenu option:selected").val();
+				var search = $("input[name='search']").val();
+				$.ajax({
+					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do",
+				    data: {search:search,div:div},
+				    type: "POST", 
+				    dataType: "json",
+				    success : function(res) {
+				    	if(res.errorPlanName!=null) {
+				    		alert("그런 상품은 없습니다. 다시 입력하세요");
+				    	}
+				    	else {
+				    		console.log(res);
+				    		$("#table table").remove();
+				    		var table = $("<table>");
+				    		var tr = $("<tr>");
+				    		var th1 = $("<th>").html("계좌번호");
+				    		var th2 = $("<th>").html("고객이름");
+				    		var th3 = $("<th>").html("상품명");
+				    		var th4 = $("<th>").html("통장구분");
+				    		var th5 = $("<th>").html("계좌개설일");
+				    		var th6 = $("<th>").html("이자율");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
+				    		table.append(tr);
+							$(res).each(function(i, obj) {
+								var tr = $("<tr>");
+								var td1 = $("<td>").html(obj.accountNum);
+								var td2 = $("<td>").html(obj.custCode.custName);
+								var td3 = $("<td>").html(obj.accountPlanCode.planName);
+								var str = obj.accountNum;
+								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
+								var td4 = $("<td>").html(div);
+								var date = new Date(obj.accountOpenDate);
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var td5 = $("<td>").html(dateFormat);
+								var interestToPercent = obj.accountInterest * 100;
+								var td6 = $("<td>").html(interestToPercent + "%");
+								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								table.append(tr);
+							})
+							$("#table").append(table);
+				    	}
+				    }
+				})
+				break;
+			case "통장상품":
+				var div = $("#searchMenu option:selected").val();
+				var search = $("input[name='search']").val();
+				$.ajax({
+					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do",
+				    data: {search:search,div:div},
+				    type: "POST", 
+				    dataType: "json",
+				    success : function(res) {
+				    	if(res.errorBankBookName!=null) {
+				    		alert("예금,적금,마이너스만 입력하세요");
+				    	}
+				    	else {
+				    		console.log(res);
+				    		$("#table table").remove();
+				    		var table = $("<table>");
+				    		var tr = $("<tr>");
+				    		var th1 = $("<th>").html("계좌번호");
+				    		var th2 = $("<th>").html("고객이름");
+				    		var th3 = $("<th>").html("상품명");
+				    		var th4 = $("<th>").html("통장구분");
+				    		var th5 = $("<th>").html("계좌개설일");
+				    		var th6 = $("<th>").html("이자율");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
+				    		table.append(tr);
+							$(res).each(function(i, obj) {
+								var tr = $("<tr>");
+								var td1 = $("<td>").html(obj.accountNum);
+								var td2 = $("<td>").html(obj.custCode.custName);
+								var td3 = $("<td>").html(obj.accountPlanCode.planName);
+								var str = obj.accountNum;
+								var div = str.substring(8, 9)=='1'?"예금": str.substring(8, 9)=='2'?"적금":"마이너스";
+								var td4 = $("<td>").html(div);
+								var date = new Date(obj.accountOpenDate);
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var td5 = $("<td>").html(dateFormat);
+								var interestToPercent = obj.accountInterest * 100;
+								var td6 = $("<td>").html(interestToPercent + "%");
+								tr.append(td1).append(td2).append(td3).append(td4).append(td5).append(td6);
+								table.append(tr);
+							})
+							$("#table").append(table);
 				    	}
 				    }
 				})
@@ -84,6 +238,7 @@
 		})
 		$("button").eq(1).click(function() {
 			$("input[name='search']").val("");
+			 location.reload();
 		})
 	})
 </script>

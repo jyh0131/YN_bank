@@ -15,7 +15,6 @@ public class empSearchHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			List<Employee> list = service.showEmpList();
-			System.out.println(list);
 			req.setAttribute("list", list);
 			return "/WEB-INF/view/emp/empSearch.jsp";
 		}

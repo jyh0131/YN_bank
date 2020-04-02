@@ -34,6 +34,11 @@ public class EmployeeUIService {
     public List<Employee> showPickedEmpByDept(String empItem) throws SQLException{
     	return empDao.selectEmpByDept(empItem);
     }
+    
+    public List<Employee> showPickedEmpByDeptNo(int empItem) throws SQLException{
+    	return empDao.selectEmpByDeptNo(empItem);
+    }
+    
     public List<Employee> showPickedEmpByEmpNo(String empItem) throws SQLException{
     	return empDao.selectEmpByNo(empItem);
     }

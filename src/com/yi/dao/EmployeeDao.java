@@ -16,6 +16,7 @@ public interface EmployeeDao {
 	Employee selectEmpByCode(String empCode)throws SQLException;
 	//부서로 검색
 	List<Employee> selectEmpByDept(String empItem)throws SQLException;
+	List<Employee> selectEmpByDeptNo(int empItem)throws SQLException;
 	List<Employee> selectEmpByNo(String empItem)throws SQLException;
 	List<Employee> selectEmpByTitle(String empItem)throws SQLException;
 	

@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js">
+</script>
 <style>
 	* { margin: 0; padding: 0; /* font-family: 'Noto Serif KR', serif; */font-family: 'Noto Sans KR', sans-serif;}
 	ul li { list-style: none; }
@@ -19,9 +21,13 @@
 	
 	/* 공지사항 */
 	section div#notice { width: 600px; height: 300px;  margin-left: 350px; margin-right: 150px; margin-top: 100px;  float: left; }
-	section div#notice h2 { width: 200px; height: 50px; line-height: 50px;
-						    text-indent: 10px;
-						    border-bottom: 3px solid goldenrod; }					    
+	section div#notice h2 { width: 100%;  height: 50px;  }
+	section div#notice h2 span#noticeTitle { width: 200px; height: 50px; line-height: 50px;
+						    text-indent: 10px; border-bottom: 3px solid goldenrod; }
+	section div#notice div#noticeMng { width: 350px;
+									   margin-left: 200px; 
+									   text-align: right;}	
+	section div#notice div#noticeMng #fa_minus { margin: 0 20px;}									   					    						   					    
 	section div#notice ul { margin-top: 10px; }
 	section div#notice ul li { height: 30px; }
 	section div#notice span { display: block; float: left;}
@@ -123,7 +129,19 @@
     </div>
     
 	<div id="notice">
-    	<h2><span id="noticeTitle">공지사항</span></h2>
+    	<h2>
+    		<!--  ----------여기부터-------------    -->
+    		<span id="noticeTitle">공지사항</span>
+    		<div id="noticeMng">
+	    		<a href="#"><i class="fas fa-plus" id="fa_plus"></i></a>
+	    		<a href="#"><i class="fas fa-minus" id="fa_minus"></i></a>
+	    		<a href="#"><i class="fas fa-edit" id="fa_edit"></i></a>
+    		</div>
+    		
+    		<!--  -----------여기까지------------    -->
+    		
+    	</h2>
+    	
     	<ul>
     		<li>
     			<span id="no">1</span>

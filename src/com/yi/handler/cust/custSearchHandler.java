@@ -2,6 +2,7 @@ package com.yi.handler.cust;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,18 @@ public class custSearchHandler implements CommandHandler {
 			switch(div) {
 			case "고객 코드":
 				Customer customer = service.showCustomerByCode(search);
+				if(customer==null) {
+					HashMap<String,String> map = new HashMap<>();
+					map.put("error", "notExist");
+					ObjectMapper om = new ObjectMapper();
+					String json = om.writeValueAsString(map);
+					res.setContentType("application/json;charset=UTF-8");
+					PrintWriter out = res.getWriter();
+					out.write(json);
+					out.flush();
+					break;
+				}
+				
 				List<Customer> list = new ArrayList<>();
 				list.add(customer);
 				ObjectMapper om = new ObjectMapper();
@@ -39,10 +52,20 @@ public class custSearchHandler implements CommandHandler {
 				
 				break;
 			case "고객명":
-				
 				List<Customer> list2 = new ArrayList<>();
 				list2 = service.showCustomerByName(search);  
-				  
+				 
+				if(list2==null) {
+					HashMap<String,String> map = new HashMap<>();
+					map.put("error", "notExist");
+					ObjectMapper om2 = new ObjectMapper();
+					String json2 = om2.writeValueAsString(map);
+					res.setContentType("application/json;charset=UTF-8");
+					PrintWriter out2 = res.getWriter();
+					out2.write(json2);
+					out2.flush();
+					break;
+				}
 				ObjectMapper om2 = new ObjectMapper();
 				String json2 = om2.writeValueAsString(list2);
 				res.setContentType("application/json;charset=UTF-8");
@@ -53,7 +76,18 @@ public class custSearchHandler implements CommandHandler {
 			case "연락처":
 				List<Customer> list3 = new ArrayList<>();
 				Customer customer2 = service.showCustomerByTel(search);
-				list3.add(customer2);
+				if(customer2 == null) {
+					HashMap<String,String> map = new HashMap<>();
+					map.put("error", "notExist");
+					ObjectMapper om3 = new ObjectMapper();
+					String json3 = om3.writeValueAsString(map);
+					res.setContentType("application/json;charset=UTF-8");
+					PrintWriter out3 = res.getWriter();
+					out3.write(json3);
+					out3.flush();
+					break;
+				}
+				list3.add(customer2);  
 				ObjectMapper om3 = new ObjectMapper();
 				String json3 = om3.writeValueAsString(list3);
 				res.setContentType("application/json;charset=UTF-8");

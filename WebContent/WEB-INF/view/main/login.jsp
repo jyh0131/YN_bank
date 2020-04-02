@@ -25,7 +25,7 @@ form {
 	width: 652px;
 	height: 378px;
 	border: 0px solid gray;
-	background: url("images/loginMain.jpg") no-repeat;
+	background: url("${pageContext.request.contextPath}/images/background.jpg") no-repeat;
 	background-size: contain;
 	position: relative;
 }

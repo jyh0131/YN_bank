@@ -67,7 +67,6 @@
 		</div>
 		<div id="staff">
 			<ul>
-				<
 				<li><img src="${pageContext.request.contextPath}/images/staff1.jpg"></li>
 				<li id="greeting"><span id="name">${Auth.empName} </span>님 환영합니다.</li>
 				<li id="btns">

@@ -6,13 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		div#search {
 			width: 900px;
-			margin: 50px auto;
+			margin: 50px auto;  
 			text-align: center;
 		}
 		
@@ -86,10 +87,15 @@
 		div#table tr:hover td { background: goldenrod;}
 		
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
-		$("button").click(function() {
+		
+		$("select").on("change", function(){
+				$("table").load(location.href+" table");
+				$("input[name='search']").val("");
+		})
+		
+		$("button").click(function() {  
 			switch($("#searchMenu option:selected").val()) {
 			case "검색 구분":
 				alert("검색 조건을 선택해주세요.");
@@ -105,7 +111,7 @@
 				    dataType: "json", 
 				    success : function(res) {
 				    		console.log(res);
-				    		if(res==null) {
+				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
 				    	else {
@@ -165,7 +171,7 @@
 				    dataType: "json", 
 				    success : function(res) {
 				    		console.log(res);
-				    		if(res==null) {
+				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
 				    	else {
@@ -225,7 +231,7 @@
 				    dataType: "json", 
 				    success : function(res) {
 				    		console.log(res);
-				    		if(res==null) {
+				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
 				    	else {
@@ -323,7 +329,6 @@
 				</tr>
 				</c:forEach>
 		</table>
-		
 		</div>
 		</section>
 </body>

@@ -105,7 +105,7 @@ fieldset div#loginDiv2 {
 		<div id="bottomColor"></div>
 		<!--    <img src="images/banner.jpg" id="bottomLogo"> -->
 	</div>
-		<c:if test=""${errorLogin!=null}"">
+		<c:if test="${errorLogin!=null}">
 			<script>
 				alert("아이디나 비밀번호가 틀렸습니다. 다시 한번 확인해주세요");
 				<%

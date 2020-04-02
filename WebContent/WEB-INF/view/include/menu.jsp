@@ -67,8 +67,9 @@
 		</div>
 		<div id="staff">
 			<ul>
+				<
 				<li><img src="${pageContext.request.contextPath}/images/staff1.jpg"></li>
-				<li id="greeting"><span id="name">이주빈 </span>님 환영합니다.</li>
+				<li id="greeting"><span id="name">${Auth.empName} </span>님 환영합니다.</li>
 				<li id="btns">
 					<a href="#">내 프로필</a>
 					<a href="#">로그아웃</a>
@@ -78,14 +79,29 @@
 		<div id="menu">
 			<ul>
 				<li id="menuTitle">Menu</li>
-				<li id="emp" class="side1"><a href="#">사원 관리</a></li>
-				<li id="add" class="side2"><a href="#">신규 사원 추가</a></li>
-				<li id="list" class="side2"><a href="#">사원 목록</a></li>
-				<li id="auth" class="side1"><a href="#">사원 권한 관리</a></li>
-				<li id="authAdd" class="side2"><a href="#">사원 권한 추가</a></li>
-				<li id="bonus" class="side1"><a href="#">인센티브</a></li>
-				<li id="authAdd" class="side2"><a href="#">인센티브 조회</a></li>
-				<li id="authAdd" class="side1"><a href="#">통계</a></li>
+				<c:if test="${Auth.empAuth=='HR'}"> <!-- 인사팀일때 -->
+					<li id="emp" class="side1"><a href="#">사원 관리</a></li>
+					<li id="add" class="side2"><a href="#">신규 사원 추가</a></li>
+					<li id="list" class="side2"><a href="#">사원 목록</a></li>
+					<li id="auth" class="side1"><a href="#">사원 권한 관리</a></li>
+					<li id="authAdd" class="side2"><a href="#">사원 권한 추가</a></li>
+					<li id="bonus" class="side1"><a href="#">인센티브</a></li>
+					<li id="authAdd" class="side2"><a href="#">인센티브 조회</a></li>
+					<li id="authAdd" class="side1"><a href="#">통계</a></li>
+				</c:if>
+				<c:if test="${Auth.empAuth=='CS'}"> <!-- 고객팀일때 -->
+				
+				</c:if>
+				<c:if test="${Auth.empAuth=='AD'}"> <!-- 관리자일때 -->
+					<li id="emp" class="side1"><a href="#">사원 관리</a></li>
+					<li id="add" class="side2"><a href="#">신규 사원 추가</a></li>
+					<li id="list" class="side2"><a href="#">사원 목록</a></li>
+					<li id="auth" class="side1"><a href="#">사원 권한 관리</a></li>
+					<li id="authAdd" class="side2"><a href="#">사원 권한 추가</a></li>
+					<li id="bonus" class="side1"><a href="#">인센티브</a></li>
+					<li id="authAdd" class="side2"><a href="#">인센티브 조회</a></li>
+					<li id="authAdd" class="side1"><a href="#">통계</a></li>
+				</c:if>
 			</ul>
 			
 		</div>

@@ -66,7 +66,7 @@ ALTER TABLE bank.Department
 -- 고객
 CREATE TABLE bank.Customer (
 	custCode   char(4)     NOT NULL COMMENT '고객코드', -- 고객코드
-	custName   VARCHAR(5)  NULL     COMMENT '고객이름', -- 고객이름
+	custName   VARCHAR(20)  NULL     COMMENT '고객이름', -- 고객이름
 	custRank   char(1)     NULL     COMMENT '고객등급', -- 고객등급
 	custCredit INTEGER(1)  NULL     COMMENT '고객신용등급', -- 고객신용등급
 	custAddr   varchar(50) NULL     COMMENT '고객주소', -- 고객주소

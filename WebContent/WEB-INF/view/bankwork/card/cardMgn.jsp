@@ -225,7 +225,7 @@
 				    dataType: "json",
 				    success : function(res) {
 				    	if(res.errorCardDiv!=null) {
-				    		alert("체크카드,신용카드만 입력하세요");
+				    		alert("그런 상품은 없습니다. 다시 입력하세요");
 				    		$("input[name='search']").val("");
 				    	}
 				    	else {

@@ -58,5 +58,8 @@ public class LoanService {
 	}
 	public List<Loan> searchLoanPlanName(Loan loan) throws SQLException {
 		return loanDao.searchLoanPlanNames(loan);
-	} 
+	}
+	public Loan showLoanByLoanAccountNumAndCustName(Loan loan) throws SQLException {
+		return loanDao.showLoanByLoanAccountNumAndCustName(loan);
+	}
 }

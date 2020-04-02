@@ -187,4 +187,20 @@ public class LoanDaoImpl implements LoanDao {
 		return list;
 	}
 
+	@Override
+	public Loan showLoanByLoanAccountNumAndCustName(Loan loan) throws SQLException {
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum = ? and c.custname = ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, loan.getLoanAccountNum());
+			pstmt.setString(2, loan.getCustCode().getCustName());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					return getLoan(rs);
+				}
+			}
+		}
+		return null;
+	}
+
 }

@@ -18,30 +18,34 @@
 	<section>
 		<jsp:include page="../../include/menu.jsp"/>
 		<div id="detailMenu">
-			<h1>통장 상세정보</h1>
+			<h1>대출 상세정보</h1>
 			<p>
 				<label>계좌번호</label>
-				<span>${bankbook.accountNum}</span>
+				<span>${loan.loanAccountNum}</span>
 			</p>
 			<p>
 				<label>고객이름</label>
-				<span>${bankbook.custCode.custName}</span>
+				<span>${loan.custCode.custName}</span>
 			</p>
 			<p>
 				<label>상품명</label>
-				<span>${bankbook.accountPlanCode.planName}</span>
+				<span>${loan.planCode.planName}</span>
 			</p>
 			<p>
-				<label>통장구분</label>
-				<span>${fn:substring(bankbook.accountNum,8,9) eq '1'?'예금':fn:substring(bankbook.accountNum,8,9) eq '2'?'적금':'마이너스'}</span>
+				<label>대출구분</label>
+				<span>${fn:substring(loan.loanAccountNum,8,9) eq '1'?'일반대출':fn:substring(loan.loanAccountNum,8,9) eq '2'?'신용대출':'카드론'}</span>
 			</p>
 			<p>
-				<label>계좌개설일</label>
-				<span><fmt:formatDate value="${bankbook.accountOpenDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+				<label>대출날짜</label>
+				<span><fmt:formatDate value="${loan.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 			</p>
 			<p>
-				<label>이자율</label>
-				<span><fmt:formatNumber value="${bankbook.accountInterest}" type="percent"/></span>
+				<label>대출이자</label>
+				<span><fmt:formatNumber value="${loan.loanInterest}" type="percent"/></span>
+			</p>
+			<p>
+				<label>대출금액</label>
+				<span><fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/></span>
 			</p>
 		</div>
 	</section>

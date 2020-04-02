@@ -21,6 +21,9 @@
 				      font-family: 'Kanit', sans-serif;
 				      color: whitesmoke; text-shadow: 2px 2px 2px gray;}
 	nav div#staff { height: 20%; background: goldenrod; }
+	
+	/* -------- */
+	
 	nav div#staff ul li { float: left; list-style: none; }
 	nav div#staff ul li:first-child {
 						  width: 120px; height: 120px; 
@@ -39,6 +42,26 @@
 	nav div#staff ul li span#name { font-weight: bold;}																		 
 	nav div#staff ul li img { width: 120px; height: 120px; 
 				margin: 10px; border-radius: 120px; }
+	
+	
+	/* -------- */
+	
+	
+	/* nav div#staff ul li { float: left; list-style: none; }
+	
+	/* 프로필 영역  
+	nav div#staff ul li#greeting { width:200px; 
+								   margin: 15px 10px 10px 45px; 
+								   text-align: center;}
+	nav div#staff ul li#btns { width:150px; margin: 10px 5px 5px 70px; clear: both;}	
+	nav div#staff ul li#btns a { font-size: 14px; color: #000;
+								 display: block; float: left;
+								 padding-left: 5px; }	
+	nav div#staff ul li#btns a:first-child {padding-right: 5px; border-right: 1px solid gray;}												  
+	nav div#staff ul li span#name { font-weight: bold;}																		 
+	nav div#staff ul li img { width: 120px; height: 120px; 
+				margin: 10px; border-radius: 120px; } */
+	
 	
 	
 	/* 메뉴 */
@@ -67,7 +90,6 @@
 		</div>
 		<div id="staff">
 			<ul>
-				<
 				<li><img src="${pageContext.request.contextPath}/images/staff1.jpg"></li>
 				<li id="greeting"><span id="name">${Auth.empName} </span>님 환영합니다.</li>
 				<li id="btns">

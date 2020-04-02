@@ -1,9 +1,13 @@
 package com.yi.handler.emp;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -21,7 +25,24 @@ public class empAddHandler implements CommandHandler {
 			return "/WEB-INF/view/emp/empForm.jsp";
 			
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
-			
+			/*try {
+				String empName = req.getParameter("empName");
+				Employee emp = new Employee(empName);
+				if(emp == null) {
+					HashMap<String,String> map = new HashMap<>();
+					map.put("error", "notExist");
+					ObjectMapper om = new ObjectMapper();
+					String json = om.writeValueAsString(map);
+					res.setContentType("application/json;charset=UTF-8");
+					PrintWriter out = res.getWriter();
+					out.write(json);
+					out.flush();
+		
+				}
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}*/
 			
 			//서버안에 파일 저장 공간이 있어야 한다 -바탕화면 c드라이버 공간을 지정해줘야한다 
 			String uploadPath = req.getRealPath("upload"); //서버 루트 안에 업로드 폴더 절대경로를 반환해준다
@@ -59,7 +80,7 @@ public class empAddHandler implements CommandHandler {
 					multi.getParameter("empCode"),
 					multi.getParameter("empName"), 
 					multi.getParameter("empTitle"), 
-					multi.getParameter("empAuth"), 
+					multi.getParameter(null), 
 					Integer.parseInt(multi.getParameter("empSalary")), 
 					multi.getParameter("empTel"), 
 					multi.getParameter("empId"), 

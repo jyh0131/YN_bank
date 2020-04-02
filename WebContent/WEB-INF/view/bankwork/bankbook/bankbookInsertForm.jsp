@@ -61,7 +61,6 @@
 </style>
 <body>
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
-	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	<script>
     $(function() {
     	$('#date').datepicker({

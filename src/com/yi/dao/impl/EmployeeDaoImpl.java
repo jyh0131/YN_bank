@@ -520,6 +520,35 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			}
 			return null;
 	}
+	
+	@Override
+	public List<Employee> selectEmpByDeptNo(int empItem) throws SQLException {
+		 Employee emp = null;
+		 List<Employee> list = new ArrayList<Employee>();
+			String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo\r\n" + 
+					"   from employee e left join department d on e.deptNo = d.deptNo \r\n" + 
+					"   where d.deptNo=?";
+			
+			try (Connection con = DriverManager.getConnection(jdbcDriver);
+					PreparedStatement pstmt = con.prepareStatement(sql)){
+				
+				pstmt.setInt(1,empItem);
+				
+				try(ResultSet rs = pstmt.executeQuery();){
+					while(rs.next()) {
+						list.add(getEmployee(rs));
+						
+						
+						//return getEmployee(rs);
+					}
+					return list;
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+	}
 
 	@Override
 	public List<Employee> selectEmpByNo(String empItem) throws SQLException {

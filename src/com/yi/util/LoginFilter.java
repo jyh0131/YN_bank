@@ -27,7 +27,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
 		if(session.getAttribute("Auth")==null) {
-			res.sendRedirect("login.do");
+			res.sendRedirect(req.getContextPath()+"/main/login.do");
 		}
 		else {
 			chain.doFilter(request, response);

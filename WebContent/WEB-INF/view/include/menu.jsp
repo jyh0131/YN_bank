@@ -86,13 +86,15 @@
 		  position: absolute; top:0; left: 0;
 		  }
 	nav div#logo { background: #292929; }
-	nav div#logo h1 { padding: 15px; font-size: 30px; 
-				      font-family: 'Kanit', sans-serif;
+	nav div#logo h1 { padding: 15px; font-size: 30px;}
+	nav div#logo h1 a {font-family: 'Kanit', sans-serif;
 				      color: whitesmoke; text-shadow: 2px 2px 2px gray;}
+
 	
 	/* 메뉴 */
 	nav div#menu li { height: 40px;
 					  line-height: 40px; 
+					  
 					  text-indent: 20px; }
 	nav div#menu li#menuTitle { height: 40px; 
 								color: gainsboro;
@@ -112,7 +114,7 @@
 <body>
 	<nav>
 		<div id="logo">
-			<h1>YN BANK</h1>
+			<h1><a href="${pageContext.request.contextPath}/main/main.do">YN BANK</a></h1>
 		</div>
 		<div id="staff">
 			<ul>
@@ -146,14 +148,14 @@
 					<li id="dwMgn" class="side1"><a href="#">입출금 관리</a></li>
 					<li id="dwList" class="side2"><a href="#">입출금 조회</a></li>
 					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a></li>
-					<li id="bankbookAdd" class="side2"><a href="#">통장 추가</a></li>
-					<li id="bankbookList" class="side2"><a href="#">통장 조회</a></li>
+					<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/add.do">통장 추가</a></li>
+					<li id="bankbookList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/mgn.do">통장 조회</a></li>
 					<li id="cardMgn" class="side1"><a href="#">카드 관리</a></li>
 					<li id="cardAdd" class="side2"><a href="#">카드 추가</a></li>
-					<li id="cardList" class="side2"><a href="#">카드 조회</a></li>
+					<li id="cardList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/mgn.do">카드 조회</a></li>
 					<li id="loanMgn" class="side1"><a href="#">대출 관리</a></li>
 					<li id="loanAdd" class="side2"><a href="#">대출 추가</a></li>
-					<li id="loanList" class="side2"><a href="#">대출 조회</a></li>
+					<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/mgn.do">대출 조회</a></li>
 					<li id="planMgn" class="side1"><a href="#">상품 관리</a></li>
 					<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
 					<li id="planList" class="side2"><a href="#">상품 조회</a></li>
@@ -175,12 +177,16 @@
 					<li id="dwMgn" class="side1"><a href="#">입출금 관리</a></li>
 					<li id="dwList" class="side2"><a href="#">입출금 조회</a></li>
 					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a></li>
-					<li id="bankbookList" class="side2"><a href="#">통장 조회</a></li>
+					<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/add.do">통장 추가</a></li>
+					<li id="bankbookList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/mgn.do">통장 조회</a></li>
 					<li id="cardMgn" class="side1"><a href="#">카드 관리</a></li>
-					<li id="cardList" class="side2"><a href="#">카드 조회</a></li>
+					<li id="cardAdd" class="side2"><a href="#">카드 추가</a></li>
+					<li id="cardList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/mgn.do">카드 조회</a></li>
 					<li id="loanMgn" class="side1"><a href="#">대출 관리</a></li>
-					<li id="loanList" class="side2"><a href="#">대출 조회</a></li>
+					<li id="loanAdd" class="side2"><a href="#">대출 추가</a></li>
+					<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/mgn.do">대출 조회</a></li>
 					<li id="planMgn" class="side1"><a href="#">상품 관리</a></li>
+					<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
 					<li id="planList" class="side2"><a href="#">상품 조회</a></li>
 					<li id="statistic" class="side1"><a href="#">통계</a></li>
 					<li id="empStatistic" class="side2"><a href="#">사원 통계</a></li>	

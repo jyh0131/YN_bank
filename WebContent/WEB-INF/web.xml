@@ -27,6 +27,27 @@
   	<filter-name>CharacterEncodingFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  <filter>
+  	<filter-name>LoginFilter</filter-name>
+  	<filter-class>com.yi.util.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>LoginFilter</filter-name>
+  	<url-pattern>/main/login.do</url-pattern>
+  	<url-pattern>/main/noticeDetail.do</url-pattern>
+  	<url-pattern>/emp/empSearch.do</url-pattern>
+  	<url-pattern>/emp/empForm.do</url-pattern>
+  	<url-pattern>/emp/empAdd.do</url-pattern>
+  	<url-pattern>/cust/custSearch.do</url-pattern>
+  	<url-pattern>/cust/addCust.do</url-pattern>
+  	<url-pattern>/bankwork/bankbook/mgn.do</url-pattern>
+  	<url-pattern>/bankwork/bankbook/detail.do</url-pattern>
+  	<url-pattern>/bankwork/bankbook/add.do</url-pattern>
+  	<url-pattern>/bankwork/card/mgn.do</url-pattern>
+  	<url-pattern>/bankwork/card/detail.do</url-pattern>
+  	<url-pattern>/bankwork/loan/mgn.do</url-pattern>
+  	<url-pattern>/bankwork/loan/detail.do</url-pattern>
+  </filter-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

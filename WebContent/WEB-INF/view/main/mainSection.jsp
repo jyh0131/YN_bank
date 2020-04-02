@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js">
@@ -130,49 +132,27 @@
     
 	<div id="notice">
     	<h2>
-    		<!--  ----------여기부터-------------    -->
     		<span id="noticeTitle">공지사항</span>
-    		<div id="noticeMng">
-	    		<a href="#"><i class="fas fa-plus" id="fa_plus"></i></a>
-	    		<a href="#"><i class="fas fa-minus" id="fa_minus"></i></a>
-	    		<a href="#"><i class="fas fa-edit" id="fa_edit"></i></a>
-    		</div>
-    		
-    		<!--  -----------여기까지------------    -->
+    		<c:if test="${Auth.empAuth=='AD'}">
+    			<div id="noticeMng">
+		    		<a href="#"><i class="fas fa-plus" id="fa_plus"></i></a>
+		    		<a href="#"><i class="fas fa-minus" id="fa_minus"></i></a>
+		    		<a href="#"><i class="fas fa-edit" id="fa_edit"></i></a>
+    			</div>
+    		</c:if>
     		
     	</h2>
     	
     	<ul>
+    		<c:forEach var="notice" items="${list}">
     		<li>
-    			<span id="no">1</span>
-    			<span id="content"><a href="#">코로나19로 인한 휴점</a></span>
-    			<span id="writer">관리자</span>
-    			<span id="date">2020.03.31</span>
+    			<span id="no">${notice.no}</span>
+    			<span id="subject"><a href="${pageContext.request.contextPath}/main/noticeDetail.do?no=${notice.no}">${notice.subject}</a>
+    			</span>
+    			<span id="writer">${notice.writer}</span>
+    			<span id="date"><fmt:formatDate value="${notice.writeDate}" pattern="yyyy-MM-dd"/></span>
     		</li>
-    		<li>
-    			<span id="no">2</span>
-    			<span id="content"><a href="#">코로나19로 인한 휴점</a></span>
-    			<span id="writer">관리자</span>
-    			<span id="date">2020.03.31</span>
-    		</li>
-    		<li>
-    			<span id="no">3</span>
-    			<span id="content"><a href="#">코로나19로 인한 휴점</a></span>
-    			<span id="writer">관리자</span>
-    			<span id="date">2020.03.31</span>
-    		</li>
-    		<li>
-    			<span id="no">4</span>
-    			<span id="content"><a href="#">코로나19로 인한 휴점</a></span>
-    			<span id="writer">관리자</span>
-    			<span id="date">2020.03.31</span>
-    		</li>
-    		<li>
-    			<span id="no">5</span>
-    			<span id="content"><a href="#">코로나19로 인한 휴점</a></span>
-    			<span id="writer">관리자</span>
-    			<span id="date">2020.03.31</span>
-    		</li>
+    		</c:forEach>
     	</ul>
     </div> 
     

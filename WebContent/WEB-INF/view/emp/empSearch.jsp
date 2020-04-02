@@ -88,6 +88,10 @@
 </style>
 <script>
    $(function(){
+	  $("select").on("change",function(){
+		  $("table").load(location.href+" table");
+		  $("#searchForEmp").val("");
+	  })
 	  $("button").eq(0).click(function(){
 		  var div = $("#searchMenu option:selected").val();
 	      var search = $("input[name='search']").val();
@@ -338,7 +342,7 @@
 					
 				</select>
 			
-					<fieldset><input type="search" name="search" />
+					<fieldset><input type="search" name="search" id="searchForEmp" />
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>	

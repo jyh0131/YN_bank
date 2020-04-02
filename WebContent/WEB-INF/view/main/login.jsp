@@ -88,7 +88,7 @@ fieldset div#loginDiv2 {
 <body>
 	<div id="container">
 		<!--    <img src="images/bank.png" id="mainLogo"> -->
-		<img src="images/Logo.png" id="mainLogo2">
+		<img src="${pageContext.request.contextPath}/images/Logo.png" id="mainLogo2">
 		<form>
 			<fieldset>
 				<div id="loginDiv1">

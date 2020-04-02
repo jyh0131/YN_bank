@@ -62,6 +62,7 @@
 </style>
 
 <body>
+	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/view/include/menu.jsp"/>
 	<section>
 	 <div id="dummy"></div>
 	 	<div id="currency">

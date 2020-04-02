@@ -271,6 +271,10 @@
 				break;
 			}
 		})
+		$("select").on("change", function() {
+			$("table").load(location.href + " table");
+			$("input[name='search']").val("");
+		})
 	})
 </script>
 </head>

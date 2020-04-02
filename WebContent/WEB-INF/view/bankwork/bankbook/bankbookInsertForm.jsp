@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,21 +11,25 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
-    $.datepicker.setDefaults({
-        dateFormat: 'yymmdd',
-        prevText: '이전 달',
-        nextText: '다음 달',
-        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-        showMonthAfterYear: true,
-        yearSuffix: '년'
-    });
-
     $(function() {
-        $("#date").datepicker();
+    	$('#date').datepicker({
+            dateFormat: 'yy-dd-mm',
+            onSelect: function(datetext) {
+                var d = new Date(); // for now
+
+                var h = d.getHours();
+                h = (h < 10) ? ("0" + h) : h ;
+
+                var m = d.getMinutes();
+                m = (m < 10) ? ("0" + m) : m ;
+
+                var s = d.getSeconds();
+                s = (s < 10) ? ("0" + s) : s ;
+
+                datetext = datetext + " " + h + ":" + m + ":" + s;
+                $('#date').val(datetext);
+            }
+        });
     });
 </script>
 </head>
@@ -94,7 +99,9 @@
 							<th>고객명</th>
 							<td>
 								<select>
-									<!-- c:forEach 처리하기 -->
+									<c:forEach var="cust" items="${custList}">
+										<option>${cust}</option>
+									</c:forEach>
 								</select>
 							</td>
 						</tr>
@@ -106,14 +113,16 @@
 							<th>상품명</th>
 							<td>
 								<select>
-									<!-- c:forEach 처리하기 -->
+									<c:forEach var="plan" items="${planListAll}">
+										<option>${plan}</option>
+									</c:forEach>
 								</select>
 							</td>
 								
 						</tr>
 						<tr>
 							<th>계좌개설일</th>
-							<td><input type="text" id="date" name="datePicker"></td>
+							<td><input type="text" id="date" name="accountOpenDate"></td>
 						</tr>
 						<tr>
 							<th>이자율</th>

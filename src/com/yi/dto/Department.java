@@ -18,6 +18,13 @@ public class Department {
 		super();
 		this.deptNo = deptNo;
 	}
+	
+	
+
+	public Department(String deptName) {
+		super();
+		this.deptName = deptName;
+	}
 
 	public int getDeptNo() {
 		return deptNo;

@@ -69,6 +69,8 @@
 			border-collapse: collapse; 
 		}
 		
+		div#table table a { display: block; }
+		
 		div#table th, td {
 			width: 200px; 
 			height: 30px;
@@ -110,7 +112,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
@@ -137,12 +139,27 @@
 				    		
 				    		$(res).each(function(i, obj) {
 				    			var $tr2 = $("<tr>");
-					    		var $td1 = $("<td>").html(obj.custCode);
-					    		var $td2 = $("<td>").html(obj.custName);
-					    		var $td3 = $("<td>").html(obj.custRank);
-					    		var $td4 = $("<td>").html(obj.custCredit);
-					    		var $td5 = $("<td>").html(obj.custAddr); 
-					    		var $td6 = $("<td>").html(obj.custTel);
+				    			
+				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
+					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
+					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
+					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
+					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
+					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
+				    			
+					    		var $td1 = $("<td>");
+					    		var $td2 = $("<td>");
+					    		var $td3 = $("<td>");
+					    		var $td4 = $("<td>");
+					    		var $td5 = $("<td>"); 
+					    		var $td6 = $("<td>");
+					    		
+					    		$td1.append($a1);
+					    		$td2.append($a2);
+					    		$td3.append($a3);
+					    		$td4.append($a4);
+					    		$td5.append($a5);
+					    		$td6.append($a6);
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
@@ -151,15 +168,14 @@
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
 					    		
-					    		var $a = $("<a>").attr("href", "#");
-					    		/* $a.append($tr2); */
+					    		
 					    		$table.append($tr2);
 					    		
-				    		})
+				    		})      
 				    		$("#table").append($table);
 				    	 }    
 				    }
-				})
+				})   
 				break;
 			case "고객명":
 				var div = $("#searchMenu option:selected").val();
@@ -196,13 +212,28 @@
 				    		$table.append($tr1);
 				    		
 				    		$(res).each(function(i, obj) {
-				    			var $tr2 = $("<tr>");
-					    		var $td1 = $("<td>").html(obj.custCode);
-					    		var $td2 = $("<td>").html(obj.custName);
-					    		var $td3 = $("<td>").html(obj.custRank);
-					    		var $td4 = $("<td>").html(obj.custCredit);
-					    		var $td5 = $("<td>").html(obj.custAddr); 
-					    		var $td6 = $("<td>").html(obj.custTel);
+var $tr2 = $("<tr>");
+				    			
+				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
+					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
+					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
+					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
+					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
+					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
+				    			
+					    		var $td1 = $("<td>");
+					    		var $td2 = $("<td>");
+					    		var $td3 = $("<td>");
+					    		var $td4 = $("<td>");
+					    		var $td5 = $("<td>"); 
+					    		var $td6 = $("<td>");
+					    		
+					    		$td1.append($a1);
+					    		$td2.append($a2);
+					    		$td3.append($a3);
+					    		$td4.append($a4);
+					    		$td5.append($a5);
+					    		$td6.append($a6);
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
@@ -211,8 +242,7 @@
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
 					    		
-					    		var $a = $("<a>").attr("href", "#");
-					    		/* $a.append($tr2); */
+					    		
 					    		$table.append($tr2);
 					    		
 				    		})
@@ -256,13 +286,28 @@
 				    		$table.append($tr1);
 				    		
 				    		$(res).each(function(i, obj) {
-				    			var $tr2 = $("<tr>");
-					    		var $td1 = $("<td>").html(obj.custCode);
-					    		var $td2 = $("<td>").html(obj.custName);
-					    		var $td3 = $("<td>").html(obj.custRank);
-					    		var $td4 = $("<td>").html(obj.custCredit);
-					    		var $td5 = $("<td>").html(obj.custAddr); 
-					    		var $td6 = $("<td>").html(obj.custTel);
+var $tr2 = $("<tr>");
+				    			
+				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
+					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
+					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
+					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
+					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
+					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
+				    			
+					    		var $td1 = $("<td>");
+					    		var $td2 = $("<td>");
+					    		var $td3 = $("<td>");
+					    		var $td4 = $("<td>");
+					    		var $td5 = $("<td>"); 
+					    		var $td6 = $("<td>");
+					    		
+					    		$td1.append($a1);
+					    		$td2.append($a2);
+					    		$td3.append($a3);
+					    		$td4.append($a4);
+					    		$td5.append($a5);
+					    		$td6.append($a6);
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
@@ -271,8 +316,7 @@
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
 					    		
-					    		var $a = $("<a>").attr("href", "#");
-					    		/* $a.append($tr2); */
+					    		
 					    		$table.append($tr2);
 					    		
 				    		})
@@ -319,17 +363,20 @@
 
 				</tr>
 				<c:forEach var='custList' items="${list }">
-				<tr>
-						<td>${custList.custCode }</td>
-						<td>${custList.custName }</td>
-						<td>${custList.custRank }</td>
-						<td>${custList.custCredit }</td>
-						<td>${custList.custAddr }</td>
-						<td>${custList.custTel }</td>
-				</tr>
+				
+					<tr>
+							<td><a href="#">${custList.custCode }</a></td>
+							<td><a href="#">${custList.custName }</a></td>
+							<td><a href="#">${custList.custRank }</a></td>
+							<td><a href="#">${custList.custCredit }</a></td>
+							<td><a href="#">${custList.custAddr }</a></td>
+							<td><a href="#">${custList.custTel }</a></td>
+							
+					</tr>
+				
 				</c:forEach>
 		</table>
-		</div>
+		</div>  
 		</section>
 </body>
 </html>

@@ -9,20 +9,20 @@ import com.yi.dto.Customer;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.CustomerService;
 
-public class custInsertHandler implements CommandHandler {
+public class busCustInsertHandler implements CommandHandler {
 	private CustomerService service = new CustomerService();
 	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			List<Customer> list = service.showCustomers();
-			String nextCustNum = "C"+String.format("%03d", list.size()+1);
+			List<Customer> list = service.showBusinessCustomer();
+			String nextCustNum = "B"+String.format("%03d", list.size()+1);
 			req.setAttribute("nextCustNum", nextCustNum);
 			
-			return "/WEB-INF/view/cust/newCustForm.jsp";
+			return "/WEB-INF/view/cust/newBusCustForm.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
-			List<Customer> list = service.showCustomers();
-			String nextCustNum = "C"+String.format("%03d", list.size()+1);
+			List<Customer> list = service.showBusinessCustomer();
+			String nextCustNum = "B"+String.format("%03d", list.size()+1);
 			String code = nextCustNum;
 			String name = req.getParameter("name");
 			String rank = req.getParameter("rank");
@@ -31,8 +31,8 @@ public class custInsertHandler implements CommandHandler {
 			String contact1 = req.getParameter("contact1");
 			String contact2= req.getParameter("contact2");
 			String contact3 = req.getParameter("contact3");
-			String contact = contact1+contact2+contact3;
-			Boolean custDiv = false;
+			String contact = contact1+"-"+contact2+"-"+contact3;
+			Boolean custDiv = true;
 			
 			try {
 				if(rank.equals("Diamond")) {
@@ -48,6 +48,7 @@ public class custInsertHandler implements CommandHandler {
 				}
 				
 				Customer customer = new Customer(code, name, rank, Integer.parseInt(credit), addr, contact, custDiv);
+				System.out.println(customer.getCustCode());
 				service.AddCustomer(customer);
 				res.sendRedirect(req.getContextPath()+"/cust/custSearch.do");
 			}catch(Exception e) {

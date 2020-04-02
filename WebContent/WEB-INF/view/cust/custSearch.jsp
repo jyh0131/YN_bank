@@ -93,8 +93,12 @@
 	$(function(){
 		
 		$("select").on("change", function(){
+			if($("select option:selected").val()=="고객 코드"){
+				$("input[name='search']").val("");  
+				$("input[name='search']").val("B");
+			}
 				$("table").load(location.href+" table");
-				$("input[name='search']").val("");
+				$("input[name='search']").val("");   
 		})
 		
 		$("button").click(function() {  
@@ -128,13 +132,15 @@
 				    		var $th4 = $("<th>").html("고객 신용등급");
 				    		var $th5 = $("<th>").html("고객 주소");
 				    		var $th6 = $("<th>").html("연락처");
+				    		var $th7 = $("<th>").html("분류");
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);
 				    		$tr1.append($th3);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
-				    		$tr1.append($th6);  
+				    		$tr1.append($th6);
+				    		$tr1.append($th7);
 				    		$table.append($tr1);
 				    		
 				    		$(res).each(function(i, obj) {
@@ -146,13 +152,21 @@
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
 					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
 					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
-				    			
+					    		var $a7;
+					    		if(obj.custDiv==true){
+					    			$a7 = $("<a>").html("기업").attr("href", "#");
+					    		}else{
+					    			$a7 = $("<a>").html("고객").attr("href", "#");
+					    		}
+				    			   
+					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
 					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
+					    		var $td7 = $("<td>");
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
@@ -160,6 +174,7 @@
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
+					    		$td7.append($a7);
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
@@ -167,6 +182,7 @@
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
+					    		$tr2.append($td7);
 					    		
 					    		
 					    		$table.append($tr2);
@@ -202,31 +218,35 @@
 				    		var $th4 = $("<th>").html("고객 신용등급");
 				    		var $th5 = $("<th>").html("고객 주소");
 				    		var $th6 = $("<th>").html("연락처");
+				    		var $th7 = $("<th>").html("분류");
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);
 				    		$tr1.append($th3);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
-				    		$tr1.append($th6);  
+				    		$tr1.append($th6);
+				    		$tr1.append($th7);
 				    		$table.append($tr1);
 				    		
 				    		$(res).each(function(i, obj) {
-var $tr2 = $("<tr>");
+								var $tr2 = $("<tr>");
 				    			
-				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
+								var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
 					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
 					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
 					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
-				    			
+				    			var $a7 = $("<a>").html(obj.custDiv).attr("href", "#");
+					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
 					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
+					    		var $td7 = $("<td>");
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
@@ -234,6 +254,7 @@ var $tr2 = $("<tr>");
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
+					    		$td7.append($a7);
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
@@ -241,6 +262,7 @@ var $tr2 = $("<tr>");
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
+					    		$tr2.append($td7);
 					    		
 					    		
 					    		$table.append($tr2);
@@ -278,29 +300,32 @@ var $tr2 = $("<tr>");
 				    		var $th6 = $("<th>").html("연락처");
 				    		
 				    		$tr1.append($th1);
-				    		$tr1.append($th2);
+				    		$tr1.append($th2);  
 				    		$tr1.append($th3);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
-				    		$tr1.append($th6);  
+				    		$tr1.append($th6);
+				    		$tr1.append($th7);
 				    		$table.append($tr1);
 				    		
 				    		$(res).each(function(i, obj) {
-var $tr2 = $("<tr>");
+								var $tr2 = $("<tr>");
 				    			
-				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
+								var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
 					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
 					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
 					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
-				    			
+				    			var $a7 = $("<a>").html(obj.custDiv).attr("href", "#");
+					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
 					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
+					    		var $td7 = $("<td>");
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
@@ -308,6 +333,7 @@ var $tr2 = $("<tr>");
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
+					    		$td7.append($a7);
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
@@ -315,6 +341,7 @@ var $tr2 = $("<tr>");
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
+					    		$tr2.append($td7);
 					    		
 					    		
 					    		$table.append($tr2);
@@ -340,11 +367,11 @@ var $tr2 = $("<tr>");
 					<option>검색 구분</option>
 					<option>고객 코드</option>
 					<option>고객명</option>
-					<option>연락처</option>
+					<option>연락처</option>   
 					
 				</select>
 			
-					<fieldset><input type="search" name="search"/>
+					<fieldset><input type="search" name="search" placeholder="검색어를 입력하세요."/>
 						<button type="submit" id="searchBtn">
 							<i class="fa fa-search"></i>
 						</button>	
@@ -356,14 +383,15 @@ var $tr2 = $("<tr>");
 				<tr>
 					<th>고객 코드</th>
 					<th>고객명</th>
-					<th>고객 등급명</th>
+					<th>고객 등급명</th>    
 					<th>고객 신용등급</th>
 					<th>고객 주소</th>
 					<th>연락처</th>
+					<th>분류</th>
 
 				</tr>
 				<c:forEach var='custList' items="${list }">
-				
+					
 					<tr>
 							<td><a href="#">${custList.custCode }</a></td>
 							<td><a href="#">${custList.custName }</a></td>
@@ -371,6 +399,12 @@ var $tr2 = $("<tr>");
 							<td><a href="#">${custList.custCredit }</a></td>
 							<td><a href="#">${custList.custAddr }</a></td>
 							<td><a href="#">${custList.custTel }</a></td>
+							<c:if test="${custList.custDiv==true}">
+								<td><a href="#">기업</a></td>
+							</c:if>
+							<c:if test="${custList.custDiv==false}">
+								<td><a href="#">일반</a></td>
+							</c:if>
 							
 					</tr>
 				

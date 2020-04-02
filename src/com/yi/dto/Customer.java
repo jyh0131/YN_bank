@@ -12,7 +12,7 @@ public class Customer {
 	private Date lastAccountDate;
 	private String lastAccount;
 	private BankBook bankbook;
-	private boolean custDiv;
+	private Boolean custDiv;
 	public Customer() {
 		
 	}
@@ -36,6 +36,18 @@ public class Customer {
 		this.custAddr = custAddr;
 		this.custTel = custTel;
 	}
+	
+	public Customer(String custCode, String custName, String custRank, int custCredit, String custAddr,
+			String custTel, Boolean custDiv) {
+		this.custCode = custCode;
+		this.custName = custName;
+		this.custRank = custRank;
+		this.custCredit = custCredit;
+		this.custAddr = custAddr;
+		this.custTel = custTel;
+		this.custDiv = custDiv;
+	}
+
 
 	public Customer(String custCode) {
 		this.custCode = custCode;
@@ -77,7 +89,12 @@ public class Customer {
 		this.custTel = custTel;
 	}
 	
-	
+
+	public void setCustDiv(Boolean custDiv) {
+		this.custDiv = custDiv;
+	}
+
+
 
 	public BankBook getBankbook() {
 		return bankbook;
@@ -125,7 +142,7 @@ public class Customer {
 
 	public void setCustDiv(boolean custDiv) {
 		this.custDiv = custDiv;
-	}
+	}  
 
 
 

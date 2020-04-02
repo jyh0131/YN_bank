@@ -133,8 +133,8 @@
 				<li id="menuTitle">Menu</li>
 				<c:if test="${Auth.empAuth=='HR'}"> <!-- 인사팀일때 -->
 					<li id="empMgn" class="side1"><a href="#">사원 관리</a>
-					<li id="empAdd" class="side2"><a href="#">신규 사원 추가</a></li>
-					<li id="empList" class="side2"><a href="#">사원 목록</a></li>
+					<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
+					<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
 					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a></li>
 					<li id="empAuthAdd" class="side2"><a href="#">사원 권한 추가</a></li>
 					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>
@@ -165,8 +165,8 @@
 				</c:if>
 				<c:if test="${Auth.empAuth=='AD'}"> <!-- 관리자일때 -->
 					<li id="empMgn" class="side1"><a href="#">사원 관리</a></li>
-					<li id="empAdd" class="side2"><a href="#">신규 사원 추가</a></li>
-					<li id="empList" class="side2"><a href="#">사원 목록</a></li>
+					<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
+					<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
 					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a></li>
 					<li id="empAuthAdd" class="side2"><a href="#">사원 권한 추가</a></li>
 					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>

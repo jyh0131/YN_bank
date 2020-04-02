@@ -99,7 +99,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public int insertEmployee(Employee emp) {
-		String sql = "insert into employee values(?,?,?,?,?,?,?,password(?),?,?)";
+		String sql = "insert into employee values(?,?,?,?,?,?,?,password(?),?,?,0)";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt= con.prepareStatement(sql)){
 			pstmt.setString(1, emp.getEmpCode());

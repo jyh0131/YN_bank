@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +16,6 @@
 	width: 652px;
 	margin: 0 auto;
 	margin-top: 70px;
-}
-
-#mainLogo2 {
-	
 }
 
 form {
@@ -84,12 +81,12 @@ fieldset div#loginDiv2 {
 	background: goldenrod;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
 	<div id="container">
-		<!--    <img src="images/bank.png" id="mainLogo"> -->
 		<img src="${pageContext.request.contextPath}/images/Logo.png" id="mainLogo2">
-		<form>
+		<form action='${pageContext.request.contextPath}/main/login.do' method="post">
 			<fieldset>
 				<div id="loginDiv1">
 					<p>
@@ -106,9 +103,17 @@ fieldset div#loginDiv2 {
 
 		</form>
 		<div id="bottomColor"></div>
-
 		<!--    <img src="images/banner.jpg" id="bottomLogo"> -->
-
 	</div>
+		<c:if test=""${errorLogin!=null}"">
+			<script>
+				alert("아이디나 비밀번호가 틀렸습니다. 다시 한번 확인해주세요");
+				<%
+					session.invalidate();
+				%>
+				$("input[name='id']").val('${id}');
+				$("input[name='password']").val('${password}');
+			</script>
+		</c:if>	
 </body>
 </html>

@@ -26,18 +26,17 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public Employee getEmpIdPass(Employee emp) throws SQLException {
 		String sql = "select empname from employee where empid=? and emppwd=password(?)";
-		Employee employee = new Employee();
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, emp.getEmpId());
 			pstmt.setString(2, emp.getEmpPwd());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
-					employee = getEmployeeByLogin(rs);
+					return getEmployeeByLogin(rs);
 				}
 			}
 		}
-		return employee;
+		return null;
 	}
 
 	private Employee getEmployeeByLogin(ResultSet rs) throws SQLException {

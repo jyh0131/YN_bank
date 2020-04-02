@@ -6,33 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script>
-    $(function() {
-    	$('#date').datepicker({
-            dateFormat: 'yy-dd-mm',
-            onSelect: function(datetext) {
-                var d = new Date(); // for now
-
-                var h = d.getHours();
-                h = (h < 10) ? ("0" + h) : h ;
-
-                var m = d.getMinutes();
-                m = (m < 10) ? ("0" + m) : m ;
-
-                var s = d.getSeconds();
-                s = (s < 10) ? ("0" + s) : s ;
-
-                datetext = datetext + " " + h + ":" + m + ":" + s;
-                $('#date').val(datetext);
-            }
-        });
-    });
-</script>
 </head>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <style>
 	* { margin:0; padding:0; 
 		font-family: 'Noto Sans KR', sans-serif;
@@ -86,6 +61,29 @@
 </style>
 <body>
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
+	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<script>
+    $(function() {
+    	$('#date').datepicker({
+            dateFormat: 'yy-dd-mm',
+            onSelect: function(datetext) {
+                var d = new Date(); // for now
+
+                var h = d.getHours();
+                h = (h < 10) ? ("0" + h) : h ;
+
+                var m = d.getMinutes();
+                m = (m < 10) ? ("0" + m) : m ;
+
+                var s = d.getSeconds();
+                s = (s < 10) ? ("0" + s) : s ;
+
+                datetext = datetext + " " + h + ":" + m + ":" + s;
+                $('#date').val(datetext);
+            }
+        });
+    });
+	</script>
 	<div id="container">
 		<div id="header">
 			<h1>통장 추가</h1>

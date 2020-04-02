@@ -28,8 +28,8 @@ public class custSearchHandler implements CommandHandler {
 			
 			switch(div) {
 			case "고객 코드":
-				Customer customer = service.showCustomerByCode(search);
-				if(customer==null) {
+				List<Customer> list = service.showCustomerByCode(search);
+				if(list.size()==0) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om = new ObjectMapper();
@@ -38,11 +38,8 @@ public class custSearchHandler implements CommandHandler {
 					PrintWriter out = res.getWriter();
 					out.write(json);
 					out.flush();
-					break;
+					break;   
 				}
-				
-				List<Customer> list = new ArrayList<>();
-				list.add(customer);
 				ObjectMapper om = new ObjectMapper();
 				String json = om.writeValueAsString(list);
 				res.setContentType("application/json;charset=UTF-8");

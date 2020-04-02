@@ -85,18 +85,18 @@
 		<div id="header">
 			<h1>고객 추가</h1>
 		</div>
-		<form action="addCust.do" method="post">
+		<form action="addBusCust.do" method="post">
 			
 			<div id="profile">
-				<h2>일반 고객</h2>
+				<h2>기업 고객</h2>
 				<div id="profileEdit">
 					<table>
-						<tr>
+						<tr>   
 							<th>고객 코드</th>
 							<td><input type="text" name="code" value="${nextCustNum }" disabled></td>
 						</tr>
 						<tr>
-							<th>고객명</th>
+							<th>대표자 명</th>
 							<td><input type="text" name="name"></td>
 						</tr>
 						<tr>
@@ -125,11 +125,11 @@
 								</select></td>
 						</tr>
 						<tr>
-							<th>주소</th>
+							<th>회사 주소</th>
 							<td><input type="text" name="addr"></td>
 						</tr>
 						<tr>
-							<th>연락처</th>
+							<th>대표 연락처</th>
 							<td>
 								<input type="text" class="contact" name="contact1">-
 								<input type="text" class="contact"  name="contact2">-

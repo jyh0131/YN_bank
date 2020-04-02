@@ -22,7 +22,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public List<Customer> selectCustomerAll() throws SQLException {
 		List<Customer> list = null;
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel from customer";
+		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();){
@@ -45,14 +45,21 @@ public class CustomerDaoImpl implements CustomerDao {
 		int custCredit = rs.getInt("custCredit");
 		String custAddr = rs.getString("custAddr");
 		String custTel = rs.getString("custTel");
+		int custDiv = rs.getInt("custDiv");
+		Boolean custDivTF;
+		if(custDiv==0) {
+			custDivTF=false;
+		}else{
+			custDivTF=true;
+		}
 		
-		return new Customer(custCode, custName, custRank, custCredit, custAddr, custTel);
+		return new Customer(custCode, custName, custRank, custCredit, custAddr, custTel, custDivTF);
 	}
 
-	
+	  
 	@Override
 	public List<Customer> selectCustomerByName(String custName) throws SQLException {
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel from customer where custName like ?";
+		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer where custName like ?";
 		List<Customer> list = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -76,7 +83,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public void insertCustomer(Customer customer) throws SQLException {
-		String sql = "insert into customer values(?,?,?,?,?,?)";
+		String sql = "insert into customer values(?,?,?,?,?,?,?)";
 		try(Connection con = DriverManager.getConnection(jdbcDriver); 
 			PreparedStatement pstmt = con.prepareStatement(sql)){
 			
@@ -86,6 +93,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			pstmt.setInt(4, customer.getCustCredit());
 			pstmt.setString(5, customer.getCustAddr());
 			pstmt.setString(6, customer.getCustTel());
+			pstmt.setBoolean(7, customer.isCustDiv());
 			
 			pstmt.executeUpdate();
 		}
@@ -305,25 +313,30 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public Customer selectCustomerByCode(String custCode) throws SQLException {
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel from customer where custCode = ?";
+	public List<Customer> selectCustomerByCode(String custCode) throws SQLException {
+		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer where custCode like ?";
+		List<Customer> list = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql)){
 			
-			pstmt.setString(1, custCode);
+			pstmt.setString(1, custCode+"%");
 			try(ResultSet rs = pstmt.executeQuery();){
 				if(rs.next()) {
-					return getCustomer(rs);
+					list = new ArrayList<>();
+					do {
+						Customer customer = getCustomer(rs);
+						list.add(customer);
+					}while(rs.next());
 				}
 			}
 			
 		}catch(SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();  
 		}
 		
-		return null;
-	}
-
+		return list;
+	}  
+     
 	@Override
 	public Customer selectCustomerByTel(String custTel) throws SQLException {
 		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel from customer where custTel = ?";
@@ -372,6 +385,27 @@ public class CustomerDaoImpl implements CustomerDao {
 		bankbook.setAccountBalance(Long.parseLong(rs.getString(12)));
 		customer.setBankbook(bankbook);
 		return customer;
+	}
+
+	@Override
+	public List<Customer> selectBusinessCust() throws SQLException {
+		List<Customer> list = null;
+		String sql = "select * from customer where custCode like ?";
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "B%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	

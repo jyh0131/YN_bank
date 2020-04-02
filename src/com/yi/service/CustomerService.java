@@ -22,7 +22,11 @@ public class CustomerService {
 		return dao.selectCustomerByName(custName);
 	}
 	
-	public Customer showCustomerByCode(String custCode) throws SQLException{
+	public List<Customer> showBusinessCustomer() throws SQLException{
+		return dao.selectBusinessCust();
+	}
+	
+	public List<Customer> showCustomerByCode(String custCode) throws SQLException{
 		return dao.selectCustomerByCode(custCode);
 	}
 	

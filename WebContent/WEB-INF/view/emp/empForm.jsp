@@ -272,6 +272,8 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 						 }
 					}
 					
+				
+					
 					
 					/*  $.ajax({
 					 	url: "${pageContext.request.contextPath}/emp/empAdd.do",
@@ -287,7 +289,23 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 					 }) */
 
 				}) //서밋 끝나는거 
-
+				
+				//파일 선택시 이미지 변경 
+				$("#empFile").change(function(){
+					var full = $(this).val().split("\\");
+					//alert(full);
+				    
+					if(full ==""){
+						$("#empPicture").attr("src","${pageContext.request.contextPath}/images/no-img.png");	
+					}else{
+					f_name = full[full.length-1]; //마지막 화일명
+				//     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
+                   // alert(f_name);
+		
+				  $("#empPicture").attr("src","${pageContext.request.contextPath}/images/"+f_name);
+				}	
+			})
+			
 	})
 </script>
 
@@ -305,7 +323,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 				<div id="profileMain">
 					<div id="pic">
 						<img alt="사원사진"
-							src="${pageContext.request.contextPath}/images/no-img.png">
+							src="${pageContext.request.contextPath}/images/no-img.png" id="empPicture">
 						<span id="proName"></span> <span id="proDept"></span>
 
 					</div>
@@ -315,7 +333,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 					<table>
 						<tr>
 							<th>사원 코드</th>
-							<td><input type="text" name="empCode"><br> <span
+							<td><input type="text" name="empCode" readonly="readonly"><br> <span
 								class="errorMSG">사원코드를 입력해주세요. 부서 선택시 자동으로 출력됩니다.</span></td>
 						</tr>
 						<tr>
@@ -376,7 +394,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 						</tr>
 						<tr>
 							<th>이미지 선택</th>
-							<td id="noline"><input type="file" name="pic"></td>
+							<td id="noline"><input type="file" name="pic" id="empFile"></td>
 						</tr>
 
 					</table>

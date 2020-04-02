@@ -12,9 +12,10 @@ CREATE TABLE bank.BankBook (
 	accountOpenDate    DATETIME NOT NULL COMMENT '계좌개설일', -- 계좌개설일
 	accountInterest    FLOAT    NOT NULL COMMENT '이자율', -- 이자율
 	accountBalance     BIGINT   NOT NULL COMMENT '잔액', -- 잔액
-	accountDormant     TINYINT  NULL     COMMENT '휴면여부', -- 휴면여부
-	accountTermination TINYINT  NULL     COMMENT '해지여부', -- 해지여부
-	empCode            char(4)  NOT NULL COMMENT '사원코드' -- 사원코드
+	accountDormant     tinyint(1)  NULL     COMMENT '휴면여부', -- 휴면여부
+	accountTermination tinyint(1)  NULL     COMMENT '해지여부', -- 해지여부
+	empCode            char(4)  NOT NULL COMMENT '사원코드', -- 사원코드
+	connectChk	       tinyint(1) null COMMENT '연결여부' -- 연결여부
 )
 COMMENT '통장';
 
@@ -37,7 +38,7 @@ CREATE TABLE bank.Employee (
 	empPwd    varchar(41) NULL     COMMENT '사원비밀번호', -- 사원비밀번호
 	deptNo    INTEGER     NOT NULL COMMENT '부서번호', -- 부서번호
 	pic       LONGBLOB    NULL     COMMENT '사원사진', -- 사원사진
-	empRetire TINYINT     NULL     COMMENT '퇴사여부' -- 퇴사여부
+	empRetire tinyint(1)     NULL     COMMENT '퇴사여부' -- 퇴사여부
 )
 COMMENT '사원';
 
@@ -70,7 +71,7 @@ CREATE TABLE bank.Customer (
 	custCredit INTEGER(1)  NULL     COMMENT '고객신용등급', -- 고객신용등급
 	custAddr   varchar(50) NULL     COMMENT '고객주소', -- 고객주소
 	custTel    char(13)    NULL     COMMENT '고객연락처', -- 고객연락처
-	custDiv    TINYINT     NULL     COMMENT '고객구분' -- 고객구분
+	custDiv    tinyint(1)     NULL     COMMENT '고객구분' -- 고객구분
 )
 COMMENT '고객';
 
@@ -156,13 +157,13 @@ ALTER TABLE bank.Performance
 		);
 
 -- 입출금
-CREATE TABLE bank.Cust_DW_auit (
-	입출금       varchar(5) NULL COMMENT 'dw', -- dw
-	고객이름     VARCHAR(5) NULL COMMENT 'custname', -- custname
-	통장계좌번호 char(16)   NULL COMMENT 'accountnum', -- accountnum
-	거래금액     int(20)    NULL COMMENT 'amount', -- amount
-	통장잔액     BIGINT     NULL COMMENT 'accountbalance', -- accountbalance
-	거래일자     DATETIME   NULL COMMENT 'accountTransDate' -- accountTransDate
+CREATE TABLE bank.cust_DW_audit (
+	dw         varchar(5)        NULL COMMENT '입출금구분', -- dw
+	custname   VARCHAR(5)        NULL COMMENT '고객이름', -- custname
+	accountnum char(16)          NULL COMMENT '계좌번호', -- accountnum
+	amount     int(20)            NULL COMMENT '잔액', -- amount
+	accountbalance     BIGINT     NULL COMMENT '통장잔액', -- accountbalance
+	accountTransDate     DATETIME   NULL COMMENT '거래일자' -- accountTransDate
 )
 COMMENT '입출금';
 
@@ -177,19 +178,19 @@ COMMENT '카드 정보';
 
 -- 통장정보
 CREATE TABLE bank.bankbookinfo (
-	고객이름 VARCHAR(5) NULL COMMENT 'custname', -- custname
-	계좌번호 char(16)   NULL COMMENT 'accountnum', -- accountnum
-	거래일자 DATETIME   NULL COMMENT 'transdate' -- transdate
+	custname VARCHAR(5) NULL COMMENT '고객이름', -- custname
+	accountnum char(16)   NULL COMMENT '계좌번호', -- accountnum
+	transdate DATETIME   NULL COMMENT '거래일자' -- transdate
 )
 COMMENT '통장정보';
 
 -- 공지사항
 CREATE TABLE bank.notice (
-	번호     INTEGER     NOT NULL COMMENT 'no', -- no
-	제목     varchar(30) NULL     COMMENT 'subject', -- subject
-	작성자   VARCHAR(5)  NULL     COMMENT 'writer', -- writer
-	작성일자 DATETIME    NULL     COMMENT 'write_date', -- write_date
-	내용     TEXT        NULL     COMMENT 'content' -- content
+	no     INTEGER     NOT NULL COMMENT '번호', -- no
+	subject     varchar(30) NULL     COMMENT '제목', -- subject
+	writer   VARCHAR(5)  NULL     COMMENT '작성자', -- writer
+	write_date DATETIME    NULL     COMMENT '작성일', -- write_date
+	content     TEXT        NULL     COMMENT '내용' -- content
 )
 COMMENT '공지사항';
 
@@ -197,8 +198,10 @@ COMMENT '공지사항';
 ALTER TABLE bank.notice
 	ADD CONSTRAINT PK_notice -- 공지사항 기본키
 		PRIMARY KEY (
-			번호 -- no
+			no -- no
 		);
+ALTER TABLE bank.notice
+	modify column no int not null auto_increment;
 
 -- 통장
 ALTER TABLE bank.BankBook

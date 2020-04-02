@@ -1,5 +1,7 @@
 package com.yi.handler.cust;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +15,10 @@ public class custInsertHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
+			List<Customer> list = service.showCustomers();
+			String nextCustNum = "C"+String.format("%03d", list.size()+1);
+			req.setAttribute("nextCustNum", nextCustNum);
+			
 			return "/WEB-INF/view/cust/newCustForm.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String code = req.getParameter("code");

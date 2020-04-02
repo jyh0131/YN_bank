@@ -1,17 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script>
+    $(function() {
+    	$("#cancel").click(function() {
+    		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do";
+    	})
+    });
+</script>
+</head>
 <style>
 	* { margin:0; padding:0; 
 		font-family: 'Noto Sans KR', sans-serif;
 		color: #252525; }
-	#container { width: 1000px; margin: 0 auto;}
+	#container { width: 1000px; margin: 50px auto;}
 	div#header { background: goldenrod;
 			     height: 150px; }
 	div#header h1 { padding: 30px;  }
@@ -58,95 +70,50 @@
 					   font-size: 15px;
 					   color: whitesmoke;}						    
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>
-	$(function(){
-		$("input[type='submit']").click(function(){
-			var name = $("input[name='name']").val();
-			var addr = $("input[name='addr']").val();
-			var contact = $("input[name='contact']").val();
-			var rank = $("select[name='rank']").val();
-			var credit = $("select[name='credit']").val();
-			
-			if(name=="" || addr=="" || contact=="" || rank=="등급 선택" || credit=="신용등급 선택"){
-				alert("모든 항목을 선택해주세요.");
-				return false;
-			}
-			
-		})
-		
-		
-		$("input[type='reset']").click(function(){
-			var choose = confirm("신규 고객 추가를 취소하시겠습니까? 목록으로 돌아갑니다.");
-			if(choose){
-				$(location).attr('href','${pageContext.request.contextPath}/cust/custSearch.do');
-			}else {
-				return false;
-			}
-			
-		})
-	})
-</script>
 <body>
+	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<div id="container">
 		<div id="header">
-			<h1>사용자 프로필</h1>
+			<h1>통장 세부 정보</h1>
 		</div>
-		<form action="addCust.do" method="post">
-			
+		<form>
 			<div id="profile">
-				<h2>프로필</h2>
+				<h2>${bankbook.custCode.custName}님의 ${bankbook.accountPlanCode.planName} 통장 정보</h2>
 				<div id="profileEdit">
 					<table>
 						<tr>
-							<th>고객 코드</th>
-							<td><input type="text" name="code" value="${nextCustNum }" disabled></td>
-						</tr>
-						<tr>
 							<th>고객명</th>
-							<td><input type="text" name="name"></td>
+							<td>
+								<input type="text" name="custname" readonly="readonly" value='${bankbook.custCode.custName}'>
+							</td>
 						</tr>
 						<tr>
-							<th>등급</th>
+							<th>계좌번호</th>
+							<td><input type="text" name="accountnum" readonly="readonly" value='${bankbook.accountNum}'></td>
+						</tr>
+						<tr>
+							<th>상품명</th>
 							<td>
-								<select name="rank">
-									<option>등급 선택</option>
-									<option>Diamond</option>
-									<option>Platinum</option>
-									<option>Gold</option>
-									<option>Silver</option>
-									<option>Bronze</option>
-								</select>
+								<input type="text" name="planname" readonly="readonly" value='${bankbook.accountPlanCode.planName}'>
 							</td>
 								
 						</tr>
 						<tr>
-							<th>신용등급</th>
-							<td><select name="credit">
-									<option>신용등급 선택</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-								</select></td>
+							<th>계좌개설일</th>
+							<td><input type="text" name="accountOpenDate"  value=<fmt:formatDate value="${bankbook.accountOpenDate}" pattern="yyyy-MM-dd HH:mm:ss"/>></td>
 						</tr>
 						<tr>
-							<th>주소</th>
-							<td><input type="text" name="addr"></td>
+							<th>이자율</th>
+							<td><input type="text" name="accountInterest" value=<fmt:formatNumber value="${bankbook.accountInterest}" type="percent"/>></td>
 						</tr>
-						<tr>
-							<th>연락처</th>
-							<td><input type="text" name="contact"></td>
-						</tr>
-						
-						
 					</table>
 				</div>
 				
 				<div id="submit">
-					<input type="submit" value="등록">
-					<input type="reset" value="취소">
+					<input type="submit" value="수정">
+					<input type="submit" value="삭제">
+					<input type="submit" value="휴면계좌전환">
+					<input type="reset" value="취소" id="cancel">
 				</div>
 				
 			</div>

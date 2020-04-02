@@ -5,38 +5,40 @@ insert into department values
 (1,'인사'),
 (2,'고객');
 #퇴사 사원 구분은 0을 근무사원, 1를 퇴사사원으로 한다
+desc employee;
 insert into employee values
-('A001','나인사','부장','HR',6000000,'010-1233-1111','HRid1',password('testforHR1'),1,null,null),
-('A002','정아름','차장','HR',5000000,'010-5840-1111','HRid2',password('testforHR2'),1,null,null),
-('A003','이상원','과장','HR',4000000,'010-1549-1111','HRid3',password('testforHR3'),1,null,null),
-('A004','서지수','대리','HR',3000000,'010-3296-1111','HRid4',password('testforHR4'),1,null,null),
-('A005','박민호','사원','HR',2000000,'010-1597-1111','HRid5',password('testforHR5'),1,null,null),
-('A006','고희연','사원','HR',2000000,'010-6444-1111','HRid6',password('testforHR6'),1,null,null),
-('A007','정윤호','사원','HR',2000000,'010-7423-1111','HR',password('HR'),1,null),
+('A001','나인사','부장','HR',6000000,'010-1233-1111','HRid1',password('testforHR1'),1,null,0),
+('A002','정아름','차장','HR',5000000,'010-5840-1111','HRid2',password('testforHR2'),1,null,0),
+('A003','이상원','과장','HR',4000000,'010-1549-1111','HRid3',password('testforHR3'),1,null,0),
+('A004','서지수','대리','HR',3000000,'010-3296-1111','HRid4',password('testforHR4'),1,null,0),
+('A005','박민호','사원','HR',2000000,'010-1597-1111','HRid5',password('testforHR5'),1,null,0),
+('A006','고희연','사원','HR',2000000,'010-6444-1111','HRid6',password('testforHR6'),1,null,0),
+('A007','정윤호','사원','HR',2000000,'010-7423-1111','HR',password('HR'),1,null,0),
 -- 고객팀
-('B001','나지점','지점장','AD',10000000,'010-1234-1234','ADid',password('testforAD'),2,null,null),
-('B002','장현서','부지점장','CS',8000000,'010-4444-7767','CSid1',password('testforCS'),2,null,null),
-('B003','박인선','부장','CS',6000000,'010-2992-2222','CSid2',password('testforCS'),2,null,null),
-('B004','황하나','차장','CS',5000000,'010-2222-1111','CSid3',password('testforCS'),2,null,null),
-('B005','현재승','과장','CS',4000000,'010-2282-4848','CSid4',password('testforCS'),2,null,null),
-('B006','황태원','대리','CS',3000000,'010-2902-5959','CS',password('CS'),2,null,null),
-('B007','나고객','사원','CS',2000000,'010-5489-7346','CSid8',password('testforCS'),2,null,null),
-('B008','테스트','지점장','AD',10000000,'010-1234-1234','111',password('111'),2,null,null),
-('B009','아몬드','대리','CS',2000000,'010-1578-5436','CSid9',password('testforCS'),2,null,null),
-('B010','장우주','사원','CS',2000000,'010-1258-8563','CSid10',password('testforCS'),2,null,null),
-('B011','방송국','사원','CS',2000000,'010-6982-5312','CSid11',password('testforCS'),2,null,null),
-('B012','서민지','사원','CS',2000000,'010-5734-1543','CSid12',password('testforCS'),2,null,null),
-('B013','성시현','사원','CS',2000000,'010-9644-4321','CSid13',password('testforCS'),2,null,null),
-('B014','민희영','사원','CS',2000000,'010-4231-3443','CSid14',password('testforCS'),2,null,null),
-('B015','김다린','사원','CS',2000000,'010-3290-6431','CSid15',password('testforCS'),2,null,null),
-('B016','최지원','사원','CS',2000000,'010-7323-4543','CSid16',password('testforCS'),2,null,null),
-('B017','연소희','사원','CS',2000000,'010-4443-7345','CSid17',password('testforCS'),2,null,null),
-('B018','주경미','사원','CS',2000000,'010-6424-3424','CSid18',password('testforCS'),2,null,null),
-('B019','서연정','사원','CS',2000000,'010-3290-7134','CSid19',password('testforCS'),2,null,null),
-('B020','차은우','사원','CS',2000000,'010-5834-8555','CSid20',password('testforCS'),2,null,null),
-('B021','배소경','사원','CS',2000000,'010-3290-3343','CSid21',password('testforCS'),2,null,null),
-('B022','김천경','사원','CS',2000000,'010-1385-4577','CSid22',password('testforCS'),2,null,null);
+('B001','나지점','지점장','AD',10000000,'010-1234-1234','ADid',password('testforAD'),2,null,0),
+('B002','장현서','부지점장','CS',8000000,'010-4444-7767','CSid1',password('testforCS'),2,null,0),
+('B003','박인선','부장','CS',6000000,'010-2992-2222','CSid2',password('testforCS'),2,null,0),
+('B004','황하나','차장','CS',5000000,'010-2222-1111','CSid3',password('testforCS'),2,null,0),
+('B005','현재승','과장','CS',4000000,'010-2282-4848','CSid4',password('testforCS'),2,null,0),
+('B006','황태원','대리','CS',3000000,'010-2902-5959','CS',password('CS'),2,null,0),
+('B007','나고객','사원','CS',2000000,'010-5489-7346','CSid8',password('testforCS'),2,null,0),
+('B008','테스트','지점장','AD',10000000,'010-1234-1234','111',password('111'),2,null,0),
+('B009','아몬드','대리','CS',2000000,'010-1578-5436','CSid9',password('testforCS'),2,null,0),
+('B010','장우주','사원','CS',2000000,'010-1258-8563','CSid10',password('testforCS'),2,null,0),
+('B011','방송국','사원','CS',2000000,'010-6982-5312','CSid11',password('testforCS'),2,null,0),
+('B012','서민지','사원','CS',2000000,'010-5734-1543','CSid12',password('testforCS'),2,null,0),
+('B013','성시현','사원','CS',2000000,'010-9644-4321','CSid13',password('testforCS'),2,null,0),
+('B014','민희영','사원','CS',2000000,'010-4231-3443','CSid14',password('testforCS'),2,null,0),
+('B015','김다린','사원','CS',2000000,'010-3290-6431','CSid15',password('testforCS'),2,null,0),
+('B016','최지원','사원','CS',2000000,'010-7323-4543','CSid16',password('testforCS'),2,null,0),
+('B017','연소희','사원','CS',2000000,'010-4443-7345','CSid17',password('testforCS'),2,null,0),
+('B018','주경미','사원','CS',2000000,'010-6424-3424','CSid18',password('testforCS'),2,null,0),
+('B019','서연정','사원','CS',2000000,'010-3290-7134','CSid19',password('testforCS'),2,null,0),
+('B020','차은우','사원','CS',2000000,'010-5834-8555','CSid20',password('testforCS'),2,null,0),
+('B021','배소경','사원','CS',2000000,'010-3290-3343','CSid21',password('testforCS'),2,null,0),
+('B022','김천경','사원','CS',2000000,'010-1385-4577','CSid22',password('testforCS'),2,null,0);
 #고객 구분은 0을 일반고객, 1를 기업고객으로 한다
+desc customer;
 insert into customer values 
 ("C001", "김서형", "D", 1, "서울시 강남구 논현동", "010-7598-4533",0), 
 ("C002", "김혜수", "D", 1, "서울시 강남구 역삼동", "010-9325-5412",0),
@@ -85,7 +87,8 @@ insert into plan values("A001", "AA001", "슈퍼정기예금", "가입자 맞춤
 					   ("C004", "CA002", "패밀리 대출", "YN은행 임직원을 위한 무서류 일반대출", "N"), -- 일반/일반대출
 					   ("C005", "CB002", "아파트 소유자 대출", "본인명의 아파트 소유자를 위한 신용 대출", "N"), -- 일반/신용대출
 					   ("C006", "CC002", "YN Go Anywhere", "refresh 여행을 위한 빠른 카드 대출", "N"); -- 일반/카드대출						   			   				   
-
+desc bankbook;
+					   
 insert into bankbook values
 ('293133-11-000001','C001','A001',now(),0.15,0,0,0,'B007',1),
 ('293133-12-000002','C001','A002',now(),0.10,0,0,0,'B007',0),
@@ -169,6 +172,7 @@ delimiter ;
 
 
 -- 통계 조회를 위해서 미리 넣어두는 데이터
+
 insert into cust_DW_audit values("입금", "김서형", "293133-11-000001", 100, 100, now());
 insert into cust_DW_audit values("출금", "김서형", "293133-11-000001", 100, 0, now());
 

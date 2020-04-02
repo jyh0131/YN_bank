@@ -25,7 +25,7 @@ form {
 	width: 652px;
 	height: 378px;
 	border: 0px solid gray;
-	background: url("images/loginMain.jpg") no-repeat;
+	background: url("${pageContext.request.contextPath}/images/loginMain.jpg") no-repeat;
 	background-size: contain;
 	position: relative;
 }
@@ -88,7 +88,7 @@ fieldset div#loginDiv2 {
 <body>
 	<div id="container">
 		<!--    <img src="images/bank.png" id="mainLogo"> -->
-		<img src="images/Logo.png" id="mainLogo2">
+		<img src="${pageContext.request.contextPath}/images/Logo.png" id="mainLogo2">
 		<form>
 			<fieldset>
 				<div id="loginDiv1">

@@ -15,13 +15,13 @@ public class custInsertHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			List<Customer> list = service.showCustomers();
+			List<Customer> list = service.showNormalCustomer();
 			String nextCustNum = "C"+String.format("%03d", list.size()+1);
 			req.setAttribute("nextCustNum", nextCustNum);
 			
 			return "/WEB-INF/view/cust/newCustForm.jsp";
-		}else if(req.getMethod().equalsIgnoreCase("post")) {
-			List<Customer> list = service.showCustomers();
+		}else if(req.getMethod().equalsIgnoreCase("post")) {   
+			List<Customer> list = service.showNormalCustomer();
 			String nextCustNum = "C"+String.format("%03d", list.size()+1);
 			String code = nextCustNum;
 			String name = req.getParameter("name");
@@ -31,22 +31,21 @@ public class custInsertHandler implements CommandHandler {
 			String contact1 = req.getParameter("contact1");
 			String contact2= req.getParameter("contact2");
 			String contact3 = req.getParameter("contact3");
-			String contact = contact1+contact2+contact3;
+			String contact = contact1+"-"+contact2+"-"+contact3;
 			Boolean custDiv = false;
-			
+			  
 			try {
 				if(rank.equals("Diamond")) {
 					rank = "D";
 				}else if(rank.equals("Platinum")) {
 					rank = "P";
 				}else if(rank.equals("Gold")) {
-					rank = "G";
+					rank = "G";       
 				}else if(rank.equals("Silver")) {
 					rank = "S";
 				}else if(rank.equals("Bronze")) {
 					rank = "B";
-				}
-				
+				}  
 				Customer customer = new Customer(code, name, rank, Integer.parseInt(credit), addr, contact, custDiv);
 				service.AddCustomer(customer);
 				res.sendRedirect(req.getContextPath()+"/cust/custSearch.do");

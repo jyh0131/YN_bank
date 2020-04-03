@@ -90,6 +90,12 @@ public class Customer {
 	}
 	
 
+	public Boolean getCustDiv() {
+		return custDiv;
+	}
+
+
+
 	public void setCustDiv(Boolean custDiv) {
 		this.custDiv = custDiv;
 	}

@@ -10,7 +10,7 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
 	$(function(){
-		if($({Auth.empAuth=='AD'})) {
+		if(${Auth.empAuth=='AD'}) {
 			$("#staff").css({"height":"10%","background":"goldenrod"});
 			$("#staff ul li").css({"float":"left","list-style":"none"});
 			$("#greeting").css({"width":"200px","margin":"15px 10px 10px 45px","text-align":"center"});
@@ -143,8 +143,8 @@
 				</c:if>
 				<c:if test="${Auth.empAuth=='CS'}"> <!-- 고객팀일때 -->
 					<li id="custMgn" class="side1"><a href="#">고객 관리</a></li>
-					<li id="custAdd" class="side2"><a href="#">신규 고객 추가</a></li>
-					<li id="custList" class="side2"><a href="#">고객 조회</a></li>
+					<li id="custAdd" class="side2"><a href="${pageContext.request.contextPath}/cust/selectCust.do">신규 고객 추가</a></li>
+					<li id="custList" class="side2"><a href="${pageContext.request.contextPath}/cust/custSearch.do">고객 조회</a></li>
 					<li id="dwMgn" class="side1"><a href="#">입출금 관리</a></li>
 					<li id="dwList" class="side2"><a href="#">입출금 조회</a></li>
 					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a></li>
@@ -159,7 +159,7 @@
 					<li id="planMgn" class="side1"><a href="#">상품 관리</a></li>
 					<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
 					<li id="planList" class="side2"><a href="#">상품 조회</a></li>
-					<li id="custStatistic" class="side1"><a href="#">통계</a></li>	
+					<li id="custStatistic" class="side1"><a href="#">통계</a></li>	    
 					<li id="custStatistic2" class="side2"><a href="#">고객 통계</a></li>
 					<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a></li>
 				</c:if>
@@ -172,8 +172,8 @@
 					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>
 					<li id="empBonusList" class="side2"><a href="#">인센티브 조회</a></li>
 					<li id="custMgn" class="side1"><a href="#">고객 관리</a></li>
-					<li id="custAdd" class="side2"><a href="#">신규 고객 추가</a></li>
-					<li id="custList" class="side2"><a href="#">고객 조회</a></li>
+					<li id="custAdd" class="side2"><a href="${pageContext.request.contextPath}/cust/selectCust.do">신규 고객 추가</a></li>
+					<li id="custList" class="side2"><a href="${pageContext.request.contextPath}/cust/custSearch.do">고객 조회</a></li>
 					<li id="dwMgn" class="side1"><a href="#">입출금 관리</a></li>
 					<li id="dwList" class="side2"><a href="#">입출금 조회</a></li>
 					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a></li>

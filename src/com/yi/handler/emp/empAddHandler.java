@@ -60,9 +60,9 @@ public class empAddHandler implements CommandHandler {
 					                               req,  //매개변수는 내가 원하는 만큼
 					                               uploadPath, //업로드 절대경로
 			                                       size,
-			                                       "UTF-8", //한글깨지지 말라는 것 
-			                                       new DefaultFileRenamePolicy()); //파일이 중복되었을때 바뀔 수 있도록
-			//기존에 같은 이름인 파일은 바껴서 들어가야한다 
+			                                       "UTF-8");//, //한글깨지지 말라는 것 
+			                                       //new DefaultFileRenamePolicy()); //파일이 중복되었을때 바뀔 수 있도록
+			//기존에 같은 이름인 파일은 바껴서 들어가야한다 //하지만 여기선 그냥 덮어쓰도록 함 
 			
 			//--파일 업로드 완료된 것 그 다음 일은 db에 상품을 등록해야함 
 			
@@ -86,8 +86,9 @@ public class empAddHandler implements CommandHandler {
 					multi.getParameter("empId"), 
 					multi.getParameter("empPwd"), 
 					new Department(Integer.parseInt(multi.getParameter("deptNo"))), 
-					multi.getFilesystemName("pic").getBytes());
-		  
+					multi.getFilesystemName("pic"));
+			        
+			       // 
 			//System.out.println(emp);
 			service = new EmployeeUIService();
 			service.addEmp(emp);

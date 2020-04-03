@@ -37,7 +37,7 @@ CREATE TABLE bank.Employee (
 	empId     varchar(12) NULL     COMMENT '사원아이디', -- 사원아이디
 	empPwd    varchar(41) NULL     COMMENT '사원비밀번호', -- 사원비밀번호
 	deptNo    INTEGER     NOT NULL COMMENT '부서번호', -- 부서번호
-	pic       LONGBLOB    NULL     COMMENT '사원사진', -- 사원사진
+	pic       varchar(50)    NULL     COMMENT '사원사진', -- 사원사진
 	empRetire tinyint(1)     NULL     COMMENT '퇴사여부' -- 퇴사여부
 )
 COMMENT '사원';

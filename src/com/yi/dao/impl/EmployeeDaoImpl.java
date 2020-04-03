@@ -111,9 +111,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			pstmt.setString(7, emp.getEmpId());
 			pstmt.setString(8, emp.getEmpPwd());
 			pstmt.setInt(9, emp.getDept().getDeptNo());
-			if (emp.getPic()!=null) {
-				pstmt.setBytes(10, emp.getPic());
-			}
+			pstmt.setString(10, emp.getPic());
 			
 			return pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -144,7 +142,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			pstmt.setString(6, emp.getEmpId());
 			pstmt.setString(7, emp.getEmpPwd());
 			pstmt.setInt(8, emp.getDept().getDeptNo());
-			pstmt.setBytes(9, emp.getPic());
+			pstmt.setString(9, emp.getPic());
 			pstmt.setString(10, emp.getEmpCode());
 
 			return pstmt.executeUpdate();
@@ -168,7 +166,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			pstmt.setString(5, emp.getEmpTel());
 			pstmt.setString(6, emp.getEmpId());
 			pstmt.setInt(7, emp.getDept().getDeptNo());
-			pstmt.setBytes(8, emp.getPic());
+			pstmt.setString(8, emp.getPic());
 			pstmt.setString(9, emp.getEmpCode());
 
 			return pstmt.executeUpdate();
@@ -238,15 +236,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		String empPwd =rs.getString("empPwd");
 		Department dept= new Department(rs.getInt("d.deptNo")); //이부분 확인해보기
 	    dept.setDeptName(rs.getString("d.deptName"));
-		Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, dept);
-		byte[] pic = rs.getBytes("pic")==null?null:rs.getBytes("pic");
-		if(pic==null) {
-			return emp;
-		}
-		else {
-			emp.setPic(pic);
-			return emp;
-		}
+	    String pic = rs.getString("pic");
+	    return new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, dept, pic);
+		
+		
 	}
 
 	@Override
@@ -769,7 +762,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		String empCode = rs.getString("e.empCode");
 		String empName = rs.getString("e.empName");
 		String empTitle = rs.getString("e.empTitle");
-		byte[] pic = rs.getBytes("e.pic");
+		String pic = rs.getString("e.pic");
 		int perf = rs.getInt("r.perf");
 		int bonus = rs.getInt("r.bonus");
 

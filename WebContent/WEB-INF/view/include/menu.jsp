@@ -89,7 +89,10 @@
 	nav div#logo h1 { padding: 15px; font-size: 30px;}
 	nav div#logo h1 a {font-family: 'Kanit', sans-serif;
 				      color: whitesmoke; text-shadow: 2px 2px 2px gray;}
-
+/*     div#staff #menuImg {
+        width: 150px;
+        margin-left:60px;
+    }  */
 	
 	/* 메뉴 */
 	nav div#menu li { height: 40px;
@@ -119,7 +122,7 @@
 		<div id="staff">
 			<ul>
 				<c:if test="${Auth.empAuth!='AD'}">
-				<li><img src="${pageContext.request.contextPath}/images/staff1.jpg"></li>
+				<li><img src="${pageContext.request.contextPath}/images/staff1.jpg" id="staffImg"></li>
 				</c:if>
 				<li id="greeting"><span id="name">${Auth.empName} </span>님 환영합니다.</li>
 				<li id="btns">
@@ -136,7 +139,7 @@
 					<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
 					<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
 					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a></li>
-					<li id="empAuthAdd" class="side2"><a href="#">사원 권한 추가</a></li>
+					<li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li>
 					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>
 					<li id="empBonusList" class="side2"><a href="#">인센티브 조회</a></li>
 					<li id="empStatistic" class="side1"><a href="#">통계</a></li>
@@ -168,7 +171,7 @@
 					<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
 					<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
 					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a></li>
-					<li id="empAuthAdd" class="side2"><a href="#">사원 권한 추가</a></li>
+					<li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li>
 					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>
 					<li id="empBonusList" class="side2"><a href="#">인센티브 조회</a></li>
 					<li id="custMgn" class="side1"><a href="#">고객 관리</a></li>

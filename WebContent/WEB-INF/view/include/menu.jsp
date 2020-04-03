@@ -10,7 +10,7 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
 	$(function(){
-		if(${Auth.empAuth=='AD'}) {
+		if($({Auth.empAuth=='AD'})) {
 			$("#staff").css({"height":"10%","background":"goldenrod"});
 			$("#staff ul li").css({"float":"left","list-style":"none"});
 			$("#greeting").css({"width":"200px","margin":"15px 10px 10px 45px","text-align":"center"});

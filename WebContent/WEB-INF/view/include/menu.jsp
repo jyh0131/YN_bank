@@ -141,7 +141,7 @@
 					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a></li>
 					<li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li>
 					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>
-					<li id="empBonusList" class="side2"><a href="#">인센티브 조회</a></li>
+					<li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li>
 					<li id="empStatistic" class="side1"><a href="#">통계</a></li>
 				</c:if>
 				<c:if test="${Auth.empAuth=='CS'}"> <!-- 고객팀일때 -->
@@ -173,7 +173,7 @@
 					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a></li>
 					<li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li>
 					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>
-					<li id="empBonusList" class="side2"><a href="#">인센티브 조회</a></li>
+					<li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li>
 					<li id="custMgn" class="side1"><a href="#">고객 관리</a></li>
 					<li id="custAdd" class="side2"><a href="#">신규 고객 추가</a></li>
 					<li id="custList" class="side2"><a href="#">고객 조회</a></li>

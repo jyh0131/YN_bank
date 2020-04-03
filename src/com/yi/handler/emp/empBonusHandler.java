@@ -19,11 +19,11 @@ public class empBonusHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			List<Employee> list = service.showEmpList();
+			List<Employee> list = service.showEmpPerformance();
 	//		System.out.println(list);
 
 			req.setAttribute("list", list);
-			return "/WEB-INF/view/emp/empSearch.jsp";
+			return "/WEB-INF/view/emp/empBonusList.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");
 			String div = req.getParameter("div");

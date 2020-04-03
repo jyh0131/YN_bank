@@ -38,6 +38,9 @@
   	<url-pattern>/emp/empSearch.do</url-pattern>
   	<url-pattern>/emp/empForm.do</url-pattern>
   	<url-pattern>/emp/empAdd.do</url-pattern>
+  	<url-pattern>/emp/empAuth.do</url-pattern>
+  	<url-pattern>/emp/empBonus.do</url-pattern>
+  	<url-pattern>/emp/empDetail.do</url-pattern>
   	<url-pattern>/cust/custSearch.do</url-pattern>
   	<url-pattern>/cust/addCust.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/mgn.do</url-pattern>

@@ -66,7 +66,8 @@ public class DetailHandler implements CommandHandler {
 				interestStr = interestStr.replaceAll("[\\%]", "");
 				accountInterest = (Float.parseFloat(interestStr)/100);
 				bankbook = new BankBook(accountNum, custCode, accountPlanCode, accountOpenDate, accountInterest);
-				
+				bankbook.setAccountTermination(true);
+				service.changeBankBookTermination(bankbook);
 				session = req.getSession();
 				session.setAttribute("successdel", "success");
 				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/mgn.do");
@@ -86,9 +87,10 @@ public class DetailHandler implements CommandHandler {
 				interestStr = interestStr.replaceAll("[\\%]", "");
 				accountInterest = (Float.parseFloat(interestStr)/100);
 				bankbook = new BankBook(accountNum, custCode, accountPlanCode, accountOpenDate, accountInterest);
-				
+				bankbook.setAccountDormant(true);
+				service.changeBankBookDormant(bankbook);
 				session = req.getSession();
-				session.setAttribute("successdel", "success");
+				session.setAttribute("successchange", "success");
 				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/mgn.do");
 				break;
 			}

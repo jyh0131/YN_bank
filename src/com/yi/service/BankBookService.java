@@ -130,4 +130,10 @@ public class BankBookService {
 	public BankBook showBankBookByCustNameAndAccountNum(BankBook bankbook) throws SQLException {
 		return bankBookDao.showBankBookByCustNameAndAccountNum(bankbook);
 	}
+	public int changeBankBookDormant(BankBook bankbook) throws SQLException {
+		return bankBookDao.changeBankBookDormant(bankbook);
+	}
+	public int changeBankBookTermination(BankBook bankbook) throws SQLException {
+		return bankBookDao.changeBankBookTermination(bankbook);
+	}
 }

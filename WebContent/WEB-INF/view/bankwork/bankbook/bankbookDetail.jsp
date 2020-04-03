@@ -75,6 +75,18 @@
         		}
     		});
     	})
+    	$("#del").click(function() {
+    		if(!confirm("삭제하시겠습니까?")) {
+    			alert("삭제가 취소되었습니다");
+    			return false;
+    		}
+    	})
+    	$("#change").click(function() {
+    		if(!confirm("휴면계좌로 전환하시겠습니까?")) {
+    			alert("휴면계좌 전환이 취소되었습니다");
+    			return false;
+    		}
+    	})
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do";
     	})
@@ -119,8 +131,8 @@
 				
 				<div id="submit">
 					<input type="submit" value="수정" id="modify">
-					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=del">
-					<input type="submit" value="휴면계좌전환" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=change">
+					<input type="submit" value="삭제" id="del" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=del">
+					<input type="submit" value="휴면계좌전환" id="change" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=change">
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

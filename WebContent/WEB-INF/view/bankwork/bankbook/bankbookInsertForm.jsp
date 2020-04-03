@@ -64,7 +64,7 @@
 	<script>
     $(function() {
     	$('#date').datepicker({
-            dateFormat: 'yy-dd-mm',
+            dateFormat: 'yy-mm-dd',
             onSelect: function(datetext) {
                 var d = new Date(); // for now
 
@@ -81,13 +81,53 @@
                 $('#date').val(datetext);
             }
         });
+    	$("form").submit(function() {
+    		if($("input[name='accountnum']").val()==""||$("input[name='accountOpenDate']")==""||$("input[name='accountInterest']").val()=="") {
+    			alert("입력란을 모두 입력해주세요");
+    			return false;
+    		}
+    		var accountnum = $("input[name='accountnum']").val();
+    		var accountnumReg = /^(293133)[-](11|12|13)[-][0-9]{6}$/;
+    		if(!accountnumReg.test(accountnum)) {
+    			alert("계좌번호 형식에 맞지 않습니다. 다시 입력해주세요");
+    			return false;
+    		}
+    		var accountInterest = $("input[name='accountInterest']").val();
+    		var accountInterestReg = /^(100|[0-9]{1,2})[%]$/;
+    		if(!accountInterestReg.test(accountInterest)) {
+    			alert("이자율 형식에 맞지 않습니다. 다시 입력해주세요(0~100%)");
+    			return false;
+    		}
+    	})
+    	$("input[type='reset']").click(function() {
+    		location.href = "${pageContext.request.contextPath}/main/main.do";
+    	})
     });
 	</script>
+	<c:if test="${normal!=null}">
+		<script>
+			$(function(){
+				$("#cust").change(function() {
+					if($("#cust option:selected").attr("data-rank")!='D') {
+						$(".vip").hide();
+						$(".normal").show();
+						$(".normal").eq(0).prop("selected", true)
+					}
+					else {
+						$(".normal").hide();
+						$(".vip").show();
+						$(".vip").eq(0).prop("selected", true)
+					}
+		    	})
+			})
+		</script>
+	</c:if>
 	<div id="container">
 		<div id="header">
 			<h1>통장 추가</h1>
 		</div>
-		<form>
+		<form action="${pageContext.request.contextPath}/bankwork/bankbook/add.do" method="post">
+			<input type="hidden" value=${Auth.empName} name="empname">
 			<div id="profile">
 				<h2>통장 정보</h2>
 				<div id="profileEdit">
@@ -95,9 +135,9 @@
 						<tr>
 							<th>고객명</th>
 							<td>
-								<select>
+								<select name="custname" id="cust">
 									<c:forEach var="cust" items="${custList}">
-										<option>${cust}</option>
+										<option data-rank="${cust.custRank}">${cust}</option>
 									</c:forEach>
 								</select>
 							</td>
@@ -109,9 +149,12 @@
 						<tr>
 							<th>상품명</th>
 							<td>
-								<select>
-									<c:forEach var="plan" items="${planListAll}">
-										<option>${plan}</option>
+								<select name="planname" id="plan">
+									<c:forEach var="plan" items="${planList}">
+										<option class="vip">${plan}</option>
+									</c:forEach>
+									<c:forEach var="planNormal" items="${planListNormal}">
+										<option class='normal'>${planNormal}</option>
 									</c:forEach>
 								</select>
 							</td>
@@ -127,12 +170,10 @@
 						</tr>
 					</table>
 				</div>
-				
 				<div id="submit">
 					<input type="submit" value="등록">
 					<input type="reset" value="취소">
 				</div>
-				
 			</div>
 		</form>
 	</div>

@@ -2,6 +2,7 @@ package com.yi.handler.main;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yi.dto.Notice;
 import com.yi.mvc.CommandHandler;
@@ -13,7 +14,8 @@ public class NoticeDelHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		int no = Integer.parseInt(req.getParameter("no"));
 		service.removeNotice(new Notice(no));
-		req.setAttribute("del", "del");
+		HttpSession session = req.getSession();
+		session.setAttribute("successdel", "success");
 		res.sendRedirect(req.getContextPath()+"/main/main.do");
 		return null;
 	}

@@ -2,6 +2,7 @@ package com.yi.handler.main;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yi.dto.Notice;
 import com.yi.mvc.CommandHandler;
@@ -23,8 +24,8 @@ public class NoticeModHandler implements CommandHandler {
 			String writer = req.getParameter("writer");
 			String content = req.getParameter("content");
 			Notice notice = new Notice(no, subject, writer, content);
-			service.modifyNotice(notice);
-			req.setAttribute("mod", "mod");
+			HttpSession session = req.getSession();
+			session.setAttribute("successmod", "success");
 			res.sendRedirect(req.getContextPath()+"/main/main.do");
 		}
 		return null;

@@ -33,7 +33,7 @@
   </filter>
   <filter-mapping>
   	<filter-name>LoginFilter</filter-name>
-  	<url-pattern>/main/login.do</url-pattern>
+  	<url-pattern>/main/main.do</url-pattern>
   	<url-pattern>/main/noticeDetail.do</url-pattern>
   	<url-pattern>/emp/empSearch.do</url-pattern>
   	<url-pattern>/emp/empForm.do</url-pattern>

@@ -64,7 +64,7 @@ div#profileMain div#pic span {
 
 div#profileMain div#pic #proName {
 	width: 100x;
-	font-size: 30px;
+	font-size: 25px;
 	font-weight: bold;
 	line-height: 100px;
 }
@@ -296,7 +296,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 					//alert(full);
 				    
 					if(full ==""){
-						$("#empPicture").attr("src","${pageContext.request.contextPath}/images/no-img.png");	
+						$("#empPicture").attr("src","${pageContext.request.contextPath}/images/no-img.jpg");	
 					}else{
 					f_name = full[full.length-1]; //마지막 화일명
 				//     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
@@ -305,6 +305,24 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 				  $("#empPicture").attr("src","${pageContext.request.contextPath}/images/"+f_name);
 				}	
 			})
+			
+			$("#empName").change(function(){
+				var empNameForProfile = $("#empName").val(); 
+				//alert(empNameForProfile);
+				$("#proName").html(empNameForProfile);
+			})
+			
+			$("#selectForDept").change(function(){
+				var empDeptNo = $("#selectForDept").val(); 
+				
+				if(empDeptNo == 1){
+					$("#proDept").html("인사팀");
+				}else{
+					$("#proDept").html("고객팀");
+				}
+
+			})
+			
 			
 	})
 </script>
@@ -323,8 +341,8 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 				<div id="profileMain">
 					<div id="pic">
 						<img alt="사원사진"
-							src="${pageContext.request.contextPath}/images/no-img.png" id="empPicture">
-						<span id="proName"></span> <span id="proDept"></span>
+							src="${pageContext.request.contextPath}/images/no-img.jpg" id="empPicture">
+						<span id="proName">사원명</span> <span id="proDept">인사팀</span>
 
 					</div>
 					<div id="nameInfo"></div>
@@ -338,7 +356,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td><input type="text" name="empName"><br> <span
+							<td><input type="text" name="empName" id="empName"><br> <span
 								class="errorMSG">사원이름을 입력해주세요.</span> <span class="errorMSG">사원이름은
 									2-5자리 한글로 입력해주세요.</span> <span class="errorMSG">사원이름 중복입니다. 구분이
 									필요합니다.</span></td>

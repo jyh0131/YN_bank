@@ -88,7 +88,7 @@ public class empAddHandler implements CommandHandler {
 					new Department(Integer.parseInt(multi.getParameter("deptNo"))), 
 					multi.getFilesystemName("pic").getBytes());
 		  
-			System.out.println(emp);
+			//System.out.println(emp);
 			service = new EmployeeUIService();
 			service.addEmp(emp);
 			}catch (Exception e) {

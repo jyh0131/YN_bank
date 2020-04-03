@@ -408,6 +408,27 @@ public class CustomerDaoImpl implements CustomerDao {
 		return list;
 	}
 
+	@Override
+	public List<Customer> selectNormalCust() throws SQLException {
+		List<Customer> list = null;
+		String sql = "select * from customer where custCode like ?";
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "C%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	
 	
 	

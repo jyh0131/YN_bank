@@ -12,7 +12,7 @@ public class Employee {
 	private String empId;
 	private String empPwd;
 	private Department dept;
-	private byte[] pic;
+	private String pic;
 	private boolean empRetire;
 	
 	private int perf;
@@ -28,7 +28,7 @@ public class Employee {
 	
 	
     public Employee(String empCode, String empName, String empTitle, String empAuth, int empSalary, String empTel,
-			String empId, String empPwd, Department dept, byte[] pic) {
+			String empId, String empPwd, Department dept, String pic) {
 		super();
 		this.empCode = empCode;
 		this.empName = empName;
@@ -44,7 +44,7 @@ public class Employee {
 
     
 
-	public Employee(String empCode, String empName, String empTitle, byte[] pic, int perf, int bonus, String vip) {
+	public Employee(String empCode, String empName, String empTitle, String pic, int perf, int bonus, String vip) {
 		super();
 		this.empCode = empCode;
 		this.empName = empName;
@@ -73,7 +73,7 @@ public class Employee {
 
     
 
-    public Employee(String empCode, String empName, String empTitle, byte[] pic, int perf, int bonus) {
+    public Employee(String empCode, String empName, String empTitle, String pic, int perf, int bonus) {
 		super();
 		this.empCode = empCode;
 		this.empName = empName;
@@ -277,13 +277,13 @@ public class Employee {
 
 
 
-	public byte[] getPic() {
+	public String getPic() {
 		return pic;
 	}
 
 
 
-	public void setPic(byte[] pic) {
+	public void setPic(String pic) {
 		this.pic = pic;
 	}
 
@@ -293,7 +293,7 @@ public class Employee {
 	public String toString() {
 		return "Employee [empCode=" + empCode + ", empName=" + empName + ", empTitle=" + empTitle + ", empAuth="
 				+ empAuth + ", empSalary=" + empSalary + ", empTel=" + empTel + ", empId=" + empId + ", empPwd="
-				+ empPwd + ", dept=" + dept + ", pic=" + Arrays.toString(pic) + ", perf=" + perf + ", bonus=" + bonus
+				+ empPwd + ", dept=" + dept + ", pic=" + pic + ", perf=" + perf + ", bonus=" + bonus
 				+ ", vip=" + vip + "]";
 	}
 	

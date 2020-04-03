@@ -144,7 +144,7 @@ div#submit input {
 	font-size: 12px;
 }
 
-div#profileEdit table td #inputEmpAuth {
+ div#profileEdit table td #inputEmpAuth {
 	background: darkgray;
 }
 
@@ -152,9 +152,9 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 	color: black;
 }
 
-div#profileEdit table td #inputEmpPwd::placeholder {
+/* div#profileEdit table td #inputEmpPwd::placeholder {
 	font-size: 12px;
-}
+}  */
 </style>
 
 <script>
@@ -290,6 +290,10 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 
 				}) //서밋 끝나는거 
 				
+				
+				
+				
+				
 				//파일 선택시 이미지 변경 
 				$("#empFile").change(function(){
 					var full = $(this).val().split("\\");
@@ -319,6 +323,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 				$("#proDept").html("고객팀");
 			}
 			
+			//부서 바꾸기
 			$("#selectForDept").change(function(){
 				var empDeptNo = $("#selectForDept").val(); 
 				
@@ -331,6 +336,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 			})
 			
 			
+			
 	})
 </script>
 
@@ -341,14 +347,14 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 		<div id="header">
 			<h1>사용자 프로필</h1>
 		</div>
-		<form action="empAdd.do" method="post" enctype="multipart/form-data">
+		<form action="empUpdate.do" method="post" enctype="multipart/form-data">
 
 			<div id="profile">
 				<h2>프로필</h2>
 				<div id="profileMain">
 					<div id="pic">
 						<img alt="사원사진"
-							src="${pageContext.request.contextPath}/images/no-img.jpg" id="empPicture">
+							src="${pageContext.request.contextPath}/images/${emp.pic ==null?'no-img.jpg':emp.pic}" id="empPicture">
 						<span id="proName">${emp.empName }</span> <span id="proDept"></span>
 
 					</div>
@@ -378,7 +384,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 						<tr>
 							<th>권한</th>
 							<td><input type="text" name="empAuth" readonly="readonly"
-								placeholder="권한탭에서 부여가능한 부분입니다." id="inputEmpAuth" value="${emp.empAuth }"></td>
+								placeholder="권한탭에서 부여가능한 부분입니다." id="inputEmpAuth" value="${emp.empAuth ==''?'':emp.empAuth }"></td>
 						</tr>
 						<tr>
 							<th>월급</th>

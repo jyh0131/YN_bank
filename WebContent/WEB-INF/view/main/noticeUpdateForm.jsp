@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,12 +14,14 @@
 	div#noticeInner {  height: 700px; background: whitesmoke; }
 	div#noticeInner p { height:10px; padding: 30px;  }
 	div#noticeInner p#noticeContent { height: 50px;}
-	div#noticeInner div#contents { height: 300px; 
-								   padding: 0 60px; 
-								   overflow: scroll;
+	div#noticeInner div#contents { height: 300px; text-align: center;
 								  }
-	div#noticeInner .th { font-weight: bold;}
+	div#noticeInner .th { width:150px; font-weight: bold;}
 	div#noticeInner p span { display: block; width: 200px;  float: left; }
+	div#noticeInner input { width: 300px;height: 40px;
+							border: none; 
+					        background: whitesmoke;
+					        border-bottom: 2px solid goldenrod;}
 	div#noticeInner div#noticeBtns { text-align: center;}
 	div#noticeInner div#noticeBtns button { background: gray;
 											border: none;
@@ -31,41 +32,39 @@
 									        color: whitesmoke; }
 </style>
 <body>
-    <jsp:include page="../include/menu.jsp"/>
-    <script>
-    	$(function(){
-    		$("button").eq(1).click(function() {
-    			location.href = "${pageContext.request.contextPath}/main/main.do";
-    		})
-    	})
-    </script>
+	<jsp:include page="../include/menu.jsp"/>
+	<script>
+		$(function(){
+			$("button").eq(1).click(function() {
+				location.href = "${pageContext.request.contextPath}/main/main.do";
+			})
+		})
+	</script>
 	<div id="noticeWrap">
-		<h1>공지사항</h1>
+		<h1>공지사항 수정</h1>
 		<div id="noticeInner">
-			<p>
-				<span class="th">제목</span>
-				<span>${notice.subject}</span>
-			</p>
-			<p>
-				<span class="th">작성자</span>
-				<span>${notice.writer}</span>
-			</p>
-			<p id="noticeContent">
-				<span class="th">내용</span>
-			</p>
+			<form action="${pageContext.request.contextPath}/main/noticeMod.do" method="post">
+				<input type="hidden" value="${notice.no}" name="no">
+				<p>
+					<span class="th">제목</span>
+					<input type="text" name="title" value="${notice.subject}">
+				</p>
+				<p>
+					<span class="th">작성자</span>
+					<input type="text" name="writer" readonly="readonly" value="${notice.writer}">
+				</p>
+				<p id="noticeContent">
+					<span class="th">내용</span>
+				</p>
 				<div id="contents">
-				<span id="contentText">${notice.content}</span>
-			</div>
-			
-			<div id="noticeBtns">
-				<c:if test="${Auth.empAuth=='AD'}">
+					<textarea rows="15" cols="100" name="content">${notice.content}</textarea>
+				</div>
+				
+				<div id="noticeBtns">
 					<button>수정</button>
 					<button>취소</button>
-				</c:if>
-				<c:if test="${Auth.empAuth!='AD'}">
-					<button>돌아가기</button>
-				</c:if>
-			</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>

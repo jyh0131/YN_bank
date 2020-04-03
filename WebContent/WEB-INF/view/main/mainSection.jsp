@@ -135,9 +135,7 @@
     		<span id="noticeTitle">공지사항</span>
     		<c:if test="${Auth.empAuth=='AD'}">
     			<div id="noticeMng">
-		    		<a href="#"><i class="fas fa-plus" id="fa_plus"></i></a>
-		    		<a href="#"><i class="fas fa-minus" id="fa_minus"></i></a>
-		    		<a href="#"><i class="fas fa-edit" id="fa_edit"></i></a>
+		    		<a href="${pageContext.request.contextPath}/main/noticeAdd.do"><i class="fas fa-plus" id="fa_plus"></i></a>
     			</div>
     		</c:if>
     		

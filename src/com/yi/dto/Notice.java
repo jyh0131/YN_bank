@@ -26,6 +26,14 @@ public class Notice {
 		this.writer = writer;
 	}
 	
+	
+	public Notice(int no, String subject, String writer, String content) {
+		this.no = no;
+		this.subject = subject;
+		this.writer = writer;
+		this.content = content;
+	}
+
 	public Notice(String subject, String writer, Date writeDate, String content) {
 		this.subject = subject;
 		this.writer = writer;

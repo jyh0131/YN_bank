@@ -77,12 +77,13 @@ public class NoticeDaoImpl implements NoticeDao {
 	@Override
 	public int updateNotice(Notice notice) throws SQLException {
 		int res = -1;
-		String sql = "update notice set content = ? where no= ? and writer = ?";
+		String sql = "update notice set subject=?, writer = ?, content = ? where no= ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, notice.getContent());
-			pstmt.setInt(2, notice.getNo());
-			pstmt.setString(3, notice.getWriter());
+			pstmt.setString(1, notice.getSubject());
+			pstmt.setString(2, notice.getWriter());
+			pstmt.setString(3, notice.getContent());
+			pstmt.setInt(4, notice.getNo());
 			res = pstmt.executeUpdate();
 		}
 		return res;

@@ -7,14 +7,15 @@ import com.yi.dto.Notice;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.NoticeService;
 
-public class NoticeDetailHandler implements CommandHandler {
+public class NoticeDelHandler implements CommandHandler {
 	private NoticeService service = new NoticeService();
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		int no = Integer.parseInt(req.getParameter("no"));
-		Notice notice = service.showNoticeByNo(new Notice(no));
-		req.setAttribute("notice", notice);
-		return "/WEB-INF/view/main/noticeDetail.jsp";
+		service.removeNotice(new Notice(no));
+		req.setAttribute("del", "del");
+		res.sendRedirect(req.getContextPath()+"/main/main.do");
+		return null;
 	}
-
+	
 }

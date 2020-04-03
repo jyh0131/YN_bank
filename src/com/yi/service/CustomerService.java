@@ -32,6 +32,10 @@ public class CustomerService {
 		return dao.selectBusinessCust();
 	}
 	
+	public List<Customer> showNormalCustomer() throws SQLException{
+		return dao.selectNormalCust();
+	}
+	
 	public List<Customer> showCustomerByCode(String custCode) throws SQLException{
 		return dao.selectCustomerByCode(custCode);
 	}

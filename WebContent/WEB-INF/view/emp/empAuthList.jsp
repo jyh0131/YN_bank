@@ -106,21 +106,16 @@
         var $menutd1 = $("<td>").html("사원코드");
         var $menutd2 = $("<td>").html("사원이름");
         var $menutd3 = $("<td>").html("직책");
-        var $menutd4 = $("<td>").html("권한");
-        var $menutd5 = $("<td>").html("월급");
-        var $menutd6 = $("<td>").html("연락처");
-        var $menutd7 = $("<td>").html("아이디");
-        var $menutd8 = $("<td>").html("비밀번호");
-        var $menutd9 = $("<td>").html("부서");
+        var $menutd4 = $("<td>").html("부서");
+        var $menutd5 = $("<td>").html("권한");
+    
+       
         $menutr.append($menutd1);
         $menutr.append($menutd2);
         $menutr.append($menutd3);
         $menutr.append($menutd4);
         $menutr.append($menutd5);
-        $menutr.append($menutd6);
-        $menutr.append($menutd7);
-        $menutr.append($menutd8);
-        $menutr.append($menutd9);
+  
         
         
 		  switch(div) {
@@ -149,22 +144,14 @@
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
-				    			var $td6 = $("<td>").html(obj.empTel);
-				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html("**********");
-				    			var $td9 = $("<td>").html(obj.dept.deptName);
+				    			var $td4 = $("<td>").html(obj.dept.deptName);
+				    			var $td5 = $("<td>").html(obj.empAuth);
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
 				    			$tr.append($td5);
-				    			$tr.append($td6);
-				    			$tr.append($td7);
-				    			$tr.append($td8);
-				    			$tr.append($td9);
 				    			
 				    			$table.append($menutr);
 				    			$table.append($tr);
@@ -198,22 +185,14 @@
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
-				    			var $td6 = $("<td>").html(obj.empTel);
-				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html("**********");
-				    			var $td9 = $("<td>").html(obj.dept.deptName);
+				    			var $td4 = $("<td>").html(obj.dept.deptName);
+				    			var $td5 = $("<td>").html(obj.empAuth);
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
 				    			$tr.append($td5);
-				    			$tr.append($td6);
-				    			$tr.append($td7);
-				    			$tr.append($td8);
-				    			$tr.append($td9);
 				    			
 				    			
 				    			$table.append($tr);
@@ -246,22 +225,14 @@
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
-				    			var $td6 = $("<td>").html(obj.empTel);
-				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html("**********");
-				    			var $td9 = $("<td>").html(obj.dept.deptName);
+				    			var $td4 = $("<td>").html(obj.dept.deptName);
+				    			var $td5 = $("<td>").html(obj.empAuth);
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
 				    			$tr.append($td5);
-				    			$tr.append($td6);
-				    			$tr.append($td7);
-				    			$tr.append($td8);
-				    			$tr.append($td9);
 				    			
 				    			
 				    			$table.append($tr);
@@ -295,22 +266,14 @@
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
-				    			var $td6 = $("<td>").html(obj.empTel);
-				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html("**********");
-				    			var $td9 = $("<td>").html(obj.dept.deptName);
+				    			var $td4 = $("<td>").html(obj.dept.deptName);
+				    			var $td5 = $("<td>").html(obj.empAuth);
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
 				    			$tr.append($td5);
-				    			$tr.append($td6);
-				    			$tr.append($td7);
-				    			$tr.append($td8);
-				    			$tr.append($td9);
 				    			
 				    			
 				    			$table.append($tr);
@@ -324,16 +287,8 @@
 			  break;
 		  }
 		  
-	  }) //버튼 이벤트 끝나는 것 
-	   
-	  
-	  //각 줄을 클릭할 때마다 내가 부여한 data-empCode를 받아오기 
-	  $(".oneEmp").click(function(){
-		  var OneCode = $(this).attr("data-empCode");
-		  //alert(OneCode);
-		  location.href="${pageContext.request.contextPath}/emp/empDetail.do?empCode="+OneCode;
 	  })
-	  
+	   
 	   
    })
 
@@ -364,29 +319,21 @@
 					<th>사원코드</th>
 					<th>사원이름</th>
 					<th>직책</th>
-					<th>권한</th>
-					<th>월급</th>
-					<th>연락처</th>
-					<th>아이디</th>
-					<th>비밀번호</th>
 					<th>부서</th>
+					<th>권한</th>
+				
 
 				</tr>
 				<span id="renew">
 				<c:forEach var='empList' items="${list }">
-				<tr class="oneEmp" data-empCode="${empList.empCode }">
+				<a href="#"><tr>
 					<td>${empList.empCode }</td>
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
-					<td>${empList.empAuth }</td>
-					<td>${empList.empSalary }</td>
-					<td>${empList.empTel }</td>
-					<td>${empList.empId }</td>
-					<td>**********</td>
 					<td>${empList.dept}</td>
-					
+					<td>${empList.empAuth }</td>	
 				</tr>
-	          
+	            </a>
 				</c:forEach>
 				</span>
 		</table>

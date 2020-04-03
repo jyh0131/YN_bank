@@ -33,6 +33,13 @@
 	div#profileEdit table tr { height: 30px; }
 	div#profileEdit table th { width: 100px; text-align: left; }
 	div#profileEdit table td { width: 200px; text-align: center;}
+	div#profileEdit table td#regExp { width: 200px; 
+									  color: maroon;
+									  font-weight: bold;
+									  font-size: 14px;
+									  height: 40px;
+									  line-height: 40px;
+									  display: none;  }
 	div#profileEdit table td input { width: 250px;
 									 background: whitesmoke;
 								     border: none; 
@@ -57,13 +64,24 @@
 		$("input[type='submit']").click(function(){
 			var name = $("input[name='name']").val();
 			var addr = $("input[name='addr']").val();
-			var contact = $("input[name='contact']").val();
+			var contact1 = $("input[name='contact1']").val();
+			var contact2 = $("input[name='contact2']").val();
+			var contact3 = $("input[name='contact3']").val();
 			var rank = $("select[name='rank']").val();
 			var credit = $("select[name='credit']").val();
 			
-			if(name=="" || addr=="" || contact=="" || rank=="등급 선택" || credit=="신용등급 선택" || custDiv=="분류 선택"){
+			if(name=="" || addr=="" || contact1=="" || contact2=="" || contact3=="" || rank=="등급 선택" || credit=="신용등급 선택"){
 				alert("모든 항목을 선택해주세요.");
 				return false;
+			}else{
+				//정규표현식
+				//연락처 - 숫자 이외 문자 x
+				var contactReg = /[0-9]/;             
+				if(contactReg.test(contact1)==false || contactReg.test(contact2) == false || contactReg.test(contact3) == false){
+					$("td#regExp").css("display", "block");
+					return false;         
+				}
+					
 			}
 			
 		})
@@ -96,7 +114,7 @@
 							<td><input type="text" name="code" value="${nextCustNum }" disabled></td>
 						</tr>
 						<tr>
-							<th>대표자 명</th>
+							<th>회사 명</th>
 							<td><input type="text" name="name"></td>
 						</tr>
 						<tr>
@@ -136,7 +154,12 @@
 								<input type="text" class="contact"  name="contact3">
 							</td>
 						</tr>
-						
+						<tr>
+							<td></td>
+							<td id="regExp">
+								연락처는 숫자만 입력해주세요.
+							</td>
+						</tr>
 						
 					</table>
 				</div>

@@ -23,14 +23,23 @@
 	div#profile h2 { height: 50px; }				  
 	div#profile h3 { text-align: center;}
 	div#submit { text-align: center; 
-				 height: 100px; 
-				 line-height: 250px; }
+				 height: 250px; 
+				  line-height: 250px;  }
 	div#submit button { width: 200px;  height: 50px; 
 					   border: none;
 					   background: gray; 
 					   margin-left:20px; 
 					   font-size: 17px;
-					   color: whitesmoke;}						    
+					   color: whitesmoke;}
+					   
+	div#backTotheMain {height: 100px; 
+					   text-align: center;
+					   line-height: 100px;  }
+					   
+	div#backTotheMain button { width: 200px;
+							   height: 50px; 
+							   font-weight: bold;
+							   font-size: 17px; }					    
 </style>
 <script>
 	$(function(){
@@ -39,6 +48,9 @@
 		})
 		$("#nor").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/cust/addCust.do');
+		})
+		$("#back").click(function(){
+			$(location).attr('href','${pageContext.request.contextPath}/main/main.do');
 		})
 	})    
 </script>
@@ -54,6 +66,9 @@
 				<div id="submit">
 					<button id="bus">기업</button>
 					<button id="nor">일반</button>
+				</div>
+				<div id="backTotheMain">
+					<button id="back">이전으로</button>
 				</div>
 			</div>
 	</div>

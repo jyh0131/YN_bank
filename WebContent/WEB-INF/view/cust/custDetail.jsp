@@ -12,24 +12,58 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
     $(function() {
+    	
+    	$("input[value='확인']").css("display", "none");
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/cust/custSearch.do";
     	})
     	$("input[value='수정']").click(function(){
+    		$("input[value='확인']").css("display", "inline");
     		$("h1").html("고객 세부 정보 수정");
-    		$("input").removeAttr("readonly");
+    		$("input").removeAttr("readonly");  
     		$("input[name='custDiv']").attr("readonly", "readonly");
-    		$("input[name='custCode']").focus();
+    		$("input[name='custCode']").attr("readonly", "readonly");
+    		$("input[name='custName']").focus();
     		$("input[value='삭제']").remove();
-    		$("input[value='수정']").attr("value", "확인");
+    		$("input[value='수정']").remove();
     		return false;
     	})
-    	$("input[value='확인']").click(function(){
-    		alert("확인!");
-    		return false;  
-    	})
+    	
+    	
+    	var custDiv = $("input[name='custDiv']").val();
+    	var custCode = $("input[name='custCode']").val();
+    	var custName = $("input[name='custName']").val();
+    	var custRank = $("select[name='custRank']").val();
+    	var custCredit = $("select[name='custCredit']").val();
+    	var addr = $("input[name='addr']").val();
+    	var contact = $("input[name='contact']").val();
+    	
+    	 //동적으로 생성된 input 태그에 이벤트
+ 		$("input[value='확인']").on({
+ 			"click" : function(){
+ 				var edit = confirm("수정하시겠습니까?");
+ 				if(edit==false){
+ 					return false;
+ 				}
+ 			}
+ 		}) 
+ 		
+ 		$("input[value='삭제']").on({
+ 			"click" : function(){
+ 				var del = confirm("삭제하시겠습니까?");
+ 				if(del==false){
+ 					return false;  
+ 				}
+ 				var custCode = $("input[name='custCode']").val();
+ 				console.log(custCode);
+ 				location.href = "${pageContext.request.contextPath}/cust/custDelete.do?custCode="+custCode;
+ 			}
+ 		}) 
+ 		     
+ 		      
+ 
     });
-</script>
+</script>       
 </head>
 <style>
 	* { margin:0; padding:0; 
@@ -88,7 +122,7 @@
 		<div id="header">
 			<h1>고객 세부 정보</h1>
 		</div>
-		<form>
+		<form action="custUpdate.do" method="post">
 			<div id="profile">
 				<h2>고객 정보</h2>
 				<div id="profileEdit">
@@ -97,7 +131,7 @@
 							<th>분류</th>
 							<td>
 								<c:if test="${customer.custDiv==false }">
-									<input type="text" name="custDiv" readonly="readonly" value="고객">
+									<input type="text" name="custDiv" readonly="readonly" value="일반">
 								</c:if>
 								<c:if test="${customer.custDiv==true }">
 									<input type="text" name="custDiv" readonly="readonly" value="기업">
@@ -114,7 +148,7 @@
 						<tr>
 							<th>고객명</th>
 							<td>
-								<input type="text" name="custname" readonly="readonly" value="${customer.custName }">
+								<input type="text" name="custName" readonly="readonly" value="${customer.custName }">
 							</td>
 						</tr>
 						<tr>
@@ -238,14 +272,17 @@
 						</tr>
 						<tr>
 							<th>연락처</th>
-							<td><input type="text" name="custTel" readonly="readonly" value="${customer.custTel }"></td>
+							<td>
+								<input type="text" name="custTel" readonly="readonly" value="${customer.custTel }">
+							</td>
 						</tr>
 					</table>
 				</div>
 				
 				<div id="submit">
 					<input type="submit" value="수정">
-					<input type="submit" value="삭제">
+					<input type="submit" value="확인">
+					<input type="submit" value="삭제">   
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

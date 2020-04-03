@@ -54,11 +54,8 @@
  				if(del==false){
  					return false;  
  				}
- 				var custCode = $("input[name='custCode']").val();
- 				console.log(custCode);
- 				location.href = "${pageContext.request.contextPath}/cust/custDelete.do?custCode="+custCode;
  			}
- 		}) 
+ 		})
  		     
  		      
  
@@ -282,7 +279,7 @@
 				<div id="submit">
 					<input type="submit" value="수정">
 					<input type="submit" value="확인">
-					<input type="submit" value="삭제">   
+					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/cust/custDelete.do?custCode=${customer.custCode}">   
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

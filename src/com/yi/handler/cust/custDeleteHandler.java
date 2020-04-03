@@ -16,9 +16,9 @@ public class custDeleteHandler implements CommandHandler {
 			try {
 				String custCode = req.getParameter("custCode");
 				Customer customer = new Customer();
-				customer.setCustCode(custCode);   
+				customer.setCustCode(custCode);
 				service.removeCustomer(customer);
-				return "/cust/custSearch.do";
+				res.sendRedirect(req.getContextPath()+"/cust/custSearch.do");
 			}catch(Exception e) {  
 				e.printStackTrace();       
 			}   

@@ -31,7 +31,9 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public List<BankBook> showBankBooks() throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-11-%'\r\n" + 
+				"union select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-12-%'\r\n" + 
+				"union select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-13-%'";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -43,13 +45,13 @@ public class BankBookDaoImpl implements BankBookDao {
 	}
 
 	private BankBook getBankBook(ResultSet rs) throws SQLException {
-		String accountNum = rs.getString("b.accountnum");
-		Customer custCode = new Customer(rs.getString("c.custcode"));
-		custCode.setCustName(rs.getString("c.custname"));
-		Plan accountPlanCode = new Plan(rs.getString("p.plancode"));
-		accountPlanCode.setPlanName(rs.getString("p.planname"));
-		Date accountOpenDate = rs.getTimestamp("b.accountOpenDate");
-		float accountInterest = rs.getFloat("b.accountInterest");
+		String accountNum = rs.getString("accountnum");
+		Customer custCode = new Customer(rs.getString("custcode"));
+		custCode.setCustName(rs.getString("custname"));
+		Plan accountPlanCode = new Plan(rs.getString("plancode"));
+		accountPlanCode.setPlanName(rs.getString("planname"));
+		Date accountOpenDate = rs.getTimestamp("accountOpenDate");
+		float accountInterest = rs.getFloat("accountInterest");
 		return new BankBook(accountNum, custCode, accountPlanCode, accountOpenDate, accountInterest);
 	}
 
@@ -72,17 +74,19 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public int insertBankBook(BankBook bankbook) throws SQLException {
 		int res = -1;
-		String sql = "insert into BankBook values(?,?,?,?,?,?,(select empcode from employee where empname = ?),?)";
+		String sql = "insert into BankBook values(?,(select custcode from customer where custname = ?),(select plancode from plan where planname = ?),?,?,?,?,?,(select empcode from employee where empname = ?),?)";
 		try(Connection con = DriverManager.getConnection(jdbcDriver); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, bankbook.getAccountNum());
-			pstmt.setString(2, bankbook.getCustCode().getCustCode());
-			pstmt.setString(3, bankbook.getAccountPlanCode().getPlanCode());
+			pstmt.setString(2, bankbook.getCustCode().getCustName());
+			pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
 			pstmt.setTimestamp(4, new Timestamp(bankbook.getAccountOpenDate().getTime()));
 			pstmt.setFloat(5, bankbook.getAccountInterest());
 			pstmt.setLong(6, bankbook.getAccountBalance()==0?0:bankbook.getAccountBalance());
-			pstmt.setString(7, bankbook.getEmployee().getEmpName());
-			pstmt.setBoolean(8, bankbook.isConnectChk());
+			pstmt.setBoolean(7, bankbook.isAccountDormant());
+			pstmt.setBoolean(8, bankbook.isAccountTermination());
+			pstmt.setString(9, bankbook.getEmployee().getEmpName());
+			pstmt.setBoolean(10, bankbook.isConnectChk());
 			res = pstmt.executeUpdate();
 		}
 		return res;
@@ -547,5 +551,65 @@ public class BankBookDaoImpl implements BankBookDao {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int changeBankBookDormant(BankBook bankbook) throws SQLException {
+		int res = -1;
+		String sql = "update bankbook set accountDormant = ? where custcode = (select custcode from customer where custname = ?) and accountplancode = (select plancode from plan where planname = ?)";
+		try(Connection con = DriverManager.getConnection(jdbcDriver)) {
+			con.setAutoCommit(false);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setBoolean(1, bankbook.isAccountDormant());
+			pstmt.setString(2, bankbook.getCustCode().getCustName());
+			pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
+			res = pstmt.executeUpdate();
+			sql = "update bankbook set accountnum = ? where custcode = (select custcode from customer where custname = ?) and accountplancode = (select plancode from plan where planname = ?)";
+			pstmt = con.prepareStatement(sql);
+			String accountNum = bankbook.getAccountNum();
+			accountNum = accountNum.replace("-1", "-2");
+			bankbook.setAccountNum(accountNum);
+			pstmt.setString(1, bankbook.getAccountNum());
+			pstmt.setString(2, bankbook.getCustCode().getCustName());
+			pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
+			res += pstmt.executeUpdate();
+			if(res==2) {
+				con.commit();
+			}
+			else {
+				con.rollback();
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public int changeBankBookTermination(BankBook bankbook) throws SQLException {
+		int res = -1;
+		String sql = "update bankbook set accountTermination = ? where custcode = (select custcode from customer where custname = ?) and accountplancode = (select plancode from plan where planname = ?)";
+		try(Connection con = DriverManager.getConnection(jdbcDriver)) {
+			con.setAutoCommit(false);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setBoolean(1, bankbook.isAccountTermination());
+			pstmt.setString(2, bankbook.getCustCode().getCustName());
+			pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
+			res = pstmt.executeUpdate();
+			sql = "update bankbook set accountnum = ? where custcode = (select custcode from customer where custname = ?) and accountplancode = (select plancode from plan where planname = ?)";
+			pstmt = con.prepareStatement(sql);
+			String accountNum = bankbook.getAccountNum();
+			accountNum = accountNum.replace("-1", "-3");
+			bankbook.setAccountNum(accountNum);
+			pstmt.setString(1, bankbook.getAccountNum());
+			pstmt.setString(2, bankbook.getCustCode().getCustName());
+			pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
+			res += pstmt.executeUpdate();
+			if(res==2) {
+				con.commit();
+			}
+			else {
+				con.rollback();
+			}
+		}
+		return res;
 	}
 }

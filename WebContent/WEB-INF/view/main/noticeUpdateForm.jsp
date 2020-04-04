@@ -47,7 +47,7 @@
 				<input type="hidden" value="${notice.no}" name="no">
 				<p>
 					<span class="th">제목</span>
-					<input type="text" name="title" value="${notice.subject}">
+					<input type="text" name="subject" value="${notice.subject}">
 				</p>
 				<p>
 					<span class="th">작성자</span>

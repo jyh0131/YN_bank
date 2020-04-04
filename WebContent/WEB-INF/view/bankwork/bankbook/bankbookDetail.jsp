@@ -8,13 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script>
-    $(function() {
-    	$("#cancel").click(function() {
-    		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do";
-    	})
-    });
 </script>
 </head>
 <style>
@@ -70,11 +63,40 @@
 </style>
 <body>
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
+	<script>
+    $(function() {
+    	$("form").submit(function() {
+    		$("#modify").click(function() {
+    			var accountInterest = $("input[name='accountInterest']").val();
+        		var accountInterestReg = /^(100|[0-9]{1,2})[%]$/;
+        		if(!accountInterestReg.test(accountInterest)) {
+        			alert("이자율 형식에 맞지 않습니다. 다시 입력해주세요(0~100%)");
+        			return false;
+        		}
+    		});
+    	})
+    	$("#del").click(function() {
+    		if(!confirm("삭제하시겠습니까?")) {
+    			alert("삭제가 취소되었습니다");
+    			return false;
+    		}
+    	})
+    	$("#change").click(function() {
+    		if(!confirm("휴면계좌로 전환하시겠습니까?")) {
+    			alert("휴면계좌 전환이 취소되었습니다");
+    			return false;
+    		}
+    	})
+    	$("#cancel").click(function() {
+    		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do";
+    	})
+    });
+    </script>
 	<div id="container">
 		<div id="header">
 			<h1>통장 세부 정보</h1>
 		</div>
-		<form>
+		<form action="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=mod" method="post">
 			<div id="profile">
 				<h2>${bankbook.custCode.custName}님의 ${bankbook.accountPlanCode.planName} 통장 정보</h2>
 				<div id="profileEdit">
@@ -98,7 +120,7 @@
 						</tr>
 						<tr>
 							<th>계좌개설일</th>
-							<td><input type="text" name="accountOpenDate"  value=<fmt:formatDate value="${bankbook.accountOpenDate}" pattern="yyyy-MM-dd HH:mm:ss"/>></td>
+							<td><input type="text" name="accountOpenDate"  readonly="readonly" value="<fmt:formatDate value="${bankbook.accountOpenDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"></td>
 						</tr>
 						<tr>
 							<th>이자율</th>
@@ -108,9 +130,9 @@
 				</div>
 				
 				<div id="submit">
-					<input type="submit" value="수정">
-					<input type="submit" value="삭제">
-					<input type="submit" value="휴면계좌전환">
+					<input type="submit" value="수정" id="modify">
+					<input type="submit" value="삭제" id="del" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=del">
+					<input type="submit" value="휴면계좌전환" id="change" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=change">
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

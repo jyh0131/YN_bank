@@ -54,6 +54,9 @@ public class BankBookService {
 	public List<Plan> showPlanByBankBookNormal() throws SQLException {
 		return planDao.selectPlanByBankBookNormal();
 	}
+	public List<Plan> showPlanByBankBookBusiness() throws SQLException {
+		return planDao.selectPlanByBankBookBusiness();
+	}
 	
 	public int updateBankBalance(Customer customer) throws SQLException {
 		return bankBookDao.updateBankBalance(customer);
@@ -126,5 +129,11 @@ public class BankBookService {
 	}
 	public BankBook showBankBookByCustNameAndAccountNum(BankBook bankbook) throws SQLException {
 		return bankBookDao.showBankBookByCustNameAndAccountNum(bankbook);
+	}
+	public int changeBankBookDormant(BankBook bankbook) throws SQLException {
+		return bankBookDao.changeBankBookDormant(bankbook);
+	}
+	public int changeBankBookTermination(BankBook bankbook) throws SQLException {
+		return bankBookDao.changeBankBookTermination(bankbook);
 	}
 }

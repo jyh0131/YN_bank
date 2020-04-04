@@ -47,11 +47,14 @@
   	<url-pattern>/cust/custSearch.do</url-pattern>
   	<url-pattern>/cust/addCust.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/mgn.do</url-pattern>
+  	<url-pattern>/bankwork/bankbook/select.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/detail.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/add.do</url-pattern>
   	<url-pattern>/bankwork/card/mgn.do</url-pattern>
+  	<url-pattern>/bankwork/card/select.do</url-pattern>
   	<url-pattern>/bankwork/card/detail.do</url-pattern>
   	<url-pattern>/bankwork/loan/mgn.do</url-pattern>
+  	<url-pattern>/bankwork/loan/select.do</url-pattern>
   	<url-pattern>/bankwork/loan/detail.do</url-pattern>
   </filter-mapping>
   <welcome-file-list>

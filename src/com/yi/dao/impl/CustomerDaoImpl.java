@@ -408,6 +408,43 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
+	public List<Customer> selectCustomerByNormal() throws SQLException {
+		List<Customer> list = null;
+		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer where custdiv = 0";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();){
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerByBusiness() throws SQLException {
+		List<Customer> list = null;
+		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer where custdiv = 1";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					list = new ArrayList<>();
+					do {
+						list.add(getCustomer(rs));
+					}while(rs.next());
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return list;
+	}
+
 	public List<Customer> selectNormalCust() throws SQLException {
 		List<Customer> list = null;
 		String sql = "select * from customer where custCode like ?";

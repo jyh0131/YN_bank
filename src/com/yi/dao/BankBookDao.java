@@ -41,4 +41,6 @@ public interface BankBookDao {
 	public abstract List<BankBook> showBankBookByIsConnect(Card card) throws SQLException;
 	public abstract int updateConnectChk(Card card) throws SQLException;
 	public abstract int updateCardBalanceByAccountBalance(Card card) throws SQLException;
+	public abstract int changeBankBookDormant(BankBook bankbook) throws SQLException;
+	public abstract int changeBankBookTermination(BankBook bankbook) throws SQLException;
 }

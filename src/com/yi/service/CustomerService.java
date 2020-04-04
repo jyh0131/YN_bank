@@ -17,6 +17,12 @@ public class CustomerService {
 	public List<Customer> showCustomers() throws SQLException{
 		return dao.selectCustomerAll();
 	}
+	public List<Customer> showCustomerByNormal() throws SQLException{
+		return dao.selectCustomerByNormal();
+	}
+	public List<Customer> showCustomerByBusiness() throws SQLException{
+		return dao.selectCustomerByBusiness();
+	}
 	
 	public List<Customer> showCustomerByName(String custName) throws SQLException{
 		return dao.selectCustomerByName(custName);

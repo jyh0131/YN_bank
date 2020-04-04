@@ -166,6 +166,30 @@
     			<span id="bestWho">이지은 대리</span>
     		</li>
     	</ul>
-    </div> 
+    </div>
+    <c:if test="${successadd!=null}">
+    	<script>
+    		alert("추가되었습니다");
+    		<%
+    			session.removeAttribute("successadd");
+    		%>
+    	</script>
+    </c:if>
+    <c:if test="${successmod!=null}">
+    	<script>
+    		alert("수정되었습니다");
+    		<%
+    			session.removeAttribute("successmod");
+    		%>
+    	</script>
+    </c:if>
+    <c:if test="${successdel!=null}">
+    	<script>
+    		alert("삭제되었습니다");
+    		<%
+    			session.removeAttribute("successdel");
+    		%>
+    	</script>
+    </c:if> 
 	</section> 
 </body>

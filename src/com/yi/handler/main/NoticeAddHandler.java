@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yi.dto.Notice;
 import com.yi.mvc.CommandHandler;
@@ -22,6 +23,8 @@ public class NoticeAddHandler implements CommandHandler {
 			String content = req.getParameter("content");
 			Date writeDate = new Date();
 			service.addNotice(new Notice(subject, writer, writeDate, content));
+			HttpSession session = req.getSession();
+			session.setAttribute("successadd", "success");
 			res.sendRedirect(req.getContextPath()+"/main/main.do");
 		}
 		return null;

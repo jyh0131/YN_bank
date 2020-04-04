@@ -8,6 +8,8 @@ import com.yi.dto.Customer;
 public interface CustomerDao {
 	
 	abstract List<Customer> selectCustomerAll() throws SQLException;
+	abstract List<Customer> selectCustomerByNormal() throws SQLException;
+	abstract List<Customer> selectCustomerByBusiness() throws SQLException;
 	abstract List<Customer> selectCustomerBalance() throws SQLException;
 	abstract List<Customer> selectCustomerByName(String custName) throws SQLException;
 	abstract List<Customer> selectBusinessCust() throws SQLException;

@@ -429,4 +429,52 @@ public class PlanDaoImpl implements PlanDao {
 		return list;
 	}
 
+	@Override
+	public List<Plan> selectPlanByBankBookBusiness() throws SQLException {
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where planCode like ? and plandiv = 'B'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, "C%");
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Plan> selectPlanByCardBusiness() throws SQLException {
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where planCode like ? and plandiv = 'B'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, "C%");
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Plan> selectPlanByLoanBusiness() throws SQLException {
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where planCode like ? and plandiv = 'B'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, "C%");
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}
+		}
+		return list;
+	}
+
 }

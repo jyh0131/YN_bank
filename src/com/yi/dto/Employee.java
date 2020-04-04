@@ -26,8 +26,10 @@ public class Employee {
 	}
 	
 	
-	
-    public Employee(String empCode, String empName, String empTitle, String empAuth, int empSalary, String empTel,
+
+    
+
+	public Employee(String empCode, String empName, String empTitle, String empAuth, int empSalary, String empTel,
 			String empId, String empPwd, Department dept, String pic) {
 		super();
 		this.empCode = empCode;
@@ -42,7 +44,27 @@ public class Employee {
 		this.pic = pic;
 	}
 
-    
+    public Employee(String empCode, String empName, String empTitle, String empAuth, int empSalary, String empTel,
+		String empId, String empPwd, Department dept, String pic, boolean empRetire) {
+	super();
+	this.empCode = empCode;
+	this.empName = empName;
+	this.empTitle = empTitle;
+	this.empAuth = empAuth;
+	this.empSalary = empSalary;
+	this.empTel = empTel;
+	this.empId = empId;
+	this.empPwd = empPwd;
+	this.dept = dept;
+	this.pic = pic;
+	this.empRetire = empRetire;
+}
+
+
+
+
+
+
 
 	public Employee(String empCode, String empName, String empTitle, String pic, int perf, int bonus, String vip) {
 		super();

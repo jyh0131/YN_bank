@@ -55,15 +55,18 @@ public class empUpdateHandler implements CommandHandler {
 			    int empSalary = Integer.parseInt(multi.getParameter("empSalary"));
 			    String empTel = multi.getParameter("empTel");
 			    String empId = multi.getParameter("empId");
-			    String empPwd = multi.getParameter("empPwd");
+			    //String empPwd = multi.getParameter("empPwd");
 				Department dept = new Department(Integer.parseInt(multi.getParameter("deptNo")));
 				dept.setDeptName(dept.getDeptNo()==1?"인사":"고객");
-				String pic = multi.getParameter("pic");
+				String pic = multi.getFilesystemName("pic");
 				
-				Employee dbEmp = new Employee();
-				dbEmp.setEmpCode(empCode);
+				//System.out.println("pic은"+pic);
+				
+				Employee dbEmp = service.showPickedEmp2(empCode);
+				System.out.println("db상의 데이터"+dbEmp);
 				String dbPic = dbEmp.getPic();
-		
+				String empPwd = dbEmp.getEmpPwd();
+				System.out.println("dbPic은"+dbPic);
 		/*
            emp.setEmpName(multi.getParameter("empName"));
            emp.setEmpTitle(multi.getParameter("empTitle"));
@@ -88,13 +91,19 @@ public class empUpdateHandler implements CommandHandler {
 //					multi.getFilesystemName("pic"));
 //			        
 //			       // 
-				Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, dept, dbPic!=null?dbPic:pic);
 				
 				
-			System.out.println(emp);
+			Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, dept, pic==null?dbPic:pic);
+				
+			System.out.println("만들어진 emp"+emp);
+			
+			if(empPwd.contentEquals("**********")) {
+				service.modifyEmpExceptForPwd(emp);
+				System.out.println("비번뺀 emp"+emp);
+			}else {
 			service.modifyEmp(emp);
-			
-			
+			   System.out.println("비번도 바꾼 emp"+emp);
+			}
 			}catch (Exception e) {
 			   e.printStackTrace();
 			}

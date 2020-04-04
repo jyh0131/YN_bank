@@ -183,10 +183,7 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 					var empName = $("input[name='empName']").val();
 					var empTitle = $("input[name='empTitle']").val();
 					var empAuth = $("input[name='empAuth']").val();
-					var empSalary = $("input[name='empSalary']").val();
-					var empTel = $("input[name='empTel']").val();
-					var empId = $("input[name='empId']").val();
-					var empPwd = $("input[name='empPwd']").val();
+					
 
 					//빈 값이 있을땐 못넘어 가도록 처리 /정규표현식 이용 
 
@@ -222,55 +219,8 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 							return false;
 						}
 					} 
-					//월급
-					if (empSalary == "") {
-						$("input[name='empSalary']").next().next().css("display", "inline");
-						return false;
-					}else{
-						//alert(Number(empSalary)); //NaN
-						if(isNaN(Number(empSalary))){
-							$("input[name='empSalary']").next().next().next().css("display", "inline");
-							return false;
-						}
-					} 
-					
-					if (empTel == "") {
-						$("input[name='empTel']").next().next().css("display","inline");
-						return false;
-					}else{
-						var phoneReg = /^(010|011|019|018|017)-?[0-9]{3,4}-?[0-9]{4}$/; 
-						if (phoneReg.test(empTel) == false) {
-							$("input[name='empTel']").next().next().css("display", "inline");
-							return false;
-						}
-						
-					} 
-					
-					if (empId == "") { 
-						$("input[name='empId']").next().next().css("display","inline");
-						return false;
-					} else {
-						var idReg = /^[a-z0-9]{6,15}$/i; //영어, 숫자 6-15	
-
-						if (idReg.test(empId) == false || empId == "") { //아이디가 빈값일 때도 넘어가지 못하게 처리 
-							//alert("안돼 돌아가");
-							$("input[name='empId']").next().next().next().css("display", "inline");
-							return false;
-						}
-
-					}
-					
-					//비밀번호 
-					if (empPwd =="")  { //4-15자리 영어,숫자,특수문자!@#$%^&*사용가능
-						$("input[name='empPwd']").next().next().css("display","inline");
-						return false;
-					}else{
-						 var pwdReg = /^[a-zA-Z0-9!@#%^&*]{4,15}/;
-							 if(pwdReg.test(empPwd) == false){
-								 $("input[name='empPwd']").next().next().next().css("display","inline");
-								 return false;
-						 }
-					}
+			
+			
 					
 				
 					
@@ -292,23 +242,6 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 				
 				
 				
-				
-				
-				//파일 선택시 이미지 변경 
-				$("#empFile").change(function(){
-					var full = $(this).val().split("\\");
-					//alert(full);
-				    
-					if(full ==""){
-						$("#empPicture").attr("src","${pageContext.request.contextPath}/images/no-img.jpg");	
-					}else{
-					f_name = full[full.length-1]; //마지막 화일명
-				//     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
-                   // alert(f_name);
-		
-				  $("#empPicture").attr("src","${pageContext.request.contextPath}/images/"+f_name);
-				}	
-			})
 			
 			$("#empName").change(function(){
 				var empNameForProfile = $("#empName").val(); 
@@ -337,6 +270,7 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 			
 			
 			
+			
 	})
 </script>
 
@@ -347,8 +281,8 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 		<div id="header">
 			<h1>사용자 프로필</h1>
 		</div>
-		<form action="empUpdate.do" method="post" enctype="multipart/form-data">
-
+		<form action="empAuthUpdate.do" method="post" >
+            <input type="hidden" name="pic" value="${emp.pic }">
 			<div id="profile">
 				<h2>프로필</h2>
 				<div id="profileMain">
@@ -362,14 +296,15 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 				</div>
 				<div id="profileEdit">
 					<table>
+					    
 						<tr>
 							<th>사원 코드</th>
-							<td><input type="text" name="empCode" readonly="readonly" value="${emp.empCode}"><br> <span
+							<td><input type="text" name="empCode" readonly="readonly" value="${emp.empCode}" ><br> <span
 								class="errorMSG">사원코드를 입력해주세요. 부서 선택시 자동으로 출력됩니다.</span></td>
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td><input type="text" name="empName" id="empName" value="${emp.empName }"><br> <span
+							<td><input type="text" name="empName" id="empName" value="${emp.empName }" readonly="readonly"><br> <span
 								class="errorMSG">사원이름을 입력해주세요.</span> <span class="errorMSG">사원이름은
 									2-5자리 한글로 입력해주세요.</span> <span class="errorMSG">사원이름 중복입니다. 구분이
 									필요합니다.</span></td>
@@ -377,56 +312,27 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 						</tr>
 						<tr>
 							<th>직책</th>
-							<td><input type="text" name="empTitle" placeholder="사원,대리,과장,차장,부장,부지점장,지점장" value="${emp.empTitle }"><br> 
+							<td><input type="text" name="empTitle" placeholder="사원,대리,과장,차장,부장,부지점장,지점장" value="${emp.empTitle }" readonly="readonly"><br> 
 							<span class="errorMSG">직책을 입력해주세요.</span> 
 							<span class="errorMSG">직책을 확인해주세요.</span></td>
 						</tr>
 						<tr>
 							<th>권한</th>
-							<td><input type="text" name="empAuth" readonly="readonly"
-								placeholder="권한탭에서 부여가능한 부분입니다." id="inputEmpAuth" value="${emp.empAuth ==''?'':emp.empAuth }"></td>
-						</tr>
-						<tr>
-							<th>월급</th>
-							<td><input type="text" name="empSalary" placeholder="숫자만입력" value="${emp.empSalary }"><br>
-								<span class="errorMSG">월급을 입력해주세요</span> 
-								<span class="errorMSG">숫자만 입력해주세요.</span></td>
-						</tr>
-						<tr>
-							<th>연락처</th>
-							<td><input type="text" name="empTel"
-								placeholder="예시: 010-000-0000" value="${emp.empTel }"><br> <span
-								class="errorMSG">연락처를 확인해주세요 000-000-0000</span></td>
-						</tr>
-						<tr>
-							<th>아이디</th>
-							<td><input type="text" name="empId"
-								placeholder="6-15자리 영어,숫자 조합" value="${emp.empId }"><br> 
-								<span class="errorMSG">아이디를 입력해주세요. </span>
-							    <span class="errorMSG">아이디를 확인해 주세요. 6-15자리 영어,숫자 조합</span>
-							</td>
-						</tr>
-						<tr>
-							<th>비밀번호</th>
-							<td><input type="text" name="empPwd"
-								placeholder="4-15자리 영어,숫자,특수문자!@#$%^&*사용가능" id="inputEmpPwd" value="**********"><br>
-								<span class="errorMSG">비밀번호를 입력해주세요</span>
-							<span class="errorMSG">비밀번호를 확인해주세요. <br> 4-15자리
-								영어,숫자,특수문자!@#$%^&*사용가능</span>
-							</td>
-							
-						</tr>
-						<tr>
-							<th>부서</th> <!-- 바로 부서별로 선택되도록 하기  -->
-							<td><select name="deptNo" id="selectForDept" >
-									<option value="1" ${emp.dept.deptNo == 1 ? 'selected': '' }>인사(1)</option>
-									<option value="2" ${emp.dept.deptNo == 2 ? 'selected': '' }>고객(2)</option>
+							<td><select name="empAuth" id="selectForAuth" >
+							        <option value="" ${emp.empAuth == '' ? 'selected': '' }>권한없음</option>
+									<option value="HR" ${emp.empAuth == 'HR' ? 'selected': '' }>HR</option>
+									<option value="CS" ${emp.empAuth == 'CS' ? 'selected': '' }>CS</option>
+									<option value="AD" ${emp.empAuth == 'AD' ? 'selected': '' }>AD</option>
 							</select></td>
 						</tr>
+						
 						<tr>
-							<th>이미지 선택</th>
-							<td id="noline"><input type="file" name="pic" id="empFile" value=${emp.pic }></td>
+							<th>부서</th> <!-- 바로 부서별로 선택되도록 하기  -->
+							<td><input type="hidden" name="deptNo" id="selectForDept" value="${emp.dept.deptNo}">
+								<input type="text" id="deptName" readonly="readonly" value="${emp.dept.deptName }">	
+							</td>
 						</tr>
+					
 
 					</table>
 				</div>

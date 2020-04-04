@@ -21,6 +21,11 @@ public class EmployeeUIService {
     	return empDao.selectEmployeeByAll();
     }
     
+    public Employee showPickedEmp2(String empCode) throws SQLException{
+    	return empDao.selectEmpByEmpCode(empCode);
+    }
+    
+    
     //사원 이름으로 검색
     public List<Employee> showPickedEmpList(String empName) throws SQLException{
     	return empDao.selectEmpByNameList(empName);

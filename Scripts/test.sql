@@ -8,6 +8,10 @@ delete from employee where empCode ="B022";
 select * from customer;
 delete from customer where custCode ="C030";
 
+select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo, pic, empRetire
+			from employee e left join department d on e.deptNo = d.deptNo
+			where empCode= 'A001';
+
 select * from deleted_employee de ;
 delete from employee where empCode= 'B021';
 update employee set emppwd = 111 where `empName` ='test';

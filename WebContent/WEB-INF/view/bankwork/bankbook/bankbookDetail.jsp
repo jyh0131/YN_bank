@@ -129,9 +129,9 @@
 				</div>
 				
 				<div id="submit">
-					<input type="submit" value="수정" id="modify" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=mod&div=1" formmethod="post">
-					<input type="submit" value="삭제" id="del" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=del&div=1" formmethod="post">
-					<input type="submit" value="휴면계좌전환" id="change" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=change&div=1" formmethod="post">
+					<input type="submit" value="수정" id="modify" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=mod&div=${custdiv}" formmethod="post">
+					<input type="submit" value="삭제" id="del" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=del&div=${custdiv}" formmethod="post">
+					<input type="submit" value="휴면계좌전환" id="change" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=change&div=${custdiv}" formmethod="post">
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

@@ -52,17 +52,29 @@ public class BankBookDaoImpl implements BankBookDao {
 		float accountInterest = rs.getFloat("accountInterest");
 		return new BankBook(accountNum, custCode, accountPlanCode, accountOpenDate, accountInterest);
 	}
+	
+	private BankBook getBankBookCustDiv(ResultSet rs) throws SQLException {
+		String accountNum = rs.getString("accountnum");
+		Customer custCode = new Customer(rs.getString("custcode"));
+		custCode.setCustName(rs.getString("custname"));
+		custCode.setCustDiv(rs.getBoolean("custDiv"));
+		Plan accountPlanCode = new Plan(rs.getString("plancode"));
+		accountPlanCode.setPlanName(rs.getString("planname"));
+		Date accountOpenDate = rs.getTimestamp("accountOpenDate");
+		float accountInterest = rs.getFloat("accountInterest");
+		return new BankBook(accountNum, custCode, accountPlanCode, accountOpenDate, accountInterest);
+	}
 
 	@Override
 	public List<BankBook> showBankBooksByCustName(BankBook bankbook) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where c.custname like ?";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest,c.custDiv from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where c.custname like ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + bankbook.getCustCode().getCustName() + "%");
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
-					list.add(getBankBook(rs));
+					list.add(getBankBookCustDiv(rs));
 				}
 			}
 		}

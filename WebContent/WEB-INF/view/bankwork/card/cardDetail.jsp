@@ -82,7 +82,7 @@
 		<div id="header">
 			<h1>카드 세부 정보</h1>
 		</div>
-		<form action="${pageContext.request.contextPath}/bankwork/card/detail.do?cmd=mod" method="post">
+		<form action="${pageContext.request.contextPath}/bankwork/card/detail.do?cmd=mod&custDiv=${custDiv}" method="post">
 			<div id="profile">
 				<h2>${card.custCode.custName}님의 ${card.planCode.planName} 카드 정보</h2>
 				<div id="profileEdit">
@@ -130,7 +130,7 @@
 				
 				<div id="submit">
 					<input type="submit" value="수정">
-					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/bankwork/card/detail.do?cmd=del" id="del">
+					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/bankwork/card/detail.do?cmd=del&custDiv=${custDiv}" id="del">
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

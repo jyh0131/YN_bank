@@ -37,6 +37,8 @@ public class DetailHandler implements CommandHandler {
 			else {
 				div = "신용카드";
 			}
+			String custDiv = card.getCustCode().getCustDiv()?"1":"0";
+			req.setAttribute("custDiv", custDiv);
 			req.setAttribute("carddiv", div);
 			req.setAttribute("card", card);
 			return "/WEB-INF/view/bankwork/card/cardDetail.jsp";

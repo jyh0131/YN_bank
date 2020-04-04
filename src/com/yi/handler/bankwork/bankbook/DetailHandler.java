@@ -26,6 +26,8 @@ public class DetailHandler implements CommandHandler {
 			customer.setCustName(custName);
 			bankbook.setCustCode(customer);
 			bankbook = service.showBankBookByCustNameAndAccountNum(bankbook);
+			String div = bankbook.getCustCode().getCustDiv()?"1":"0";
+			req.setAttribute("custdiv", div);
 			req.setAttribute("bankbook", bankbook);
 			return "/WEB-INF/view/bankwork/bankbook/bankbookDetail.jsp";
 		}

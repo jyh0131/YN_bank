@@ -57,6 +57,24 @@ public class CardDaoImpl implements CardDao {
 		}
 		return card;
 	}
+	private Card getCardInfoCustDiv(ResultSet rs) throws SQLException {
+		String cardNum = rs.getString("c.cardnum");
+		Customer custCode = new Customer(rs.getString("cs.custcode"));
+		custCode.setCustName(rs.getString("cs.custname"));
+		custCode.setCustDiv(rs.getBoolean("cs.custDiv"));
+		Plan planCode = new Plan(rs.getString("p.plancode"));
+		planCode.setPlanName(rs.getString("p.planname"));
+		String cardSecuCode = rs.getString("c.cardsecucode");
+		Date cardIssueDate = rs.getTimestamp("c.cardissuedate");
+		Card card = new Card(cardNum, custCode, planCode, cardSecuCode, cardIssueDate);
+		if(cardNum.substring(6,7).equals("1")) {
+			card.setCardBalance(rs.getLong("c.cardbalance"));
+		}
+		else {
+			card.setCardLimit(rs.getInt("c.cardlimit"));
+		}
+		return card;
+	}
 	@Override
 	public List<Card> showCardByCustName(Card card) throws SQLException {
 		List<Card> list = new ArrayList<>();
@@ -324,14 +342,14 @@ public class CardDaoImpl implements CardDao {
 	}
 	@Override
 	public Card showCardByCardNumAndCustName(Card card) throws SQLException {
-		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where c.cardnum = ? and cs.custname = ?";
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance,cs.custDiv from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where c.cardnum = ? and cs.custname = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, card.getCardNum());
 			pstmt.setString(2, card.getCustCode().getCustName());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
-					return getCardInfo(rs);
+					return getCardInfoCustDiv(rs);
 				}
 			}
 		}

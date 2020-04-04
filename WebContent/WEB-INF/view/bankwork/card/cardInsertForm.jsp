@@ -57,13 +57,30 @@
 					   background: gray; 
 					   margin-left:20px; 
 					   font-size: 15px;
-					   color: whitesmoke;}						    
+					   color: whitesmoke;}					    
 </style>
 <body>
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
+    	var open;
+    	setInterval(function() {
+    		if(open!=null) {
+    			if(open.closed) {
+        			var custname = $("#cust option:selected").val();
+        			var cardnum = $("input[name='cardnum']").val();
+        			var planname = $("#plan option:selected").val();
+        			var cardSecuCode = $("input[name='cardSecuCode']").val();
+        			var cardIssueDate = $("input[name='cardIssueDate']").val();
+        			var empname = $("input[name='empname']").val();
+        			var accountnum = $("#accountnum").val();
+        			location.href = "${pageContext.request.contextPath}/bankwork/card/add.do?"+"custname="+custname+"&"+"cardnum="+cardnum+"&"+"planname="+planname+"&"+"cardSecuCode="+cardSecuCode+"&"+"cardIssueDate="+cardIssueDate+"&"+"empname="+empname+"&"+"accountnum="+accountnum;
+        		}
+    		}
+    	}, 100);
     	$(".normal").hide();
+    	$("#cardLimit").hide();
+    	$("#cardBalance").hide();
     	$('#date').datepicker({
             dateFormat: 'yy-mm-dd',
             onSelect: function(datetext) {
@@ -82,22 +99,61 @@
                 $('#date').val(datetext);
             }
         });
+    	$("input[type='submit']").click(function() {
+    		var custname = $("#cust option:selected").val();
+    		var str = $("#plan option:selected").attr("data-detail");
+    		var planDetail = str.substring(1,2);
+    		if(planDetail=='A') {
+    			$.ajax({
+    				url : "${pageContext.request.contextPath}/bankwork/card/availCheck.do",
+    				method : "get",
+    				data : {custname : custname},
+    				dataType : "json",
+    				success : function(res) {
+    					if(res==null) {
+    						alert("연결된 예금통장이 존재하지 않습니다. 예금통장을 먼저 계설해주세요");
+    					}
+    					else {
+    						var custCode;
+    						$(res).each(function(i, obj) {
+    							custCode = obj.custCode.custCode;
+    						})
+    						open = window.open("${pageContext.request.contextPath}/bankwork/card/availAccount.do?custcode="+custCode,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=200,width=800,height=600");
+    					}
+    				}
+    			})
+    		}
+    	});
     	$("form").submit(function() {
-    		if($("input[name='accountnum']").val()==""||$("input[name='accountOpenDate']")==""||$("input[name='accountInterest']").val()=="") {
-    			alert("입력란을 모두 입력해주세요");
+    		if($("#cust option:selected").val()==""||$("input[name='cardnum']").val()==""||$("#plan option:selected").val()==""||
+    		$("input[name='cardSecuCode']").val()==""||$("input[name='cardIssueDate']").val()=="") {
+    			alert("입력란을 모두 다 입력해주세요");
     			return false;
     		}
-    		var accountnum = $("input[name='accountnum']").val();
-    		var accountnumReg = /^(293133)[-](11|12|13)[-][0-9]{6}$/;
-    		if(!accountnumReg.test(accountnum)) {
-    			alert("계좌번호 형식에 맞지 않습니다. 다시 입력해주세요");
+    		var cardnum = $("input[name='cardnum']").val();
+    		var cardnumReg = /^(29313310|29313320)[0-9]{7}(0)$/;
+    		if(!cardnumReg.test(cardnum)) {
+    			alert("카드 형식에 맞게 입력해주세요");
     			return false;
     		}
-    		var accountInterest = $("input[name='accountInterest']").val();
-    		var accountInterestReg = /^(100|[0-9]{1,2})[%]$/;
-    		if(!accountInterestReg.test(accountInterest)) {
-    			alert("이자율 형식에 맞지 않습니다. 다시 입력해주세요(0~100%)");
+    		var cardSecuCode = $("input[name='cardSecuCode']").val();
+    		var secuCodeReg = /^[0-9]{3}$/;
+    		if(!secuCodeReg.test(cardSecuCode)) {
+    			alert("카드 보안 코드 형식에 맞게 입력해주세요(0~9,3자리)");
     			return false;
+    		}
+    		var str = $("#plan option:selected").attr("data-detail");
+    		var planDetail = str.substring(1,2);
+    		if(planDetail=='A') {
+    			return false;	
+    		}
+    		else {
+    			var cardLimit = $("input[name='cardLimit']").val();
+    			var cardLimitReg = /^[0-9]*$/;
+    			if(!cardLimitReg.test(cardLimit)) {
+    				alert("숫자만 입력하세요");
+    				return false;
+    			}
     		}
     	})
     	$("input[type='reset']").click(function() {
@@ -120,17 +176,28 @@
 						$(".vip").eq(0).prop("selected", true)
 					}
 		    	})
+		    	$("#plan").change(function() {
+		    		var str = $("#plan option:selected").attr("data-detail");
+		    		var planDetail = str.substring(1,2);
+		    		if(planDetail=='B') {
+		    			$("#cardLimit").show();
+		    		}
+		    		else {
+		    			$("#cardLimit").hide();
+		    		}
+		    	})
 			})
 		</script>
 	</c:if>
 	<div id="container">
 		<div id="header">
-			<h1>통장 추가</h1>
+			<h1>카드 추가</h1>
 		</div>
-		<form action="${pageContext.request.contextPath}/bankwork/bankbook/add.do" method="post">
+		<form action="${pageContext.request.contextPath}/bankwork/card/add.do" method="post">
+			<input type="hidden" name="accoutnum" id="accountnum">
 			<input type="hidden" value=${Auth.empName} name="empname">
 			<div id="profile">
-				<h2>통장 정보</h2>
+				<h2>카드 정보</h2>
 				<div id="profileEdit">
 					<table>
 						<tr>
@@ -144,30 +211,37 @@
 							</td>
 						</tr>
 						<tr>
-							<th>계좌번호</th>
-							<td><input type="text" name="accountnum"></td>
+							<th>카드번호</th>
+							<td><input type="text" name="cardnum"></td>
 						</tr>
 						<tr>
 							<th>상품명</th>
 							<td>
 								<select name="planname" id="plan">
 									<c:forEach var="plan" items="${planList}">
-										<option class="vip">${plan}</option>
+										<option class="vip" data-detail="${plan.planDetail}">${plan}</option>
 									</c:forEach>
 									<c:forEach var="planNormal" items="${planListNormal}">
-										<option class='normal'>${planNormal}</option>
+										<option class='normal' data-detail="${planNormal.planDetail}">${planNormal}</option>
 									</c:forEach>
 								</select>
-							</td>
-								
+							</td>	
 						</tr>
 						<tr>
-							<th>계좌개설일</th>
-							<td><input type="text" id="date" name="accountOpenDate"></td>
+							<th>카드보안코드</th>
+							<td><input type="text" name="cardSecuCode"></td>
 						</tr>
 						<tr>
-							<th>이자율</th>
-							<td><input type="text" name="accountInterest"></td>
+							<th>카드발급일</th>
+							<td><input type="text" id="date" name="cardIssueDate"></td>
+						</tr>
+						<tr id="cardLimit">
+							<th>카드한도</th>
+							<td><input type="text" name="cardLimit"></td>
+						</tr>
+						<tr id="cardBalance">
+							<th>카드잔액</th>
+							<td><input type="text" name="cardBalance"></td>
 						</tr>
 					</table>
 				</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,10 +36,10 @@
 <script>
 	$(function(){
 		$("#bus").click(function(){
-			$(location).attr('href','${pageContext.request.contextPath}/bankwork/card/add.do?div=1');
+			$(location).attr('href','${pageContext.request.contextPath}/bankwork/card/mgn.do?div=1');
 		})
 		$("#nor").click(function(){
-			$(location).attr('href','${pageContext.request.contextPath}/bankwork/card/add.do?div=0');
+			$(location).attr('href','${pageContext.request.contextPath}/bankwork/card/mgn.do?div=0');
 		})
 	})    
 </script>
@@ -46,7 +47,7 @@
 	<jsp:include page="../../include/menu.jsp"/>
 	<div id="container">
 		<div id="header">
-			<h1>고객 추가</h1>
+			<h1>카드 조회</h1>
 		</div>
 			<div id="profile">
 				<h2>프로필</h2>
@@ -58,5 +59,21 @@
 				</div>
 			</div>
 	</div>
+	<c:if test="${errornonbusiness!=null}">
+		<script>
+			alert("기업 고객의 카드 정보가 존재하지 않습니다. 추가부터 해주세요");
+			<%
+				session.removeAttribute("errornonbusiness");
+			%>
+		</script>
+	</c:if>
+	<c:if test="${errornonnormal!=null}">
+		<script>
+			alert("일반 고객의 카드 정보가 존재하지 않습니다. 추가부터 해주세요");
+			<%
+				session.removeAttribute("errornonnormal");
+			%>
+		</script>
+	</c:if>
 </body>
 </html>

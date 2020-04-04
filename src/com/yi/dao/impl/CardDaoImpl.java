@@ -29,7 +29,7 @@ public class CardDaoImpl implements CardDao {
 	@Override
 	public List<Card> showCards() throws SQLException {
 		List<Card> list = new ArrayList<>();
-		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode";
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where cs.custDiv = 0";
 		try(Connection con = DriverManager.getConnection(jdbcDriver); 
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -76,12 +76,12 @@ public class CardDaoImpl implements CardDao {
 	@Override
 	public int insertCardCheck(Card card) throws SQLException {
 		int res = -1;
-		String sql = "insert into card values(?,?,?,?,?,?,?,(select empcode from employee where empname = ?),?)";
+		String sql = "insert into card values(?,(select custcode from customer where custname = ?),(select plancode from plan where planname = ?),?,?,?,?,(select empcode from employee where empname = ?),?)";
 		try(Connection con = DriverManager.getConnection(jdbcDriver); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, card.getCardNum());
-			pstmt.setString(2, card.getCustCode().getCustCode());
-			pstmt.setString(3, card.getPlanCode().getPlanCode());
+			pstmt.setString(2, card.getCustCode().getCustName());
+			pstmt.setString(3, card.getPlanCode().getPlanName());
 			pstmt.setString(4, card.getCardSecuCode());
 			pstmt.setTimestamp(5, new Timestamp(card.getCardIssueDate().getTime()));
 			pstmt.setInt(6, card.getCardLimit());
@@ -95,12 +95,12 @@ public class CardDaoImpl implements CardDao {
 	@Override
 	public int insertCardCredit(Card card) throws SQLException {
 		int res = -1;
-		String sql = "insert into card values(?,?,?,?,?,?,?,(select empcode from employee where empname = ?),null)";
+		String sql = "insert into card values(?,(select custcode from customer where custname = ?),(select plancode from plan where planname = ?),?,?,?,?,(select empcode from employee where empname = ?),null)";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, card.getCardNum());
-			pstmt.setString(2, card.getCustCode().getCustCode());
-			pstmt.setString(3, card.getPlanCode().getPlanCode());
+			pstmt.setString(2, card.getCustCode().getCustName());
+			pstmt.setString(3, card.getPlanCode().getPlanName());
 			pstmt.setString(4, card.getCardSecuCode());
 			pstmt.setTimestamp(5, new Timestamp(card.getCardIssueDate().getTime()));
 			pstmt.setInt(6, card.getCardLimit());
@@ -336,6 +336,19 @@ public class CardDaoImpl implements CardDao {
 			}
 		}
 		return null;
+	}
+	@Override
+	public List<Card> showCardsByBusiness() throws SQLException {
+		List<Card> list = new ArrayList<>();
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where cs.custDiv = 1";
+		try(Connection con = DriverManager.getConnection(jdbcDriver); 
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while(rs.next()) {
+				list.add(getCardInfo(rs));
+			}
+		}
+		return list;
 	}
 
 }

@@ -34,6 +34,9 @@ public class CardService {
 	public List<Card> showCards() throws SQLException {
 		return cardDao.showCards();
 	}
+	public List<Card> showCardsByBusiness() throws SQLException {
+		return cardDao.showCardsByBusiness();
+	}
 	public List<Card> showCardByCustName(Card card) throws SQLException {
 		return cardDao.showCardByCustName(card);
 	}
@@ -92,6 +95,7 @@ public class CardService {
 		try {
 			int res = 0;
 			res += cardDao.insertCardCheck(card);
+			card.getBankbook().setConnectChk(true);
 			res += bankbookDao.updateConnectChk(card);
 			res += bankbookDao.updateCardBalanceByAccountBalance(card);
 			if(res==3) {
@@ -102,7 +106,7 @@ public class CardService {
 			}
 		}
 		catch(RuntimeException e) {
-			JOptionPane.showMessageDialog(null, "실패하였습니다");
+			e.printStackTrace();
 		}
 		return -1;
 	}

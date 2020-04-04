@@ -30,8 +30,9 @@ public class DetailHandler implements CommandHandler {
 			return "/WEB-INF/view/bankwork/bankbook/bankbookDetail.jsp";
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
+			String cmd = req.getParameter("cmd");
 			String div = req.getParameter("div");
-			switch(div) {
+			switch(cmd) {
 			case "mod":
 				String accountNum = req.getParameter("accountnum");
 				String custName = req.getParameter("custname");
@@ -49,7 +50,7 @@ public class DetailHandler implements CommandHandler {
 				service.updateBankBook(bankbook);
 				HttpSession session = req.getSession();
 				session.setAttribute("successmod", "success");
-				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/mgn.do");
+				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/mgn.do?div="+div);
 				break;
 			case "del":
 				accountNum = req.getParameter("accountnum");
@@ -70,7 +71,7 @@ public class DetailHandler implements CommandHandler {
 				service.changeBankBookTermination(bankbook);
 				session = req.getSession();
 				session.setAttribute("successdel", "success");
-				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/mgn.do");
+				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/mgn.do?div="+div);
 				break;
 			case "change":
 				accountNum = req.getParameter("accountnum");
@@ -91,7 +92,7 @@ public class DetailHandler implements CommandHandler {
 				service.changeBankBookDormant(bankbook);
 				session = req.getSession();
 				session.setAttribute("successchange", "success");
-				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/mgn.do");
+				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/mgn.do?div="+div);
 				break;
 			}
 		}

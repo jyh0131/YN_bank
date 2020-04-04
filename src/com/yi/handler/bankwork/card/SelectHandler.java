@@ -9,7 +9,13 @@ public class SelectHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		return "/WEB-INF/view/bankwork/card/cardCustSelect.jsp";
+		String div = req.getParameter("div");
+		if(div.equals("add")) {
+			return "/WEB-INF/view/bankwork/card/cardAddCustSelect.jsp";
+		}
+		else {
+			return "/WEB-INF/view/bankwork/card/cardListCustSelect.jsp";
+		}
 	}
 
 }

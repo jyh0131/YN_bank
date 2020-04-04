@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -20,9 +21,28 @@ public class MgnHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			List<BankBook> list = service.showBankBooks();
-			req.setAttribute("list", list);
-			return "/WEB-INF/view/bankwork/bankbook/bankbookMgn.jsp";
+			String div = req.getParameter("div");
+			if(div.equals("0")) {
+				List<BankBook> list = service.showBankBooks();
+				if(list.size()==0) {
+					HttpSession session = req.getSession();
+					session.setAttribute("errornonnormal", "error");
+					return "/WEB-INF/view/bankwork/bankbook/bankbookListCustSelect.jsp";
+				}
+				req.setAttribute("list", list);
+				return "/WEB-INF/view/bankwork/bankbook/bankbookMgnNormal.jsp";
+			}
+			else {
+				List<BankBook> list = service.showBankBooksByBusiness();
+				if(list.size()==0) {
+					HttpSession session = req.getSession();
+					session.setAttribute("errornonbusiness", "error");
+					return "/WEB-INF/view/bankwork/bankbook/bankbookListCustSelect.jsp";
+				}
+				req.setAttribute("list", list);
+				return "/WEB-INF/view/bankwork/bankbook/bankbookMgnBusiness.jsp";
+			}
+			
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");

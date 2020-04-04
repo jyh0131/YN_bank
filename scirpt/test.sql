@@ -225,7 +225,8 @@ delete from card;
 update bankbook set connectchk = 0 where custcode = 'C001' and accountnum = '293133-11-000001';
 
 
-create view bankbook_deposit_connect_to_card_info as select accountnum,custcode,connectchk from bankbook where substring(accountnum,9,1)='1' and connectchk = 0;
+create view bankbook_deposit_connect_to_card_info as select accountnum,custcode,connectchk from bankbook where substring(accountnum,8,2)='11' and connectchk = 0;
+drop view bankbook_deposit_connect_to_card_info;
 select * from customer;
 select * from bankbook_deposit_connect_to_card_info;
 select * from card;
@@ -245,8 +246,12 @@ select * from bankbook;
 select * from bankbook where accountDormant = 1;
 select * from bankbook where accountTermination = 1;
 
+select * from card;
+select * from bankbook;
+delete from card where custcode = 'C006';
+
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-11-%'
 union select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-12-%'
 union select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-13-%';
 
-select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 0 and accountTermination = 0;
+select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 0 and accountTermination = 0 and c.custDiv = 0;

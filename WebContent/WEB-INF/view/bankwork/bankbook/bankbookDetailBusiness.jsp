@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-</script>
 </head>
 <style>
 	* { margin:0; padding:0; 
@@ -88,7 +87,7 @@
     		}
     	})
     	$("#cancel").click(function() {
-    		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do";
+    		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=0";
     	})
     });
     </script>
@@ -96,7 +95,7 @@
 		<div id="header">
 			<h1>통장 세부 정보</h1>
 		</div>
-		<form action="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=mod" method="post">
+		<form>
 			<div id="profile">
 				<h2>${bankbook.custCode.custName}님의 ${bankbook.accountPlanCode.planName} 통장 정보</h2>
 				<div id="profileEdit">
@@ -130,9 +129,9 @@
 				</div>
 				
 				<div id="submit">
-					<input type="submit" value="수정" id="modify">
-					<input type="submit" value="삭제" id="del" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=del">
-					<input type="submit" value="휴면계좌전환" id="change" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?div=change">
+					<input type="submit" value="수정" id="modify" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=mod&div=1" formmethod="post">
+					<input type="submit" value="삭제" id="del" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=del&div=1" formmethod="post">
+					<input type="submit" value="휴면계좌전환" id="change" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=change&div=1" formmethod="post">
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

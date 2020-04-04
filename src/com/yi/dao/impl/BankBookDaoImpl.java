@@ -31,9 +31,7 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public List<BankBook> showBankBooks() throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-11-%'\r\n" + 
-				"union select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-12-%'\r\n" + 
-				"union select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-13-%'";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 0 and accountTermination = 0 and c.custDiv = 0";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -489,18 +487,35 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public List<BankBook> showBankBookByIsConnect(Card card) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select * from bankbook_deposit_connect_to_card_info where custcode = (select custcode from customer where custname = ?)";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, card.getCustCode().getCustName());
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getBankBookConnect(rs));
+		String sql = null;
+		if(card.getCustCode().getCustCode()!=null) {
+			sql = "select * from bankbook_deposit_connect_to_card_info where custcode = ?";
+			try(Connection con = DriverManager.getConnection(jdbcDriver);
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setString(1, card.getCustCode().getCustCode());
+				try(ResultSet rs = pstmt.executeQuery()) {
+					while(rs.next()) {
+						list.add(getBankBookConnect(rs));
+					}
 				}
+				
 			}
 			return list;
 		}
+		else {
+			sql = "select * from bankbook_deposit_connect_to_card_info where custcode = (select custcode from customer where custname = ?)";
+			try(Connection con = DriverManager.getConnection(jdbcDriver);
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setString(1, card.getCustCode().getCustName());
+				try(ResultSet rs = pstmt.executeQuery()) {
+					while(rs.next()) {
+						list.add(getBankBookConnect(rs));
+					}
+				}
 				
+			}
+			return list;
+		}		
 	}
 
 	private BankBook getBankBookConnect(ResultSet rs) throws SQLException {
@@ -611,5 +626,19 @@ public class BankBookDaoImpl implements BankBookDao {
 			}
 		}
 		return res;
+	}
+
+	@Override
+	public List<BankBook> showBankBooksByBusiness() throws SQLException {
+		List<BankBook> list = new ArrayList<>();
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 0 and accountTermination = 0 and c.custDiv = 1";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while(rs.next()) {
+				list.add(getBankBook(rs));
+			}
+		}
+		return list;
 	}
 }

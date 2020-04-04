@@ -8,22 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script>
-    $(function() {
-    	$("#del").click(function() {
-    		if(!confirm("삭제하시겠습니까?")) {
-    			alert("삭제가 취소되었습니다.");
-    			return false;
-    		}
-    	})
-    	$("#cancel").click(function() {
-    		location.href = "${pageContext.request.contextPath}/bankwork/card/mgn.do";
-    	})
-    });
-</script>
 </head>
 <style>
 	* { margin:0; padding:0; 
@@ -78,59 +62,76 @@
 </style>
 <body>
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
+	<script>
+    $(function() {
+    	$("form").submit(function() {
+    		$("#modify").click(function() {
+    			var accountInterest = $("input[name='accountInterest']").val();
+        		var accountInterestReg = /^(100|[0-9]{1,2})[%]$/;
+        		if(!accountInterestReg.test(accountInterest)) {
+        			alert("이자율 형식에 맞지 않습니다. 다시 입력해주세요(0~100%)");
+        			return false;
+        		}
+    		});
+    	})
+    	$("#del").click(function() {
+    		if(!confirm("삭제하시겠습니까?")) {
+    			alert("삭제가 취소되었습니다");
+    			return false;
+    		}
+    	})
+    	$("#change").click(function() {
+    		if(!confirm("휴면계좌로 전환하시겠습니까?")) {
+    			alert("휴면계좌 전환이 취소되었습니다");
+    			return false;
+    		}
+    	})
+    	$("#cancel").click(function() {
+    		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=0";
+    	})
+    });
+    </script>
 	<div id="container">
 		<div id="header">
-			<h1>카드 세부 정보</h1>
+			<h1>통장 세부 정보</h1>
 		</div>
-		<form action="${pageContext.request.contextPath}/bankwork/card/detail.do?cmd=mod" method="post">
+		<form>
 			<div id="profile">
-				<h2>${card.custCode.custName}님의 ${card.planCode.planName} 카드 정보</h2>
+				<h2>${bankbook.custCode.custName}님의 ${bankbook.accountPlanCode.planName} 통장 정보</h2>
 				<div id="profileEdit">
 					<table>
 						<tr>
 							<th>고객명</th>
 							<td>
-								<input type="text" name="custname" readonly="readonly" value='${card.custCode.custName}'>
+								<input type="text" name="custname" readonly="readonly" value='${bankbook.custCode.custName}'>
 							</td>
 						</tr>
 						<tr>
-							<th>카드번호</th>
-							<td><input type="text" name="cardnum" readonly="readonly" value='${card.cardNum}'></td>
+							<th>계좌번호</th>
+							<td><input type="text" name="accountnum" readonly="readonly" value='${bankbook.accountNum}'></td>
 						</tr>
 						<tr>
 							<th>상품명</th>
 							<td>
-								<input type="text" name="planname" readonly="readonly" value='${card.planCode.planName}'>
-							</td>	
+								<input type="text" name="planname" readonly="readonly" value='${bankbook.accountPlanCode.planName}'>
+							</td>
+								
 						</tr>
 						<tr>
-							<th>카드발급일</th>
-							<td><input type="text" name="cardIssueDate"  value="<fmt:formatDate value="${card.cardIssueDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"></td>
+							<th>계좌개설일</th>
+							<td><input type="text" name="accountOpenDate"  readonly="readonly" value="<fmt:formatDate value="${bankbook.accountOpenDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"></td>
 						</tr>
 						<tr>
-							<th>카드보안코드</th>
-							<td>
-								<input type="text" name="cardSecuCode" value='${card.cardSecuCode}'>
-							</td>	
+							<th>이자율</th>
+							<td><input type="text" name="accountInterest" value=<fmt:formatNumber value="${bankbook.accountInterest}" type="percent"/>></td>
 						</tr>
-						<c:if test="${carddiv eq '신용카드'}">
-						<tr>
-							<th>카드한도</th>
-							<td><input type="text" name="cardLimit" value=<fmt:formatNumber value="${card.cardLimit}" type="number" maxFractionDigits="3"/>></td>
-						</tr>
-						</c:if>
-						<c:if test="${carddiv eq '체크카드'}">
-						<tr>
-							<th>카드잔액</th>
-							<td><input type="text" name="cardBalance" value=<fmt:formatNumber value="${card.cardBalance}" type="number" maxFractionDigits="3"/>></td>
-						</tr>
-						</c:if>
 					</table>
 				</div>
 				
 				<div id="submit">
-					<input type="submit" value="수정">
-					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/bankwork/card/detail.do?cmd=del" id="del">
+					<input type="submit" value="수정" id="modify" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=mod&div=0" formmethod="post">
+					<input type="submit" value="삭제" id="del" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=del&div=0" formmethod="post">
+					<input type="submit" value="휴면계좌전환" id="change" formaction="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?cmd=change&div=0" formmethod="post">
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

@@ -312,9 +312,16 @@
 	    //각 줄을 클릭할 때마다 내가 부여한 data-empCode를 받아오기 
 	  $(".oneEmp").click(function(){
 		  var OneCode = $(this).attr("data-empCode");
+		  var perf = $(this).attr("data-perf");
+		  if(perf == 0){
+			  alert("실적이 없는 사원입니다.");
+			  return false
+		  }
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empBonusDetail.do?empCode="+OneCode;
 	  })
+	  
+	  
    })
 
 
@@ -353,7 +360,7 @@
 				</tr>
 				<span id="renew">
 				<c:forEach var='empList' items="${list }">
-				<tr class="oneEmp" data-empCode="${empList.empCode }">
+				<tr class="oneEmp" data-empCode="${empList.empCode }" data-perf="${empList.perf }">
 					<td >${empList.empCode }</td>
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>

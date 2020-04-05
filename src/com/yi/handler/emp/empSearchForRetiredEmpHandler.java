@@ -23,7 +23,7 @@ public class empSearchForRetiredEmpHandler implements CommandHandler {
 	//		System.out.println(list);
 
 			req.setAttribute("list", list);
-			return "/WEB-INF/view/emp/empSearch.jsp";
+			return "/WEB-INF/view/emp/empSearchForRetiredEmp.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");
 			String div = req.getParameter("div");

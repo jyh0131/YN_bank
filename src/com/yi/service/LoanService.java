@@ -26,6 +26,12 @@ public class LoanService {
 	public List<Loan> showLoans() throws SQLException {
 		return loanDao.showLoans();
 	}
+	public List<Loan> showLoansByNormal() throws SQLException {
+		return loanDao.showLoansNormal();
+	}
+	public List<Loan> showLoansByBusiness() throws SQLException {
+		return loanDao.showLoansBuisness();
+	}
 	public List<Loan> showLoanByCustName(Loan loan) throws SQLException {
 		return loanDao.showLoanByCustName(loan);
 	}

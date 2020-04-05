@@ -50,7 +50,7 @@ public class PlanDaoImpl implements PlanDao {
 	@Override
 	public List<Plan> selectPlanByBankBook() throws SQLException {
 		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ?";
+		String sql = "select * from plan where planCode like ? and plandiv <> 'B'";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "A%");
@@ -66,7 +66,7 @@ public class PlanDaoImpl implements PlanDao {
 	@Override
 	public List<Plan> selectPlanByCard() throws SQLException {
 		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ?";
+		String sql = "select * from plan where planCode like ? and plandiv <> 'B'";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "B%");
@@ -82,7 +82,7 @@ public class PlanDaoImpl implements PlanDao {
 	@Override
 	public List<Plan> selectPlanByLoan() throws SQLException {
 		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ?";
+		String sql = "select * from plan where planCode like ? and plandiv <> 'B'";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "C%");

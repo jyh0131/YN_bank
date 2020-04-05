@@ -316,6 +316,22 @@
 				</c:forEach>
 			</table>
 		</div>
+				<c:if test="${successmod!=null}">
+			<script>
+				alert("수정되었습니다");
+			</script>
+			<%
+				session.removeAttribute("successmod");
+			%>
+		</c:if>
+		<c:if test="${successdel!=null}">
+			<script>
+				alert("삭제되었습니다");
+			</script>
+			<%
+				session.removeAttribute("successdel");
+			%>
+		</c:if>
 	</section>
 </body>
 </html>

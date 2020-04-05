@@ -176,18 +176,19 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 		})
 		
 		$("#empId").on("change",function(){
-			var empId = $("#empId").val();
+			var checkEmpId = $("#empId").val();
 			//alert(tryId);
 			
 			$.ajax({
 				url: "${pageContext.request.contextPath}/emp/empForm.do",
 			    type: "post", 
-			    data: {"empId":empId},
+			    data: {"checkEmpId":checkEmpId},
 			    dataType: "json",
 			    success : function(res){
 			         console.log(res)
 			    	if(res.error =="existId"){
-			    		alert("존재하는 아이디 입니다. 다른 값을 입력해주세요.")
+			    		//alert("존재하는 아이디 입니다. 다른 값을 입력해주세요.")
+			    		$("input[name='empId']").next().next().next().next().css("display", "inline");
 			    	}
 			    	
 			    }
@@ -415,6 +416,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 								placeholder="6-15자리 영어,숫자 조합" id="empId"><br> 
 								<span class="errorMSG">아이디를 입력해주세요. </span>
 							    <span class="errorMSG">아이디를 확인해 주세요. 6-15자리 영어,숫자 조합</span>
+							    <span class="errorMSG">아이디 중복입니다. 다시 설정해 주세요.</span>
 							</td>
 						</tr>
 						<tr>

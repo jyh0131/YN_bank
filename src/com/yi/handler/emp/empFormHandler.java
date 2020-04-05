@@ -33,8 +33,8 @@ public class empFormHandler implements CommandHandler {
 		
 		  try{
 	      
-		  Employee dbEmp = service.forCheckId(req.getParameter("empId"));
-		  System.out.println(dbEmp);
+		  Employee dbEmp = service.forCheckId(req.getParameter("checkEmpId"));
+		 // System.out.println(dbEmp);
 		  if(dbEmp!=null) {
 			  HashMap<String,String> map = new HashMap<>();
 				map.put("error", "existId");
@@ -45,9 +45,11 @@ public class empFormHandler implements CommandHandler {
 				out.write(json);
 				out.flush();
 		  }
+		  
+		  return null;
 	  }catch (Exception e) {
 		e.printStackTrace();
-		return "/WEB-INF/view/emp/empForm.jsp";
+		
 	   }
 		}
 		return "/WEB-INF/view/emp/empForm.jsp";

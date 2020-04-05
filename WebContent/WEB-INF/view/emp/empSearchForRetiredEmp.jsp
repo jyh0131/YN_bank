@@ -120,8 +120,7 @@
         var $menutd5 = $("<td>").html("월급");
         var $menutd6 = $("<td>").html("연락처");
         var $menutd7 = $("<td>").html("아이디");
-        var $menutd8 = $("<td>").html("비밀번호");
-        var $menutd9 = $("<td>").html("부서");
+        var $menutd8 = $("<td>").html("부서");
         $menutr.append($menutd1);
         $menutr.append($menutd2);
         $menutr.append($menutd3);
@@ -130,7 +129,7 @@
         $menutr.append($menutd6);
         $menutr.append($menutd7);
         $menutr.append($menutd8);
-        $menutr.append($menutd9);
+
         
         
 		  switch(div) {
@@ -142,7 +141,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -163,8 +162,7 @@
 				    			var $td5 = $("<td>").html(obj.empSalary);
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html("**********");
-				    			var $td9 = $("<td>").html(obj.dept.deptName);
+				    			var $td8 = $("<td>").html(obj.dept.deptName);
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
@@ -174,7 +172,7 @@
 				    			$tr.append($td6);
 				    			$tr.append($td7);
 				    			$tr.append($td8);
-				    			$tr.append($td9);
+
 				    			
 				    			$table.append($menutr);
 				    			$table.append($tr);
@@ -190,7 +188,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -212,8 +210,7 @@
 				    			var $td5 = $("<td>").html(obj.empSalary);
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html("**********");
-				    			var $td9 = $("<td>").html(obj.dept.deptName);
+				    			var $td8 = $("<td>").html(obj.dept.deptName);
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
@@ -223,7 +220,7 @@
 				    			$tr.append($td6);
 				    			$tr.append($td7);
 				    			$tr.append($td8);
-				    			$tr.append($td9);
+
 				    			
 				    			
 				    			$table.append($tr);
@@ -239,7 +236,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -260,8 +257,7 @@
 				    			var $td5 = $("<td>").html(obj.empSalary);
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html("**********");
-				    			var $td9 = $("<td>").html(obj.dept.deptName);
+				    			var $td8 = $("<td>").html(obj.dept.deptName);
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
@@ -271,7 +267,7 @@
 				    			$tr.append($td6);
 				    			$tr.append($td7);
 				    			$tr.append($td8);
-				    			$tr.append($td9);
+
 				    			
 				    			
 				    			$table.append($tr);
@@ -288,7 +284,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -309,7 +305,6 @@
 				    			var $td5 = $("<td>").html(obj.empSalary);
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html("**********");
 				    			var $td9 = $("<td>").html(obj.dept.deptName);
 	                         
 				    			$tr.append($td1);
@@ -320,7 +315,7 @@
 				    			$tr.append($td6);
 				    			$tr.append($td7);
 				    			$tr.append($td8);
-				    			$tr.append($td9);
+
 				    			
 				    			
 				    			$table.append($tr);
@@ -368,7 +363,7 @@
 					</fieldset>
 				
 		</div>
-		<button id="btnNone">퇴사사원 조회</button>
+		<a href="empSearch.do"><button id="btnNone">일반사원 리스트</button></a>
 		<div id="table">
 			<table class="tableList">
 				<tr>
@@ -379,7 +374,6 @@
 					<th>월급</th>
 					<th>연락처</th>
 					<th>아이디</th>
-					<th>비밀번호</th>
 					<th>부서</th>
 
 				</tr>
@@ -393,7 +387,6 @@
 					<td>${empList.empSalary }</td>
 					<td>${empList.empTel }</td>
 					<td>${empList.empId }</td>
-					<td>**********</td>
 					<td>${empList.dept}</td>
 					
 				</tr>

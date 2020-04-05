@@ -154,18 +154,7 @@ div#submit input {
 		})
 		
 		
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empBonusDetail.do",
-				    type: "get", 
-				    dataType: "json",
-				    success : function(res){
-				    	
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 직급입니다");
-				    	}
-				    	
-				      }	
-				    })
+	
 	})
 </script>
 

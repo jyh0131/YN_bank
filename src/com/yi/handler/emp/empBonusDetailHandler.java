@@ -28,17 +28,7 @@ public class empBonusDetailHandler implements CommandHandler {
 		//System.out.println("보너스디테일"+list);
 				req.setAttribute("list", list);
 				req.setAttribute("emp", emp);
-		if(list.size() == 0) {
-			HashMap<String,String> map = new HashMap<>();
-			map.put("error", "notExist");
-			ObjectMapper om = new ObjectMapper();
-			String json = om.writeValueAsString(map);
-			res.setContentType("application/json;charset=UTF-8");
-			PrintWriter out = res.getWriter();
-			out.write(json);
-			out.flush();
-			
-		}
+		
 		
 	}catch (Exception e) {
 		e.printStackTrace();

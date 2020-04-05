@@ -197,7 +197,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<Employee> selectEmployeeByAll() {
 		String sql="select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo\r\n" + 
-				"   from employee e left join department d on e.deptNo = d.deptNo where empRetire =0\r\n" + 
+				"   from employee e left join department d on e.deptNo = d.deptNo \r\n" + 
 				"   order by empCode";
 		try (Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -524,7 +524,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		 List<Employee> list = new ArrayList<Employee>();
 			String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo\r\n" + 
 					"   from employee e left join department d on e.deptNo = d.deptNo \r\n" + 
-					"   where d.deptNo=? and empRetire =0";
+					"   where d.deptNo=?";
 			
 			try (Connection con = DriverManager.getConnection(jdbcDriver);
 					PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -932,6 +932,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		Plan plan = new Plan(rs.getString("p1.planCode"));
 		plan.setPlanName(rs.getString("p1.planName"));
 		return new Employee(empCode, empName, customer, plan);
+	}
+
+	@Override
+	public List<Employee> selectExistEmployee() {
+		String sql="select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo\r\n" + 
+				"   from employee e left join department d on e.deptNo = d.deptNo where empRetire =0\r\n" + 
+				"   order by empCode";
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+						ResultSet rs = pstmt.executeQuery()){
+			List<Employee> list = new ArrayList<Employee>();
+			
+			while(rs.next()) {
+				list.add(getEmployee(rs));
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return null;
 	}
 
 	

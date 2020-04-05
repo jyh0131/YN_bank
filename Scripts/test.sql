@@ -88,7 +88,12 @@ select  * from performance p ;
 
 select e.empCode, e.empName , c.custCode, c.custName, p1.planCode, p1.planName
   from performance p left join plan p1 on p.planCode =p1.planCode left join employee e on p.empCode =e.empCode left join customer c on p.custCode =c.custCode where e.empCode='B007' ;
-				
+
+select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo
+			 from employee e left join department d on e.deptNo = d.deptNo 
+			  order by empCode; 
+ 
+ 
 #고객 - 황하나
 -- test 
 select custCode, custName, custRank, custCredit, custAddr, custTel from customer;

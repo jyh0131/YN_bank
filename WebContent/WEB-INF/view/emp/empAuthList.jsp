@@ -127,7 +127,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empAuth.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -167,7 +167,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empAuth.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -208,7 +208,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empAuth.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -249,7 +249,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empAuth.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",

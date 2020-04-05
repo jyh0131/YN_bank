@@ -368,7 +368,7 @@
 					</fieldset>
 				
 		</div>
-		<a href="empSearchRetired.do"><button id="btnNone">퇴사사원 조회</button></a>
+		<button id="btnNone">퇴사사원 조회</button>
 		<div id="table">
 			<table class="tableList">
 				<tr>

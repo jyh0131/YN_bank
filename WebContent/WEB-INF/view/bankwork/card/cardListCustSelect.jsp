@@ -59,6 +59,14 @@
 				</div>
 			</div>
 	</div>
+	<c:if test="${successdel!=null}">
+		<script>
+			alert("삭제되었습니다");
+			<%
+				session.removeAttribute("successdel");
+			%>
+		</script>
+	</c:if>
 	<c:if test="${errornonbusiness!=null}">
 		<script>
 			alert("기업 고객의 카드 정보가 존재하지 않습니다. 추가부터 해주세요");

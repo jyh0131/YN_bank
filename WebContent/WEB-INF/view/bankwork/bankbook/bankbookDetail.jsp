@@ -64,16 +64,14 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
-    	$("form").submit(function() {
-    		$("#modify").click(function() {
-    			var accountInterest = $("input[name='accountInterest']").val();
-        		var accountInterestReg = /^(100|[0-9]{1,2})[%]$/;
-        		if(!accountInterestReg.test(accountInterest)) {
-        			alert("이자율 형식에 맞지 않습니다. 다시 입력해주세요(0~100%)");
-        			return false;
-        		}
-    		});
-    	})
+    	$("#modify").click(function() {
+			var accountInterest = $("input[name='accountInterest']").val();
+    		var accountInterestReg = /^(100|[0-9]{1,2})[%]$/;
+    		if(!accountInterestReg.test(accountInterest)) {
+    			alert("이자율 형식에 맞지 않습니다. 다시 입력해주세요(0~100%)");
+    			return false;
+    		}
+		});
     	$("#del").click(function() {
     		if(!confirm("삭제하시겠습니까?")) {
     			alert("삭제가 취소되었습니다");
@@ -87,7 +85,7 @@
     		}
     	})
     	$("#cancel").click(function() {
-    		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=0";
+    		location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}";
     	})
     });
     </script>
@@ -123,7 +121,7 @@
 						</tr>
 						<tr>
 							<th>이자율</th>
-							<td><input type="text" name="accountInterest" value=<fmt:formatNumber value="${bankbook.accountInterest}" type="percent"/>></td>
+							<td><input type="text" name="accountInterest" value="<fmt:formatNumber value="${bankbook.accountInterest}" type="percent"/>"></td>
 						</tr>
 					</table>
 				</div>

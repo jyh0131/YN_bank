@@ -20,7 +20,7 @@
     		}
     	})
     	$("#cancel").click(function() {
-    		location.href = "${pageContext.request.contextPath}/bankwork/card/mgn.do";
+    		location.href = "${pageContext.request.contextPath}/bankwork/card/mgn.do?div=${custDiv}";
     	})
     });
 </script>

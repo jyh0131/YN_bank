@@ -59,6 +59,22 @@
 				</div>
 			</div>
 	</div>
+	<c:if test="${successdel!=null}">
+		<script>
+			alert("삭제되었습니다");
+			<%
+				session.removeAttribute("successdel");
+			%>
+		</script>
+	</c:if>
+	<c:if test="${successchange!=null}">
+		<script>
+			alert("휴면계좌로 전환되었습니다");
+			<%
+				session.removeAttribute("successchange");
+			%>
+		</script>
+	</c:if>
 	<c:if test="${errornonbusiness!=null}">
 		<script>
 			alert("기업 고객의 통장 정보가 존재하지 않습니다. 추가부터 해주세요");

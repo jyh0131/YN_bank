@@ -435,7 +435,7 @@ public class PlanDaoImpl implements PlanDao {
 		String sql = "select * from plan where planCode like ? and plandiv = 'B'";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "C%");
+			pstmt.setString(1, "A%");
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getPlan(rs));
@@ -451,7 +451,7 @@ public class PlanDaoImpl implements PlanDao {
 		String sql = "select * from plan where planCode like ? and plandiv = 'B'";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "C%");
+			pstmt.setString(1, "B%");
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getPlan(rs));

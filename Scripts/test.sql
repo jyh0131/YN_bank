@@ -256,3 +256,27 @@ union select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountO
 union select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-13-%';
 
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 0 and accountTermination = 0 and c.custDiv = 0;
+
+select *from customer;
+
+desc bankbookinfo;
+select * from bankbook;
+select * from plan;
+
+select * from customer;
+
+SET @@global.sql_mode= 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+SET @@session.sql_mode= 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+SHOW TABLE STATUS LIKE 'customer';
+set names 'utf8';
+
+desc customer;
+select * from customer;
+select custcode from customer where custname = '(주)에이스 테크놀로지';
+
+desc bankbook;
+
+select * from bankbook_deposit_connect_to_card_info;
+
+update bankbook set accountopendate='2020-04-05 18:13:15',accountinterest='0.01' where custcode = 'B001';
+select custname from customer;

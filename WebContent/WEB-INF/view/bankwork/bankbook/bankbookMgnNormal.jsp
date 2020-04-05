@@ -382,14 +382,6 @@
 				%>
 			</script>
 		</c:if>
-		<c:if test="${successchange!=null}">
-			<script>
-				alert("휴면계좌로 전환되었습니다.");
-				<%
-					session.removeAttribute("successchange");
-				%>
-			</script>
-		</c:if>
 	</section>
 </body>
 </html>

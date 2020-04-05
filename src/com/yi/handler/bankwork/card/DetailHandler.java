@@ -18,7 +18,6 @@ import com.yi.service.CardService;
 
 public class DetailHandler implements CommandHandler {
 	private CardService cardService = new CardService();
-	private BankBookService bankbookService = new BankBookService();
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
@@ -45,6 +44,7 @@ public class DetailHandler implements CommandHandler {
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 			String cmd = req.getParameter("cmd");
+			String div = req.getParameter("custDiv");
 			if(cmd.equals("mod")) {
 				String cardNum = req.getParameter("cardnum");
 				Customer custCode = new Customer();
@@ -61,16 +61,17 @@ public class DetailHandler implements CommandHandler {
 				Card card = new Card(cardNum, custCode, planCode, cardSecuCode, cardIssueDate);
 				card.setCardLimit(cardLimit);
 				card.setCardBalance(cardBalance);
-				if(card.getCardLimit()==0) {
+				if(card.getCardNum().substring(6, 7).equals("1")) {
 					cardService.updateCard(card);
+					card = cardService.showCardByCheckAccountNum(card);
+					cardService.updateAccountBalance(card);
 				}
 				else {
 					cardService.updateCard(card);
-					
 				}
 				HttpSession session = req.getSession();
 				session.setAttribute("successmod", "success");
-				res.sendRedirect(req.getContextPath() + "/bankwork/card/mgn.do");
+				res.sendRedirect(req.getContextPath() + "/bankwork/card/mgn.do?div="+div);
 			}
 			else {
 				String cardNum = req.getParameter("cardnum");
@@ -83,16 +84,22 @@ public class DetailHandler implements CommandHandler {
 				String cardSecuCode = req.getParameter("cardSecuCode");
 				String dateStr = req.getParameter("cardIssueDate");
 				Date cardIssueDate = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(dateStr);
-				int cardLimit = Integer.parseInt(req.getParameter("cardLimit")==""?"0":req.getParameter("cardLimit"));
-				long cardBalance = Long.parseLong(req.getParameter("cardBalance")==""?"0":req.getParameter("cardBalance"));
+				int cardLimit = Integer.parseInt(req.getParameter("cardLimit")==null?"0":req.getParameter("cardLimit").replaceAll("[\\,]", ""));
+				long cardBalance = Long.parseLong(req.getParameter("cardBalance")==null?"0":req.getParameter("cardBalance").replaceAll("[\\,]", ""));
 				String empName = req.getParameter("empname");
 				Employee employee = new Employee();
 				employee.setEmpName(empName);
 				Card card = new Card(cardNum, custCode, planCode, cardSecuCode, cardIssueDate, cardLimit, cardBalance, employee, null);
-				cardService.deleteCheckCardProcedure(card);
+				if(card.getCardNum().substring(6, 7).equals("1")) {
+					cardService.deleteCheckCardProcedure(card);
+				}
+				else {
+					cardService.deleteCard(card);
+				}
+				
 				HttpSession session = req.getSession();
 				session.setAttribute("successdel", "success");
-				res.sendRedirect(req.getContextPath() + "/bankwork/card/mgn.do");
+				res.sendRedirect(req.getContextPath() + "/bankwork/card/mgn.do?div="+div);
 			}
 		}
 		return null;

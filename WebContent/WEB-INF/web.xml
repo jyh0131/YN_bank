@@ -57,6 +57,7 @@
   	<url-pattern>/bankwork/card/select.do</url-pattern>
   	<url-pattern>/bankwork/card/detail.do</url-pattern>
   	<url-pattern>/bankwork/card/add.do</url-pattern>
+  	<url-pattern>/bankwork/loan/add.do</url-pattern>
   	<url-pattern>/bankwork/loan/mgn.do</url-pattern>
   	<url-pattern>/bankwork/loan/select.do</url-pattern>
   	<url-pattern>/bankwork/loan/detail.do</url-pattern>

@@ -148,6 +148,10 @@
     			return false;	
     		}
     		else {
+    			if($("input[name='cardLimit']").val()=="") {
+    				alert("카드 한도를 입력해주세요");
+    				return false;
+    			}
     			var cardLimit = $("input[name='cardLimit']").val();
     			var cardLimitReg = /^[0-9]*$/;
     			if(!cardLimitReg.test(cardLimit)) {
@@ -161,8 +165,7 @@
     	})
     });
 	</script>
-	<c:if test="${normal!=null}">
-		<script>
+	<script>
 			$(function(){
 				$("#cust").change(function() {
 					if($("#cust option:selected").attr("data-rank")!='D') {
@@ -187,8 +190,7 @@
 		    		}
 		    	})
 			})
-		</script>
-	</c:if>
+	</script>
 	<div id="container">
 		<div id="header">
 			<h1>카드 추가</h1>

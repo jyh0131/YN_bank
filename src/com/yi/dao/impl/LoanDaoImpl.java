@@ -203,4 +203,32 @@ public class LoanDaoImpl implements LoanDao {
 		return null;
 	}
 
+	@Override
+	public List<Loan> showLoansNormal() throws SQLException {
+		List<Loan> list = new ArrayList<>();
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custdiv = 0";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while(rs.next()) {
+				list.add(getLoan(rs));
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Loan> showLoansBuisness() throws SQLException {
+		List<Loan> list = new ArrayList<>();
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where custdiv = 1";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while(rs.next()) {
+				list.add(getLoan(rs));
+			}
+		}
+		return list;
+	}
+
 }

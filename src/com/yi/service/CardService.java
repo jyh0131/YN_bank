@@ -113,8 +113,11 @@ public class CardService {
 	public int deleteCheckCardProcedure(Card card) throws SQLException {
 		try {
 			int res = 0;
-			res += cardDao.deleteCard(card);
+			Card account = cardDao.showCardByAccountNum(card);
+			card.setBankbook(account.getBankbook());
+			card.getBankbook().setConnectChk(false);
 			res += bankbookDao.updateConnectChk(card);
+			res += cardDao.deleteCard(card);
 			if(res==2) {
 				return res;
 			}

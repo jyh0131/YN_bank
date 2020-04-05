@@ -1,6 +1,7 @@
 package com.yi.handler.bankwork.bankbook;
 
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,10 +23,10 @@ public class MgnHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			String div = req.getParameter("div");
+			HttpSession session = req.getSession();
 			if(div.equals("0")) {
 				List<BankBook> list = service.showBankBooks();
 				if(list.size()==0) {
-					HttpSession session = req.getSession();
 					session.setAttribute("errornonnormal", "error");
 					return "/WEB-INF/view/bankwork/bankbook/bankbookListCustSelect.jsp";
 				}
@@ -35,7 +36,6 @@ public class MgnHandler implements CommandHandler {
 			else {
 				List<BankBook> list = service.showBankBooksByBusiness();
 				if(list.size()==0) {
-					HttpSession session = req.getSession();
 					session.setAttribute("errornonbusiness", "error");
 					return "/WEB-INF/view/bankwork/bankbook/bankbookListCustSelect.jsp";
 				}

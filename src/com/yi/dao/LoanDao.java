@@ -8,6 +8,8 @@ import com.yi.dto.LoanInfo;
 
 public interface LoanDao {
 	public List<Loan> showLoans() throws SQLException;
+	public List<Loan> showLoansNormal() throws SQLException;
+	public List<Loan> showLoansBuisness() throws SQLException;
 	public Loan showLoanByLoanAccountNumAndCustName(Loan loan) throws SQLException;
 	public List<Loan> showLoanByCustName(Loan loan) throws SQLException;
 	public int insertLoan(Loan loan) throws SQLException;

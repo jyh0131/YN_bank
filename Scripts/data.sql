@@ -205,7 +205,7 @@ drop procedure if exists change_cardbalance;
 
 delimiter !
 create procedure change_cardbalance(
-	in in_custname varchar(5),
+	in in_custname varchar(20),
 	in in_accountbalance bigint,
 	in in_accountnum char(16)
 )

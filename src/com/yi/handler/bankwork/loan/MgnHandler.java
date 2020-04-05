@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -22,9 +23,27 @@ public class MgnHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			List<Loan> list = service.showLoans();
-			req.setAttribute("list", list);
-			return "/WEB-INF/view/bankwork/loan/loanMgn.jsp";
+			String div = req.getParameter("div");
+			HttpSession session = req.getSession();
+			if(div.equals("0")) {
+				List<Loan> list = service.showLoansByNormal();
+				if(list.size()==0) {
+					session.setAttribute("errornonnormal", "error");
+					return "/WEB-INF/view/bankwork/loan/loanListCustSelect.jsp";
+				}
+				req.setAttribute("list", list);
+				return "/WEB-INF/view/bankwork/loan/loanMgnNormal.jsp";
+			}
+			else {
+				List<Loan> list = service.showLoansByBusiness();
+				if(list.size()==0) {
+					session.setAttribute("errornonbusiness", "error");
+					return "/WEB-INF/view/bankwork/loan/loanListCustSelect.jsp";
+				}
+				req.setAttribute("list", list);
+				return "/WEB-INF/view/bankwork/loan/loanMgnBusiness.jsp";
+			}
+			
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");

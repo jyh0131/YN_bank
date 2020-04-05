@@ -74,7 +74,7 @@ public class BankBookDaoImpl implements BankBookDao {
 			pstmt.setString(1, "%" + bankbook.getCustCode().getCustName() + "%");
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
-					list.add(getBankBookCustDiv(rs));
+					list.add(getBankBook(rs));
 				}
 			}
 		}
@@ -566,14 +566,14 @@ public class BankBookDaoImpl implements BankBookDao {
 
 	@Override
 	public BankBook showBankBookByCustNameAndAccountNum(BankBook bankbook) throws SQLException {
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountnum = ? and c.custname = ?";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest,c.custDiv from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountnum = ? and c.custname = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, bankbook.getAccountNum());
 			pstmt.setString(2, bankbook.getCustCode().getCustName());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
-					return getBankBook(rs);
+					return getBankBookCustDiv(rs);
 				}
 			}
 		}

@@ -36,10 +36,10 @@
 <script>
 	$(function(){
 		$("#bus").click(function(){
-			$(location).attr('href','${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=1');
+			$(location).attr('href','${pageContext.request.contextPath}/bankwork/loan/mgn.do?div=1');
 		})
 		$("#nor").click(function(){
-			$(location).attr('href','${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=0');
+			$(location).attr('href','${pageContext.request.contextPath}/bankwork/loan/mgn.do?div=0');
 		})
 	})    
 </script>
@@ -47,7 +47,7 @@
 	<jsp:include page="../../include/menu.jsp"/>
 	<div id="container">
 		<div id="header">
-			<h1>통장 조회</h1>
+			<h1>고객 추가</h1>
 		</div>
 			<div id="profile">
 				<h2>프로필</h2>
@@ -67,17 +67,9 @@
 			%>
 		</script>
 	</c:if>
-	<c:if test="${successchange!=null}">
-		<script>
-			alert("휴면계좌로 전환되었습니다");
-			<%
-				session.removeAttribute("successchange");
-			%>
-		</script>
-	</c:if>
 	<c:if test="${errornonbusiness!=null}">
 		<script>
-			alert("기업 고객의 통장 정보가 존재하지 않습니다. 추가부터 해주세요");
+			alert("기업 고객의 대출 정보가 존재하지 않습니다. 추가부터 해주세요");
 			<%
 				session.removeAttribute("errornonbusiness");
 			%>
@@ -85,7 +77,7 @@
 	</c:if>
 	<c:if test="${errornonnormal!=null}">
 		<script>
-			alert("일반 고객의 통장 정보가 존재하지 않습니다. 추가부터 해주세요");
+			alert("일반 고객의 대출 정보가 존재하지 않습니다. 추가부터 해주세요");
 			<%
 				session.removeAttribute("errornonnormal");
 			%>

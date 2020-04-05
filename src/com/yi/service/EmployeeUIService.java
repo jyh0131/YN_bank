@@ -25,6 +25,10 @@ public class EmployeeUIService {
     	return empDao.selectEmpByEmpCode(empCode);
     }
     
+    //아이디 중복 확인
+    public Employee forCheckId(String empId) throws SQLException{
+    	return empDao.selectEmpByEmpId(empId);
+    }
     
     //사원 이름으로 검색
     public List<Employee> showPickedEmpList(String empName) throws SQLException{

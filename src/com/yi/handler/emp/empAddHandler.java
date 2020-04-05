@@ -22,9 +22,18 @@ public class empAddHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		if(req.getMethod().equalsIgnoreCase("get")) {
+			
+			
+			
+
+			
+			
 			return "/WEB-INF/view/emp/empForm.jsp";
 			
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
+			
+			
+
 			/*try {
 				String empName = req.getParameter("empName");
 				Employee emp = new Employee(empName);
@@ -76,7 +85,13 @@ public class empAddHandler implements CommandHandler {
 //		    String empPwd = req.getParameter("empPwd");
 //			int deptNo = Integer.parseInt(req.getParameter("deptNo"));
 			
-			try{Employee emp = new Employee(
+
+
+			  
+			
+			try{
+
+				   Employee emp = new Employee(
 					multi.getParameter("empCode"),
 					multi.getParameter("empName"), 
 					multi.getParameter("empTitle"), 
@@ -88,6 +103,10 @@ public class empAddHandler implements CommandHandler {
 					new Department(Integer.parseInt(multi.getParameter("deptNo"))), 
 					multi.getFilesystemName("pic"));
 			        
+			
+			
+			
+			
 			       // 
 			//System.out.println(emp);
 			service = new EmployeeUIService();

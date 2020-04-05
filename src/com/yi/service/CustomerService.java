@@ -40,6 +40,22 @@ public class CustomerService {
 		return dao.selectCustomerByCode(custCode);
 	}
 	
+	public List<Customer> showCustomerWhoHasAcc() throws SQLException{
+		return dao.selectCustomerWhoHasAcc();
+	}
+	
+	public List<Customer> showCustomerWHasAccByCode(String custCode) throws SQLException{
+		return dao.selectCustomerWHasAccByCode(custCode);
+	}
+	public List<Customer> showCustomerWHasAccByName(String custName) throws SQLException{
+		return dao.selectCustomerWHasAccByName(custName);
+	}
+	
+	public List<Customer> showCustomerWHasAccByTel(String custTel) throws SQLException{
+		return dao.selectCustomerWHasAccByTel(custTel);
+	}
+	
+	
 	public Customer showCustomerByTel(String custTel) throws SQLException{
 		return dao.selectCustomerByTel(custTel);
 	}

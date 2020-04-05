@@ -31,17 +31,17 @@ public class EmployeeUIService {
     }
     
     //사원 이름으로 검색
-    public List<Employee> showPickedEmpList(String empName) throws SQLException{
-    	return empDao.selectEmpByNameList(empName);
+    public List<Employee> showPickedEmpList(String empName, int empRetired) throws SQLException{
+    	return empDao.selectEmpByNameList(empName, empRetired);
     }
     public Employee showPickedEmp(String empName) throws SQLException{
     	return empDao.selectEmpByName(empName);
     }
-    public Employee showPikedEmpByCode(String empCode) throws SQLException{
-    	return empDao.selectEmpByCode(empCode);
+    public Employee showPikedEmpByCode(String empCode ,int empRetired) throws SQLException{
+    	return empDao.selectEmpByCode(empCode, empRetired);
     }
-    public List<Employee> showPickedEmpByDept(String empItem) throws SQLException{
-    	return empDao.selectEmpByDept(empItem);
+    public List<Employee> showPickedEmpByDept(String empItem, int empRetired) throws SQLException{
+    	return empDao.selectEmpByDept(empItem, empRetired);
     }
     
     public List<Employee> showPickedEmpByDeptNo(int empItem) throws SQLException{
@@ -51,8 +51,8 @@ public class EmployeeUIService {
     public List<Employee> showPickedEmpByEmpNo(String empItem) throws SQLException{
     	return empDao.selectEmpByNo(empItem);
     }
-    public List<Employee> showPickedEmpByTitle(String empItem) throws SQLException{
-    	return empDao.selectEmpByTitle(empItem);
+    public List<Employee> showPickedEmpByTitle(String empItem, int empRetired) throws SQLException{
+    	return empDao.selectEmpByTitle(empItem,empRetired);
     }
     
     
@@ -71,6 +71,11 @@ public class EmployeeUIService {
     	return empDao.selectEmpByTitleForPerform(empItem);
     }
     
+    //퍼포먼스 디테일페이지에서 해당 사원의 실적 상세 정보를 불러오기 위함
+    public List<Employee> showDetailEmpPerformance(String empItem) throws SQLException{
+    	return empDao.selectEmpPerformanceDetail(empItem);
+    }
+    
     //사원 랭킹 리스트 부르기
     public List<Employee> showRank(){
     	return empDao.selectRank();
@@ -87,6 +92,14 @@ public class EmployeeUIService {
     
     public void removeEmp(Employee emp) {
     	empDao.deleteEmployee(emp);
+    }
+    //퇴사사원 처리 하기
+    public void changeStatus(Employee emp) {
+    	empDao.changeEmpStatus(emp);
+    }
+    //퇴사사원 리스트
+    public List<Employee> showRetiredEmpList() throws SQLException{
+    	return empDao.selectRetiredList();
     }
     
     //insert하는 부분 

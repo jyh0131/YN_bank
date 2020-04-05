@@ -46,10 +46,21 @@
 			$("#custList").toggle();
 		})
 		$("#dwMgn").click(function() {
+			$("#deposit").toggle();
+			$("#withdrawal").toggle();
 			$("#dwList").toggle();
 		})
-		$("#bankbookMgn").click(function() {
-			$("#bankbookAdd").toggle();
+		$("#deposit").click(function(){
+			var dw = $(this).children("a").html();   
+			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?dw="+dw;
+		})
+		$("#withdrawal").click(function(){          
+			var dw = $(this).children("a").html();   
+			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?dw="+dw;
+		})     
+		                     
+		$("#bankbookMgn").click(function() {  
+			$("#bankbookAdd").toggle();       
 			$("#bankbookList").toggle();
 		})
 		$("#cardMgn").click(function() {
@@ -148,8 +159,9 @@
 					<li id="custMgn" class="side1"><a href="#">고객 관리</a></li>
 					<li id="custAdd" class="side2"><a href="${pageContext.request.contextPath}/cust/selectCust.do">신규 고객 추가</a></li>
 					<li id="custList" class="side2"><a href="${pageContext.request.contextPath}/cust/custSearch.do">고객 조회</a></li>
-					<li id="dwMgn" class="side1"><a href="#">입출금 관리</a></li>
-					<li id="dwList" class="side2"><a href="#">입출금 조회</a></li>
+					<li id="dwMgn" class="side1"><a href="#">입/출금 관리</a></li>
+					<li id="deposit" class="side2"><a href="#">입/출금</a></li>
+					<li id="dwList" class="side2"><a href="#">입/출금 조회</a></li>
 					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a></li>
 					<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=add">통장 추가</a></li>
 					<li id="bankbookList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=mgn">통장 조회</a></li>
@@ -178,6 +190,7 @@
 					<li id="custAdd" class="side2"><a href="${pageContext.request.contextPath}/cust/selectCust.do">신규 고객 추가</a></li>
 					<li id="custList" class="side2"><a href="${pageContext.request.contextPath}/cust/custSearch.do">고객 조회</a></li>
 					<li id="dwMgn" class="side1"><a href="#">입출금 관리</a></li>
+					<li id="deposit" class="side2"><a href="#">입/출금</a></li>
 					<li id="dwList" class="side2"><a href="#">입출금 조회</a></li>
 					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a></li>
 					<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=add">통장 추가</a></li>

@@ -268,7 +268,10 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 
 			})
 			
-			
+			//취소 버튼 누르면
+			$("#returnToList").click(function(){
+				location.href="${pageContext.request.contextPath}/emp/empAuth.do";
+			})
 			
 			
 	})
@@ -338,8 +341,9 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 				</div>
 
 				<div id="submit">
-					<input type="submit" value="수정"> <input type="reset"
-						value="취소">
+					<input type="submit" value="수정"> 
+					<input type="reset" value="취소" id="returnToList">
+				    
 				</div>
 
 			</div>

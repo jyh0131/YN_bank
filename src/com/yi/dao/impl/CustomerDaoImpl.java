@@ -465,6 +465,126 @@ public class CustomerDaoImpl implements CustomerDao {
 		return list;
 	}
 
+	@Override
+	public List<Customer> selectCustomerWhoHasAcc() throws SQLException {
+		List<Customer> list = null;
+		String sql = "select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode";
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	private Customer getCustomerForAccBalance(ResultSet rs) throws SQLException {
+		String custCode = rs.getString("c.custCode");
+		String custName  = rs.getString("c.custName");
+		String custRank = rs.getString("c.custRank");
+		int custCredit = rs.getInt("c.custCredit");
+		String custAccnt = rs.getString("accountNum");
+		String custBalance = rs.getString("accountBalance");
+		int div = rs.getInt("c.custDiv");
+		Boolean custDiv;
+		if(custBalance==null) {
+			custBalance="0";
+		}
+		if(div==0) {
+			custDiv = false;
+		}else {
+			custDiv = true;
+		}
+		
+		Long balance = Long.parseLong(custBalance);
+		
+		Customer customer = new Customer();
+		customer.setCustCode(custCode);
+		customer.setCustName(custName);
+		customer.setCustRank(custRank);
+		customer.setCustCredit(custCredit);
+		customer.setCustDiv(custDiv);
+		
+		BankBook bankbook = new BankBook();
+		bankbook.setAccountNum(custAccnt);
+		bankbook.setAccountBalance(balance);
+		
+		customer.setBankbook(bankbook);
+	
+		
+		return customer;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWHasAccByCode(String custCode) throws SQLException {
+		String sql ="select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custCode= ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){   
+			pstmt.setString(1, custCode);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {    
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWHasAccByName(String custName) throws SQLException {
+		String sql ="select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName= ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){   
+			pstmt.setString(1, custName);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {    
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWHasAccByTel(String custTel) throws SQLException {
+		String sql ="select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custTel= ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){   
+			pstmt.setString(1, custTel);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {    
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	
 	
 	

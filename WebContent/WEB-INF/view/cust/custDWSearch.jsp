@@ -111,12 +111,12 @@
 				var div = $("#searchMenu option:selected").val();
 				var search = $("input[name='search']").val();
 				$.ajax({
-					url: "${pageContext.request.contextPath}/cust/custSearch.do",
+					url: "${pageContext.request.contextPath}/cust/custDWSearch.do?div="+div+"&search="+search,
 				    data: {search:search,div:div},  
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		//console.log(res);
+				    		console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
@@ -130,11 +130,11 @@
 				    		var $th2 = $("<th>").html("고객명");
 				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
-				    		var $th5 = $("<th>").html("고객 주소");
-				    		var $th6 = $("<th>").html("연락처");
+				    		var $th5 = $("<th>").html("계좌번호");
+				    		var $th6 = $("<th>").html("잔액");
 				    		var $th7 = $("<th>").html("분류");
 				    		
-				    		$tr1.append($th1);
+				    		$tr1.append($th1);    
 				    		$tr1.append($th2);
 				    		$tr1.append($th3);
 				    		$tr1.append($th4);
@@ -150,10 +150,10 @@
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
 					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
-					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
-					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
+					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "#");
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "#");
 					    		var $a7;
-					    		if(obj.custDiv==true){
+					    		if(obj.custDiv==true){    
 					    			$a7 = $("<a>").html("기업").attr("href", "#");
 					    		}else{
 					    			$a7 = $("<a>").html("고객").attr("href", "#");
@@ -197,7 +197,7 @@
 				var div = $("#searchMenu option:selected").val();
 				var search = $("input[name='search']").val();
 				$.ajax({
-					url: "${pageContext.request.contextPath}/cust/custSearch.do",
+					url: "${pageContext.request.contextPath}/cust/custDWSearch.do",
 				    data: {search:search,div:div},  
 				    type: "POST", 
 				    dataType: "json", 
@@ -216,8 +216,8 @@
 				    		var $th2 = $("<th>").html("고객명");
 				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
-				    		var $th5 = $("<th>").html("고객 주소");
-				    		var $th6 = $("<th>").html("연락처");
+				    		var $th5 = $("<th>").html("계좌번호");
+				    		var $th6 = $("<th>").html("잔액");
 				    		var $th7 = $("<th>").html("분류");
 				    		
 				    		$tr1.append($th1);
@@ -236,10 +236,17 @@
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
 					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
-					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
-					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
-				    			var $a7 = $("<a>").html(obj.custDiv).attr("href", "#");
-					    		
+					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "#");
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "#");
+				    			var $a7;
+				    			if(obj.custDiv==true){    
+					    			$a7 = $("<a>").html("기업").attr("href", "#");
+					    		}else{
+					    			$a7 = $("<a>").html("일반").attr("href", "#");
+					    		}
+				    			
+				    			
+				    			
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
 					    		var $td3 = $("<td>");
@@ -277,7 +284,7 @@
 				var div = $("#searchMenu option:selected").val();
 				var search = $("input[name='search']").val();
 				$.ajax({
-					url: "${pageContext.request.contextPath}/cust/custSearch.do",
+					url: "${pageContext.request.contextPath}/cust/custDWSearch.do",
 				    data: {search:search,div:div},  
 				    type: "POST", 
 				    dataType: "json", 
@@ -296,8 +303,9 @@
 				    		var $th2 = $("<th>").html("고객명");
 				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
-				    		var $th5 = $("<th>").html("고객 주소");
-				    		var $th6 = $("<th>").html("연락처");
+				    		var $th5 = $("<th>").html("계좌번호");
+				    		var $th6 = $("<th>").html("잔액");
+				    		var $th7 = $("<th>").html("분류");
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);  
@@ -312,13 +320,19 @@
 								var $tr2 = $("<tr>");
 				    			
 								var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
+					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");  
 					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
-					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "#");
-					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "#");
-				    			var $a7 = $("<a>").html(obj.custDiv).attr("href", "#");
+					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "#");
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "#");
+				    			var $a7;
 					    		
+				    			if(obj.custDiv==true){      
+					    			$a7 = $("<a>").html("기업").attr("href", "#");
+					    		}else{
+					    			$a7 = $("<a>").html("일반").attr("href", "#");
+					    		}
+				    			
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
 					    		var $td3 = $("<td>");
@@ -385,30 +399,30 @@
 					<th>고객명</th>
 					<th>고객 등급명</th>    
 					<th>고객 신용등급</th>
-					<th>고객 주소</th>
-					<th>연락처</th>
+					<th>계좌번호</th>
+					<th>잔액</th>
 					<th>분류</th>
 
-				</tr>
-				<c:forEach var='custList' items="${list }">
+				</tr>  
+				<c:forEach var='listForBal' items="${listForBal }">
 					
 					<tr>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custCode }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custName }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custRank }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custCredit }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custAddr }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custTel }</a></td>
-							<c:if test="${custList.custDiv==true}">
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.custCode }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.custName }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.custRank }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.custCredit }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.bankbook.accountNum }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.bankbook.accountBalance }</a></td>
+			
+							<c:if test="${listForBal.custDiv==true}">
 								<td><a href="#">기업</a></td>
-							</c:if>
-							<c:if test="${custList.custDiv==false}">
+							</c:if>   
+							<c:if test="${listForBal.custDiv==false}">
 								<td><a href="#">일반</a></td>
 							</c:if>
-							
 					</tr>
-				
 				</c:forEach>
+				
 		</table>
 		</div>  
 		</section>

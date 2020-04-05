@@ -155,6 +155,13 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 /* div#profileEdit table td #inputEmpPwd::placeholder {
 	font-size: 12px;
 }  */
+
+div#profileEdit table td #inputId {
+   background: darkgray;
+}
+div#profileEdit table td #inputCode {
+   background: darkgray;
+}
 </style>
 
 <script>
@@ -334,7 +341,10 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 				}
 
 			})
-			
+			//취소 버튼 누르면
+			$("#returnToList").click(function(){
+				location.href="${pageContext.request.contextPath}/emp/empSearch.do";
+			})
 			
 			
 	})
@@ -364,7 +374,7 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 					<table>
 						<tr>
 							<th>사원 코드</th>
-							<td><input type="text" name="empCode" readonly="readonly" value="${emp.empCode}"><br> <span
+							<td><input type="text" name="empCode" readonly="readonly" value="${emp.empCode}" id="inputCode"><br> <span
 								class="errorMSG">사원코드를 입력해주세요. 부서 선택시 자동으로 출력됩니다.</span></td>
 						</tr>
 						<tr>
@@ -401,7 +411,7 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 						<tr>
 							<th>아이디</th>
 							<td><input type="text" name="empId"
-								placeholder="6-15자리 영어,숫자 조합" value="${emp.empId }"><br> 
+								placeholder="6-15자리 영어,숫자 조합" value="${emp.empId }" readonly="readonly" id="inputId"><br> 
 								<span class="errorMSG">아이디를 입력해주세요. </span>
 							    <span class="errorMSG">아이디를 확인해 주세요. 6-15자리 영어,숫자 조합</span>
 							</td>
@@ -432,8 +442,9 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 				</div>
 
 				<div id="submit">
-					<input type="submit" value="수정"> <input type="reset"
-						value="취소">
+					<input type="submit" value="수정"> 
+					<input type="reset" value="취소" id="returnToList">
+					<a href="empDelete.do?no=${emp.empCode }"><input type="button" value="삭제"></a>
 				</div>
 
 			</div>

@@ -63,10 +63,10 @@ public class empUpdateHandler implements CommandHandler {
 				//System.out.println("pic은"+pic);
 				
 				Employee dbEmp = service.showPickedEmp2(empCode);
-				System.out.println("db상의 데이터"+dbEmp);
+				//System.out.println("db상의 데이터"+dbEmp);
 				String dbPic = dbEmp.getPic();
 				String dbEmpPwd = dbEmp.getEmpPwd();
-				System.out.println("dbPic은"+dbPic);
+				//System.out.println("dbPic은"+dbPic);
 		/*
            emp.setEmpName(multi.getParameter("empName"));
            emp.setEmpTitle(multi.getParameter("empTitle"));
@@ -97,12 +97,12 @@ public class empUpdateHandler implements CommandHandler {
 				System.out.println("별인가요"+ empPwd);
 				Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, dbEmpPwd, dept, pic==null?dbPic:pic);
 				service.modifyEmpExceptForPwd(emp);
-				System.out.println("비번뺀 emp"+emp);
+				//System.out.println("비번뺀 emp"+emp);
 			}else {
-				System.out.println("아닌경우"+empPwd);
+				//System.out.println("아닌경우"+empPwd);
 				Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, dept, pic==null?dbPic:pic);	
 			    service.modifyEmp(emp);
-			   System.out.println("비번도 바꾼 emp"+emp);
+			   //System.out.println("비번도 바꾼 emp"+emp);
 			}
 			}catch (Exception e) {
 			   e.printStackTrace();

@@ -40,10 +40,13 @@
   	<url-pattern>/emp/empAdd.do</url-pattern>
   	<url-pattern>/emp/empAuth.do</url-pattern>
   	<url-pattern>/emp/empBonus.do</url-pattern>
+  	<url-pattern>/emp/empBonusDetail.do</url-pattern>
   	<url-pattern>/emp/empDetail.do</url-pattern>
   	<url-pattern>/emp/empUpdate.do</url-pattern>
   	<url-pattern>/emp/empAuthDetail.do</url-pattern>
   	<url-pattern>/emp/empAuthUpdate.do</url-pattern>
+  	<url-pattern>/emp/empDelete.do</url-pattern>
+  	<url-pattern>/emp/empSearchRetired.do</url-pattern>
   	<url-pattern>/cust/custSearch.do</url-pattern>
   	<url-pattern>/cust/addCust.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/mgn.do</url-pattern>

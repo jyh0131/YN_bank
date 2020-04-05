@@ -68,6 +68,27 @@ select e.empCode, e.empName, e.empTitle, e.pic, r.perf, r.bonus  from employee e
 
 select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo  
 				 where empId='tototo';
+				
+select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo 
+			 from employee e left join department d on e.deptNo = d.deptNo
+			where empName like '%황%' and empRetire=0;				
+				
+select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo
+				from employee e left join department d on e.deptNo = d.deptNo where empRetire =0
+				order by empCode;				
+				
+select e.empCode, e.empName, e.empTitle, e.pic, r.perf, r.bonus  from employee e left join ranking r on e.`empCode` =r.empCode where e.`deptNo` =2 and empRetire =0 order by bonus desc, perf desc;				
+				
+select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo
+			from employee e left join department d on e.deptNo = d.deptNo 
+			where empId='tototo' and empRetire =0;				
+				
+update employee set empRetire =1 where empCode ='A001';				
+select  * from performance p ;
+
+select e.empCode, e.empName , c.custCode, c.custName, p1.planCode, p1.planName
+  from performance p left join plan p1 on p.planCode =p1.planCode left join employee e on p.empCode =e.empCode left join customer c on p.custCode =c.custCode where e.empCode='B007' ;
+				
 #고객 - 황하나
 -- test 
 select custCode, custName, custRank, custCredit, custAddr, custTel from customer;

@@ -155,11 +155,15 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 div#profileEdit table td #inputEmpPwd::placeholder {
 	font-size: 12px;
 }
+
+div#profileEdit table td #inputCode {
+   background: darkgray;
+}
 </style>
 
 <script>
 	$(function() {
-
+		
 		//get에서 부서별로 사원들의 마지막 값을 받아옴 
 		var lastNumForHR = "${numHR}";
 		var lastNumForCS = "${numCS}";
@@ -176,6 +180,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 		})
 		
 		$("#empId").on("change",function(){
+			$(".errorMSG").css("display", "none");
 			var checkEmpId = $("#empId").val();
 			//alert(tryId);
 			
@@ -376,7 +381,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 					<table>
 						<tr>
 							<th>사원 코드</th>
-							<td><input type="text" name="empCode" readonly="readonly"><br> <span
+							<td><input type="text" name="empCode" readonly="readonly" id="inputCode"><br> <span
 								class="errorMSG">사원코드를 입력해주세요. 부서 선택시 자동으로 출력됩니다.</span></td>
 						</tr>
 						<tr>

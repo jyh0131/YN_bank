@@ -21,6 +21,11 @@ public class Employee {
 	private String pCode;
 	private String pName;
 	
+	private Customer customer;
+	private Plan plan;
+	
+	
+	
 	public Employee() {
 		
 	}
@@ -28,6 +33,18 @@ public class Employee {
 	
 
     
+
+	public Employee(String empCode, String empName, Customer customer, Plan plan) {
+		super();
+		this.empCode = empCode;
+		this.empName = empName;
+		this.customer = customer;
+		this.plan = plan;
+	}
+
+
+
+
 
 	public Employee(String empCode, String empName, String empTitle, String empAuth, int empSalary, String empTel,
 			String empId, String empPwd, Department dept, String pic) {
@@ -119,6 +136,38 @@ public class Employee {
 		this.empTel = empTel;
 		this.empId = empId;
 	}
+
+    
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+
+
+
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+
+
+
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+
+
+
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
+	}
+
+
 
 
 

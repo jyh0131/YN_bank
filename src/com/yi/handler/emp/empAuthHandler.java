@@ -33,7 +33,7 @@ public class empAuthHandler implements CommandHandler {
 				switch(div) {
 				
 				case "사원번호":
-					Employee emp = service.showPikedEmpByCode(search);
+					Employee emp = service.showPikedEmpByCode(search,0);
 					if(emp == null) {
 						HashMap<String,String> map = new HashMap<>();
 						map.put("error", "notExist");
@@ -60,7 +60,7 @@ public class empAuthHandler implements CommandHandler {
 					
 				case "사원이름":
 					List<Employee> list2 = new ArrayList<Employee>();
-					list2 = service.showPickedEmpList(search);
+					list2 = service.showPickedEmpList(search,0);
 					if(list2.size() == 0) {
 						HashMap<String,String> map = new HashMap<>();
 						map.put("error", "notExist");
@@ -83,7 +83,7 @@ public class empAuthHandler implements CommandHandler {
 				
 				case "부서(인사 or 고객)":
 					List<Employee> list3 = new ArrayList<Employee>();
-					list3 = service.showPickedEmpByDept(search);
+					list3 = service.showPickedEmpByDept(search,0);
 					if(list3.size() == 0) {
 						HashMap<String,String> map = new HashMap<>();
 						map.put("error", "notExist");
@@ -105,7 +105,7 @@ public class empAuthHandler implements CommandHandler {
 					
 				case "직급":
 					List<Employee> list4 = new ArrayList<Employee>();
-					list4 = service.showPickedEmpByTitle(search);
+					list4 = service.showPickedEmpByTitle(search,0);
 					if(list4.size() == 0) {
 						HashMap<String,String> map = new HashMap<>();
 						map.put("error", "notExist");

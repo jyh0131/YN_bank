@@ -174,6 +174,28 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 				$("input[name='empCode']").val(lastNumForCS);
 			}
 		})
+		
+		$("#empId").on("change",function(){
+			var empId = $("#empId").val();
+			//alert(tryId);
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/emp/empForm.do",
+			    type: "post", 
+			    data: {"empId":empId},
+			    dataType: "json",
+			    success : function(res){
+			         console.log(res)
+			    	if(res.error =="existId"){
+			    		alert("존재하는 아이디 입니다. 다른 값을 입력해주세요.")
+			    	}
+			    	
+			    }
+			})
+
+		})
+		
+			
 
 		//아이디와 비밀번호 정규표현식으로 걸러내기 
 		$("form").submit(
@@ -324,6 +346,8 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 			})
 			
 			
+			
+			
 	})
 </script>
 
@@ -356,7 +380,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 						</tr>
 						<tr>
 							<th>이름</th>
-							<td><input type="text" name="empName" id="empName"><br> <span
+							<td><input type="text" name="empName" id="empName" placeholder="2-5자리 한글"><br> <span
 								class="errorMSG">사원이름을 입력해주세요.</span> <span class="errorMSG">사원이름은
 									2-5자리 한글로 입력해주세요.</span> <span class="errorMSG">사원이름 중복입니다. 구분이
 									필요합니다.</span></td>
@@ -388,7 +412,7 @@ div#profileEdit table td #inputEmpPwd::placeholder {
 						<tr>
 							<th>아이디</th>
 							<td><input type="text" name="empId"
-								placeholder="6-15자리 영어,숫자 조합"><br> 
+								placeholder="6-15자리 영어,숫자 조합" id="empId"><br> 
 								<span class="errorMSG">아이디를 입력해주세요. </span>
 							    <span class="errorMSG">아이디를 확인해 주세요. 6-15자리 영어,숫자 조합</span>
 							</td>

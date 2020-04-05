@@ -814,6 +814,50 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 		
 	}
+	
+	private Employee getEmployeeFull2(ResultSet rs) throws SQLException {
+		
+		String empCode = rs.getString("empCode");
+		String empName = rs.getString("empName");
+		String empTitle = rs.getString("empTitle");
+		String empAuth = rs.getString("empAuth");
+		int empSalary = rs.getInt("empSalary");
+		String empTel = rs.getString("empTel");
+		String empId = rs.getString("empId");
+		String empPwd =rs.getString("empPwd");
+		Department dept= new Department(rs.getInt("d.deptNo")); //이부분 확인해보기
+	    dept.setDeptName(rs.getString("d.deptName"));
+		return new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, dept);
+
+	
+}
+
+	@Override
+	public Employee selectEmpByEmpId(String empId) throws SQLException {
+		Employee emp = null;
+		String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo\r\n" + 
+				"   from employee e left join department d on e.deptNo = d.deptNo \r\n" + 
+				"   where empId=?";
+		
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			pstmt.setString(1,empId);
+			
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					//list.add(getEmployee(rs));
+					
+					return getEmployeeFull2(rs);
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	
 	

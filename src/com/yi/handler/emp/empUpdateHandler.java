@@ -55,7 +55,7 @@ public class empUpdateHandler implements CommandHandler {
 			    int empSalary = Integer.parseInt(multi.getParameter("empSalary"));
 			    String empTel = multi.getParameter("empTel");
 			    String empId = multi.getParameter("empId");
-			    //String empPwd = multi.getParameter("empPwd");
+			    String empPwd = multi.getParameter("empPwd");
 				Department dept = new Department(Integer.parseInt(multi.getParameter("deptNo")));
 				dept.setDeptName(dept.getDeptNo()==1?"인사":"고객");
 				String pic = multi.getFilesystemName("pic");
@@ -65,7 +65,7 @@ public class empUpdateHandler implements CommandHandler {
 				Employee dbEmp = service.showPickedEmp2(empCode);
 				System.out.println("db상의 데이터"+dbEmp);
 				String dbPic = dbEmp.getPic();
-				String empPwd = dbEmp.getEmpPwd();
+				String dbEmpPwd = dbEmp.getEmpPwd();
 				System.out.println("dbPic은"+dbPic);
 		/*
            emp.setEmpName(multi.getParameter("empName"));
@@ -92,16 +92,16 @@ public class empUpdateHandler implements CommandHandler {
 //			        
 //			       // 
 				
-				
-			Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, dept, pic==null?dbPic:pic);
-				
-			System.out.println("만들어진 emp"+emp);
-			
+			//비번을 수정했는지 여부 
 			if(empPwd.contentEquals("**********")) {
+				System.out.println("별인가요"+ empPwd);
+				Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, dbEmpPwd, dept, pic==null?dbPic:pic);
 				service.modifyEmpExceptForPwd(emp);
 				System.out.println("비번뺀 emp"+emp);
 			}else {
-			service.modifyEmp(emp);
+				System.out.println("아닌경우"+empPwd);
+				Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, dept, pic==null?dbPic:pic);	
+			    service.modifyEmp(emp);
 			   System.out.println("비번도 바꾼 emp"+emp);
 			}
 			}catch (Exception e) {
@@ -112,9 +112,7 @@ public class empUpdateHandler implements CommandHandler {
 			res.sendRedirect(req.getContextPath()+"/emp/empSearch.do");
 			return null;
 		}
-		
-		
-		
+
 		return null;
 	}
 

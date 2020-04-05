@@ -70,7 +70,8 @@ group by e.`empCode`;
 select * from ranking ;
 select e.empCode, e.empName, e.empTitle, e.pic, r.perf, r.bonus  from employee e left join ranking r on e.`empCode` =r.empCode where e.`deptNo` =2 order by bonus desc, perf desc;
 
-  
+select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo  
+				 where empId='tototo';
 #고객 - 황하나
 -- test 
 select custCode, custName, custRank, custCredit, custAddr, custTel from customer;

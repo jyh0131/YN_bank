@@ -10,7 +10,7 @@ public interface EmployeeDao {
 	abstract Employee getEmpIdPass(Employee emp) throws SQLException;
 	abstract Employee getEmpAuth(Employee emp) throws SQLException;
 	
-	
+	Employee selectEmpByEmpId(String empId)throws SQLException;
 	Employee selectEmpByEmpCode(String empCode) throws SQLException;
     //이름으로 검색
 	List<Employee> selectEmpByNameList(String empName)throws SQLException;

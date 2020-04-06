@@ -71,7 +71,7 @@ public class empUpdateHandler implements CommandHandler {
 				
 			//비번을 수정했는지 여부 
 			if(empPwd.contentEquals("**********")) {
-				System.out.println("별인가요"+ empPwd);
+				//System.out.println("별인가요"+ empPwd);
 				Employee emp = new Employee(empCode, empName, empTitle, empAuth, empSalary, empTel, empId, dbEmpPwd, dept, pic==null?dbPic:pic);
 				service.modifyEmpExceptForPwd(emp);
 				//System.out.println("비번뺀 emp"+emp);

@@ -64,6 +64,12 @@ public class EmployeeUIService {
     }
     
     
+    
+    
+    public Employee showEmpPerformPicked(String empCode) throws SQLException {
+    	return empDao.selectOneEmployeeByPerform(empCode);
+    }
+    
     //퍼포먼스 테이블 리스트 불러오기
     
     public List<Employee> showPickedEmpListForPerform(String empItem) throws SQLException{
@@ -133,10 +139,7 @@ public class EmployeeUIService {
     	return empDao.selectEmployeeByPerform();
     }
     
-    public Employee showEmpPerformPicked(String empName) throws SQLException {
-    	return empDao.selectOneEmployeeByPerform(empName);
-    }
-    
+   
     
     //전체 사원 수 구하기
     public int countAllEmpNum() {

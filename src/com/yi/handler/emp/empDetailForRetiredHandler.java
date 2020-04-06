@@ -23,7 +23,7 @@ public class empDetailForRetiredHandler implements CommandHandler {
 
 				
 		Employee emp = service.showPikedEmpByCode(empCode);
-		System.out.println(emp);
+	//	System.out.println(emp);
 		req.setAttribute("emp", emp);
 		
 		

@@ -349,14 +349,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	@Override
-	public Employee selectOneEmployeeByPerform(String empName) throws SQLException {
+	public Employee selectOneEmployeeByPerform(String empCode) throws SQLException {
 		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, if(pl.`planDiv` ='V',vip,null) as vip, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
 				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
-				"where e.empName=? and empRetire =0 group by e.`empCode`";
+				"where e.empCode=? and empRetire =0 group by e.`empCode`";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				){
-			pstmt.setString(1, empName);
+			pstmt.setString(1, empCode);
 			//List<Employee> list = new ArrayList<Employee>();
 			try(ResultSet rs = pstmt.executeQuery();){
 			

@@ -39,7 +39,7 @@ public class CustomerService {
 	public List<Customer> showCustomerByCode(String custCode) throws SQLException{
 		return dao.selectCustomerByCode(custCode);
 	}
-	
+	   
 	public List<Customer> showCustomerWhoHasAcc() throws SQLException{
 		return dao.selectCustomerWhoHasAcc();
 	}

@@ -37,7 +37,7 @@
 			$(this).find(".side2").toggle();
 			
 		})
-		
+
 		$(".side2").hide();
 	});
 </script>
@@ -124,7 +124,7 @@
 					</li>
 					<li id="dwMgn" class="side1"><a href="#">입/출금 관리</a>
 						<ul>
-							<li id="deposit" class="side2"><a href="#">입/출금</a></li>
+							<li id="deposit" class="side2"><a href="${pageContext.request.contextPath}/cust/custDWSearch.do">입/출금</a></li>
 							<li id="dwList" class="side2"><a href="#">입/출금 조회</a></li>
 						</ul>
 					</li>
@@ -180,7 +180,7 @@
 					</li>
 					<li id="dwMgn" class="side1"><a href="#">입/출금 관리</a>
 						<ul>
-							<li id="deposit" class="side2"><a href="#">입/출금</a></li>
+							<li id="deposit" class="side2"><a href="${pageContext.request.contextPath}/cust/custDWSearch.do">입/출금</a></li>
 							<li id="dwList" class="side2"><a href="#">입/출금 조회</a></li>
 						</ul>
 					</li>

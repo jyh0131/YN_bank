@@ -186,6 +186,47 @@ create trigger tri_after_update_BankBook
 delimiter ;
 
 
+-- 입/출금 row level locking 프로시저
+
+drop procedure if exists pro_update_balance_locking;
+
+delimiter $
+create procedure pro_update_balance_locking(
+	in in_accountbalance bigint,
+	in in_accountnum char(16),
+	in in_text varchar(10)
+)
+begin
+	start transaction;
+	set AUTOCOMMIT=false;
+	select * from bankbook where accountNum = in_accountnum for update;
+	if in_text="입금"
+	then update bankbook set accountBalance = accountBalance + in_accountbalance where accountNum= in_accountnum;
+	elseif in_text="출금"
+	then update bankbook set accountBalance = accountBalance - in_accountbalance where accountNum= in_accountnum;
+	end if;
+	commit;
+	set AUTOCOMMIT=true;
+end $
+delimiter ;
+
+-- 입/출금 row level locking 실행 프로시저
+
+drop procedure if exists pro_update_balance_locking_commit;
+
+delimiter $
+create procedure pro_update_balance_locking_commit(
+	in in_accountbalance bigint,
+	in in_accountnum char(16),
+	in in_text varchar(10)
+)
+begin
+	call pro_update_balance_locking(in_accountbalance,in_accountnum,in_text);
+end $
+delimiter ;
+
+
+
 -- 통계 조회를 위해서 미리 넣어두는 데이터
 
 insert into cust_DW_audit values("입금", "김서형", "293133-11-000001", 100, 100, now());

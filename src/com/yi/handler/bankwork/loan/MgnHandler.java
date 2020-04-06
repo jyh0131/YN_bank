@@ -57,6 +57,7 @@ public class MgnHandler implements CommandHandler {
 				loan.setLoanAccountNum(search);
 				Customer customer = new Customer();
 				customer.setCustDiv(custdiv.equals("0")?false:true);
+				loan.setCustCode(customer);
 				List<Loan> list = service.searchLoanAccountNum(loan);
 				if(list.size()==0) {
 					HashMap<String,String> map = new HashMap<>();
@@ -110,6 +111,7 @@ public class MgnHandler implements CommandHandler {
 				loan.setPlanCode(plan);
 				customer = new Customer();
 				customer.setCustDiv(custdiv.equals("0")?false:true);
+				loan.setCustCode(customer);
 				list = service.searchLoanPlanName(loan);
 				if(list.size()==0) {
 					HashMap<String,String> map = new HashMap<>();

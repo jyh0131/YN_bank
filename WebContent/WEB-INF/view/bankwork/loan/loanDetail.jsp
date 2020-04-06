@@ -15,8 +15,14 @@
     $(function() {
     	$("#loanAdd").show();
 		$("#loanList").show();
+		$("#del").click(function() {
+			if(!confirm("삭제하시겠습니까?")) {
+				alert("삭제가 취소되었습니다");
+				return false;
+			}
+		})
     	$("#cancel").click(function() {
-    		location.href = "${pageContext.request.contextPath}/bankwork/card/mgn.do";
+    		location.href = "${pageContext.request.contextPath}/bankwork/card/mgn.do?div=${custdiv}";
     	})
     });
 </script>
@@ -101,7 +107,7 @@
 						</tr>
 						<tr>
 							<th>대출날짜</th>
-							<td><input type="text" name="loandate"  value=<fmt:formatDate value="${loan.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/> readonly="readonly"></td>
+							<td><input type="text" name="loandate"  value="<fmt:formatDate value="${loan.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<th>대출이자</th>
@@ -115,8 +121,8 @@
 				</div>
 				
 				<div id="submit">
-					<input type="submit" value="수정">
-					<input type="submit" value="삭제">
+					<input type="submit" value="수정" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=mod&custdiv=${custdiv}" formmethod="post">
+					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=del&custdiv=${custdiv}" formmethod="post" id="del">
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

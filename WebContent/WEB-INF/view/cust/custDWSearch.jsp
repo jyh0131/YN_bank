@@ -372,6 +372,8 @@
 		$("button").eq(1).click(function() {
 			$("input[name='search']").val("");
 		})
+		
+		       
 	})
 </script>
 <body>
@@ -379,9 +381,9 @@
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색 구분</option>
-					<option>고객 코드</option>
+					<option>고객 코드</option>  
 					<option>고객명</option>
-					<option>연락처</option>   
+					<option>연락처</option>     
 					
 				</select>
 			
@@ -407,12 +409,12 @@
 				<c:forEach var='listForBal' items="${listForBal }">
 					
 					<tr>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.custCode }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.custName }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.custRank }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.custCredit }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.bankbook.accountNum }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${listForBal.custName}&dw=dw&accNum=${listForBal.bankbook.accountNum}&accBal=${listForBal.bankbook.accountBalance}">${listForBal.bankbook.accountBalance }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custCode }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custName }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custRank }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custCredit }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.bankbook.accountNum }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.bankbook.accountBalance }</a></td>
 			
 							<c:if test="${listForBal.custDiv==true}">
 								<td><a href="#">기업</a></td>

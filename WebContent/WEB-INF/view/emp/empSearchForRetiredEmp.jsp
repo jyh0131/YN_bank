@@ -110,8 +110,7 @@
     
     
         var $table = $("<table>").addClass("tableList");
-        var $tr = $("<tr>");
-        
+
         var $menutr = $("<tr>");
         var $menutd1 = $("<td>").html("사원코드");
         var $menutd2 = $("<td>").html("사원이름");
@@ -154,7 +153,7 @@
 				    		$(".tableList").remove();
 		
 				    		$(res).each(function(i,obj){
-				    			
+				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -202,7 +201,7 @@
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
 				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr>");
+				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -249,7 +248,7 @@
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
 				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr>");
+				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -297,7 +296,7 @@
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
 				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr>");
+				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -305,7 +304,7 @@
 				    			var $td5 = $("<td>").html(obj.empSalary);
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td9 = $("<td>").html(obj.dept.deptName);
+				    			var $td8 = $("<td>").html(obj.dept.deptName);
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
@@ -333,10 +332,10 @@
 	   
 	  
 	  //각 줄을 클릭할 때마다 내가 부여한 data-empCode를 받아오기 
-	  $(".oneEmp").click(function(){
+	  $(document).on("click",".oneEmp",function(){
 		  var OneCode = $(this).attr("data-empCode");
 		  //alert(OneCode);
-		  location.href="${pageContext.request.contextPath}/emp/empDetail.do?empCode="+OneCode;
+		  location.href="${pageContext.request.contextPath}/emp/empDetailForRetired.do?empCode="+OneCode;
 	  })
 	  
 	   

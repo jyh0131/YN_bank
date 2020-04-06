@@ -278,22 +278,7 @@ div#profileEdit table td #inputCode {
 								 return false;
 						 }
 					}
-					
-				
-					
-					
-					/*  $.ajax({
-					 	url: "${pageContext.request.contextPath}/emp/empAdd.do",
-					    type: "post", 
-					    dataType: "json",
-					    success : function(res){
-					    	if(res.error == "notExist"){
-					    		$("input[name='empName']").next().next().next().next().css("display","inline");
-					 	    	return false;	
-					    	}
-					    }
-
-					 }) */
+	
 
 				}) //서밋 끝나는거 
 				

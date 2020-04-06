@@ -11,7 +11,7 @@ import com.yi.dto.Employee;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.EmployeeUIService;
 
-public class empDetailHandler implements CommandHandler {
+public class empDetailForRetiredHandler implements CommandHandler {
 	
 	private EmployeeUIService service = new EmployeeUIService();
 	@Override
@@ -21,13 +21,14 @@ public class empDetailHandler implements CommandHandler {
 		
 		String empCode = req.getParameter("empCode");  //코드를 뽑아옴 
 
+				
 		Employee emp = service.showPikedEmpByCode(empCode);
 	//	System.out.println(emp);
 		req.setAttribute("emp", emp);
 		
 		
 		
-		return "/WEB-INF/view/emp/empFormForUpdate.jsp";
+		return "/WEB-INF/view/emp/empFormForRetired.jsp";
 		
 		
 	

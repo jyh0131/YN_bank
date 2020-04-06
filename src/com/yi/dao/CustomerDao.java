@@ -3,6 +3,7 @@ package com.yi.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.yi.dto.Cust_dw_audit;
 import com.yi.dto.Customer;
 
 public interface CustomerDao {
@@ -22,6 +23,9 @@ public interface CustomerDao {
 	abstract Customer selectCustomerByTel(String custTel) throws SQLException;
 	abstract List<Customer> selectCustomerBankInfoByName (String custName) throws SQLException;
 	abstract List<Customer> selectCustomerBankInfoByAcc (String accountNum) throws SQLException;
+	abstract List<Cust_dw_audit> selectCust_dw_audit() throws SQLException;
+	abstract List<Cust_dw_audit> selectCust_dw_auditByAcc(String accountNum) throws SQLException;
+	abstract List<Cust_dw_audit> selectCust_dw_auditByName(String custName) throws SQLException;
 	abstract int selectNormalCustNum() throws SQLException; 
 	abstract int selectVIPCustNum() throws SQLException;
 	abstract int selectBRankCustNum() throws SQLException;

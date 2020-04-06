@@ -394,12 +394,12 @@
 				<c:forEach var='custList' items="${list }">
 					
 					<tr>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custCode }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custName }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custRank }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custCredit }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custAddr }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custName=${custList.custName}">${custList.custTel }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custCode }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custName }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custRank }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custCredit }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custAddr }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custTel }</a></td>
 							<c:if test="${custList.custDiv==true}">
 								<td><a href="#">기업</a></td>
 							</c:if>

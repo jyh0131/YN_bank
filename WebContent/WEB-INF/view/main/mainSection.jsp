@@ -156,10 +156,10 @@
     	<ul>
     		<li>
     			<div id="bestImg">
-    				<img alt="우수사원" src="${pageContext.request.contextPath}/images/staff2.jpg">
+    				<img alt="우수사원" src="${pageContext.request.contextPath}/images/${empNo1.pic}">
     			</div>
     			<span id="bestTeam">YN 인사팀</span>
-    			<span id="bestWho">이지은 대리</span>
+    			<span id="bestWho">${empNo1.empName } ${empNo1.empTitle }</span>
     		</li>
     	</ul>
     </div>

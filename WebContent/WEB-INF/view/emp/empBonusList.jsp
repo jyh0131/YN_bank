@@ -374,7 +374,7 @@
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
 					<td>${empList.perf}</td>
-					<td>${empList.bonus }</td>
+					<td><fmt:formatNumber value='${empList.bonus }' pattern='###,###,###'/></td>
 					<td>${empList.pCode}</td>
 					<td>${empList.pName }</td>	
 				</tr>

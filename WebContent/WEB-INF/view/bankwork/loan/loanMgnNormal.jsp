@@ -272,6 +272,13 @@
 			$("table").load(location.href + " table");
 			$("input[name='search']").val("");
 		})
+		
+		$(".pickedOne").click(function(){
+		  var accountNumForPick = $(this).attr("data-accountNum");
+		  var custNameForPick = $(this).attr("data-custName");
+		  
+		  location.href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum="+accountNumForPick+"&custname="+custNameForPick;
+	  })
 	})
 </script>
 </head>
@@ -304,14 +311,14 @@
 					<th>대출금액</th>
 				</tr>
 				<c:forEach var="loan" items="${list}">
-				<tr>
-					<td><a href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}">${loan.loanAccountNum}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}">${loan.custCode.custName}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}">${loan.planCode.planName}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}">${fn:substring(loan.loanAccountNum,8,9) eq '1'?'일반대출':fn:substring(loan.loanAccountNum,8,9) eq '2'?'신용대출':'카드론'}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}"><fmt:formatDate value="${loan.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/></a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}"><fmt:formatNumber value="${loan.loanInterest}" type="percent"/></a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}"><fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/></a></td>
+				<tr class="pickedOne" data-accountNum="${loan.loanAccountNum }" data-custName="${loan.custCode.custName}">
+					<td>${loan.loanAccountNum}</td>
+					<td>${loan.custCode.custName}</td>
+					<td>${loan.planCode.planName}</td>
+					<td>${fn:substring(loan.loanAccountNum,8,9) eq '1'?'일반대출':fn:substring(loan.loanAccountNum,8,9) eq '2'?'신용대출':'카드론'}</td>
+					<td><fmt:formatDate value="${loan.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+					<td><fmt:formatNumber value="${loan.loanInterest}" type="percent"/></td>
+					<td><fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/></td>
 				</tr>
 				</c:forEach>
 			</table>

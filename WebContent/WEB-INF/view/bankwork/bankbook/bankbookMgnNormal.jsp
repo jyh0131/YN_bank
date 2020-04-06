@@ -323,6 +323,15 @@
 			$("table").load(location.href + " table");
 			$("input[name='search']").val("");
 		})
+		
+		$(".pickedOne").click(function(){
+		  var accountNumForPick = $(this).attr("data-accountNum");
+		  var custNameForPick = $(this).attr("data-custName");
+		  
+		  location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
+	  })
+		
+		
 	})
 </script>
 </head>
@@ -355,13 +364,13 @@
 					<th>이자율</th>
 				</tr>
 				<c:forEach var="bankbook" items="${list}">
-				<tr>
-					<td><a href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}">${bankbook.accountNum}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}">${bankbook.custCode.custName}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}">${bankbook.accountPlanCode.planName}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}">${fn:substring(bankbook.accountNum,8,9) eq '1'?'예금':fn:substring(bankbook.accountNum,8,9) eq '2'?'적금':'마이너스'}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}"><fmt:formatDate value="${bankbook.accountOpenDate}" pattern="yyyy-MM-dd HH:mm:ss"/></a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum=${bankbook.accountNum}&custname=${bankbook.custCode.custName}"><fmt:formatNumber value="${bankbook.accountInterest}" type="percent"/></a></td>
+				<tr class="pickedOne" data-accountNum="${bankbook.accountNum }" data-custName="${bankbook.custCode.custName }">
+					<td>${bankbook.accountNum}</td>
+					<td>${bankbook.custCode.custName}</td>
+					<td>${bankbook.accountPlanCode.planName}</td>
+					<td>${fn:substring(bankbook.accountNum,8,9) eq '1'?'예금':fn:substring(bankbook.accountNum,8,9) eq '2'?'적금':'마이너스'}</td>
+					<td><fmt:formatDate value="${bankbook.accountOpenDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+					<td><fmt:formatNumber value="${bankbook.accountInterest}" type="percent"/></td>
 				</tr>
 				</c:forEach>
 			</table>

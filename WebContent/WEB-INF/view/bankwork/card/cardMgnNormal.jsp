@@ -275,6 +275,13 @@
 			$("table").load(location.href + " table");
 			$("input[name='search']").val("");
 		})
+		
+		$(".pickedOne").click(function(){
+		  var cardtNumForPick = $(this).attr("data-cardNum");
+		  var custNameForPick = $(this).attr("data-custName");
+		  
+		  location.href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+cardtNumForPick+"&custname="+custNameForPick;
+	  })
 	})
 </script>
 </head>
@@ -308,15 +315,15 @@
 					<th>카드잔액</th>
 				</tr>
 				<c:forEach var="card" items="${list}">
-				<tr>
-					<td><a href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum=${card.cardNum}&custname=${card.custCode.custName}">${card.cardNum}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum=${card.cardNum}&custname=${card.custCode.custName}">${card.custCode.custName}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum=${card.cardNum}&custname=${card.custCode.custName}">${card.planCode.planName}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum=${card.cardNum}&custname=${card.custCode.custName}">${fn:substring(card.cardNum,6,7) eq '1'?'체크카드':'신용카드'}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum=${card.cardNum}&custname=${card.custCode.custName}">${card.cardSecuCode}</a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum=${card.cardNum}&custname=${card.custCode.custName}"><fmt:formatDate value="${card.cardIssueDate}" pattern="yyyy-MM-dd HH:mm:ss"/></a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum=${card.cardNum}&custname=${card.custCode.custName}"><fmt:formatNumber value="${card.cardLimit}" type="number" maxFractionDigits="3"/></a></td>
-					<td><a href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum=${card.cardNum}&custname=${card.custCode.custName}"><fmt:formatNumber value="${card.cardBalance}" type="number" maxFractionDigits="3"/></a></td>
+				<tr class="pickedOne" data-cardNum="${card.cardNum }" data-custName="${card.custCode.custName }">
+					<td>${card.cardNum}</td>
+					<td>${card.custCode.custName}</td>
+					<td>${card.planCode.planName}</td>
+					<td>${fn:substring(card.cardNum,6,7) eq '1'?'체크카드':'신용카드'}</a></td>
+					<td>${card.cardSecuCode}</a></td>
+					<td><fmt:formatDate value="${card.cardIssueDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+					<td><fmt:formatNumber value="${card.cardLimit}" type="number" maxFractionDigits="3"/></td>
+					<td><fmt:formatNumber value="${card.cardBalance}" type="number" maxFractionDigits="3"/></td>
 				</tr>
 				</c:forEach>
 			</table>

@@ -163,8 +163,14 @@
 							</td>   
 						</tr>
 						<tr>
+							<c:if test="${dw=='입금' }">
 							<th>입금 금액</th>
-							<td><input type="text" name="amount"></td>  
+							<td><input type="text" name="amount"></td>
+							</c:if>
+							<c:if test="${dw=='출금' }">
+							<th>출금 금액</th>
+							<td><input type="text" name="amount"></td>
+							</c:if>    
 						</tr>
 						
 					</table>

@@ -31,10 +31,10 @@ public class ContributionDaoImpl implements ContributionDao {
 	}
 
 	private Contribution getContribution(ResultSet rs) throws SQLException {
-		long totalDWAmount = rs.getLong("totalBankBookAmount");
+		long totalDepositWithdrawAmount = rs.getLong("totalBankBookAmount");
 		long totalLoanAmount = rs.getLong("totalLoanAmount");
 		long totalContribution = rs.getLong("totalBankAmount");
-		return new Contribution(totalDWAmount, totalLoanAmount, totalContribution);
+		return new Contribution(totalDepositWithdrawAmount, totalLoanAmount, totalContribution);
 	}
 
 }

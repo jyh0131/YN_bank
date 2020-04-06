@@ -22,7 +22,6 @@ public class MainHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		List<Notice> list = noticeService.showNoticeByAll();
 		Contribution contribution = loginService.bankTotalAmount();
-		System.out.println(contribution);
 		req.setAttribute("list", list);
 		HttpSession session = req.getSession();
 		session.removeAttribute("contribution");

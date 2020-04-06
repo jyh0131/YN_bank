@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.yi.dao.CustomerDao;
 import com.yi.dto.BankBook;
+import com.yi.dto.Cust_dw_audit;
 import com.yi.dto.Customer;
 
 public class CustomerDaoImpl implements CustomerDao {
@@ -582,6 +583,79 @@ public class CustomerDaoImpl implements CustomerDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return list;
+	}
+
+	@Override
+	public List<Cust_dw_audit> selectCust_dw_audit() throws SQLException {
+		String sql = "select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit";
+		List<Cust_dw_audit> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCust_dw_audit(rs));
+				}while(rs.next());
+			}
+			
+		}
+				  
+		return list;
+	}
+
+	private Cust_dw_audit getCust_dw_audit(ResultSet rs) throws SQLException {
+		Cust_dw_audit audit = new Cust_dw_audit();
+		audit.setDw(rs.getString(1));
+		audit.setCustName(rs.getString(2));
+		audit.setAccountNum(rs.getString(3));
+		audit.setAmount(rs.getInt(4));  
+		audit.setAccountBalance(rs.getInt(5));
+		audit.setAccountTransDate(rs.getTimestamp(6));
+		return audit;
+	}
+
+	@Override
+	public List<Cust_dw_audit> selectCust_dw_auditByAcc(String accountNum) throws SQLException {
+		String sql = "select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit where accountnum=? ";
+		List<Cust_dw_audit> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, accountNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCust_dw_audit(rs));
+				}while(rs.next());
+			}
+			
+		}
+				  
+		return list;
+	}
+
+	@Override
+	public List<Cust_dw_audit> selectCust_dw_auditByName(String custName) throws SQLException {
+		String sql = "select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit where custName=? ";
+		List<Cust_dw_audit> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, custName);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCust_dw_audit(rs));
+				}while(rs.next());
+			}
+			
+		}
+				  
 		return list;
 	}
 

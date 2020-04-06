@@ -20,6 +20,10 @@ public class EmployeeUIService {
     public List<Employee> showEmpList(){
     	return empDao.selectEmployeeByAll();
     }
+    //퇴사사원 빼고 조회 auth위함
+    public List<Employee> showExistEmpList(){
+    	return empDao.selectExistEmployee();
+    }
     
     public Employee showPickedEmp2(String empCode) throws SQLException{
     	return empDao.selectEmpByEmpCode(empCode);

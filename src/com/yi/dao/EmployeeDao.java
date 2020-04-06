@@ -32,6 +32,8 @@ public interface EmployeeDao {
 	
     //전체 사원 리스트
 	List<Employee> selectEmployeeByAll();
+	//근무직원만
+	List<Employee> selectExistEmployee();
 	
 	//실적관련 사원 리스트
 	List<Employee> selectEmployeeByPerform();

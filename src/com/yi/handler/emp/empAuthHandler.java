@@ -19,7 +19,7 @@ public class empAuthHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			List<Employee> list = service.showEmpList();
+			List<Employee> list = service.showExistEmpList();
 	//		System.out.println(list);
 
 			req.setAttribute("list", list);

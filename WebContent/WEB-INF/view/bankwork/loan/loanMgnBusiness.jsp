@@ -313,7 +313,7 @@
 					<th>대출금액</th>
 				</tr>
 				<c:forEach var="loan" items="${list}">
-				<tr>
+				<tr class="pickedOne" data-accountNum="${loan.loanAccountNum }" data-custName="${loan.custCode.custName}">
 					<td>${loan.loanAccountNum}</td>
 					<td>${loan.custCode.custName}</td>
 					<td>${loan.planCode.planName}</td>

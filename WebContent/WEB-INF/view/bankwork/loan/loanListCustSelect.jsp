@@ -49,7 +49,7 @@
 	<jsp:include page="../../include/menu.jsp"/>
 	<div id="container">
 		<div id="header">
-			<h1>고객 추가</h1>
+			<h1>대출 조회</h1>
 		</div>
 			<div id="profile">
 				<h2>프로필</h2>

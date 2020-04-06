@@ -49,6 +49,18 @@ public class LoanDaoImpl implements LoanDao {
 		Long loanBalance = rs.getLong("l.loanbalance");
 		return new Loan(loanAccountNum, custCode, planCode, loanDate, loanInterest, loanBalance);
 	}
+	private Loan getLoanCustDiv(ResultSet rs) throws SQLException {
+		String loanAccountNum = rs.getString("l.loanaccountnum");
+		Customer custCode = new Customer();
+		custCode.setCustName(rs.getString("c.custname"));
+		custCode.setCustDiv(rs.getBoolean("c.custDiv"));
+		Plan planCode = new Plan();
+		planCode.setPlanName(rs.getString("p.planname"));
+		Date loanDate = rs.getTimestamp("l.loanDate");
+		float loanInterest = rs.getFloat("l.loaninterest");
+		Long loanBalance = rs.getLong("l.loanbalance");
+		return new Loan(loanAccountNum, custCode, planCode, loanDate, loanInterest, loanBalance);
+	}
 
 	@Override
 	public List<Loan> showLoanByCustName(Loan loan) throws SQLException {
@@ -142,10 +154,11 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> searchLoanAccountNums(Loan loan) throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum like ?";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + loan.getLoanAccountNum() + "%");
+			pstmt.setBoolean(2, loan.getCustCode().getCustDiv());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getLoan(rs));
@@ -158,10 +171,11 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> searchLoanCustNames(Loan loan) throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custname like ?";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custname like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + loan.getCustCode().getCustName() + "%");
+			pstmt.setBoolean(2, loan.getCustCode().getCustDiv());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getLoan(rs));
@@ -174,10 +188,11 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> searchLoanPlanNames(Loan loan) throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where p.planname like ?";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where p.planname like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + loan.getPlanCode().getPlanName() + "%");
+			pstmt.setBoolean(2, loan.getCustCode().getCustDiv());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getLoan(rs));
@@ -189,14 +204,14 @@ public class LoanDaoImpl implements LoanDao {
 
 	@Override
 	public Loan showLoanByLoanAccountNumAndCustName(Loan loan) throws SQLException {
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum = ? and c.custname = ?";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance,c.custdiv from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum = ? and c.custname = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, loan.getLoanAccountNum());
 			pstmt.setString(2, loan.getCustCode().getCustName());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
-					return getLoan(rs);
+					return getLoanCustDiv(rs);
 				}
 			}
 		}

@@ -325,7 +325,7 @@
 				</c:forEach>
 			</table>
 		</div>
-				<c:if test="${successmod!=null}">
+		<c:if test="${successmod!=null}">
 			<script>
 				alert("수정되었습니다");
 			</script>

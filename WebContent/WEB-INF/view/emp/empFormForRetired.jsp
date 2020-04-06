@@ -166,23 +166,10 @@ div#profileEdit table td #inputCode {
 
 <script>
 	$(function() {
+		//선택한 메뉴 보이도록 
+		$("#empAdd").show();
+		$("#empList").show();
 
-/* 		//get에서 부서별로 사원들의 마지막 값을 받아옴 
-		var lastNumForHR = "${numHR}";
-		var lastNumForCS = "${numCS}";
-		// alert(deptInfo); -1이 뜸 
-		$("input[name='empCode']").val(lastNumForHR);
-		//부서 선택이 바뀔때마다 
-		$("#selectForDept").on("change", function() {
-			var deptInfo = $("#selectForDept option:selected").val();
-			if (deptInfo == 1) {
-				$("input[name='empCode']").val(lastNumForHR);
-			} else {
-				$("input[name='empCode']").val(lastNumForCS);
-			}
-		}) */
-
-		//아이디와 비밀번호 정규표현식으로 걸러내기 
 		$("form").submit(
 				function() {
 					$(".errorMSG").css("display", "none");

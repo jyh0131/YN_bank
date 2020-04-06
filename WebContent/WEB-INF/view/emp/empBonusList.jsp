@@ -89,6 +89,8 @@
 </style>
 <script>
    $(function(){
+	   //메뉴보이기
+	   $("#empBonusList").show();
 	  $("select").on("change",function(){
 		  $("table").load(location.href+" table");
 		  $("#searchForEmp").val("");

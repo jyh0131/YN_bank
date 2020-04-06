@@ -89,6 +89,8 @@
 </style>
 <script>
    $(function(){
+	   //목록보이기
+	  $("#empAuthAdd").show();
 	  $("select").on("change",function(){
 		  $("table").load(location.href+" table");
 		  $("#searchForEmp").val("");

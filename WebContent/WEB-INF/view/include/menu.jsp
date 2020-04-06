@@ -34,12 +34,20 @@
 		$("#empMgn").click(function() {
 			$("#empAdd").toggle();
 			$("#empList").toggle();
+			$("#empAuthAdd").hide();
+			$("#empBonusList").hide();
 		})
 		$("#empAuth").click(function() {
 			$("#empAuthAdd").toggle();
+			$("#empAdd").hide();
+			$("#empList").hide();
+			$("#empBonusList").hide();
 		})
 		$("#empBonus").click(function() {
 			$("#empBonusList").toggle();
+			$("#empAdd").hide();
+			$("#empList").hide();
+			$("#empAuthAdd").hide();
 		})
 		$("#custMgn").click(function() {
 			$("#custAdd").toggle();

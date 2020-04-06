@@ -99,6 +99,10 @@
 </style>
 <script>
    $(function(){
+	   
+	   //선택한 메뉴 보이도록 설정 
+	   $("#empAdd").show();
+	   $("#empList").show();
 	  $("select").on("change",function(){
 		  $("table").load(location.href+" table");
 		  $("#searchForEmp").val("");

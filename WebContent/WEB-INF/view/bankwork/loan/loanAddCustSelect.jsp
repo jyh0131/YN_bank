@@ -34,6 +34,8 @@
 </style>
 <script>
 	$(function(){
+		$("#loanAdd").show();
+		$("#loanList").show();
 		$("#bus").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/bankwork/loan/add.do?div=1');
 		})

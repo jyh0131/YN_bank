@@ -64,6 +64,8 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
+    	$("#bankbookAdd").show();
+		$("#bankbookList").show();
     	$("#modify").click(function() {
 			var accountInterest = $("input[name='accountInterest']").val();
     		var accountInterestReg = /^(100|[0-9]{1,2})[%]$/;

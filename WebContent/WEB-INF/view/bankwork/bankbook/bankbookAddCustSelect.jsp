@@ -34,6 +34,8 @@
 </style>
 <script>
 	$(function(){
+		$("#bankbookAdd").show();
+		$("#bankbookList").show();
 		$("#bus").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/bankwork/bankbook/add.do?div=1');
 		})

@@ -43,6 +43,8 @@
 </style>
 <script>
 	$(function(){
+		$("#deposit").show();
+		$("#dwList").show();
 		$("#dep").click(function(){
 			var dw = $(this).html();
 			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custName=${custName}&dw='+dw+"&accountNum=${accountNum}&accountBalance=${accountBalance}");

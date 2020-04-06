@@ -63,7 +63,10 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
+    	
     	$(".normal").hide();
+    	$("#bankbookAdd").show();
+		$("#bankbookList").show();
     	$('#date').datepicker({
             dateFormat: 'yy-mm-dd',
             onSelect: function(datetext) {

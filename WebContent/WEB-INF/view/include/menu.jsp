@@ -10,6 +10,7 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
 	$(function(){
+		
 		if(${Auth.empAuth=='AD'}) {
 			$("#staff").css({"height":"10%","background":"goldenrod"});
 			$("#staff ul li").css({"float":"left","list-style":"none"});
@@ -31,59 +32,12 @@
 			$("#name").css("font-weight","bold");
 			$("#staff ul li img").css({"width":"120px","height":"120px","margin":"10px","border-radius":"120px"});
 		}
-		$("#empMgn").click(function() {
-			$("#empAdd").toggle();
-			$("#empList").toggle();
+		$(".side1").click(function() {
+			$(".side2").hide();
+			$(this).find(".side2").toggle();
+			
 		})
-		$("#empAuth").click(function() {
-			$("#empAuthAdd").toggle();
-		})
-		$("#empBonus").click(function() {
-			$("#empBonusList").toggle();
-		})
-		$("#custMgn").click(function() {
-			$("#custAdd").toggle();
-			$("#custList").toggle();
-		})
-		$("#dwMgn").click(function() {
-			$("#deposit").toggle();
-			$("#withdrawal").toggle();
-			$("#dwList").toggle();
-		})
-		$("#deposit").click(function(){
-			var dw = $(this).children("a").html();   
-			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?dw="+dw;
-		})
-		$("#withdrawal").click(function(){          
-			var dw = $(this).children("a").html();   
-			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?dw="+dw;
-		})     
-		                     
-		$("#bankbookMgn").click(function() {  
-			$("#bankbookAdd").toggle();       
-			$("#bankbookList").toggle();
-		})
-		$("#cardMgn").click(function() {
-			$("#cardAdd").toggle();
-			$("#cardList").toggle();
-		})
-		$("#loanMgn").click(function() {
-			$("#loanAdd").toggle();
-			$("#loanList").toggle();
-		})
-		$("#planMgn").click(function() {
-			$("#planAdd").toggle();
-			$("#planList").toggle();
-		})
-		$("#custStatistic").click(function() {
-			$("#custStatistic2").toggle();
-			$("#bankworkStatistic").toggle();
-		})
-		$("#statistic").click(function() {
-			$("#empStatistic").toggle();
-			$("#custStatistic").toggle();
-			$("#bankworkStatistic").toggle();
-		})
+		
 		$(".side2").hide();
 	});
 </script>
@@ -100,13 +54,9 @@
 	nav div#logo h1 { padding: 15px; font-size: 30px;}
 	nav div#logo h1 a {font-family: 'Kanit', sans-serif;
 				      color: whitesmoke; text-shadow: 2px 2px 2px gray;}
-/*     div#staff #menuImg {
-        width: 150px;
-        margin-left:60px;
-    }  */
-	
+
 	/* 메뉴 */
-	nav div#menu li { height: 40px;
+	nav div#menu li { /* height: 40px; */
 					  line-height: 40px; 
 					  
 					  text-indent: 20px; }
@@ -147,67 +97,124 @@
 				<li id="menuTitle">Menu</li>
 				<c:if test="${Auth.empAuth=='HR'}"> <!-- 인사팀일때 -->
 					<li id="empMgn" class="side1"><a href="#">사원 관리</a>
-					<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
-					<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
-					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a></li>
-					<li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li>
-					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>
-					<li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li>
-					<li id="empStatistic" class="side1"><a href="#">통계</a></li>
+						<ul>
+							<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
+							<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
+						</ul>
+					</li>
+					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a>
+					    <ul><li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li></ul>
+					</li>
+					<li id="empBonus" class="side1"><a href="#">인센티브</a>
+					    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
+					</li>
+					<li id="empStatistic" class="side1"><a href="#">통계</a>
+					  <ul><li id="empStatistic" class="side2"><a href="#">사원 통계</a></li></ul>	
+					</li>
 				</c:if>
+				
+				
+				
 				<c:if test="${Auth.empAuth=='CS'}"> <!-- 고객팀일때 -->
-					<li id="custMgn" class="side1"><a href="#">고객 관리</a></li>
-					<li id="custAdd" class="side2"><a href="${pageContext.request.contextPath}/cust/selectCust.do">신규 고객 추가</a></li>
-					<li id="custList" class="side2"><a href="${pageContext.request.contextPath}/cust/custSearch.do">고객 조회</a></li>
-					<li id="dwMgn" class="side1"><a href="#">입/출금 관리</a></li>
-					<li id="deposit" class="side2"><a href="#">입/출금</a></li>
-					<li id="dwList" class="side2"><a href="#">입/출금 조회</a></li>
-					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a></li>
-					<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=add">통장 추가</a></li>
-					<li id="bankbookList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=mgn">통장 조회</a></li>
-					<li id="cardMgn" class="side1"><a href="#">카드 관리</a></li>
-					<li id="cardAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/select.do?div=add">카드 추가</a></li>
-					<li id="cardList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/select.do?div=mgn">카드 조회</a></li>
-					<li id="loanMgn" class="side1"><a href="#">대출 관리</a></li>
-					<li id="loanAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=add">대출 추가</a></li>
-					<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=mgn">대출 조회</a></li>
-					<li id="planMgn" class="side1"><a href="#">상품 관리</a></li>
-					<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
-					<li id="planList" class="side2"><a href="#">상품 조회</a></li>
-					<li id="custStatistic" class="side1"><a href="#">통계</a></li>	    
-					<li id="custStatistic2" class="side2"><a href="#">고객 통계</a></li>
-					<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a></li>
+					<li id="custMgn" class="side1"><a href="#">고객 관리</a>
+					    <ul>
+						    <li id="custAdd" class="side2"><a href="${pageContext.request.contextPath}/cust/selectCust.do">신규 고객 추가</a></li>
+						    <li id="custList" class="side2"><a href="${pageContext.request.contextPath}/cust/custSearch.do">고객 조회</a></li>
+					    </ul>
+					</li>
+					<li id="dwMgn" class="side1"><a href="#">입/출금 관리</a>
+						<ul>
+							<li id="deposit" class="side2"><a href="#">입/출금</a></li>
+							<li id="dwList" class="side2"><a href="#">입/출금 조회</a></li>
+						</ul>
+					</li>
+					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a>
+						<ul>
+							<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=add">통장 추가</a></li>
+							<li id="bankbookList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=mgn">통장 조회</a></li>
+						</ul>
+					</li>
+					<li id="cardMgn" class="side1"><a href="#">카드 관리</a>
+						<ul>
+							<li id="cardAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/select.do?div=add">카드 추가</a></li>
+							<li id="cardList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/select.do?div=mgn">카드 조회</a></li>
+						</ul>
+					</li>
+					<li id="loanMgn" class="side1"><a href="#">대출 관리</a>
+						<ul>
+							<li id="loanAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=add">대출 추가</a></li>
+							<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=mgn">대출 조회</a></li>
+						</ul>
+					</li>
+					<li id="planMgn" class="side1"><a href="#">상품 관리</a>
+						<ul>
+							<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
+							<li id="planList" class="side2"><a href="#">상품 조회</a></li>
+						</ul>
+					</li>
+					<li id="custStatistic" class="side1"><a href="#">통계</a>	    
+						<ul>
+							<li id="custStatistic2" class="side2"><a href="#">고객 통계</a></li>
+							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a></li>
+						</ul>
+					</li>
 				</c:if>
 				<c:if test="${Auth.empAuth=='AD'}"> <!-- 관리자일때 -->
-					<li id="empMgn" class="side1"><a href="#">사원 관리</a></li>
-					<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
-					<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
-					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a></li>
-					<li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li>
-					<li id="empBonus" class="side1"><a href="#">인센티브</a></li>
-					<li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li>
-					<li id="custMgn" class="side1"><a href="#">고객 관리</a></li>
-					<li id="custAdd" class="side2"><a href="${pageContext.request.contextPath}/cust/selectCust.do">신규 고객 추가</a></li>
-					<li id="custList" class="side2"><a href="${pageContext.request.contextPath}/cust/custSearch.do">고객 조회</a></li>
-					<li id="dwMgn" class="side1"><a href="#">입출금 관리</a></li>
-					<li id="deposit" class="side2"><a href="#">입/출금</a></li>
-					<li id="dwList" class="side2"><a href="#">입출금 조회</a></li>
-					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a></li>
-					<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=add">통장 추가</a></li>
-					<li id="bankbookList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=mgn">통장 조회</a></li>
-					<li id="cardMgn" class="side1"><a href="#">카드 관리</a></li>
-					<li id="cardAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/select.do?div=add">카드 추가</a></li>
-					<li id="cardList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/select.do?div=mgn">카드 조회</a></li>
-					<li id="loanMgn" class="side1"><a href="#">대출 관리</a></li>
-					<li id="loanAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=add">대출 추가</a></li>
-					<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=mgn">대출 조회</a></li>
-					<li id="planMgn" class="side1"><a href="#">상품 관리</a></li>
-					<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
-					<li id="planList" class="side2"><a href="#">상품 조회</a></li>
-					<li id="statistic" class="side1"><a href="#">통계</a></li>
-					<li id="empStatistic" class="side2"><a href="#">사원 통계</a></li>	
-					<li id="custStatistic" class="side2"><a href="#">고객 통계</a></li>
-					<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a></li>
+					<li id="empMgn" class="side1"><a href="#">사원 관리</a>
+						<ul>
+							<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
+							<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
+						</ul>
+					</li>
+					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a>
+					    <ul><li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li></ul>
+					</li>
+					<li id="empBonus" class="side1"><a href="#">인센티브</a>
+					    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
+					</li>
+					<li id="custMgn" class="side1"><a href="#">고객 관리</a>
+					    <ul>
+						    <li id="custAdd" class="side2"><a href="${pageContext.request.contextPath}/cust/selectCust.do">신규 고객 추가</a></li>
+						    <li id="custList" class="side2"><a href="${pageContext.request.contextPath}/cust/custSearch.do">고객 조회</a></li>
+					    </ul>
+					</li>
+					<li id="dwMgn" class="side1"><a href="#">입/출금 관리</a>
+						<ul>
+							<li id="deposit" class="side2"><a href="#">입/출금</a></li>
+							<li id="dwList" class="side2"><a href="#">입/출금 조회</a></li>
+						</ul>
+					</li>
+					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a>
+						<ul>
+							<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=add">통장 추가</a></li>
+							<li id="bankbookList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=mgn">통장 조회</a></li>
+						</ul>
+					</li>
+					<li id="cardMgn" class="side1"><a href="#">카드 관리</a>
+						<ul>
+							<li id="cardAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/select.do?div=add">카드 추가</a></li>
+							<li id="cardList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/card/select.do?div=mgn">카드 조회</a></li>
+						</ul>
+					</li>
+					<li id="loanMgn" class="side1"><a href="#">대출 관리</a>
+						<ul>
+							<li id="loanAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=add">대출 추가</a></li>
+							<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=mgn">대출 조회</a></li>
+						</ul>
+					</li>
+					<li id="planMgn" class="side1"><a href="#">상품 관리</a>
+						<ul>
+							<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
+							<li id="planList" class="side2"><a href="#">상품 조회</a></li>
+						</ul>
+					</li>
+					<li id="statistic" class="side1"><a href="#">통계</a>
+						<ul>
+							<li id="empStatistic" class="side2"><a href="#">사원 통계</a></li>	
+							<li id="custStatistic" class="side2"><a href="#">고객 통계</a></li>
+							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a></li>
+						</ul>
+					</li>
 				</c:if>
 			</ul>	
 		</div>

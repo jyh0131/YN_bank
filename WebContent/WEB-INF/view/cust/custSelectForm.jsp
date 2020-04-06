@@ -43,6 +43,8 @@
 </style>
 <script>
 	$(function(){
+		$("#custAdd").show();
+		$("#custList").show();
 		$("#bus").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/cust/addBusCust.do');
 		})

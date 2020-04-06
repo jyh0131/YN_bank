@@ -68,6 +68,8 @@
     	var totalContribution = str.toLocaleString();
     	alert("대출 총 가능 금액은 " + totalContribution + "원입니다");
     	$(".normal").hide();
+    	$("#loanAdd").show();
+		$("#loanList").show();
     	$('#date').datepicker({
             dateFormat: 'yy-mm-dd',
             onSelect: function(datetext) {

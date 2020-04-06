@@ -35,6 +35,8 @@
 </style>
 <script>
 	$(function(){
+		$("#cardAdd").show();
+		$("#cardList").show();
 		$("#bus").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/bankwork/card/mgn.do?div=1');
 		})

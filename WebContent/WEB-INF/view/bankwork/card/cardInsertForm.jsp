@@ -63,6 +63,8 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
+    	$("#cardAdd").show();
+		$("#cardList").show();
     	var open;
     	setInterval(function() {
     		if(open!=null) {

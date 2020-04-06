@@ -35,6 +35,8 @@
 </style>
 <script>
 	$(function(){
+		$("#loanAdd").show();
+		$("#loanList").show();
 		$("#bus").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/bankwork/loan/mgn.do?div=1');
 		})

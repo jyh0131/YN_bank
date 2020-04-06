@@ -13,6 +13,8 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
     $(function() {
+    	$("#cardAdd").show();
+		$("#cardList").show();
     	$("#del").click(function() {
     		if(!confirm("삭제하시겠습니까?")) {
     			alert("삭제가 취소되었습니다.");

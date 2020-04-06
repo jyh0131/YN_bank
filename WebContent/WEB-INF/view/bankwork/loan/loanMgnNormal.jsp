@@ -89,6 +89,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
+		$("#loanAdd").show();
+		$("#loanList").show();
 		$("button").eq(0).click(function() {
 			switch($("#searchMenu option:selected").val()) {
 			case "검색구분":

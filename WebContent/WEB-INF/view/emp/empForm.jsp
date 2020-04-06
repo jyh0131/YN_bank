@@ -163,7 +163,9 @@ div#profileEdit table td #inputCode {
 
 <script>
 	$(function() {
-		
+		//선택한 메뉴 보이도록 
+		$("#empAdd").show();
+		$("#empList").show();
 		//get에서 부서별로 사원들의 마지막 값을 받아옴 
 		var lastNumForHR = "${numHR}";
 		var lastNumForCS = "${numCS}";

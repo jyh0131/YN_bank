@@ -173,10 +173,12 @@ select custName, accountNum, accountBalance from customer c join bankbook b on c
 -- 기본 스토리지 엔진 확인
 select engine from information_schema.`ENGINES` where `SUPPORT` = 'DEFAULT';
 
-
-
-
 select * from bankbook;
+select * from cust_dw_audit cda ;
+
+
+
+
 
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';

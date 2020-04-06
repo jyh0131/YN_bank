@@ -100,12 +100,13 @@ insert into plan values("A001", "AA001", "슈퍼정기예금", "가입자 맞춤
 desc bankbook;
 					   
 insert into bankbook values
-('293133-11-000001','C001','A001',now(),0.15,0,0,0,'B007',1),
-('293133-12-000002','C001','A002',now(),0.10,0,0,0,'B007',0),
-('293133-13-000003','C001','A003',now(),0.01,0,0,0,'B007',0),
-('293133-11-000004','C002','A001',now(),0.15,0,0,0,'B007',1),
-('293133-12-000005','C002','A002',now(),0.10,0,0,0,'B007',0),
-('293133-13-000006','C002','A003',now(),0.01,0,0,0,'B008',0);
+('293133-11-000001','C001','A001',now(),0.15,10000000,0,0,'B007',1),
+('293133-12-000002','C001','A002',now(),0.10,10000000,0,0,'B007',0),
+('293133-13-000003','C001','A003',now(),0.01,10000000,0,0,'B007',0),
+('293133-11-000004','C002','A001',now(),0.15,10000000,0,0,'B007',1),
+('293133-12-000005','C002','A002',now(),0.10,100000000,0,0,'B007',0),
+('293133-13-000006','C002','A003',now(),0.01,100000000,0,0,'B008',0),
+('293133-11-000007','B001','A007',now(),0.30,1000000000,0,0,'B002',0);
 
 insert into card values
 ('2931331000000010','C001','B001',111,now(),null,(select accountbalance from bankbook where custcode = 'C001' and accountnum = '293133-11-000001'),'B008','293133-11-000001'),
@@ -150,6 +151,11 @@ create view bankbook_deposit_connect_to_card_info as select accountnum,custcode,
 
 insert into notice(subject,writer,write_date,content) 
 values("코로나19 다 함께 이겨냅시다!","작성자",now(),"YN BANK 직원 어려분 코로나 19 때문에 은행이 부도 위기에 처했지만, 여러분의 노고만이 회사를 살리는 유일한 길입니다. 저희 은행은 절대 직원 여러분을 버리지 않습니다. 다들 심기일전하여 코로나 19를 극복하고, YN BANK를 전세계 1위 은행으로 발돋움하게 노력합시다");
+
+create view bank_totalBalance as select (select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') as 'totalBankBookAmount', 
+((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + (select sum(loanBalance) from loan)) as 'totalLoanAmount',
+((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') - ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + (select sum(loanBalance) from loan))) as 'totalBankAmount'; 
+select * from bank_totalBalance;
 
 -- 입금/출금 기능 
 drop trigger if exists tri_after_update_BankBook;

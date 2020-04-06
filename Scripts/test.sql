@@ -301,3 +301,9 @@ select * from bankbook_deposit_connect_to_card_info;
 
 update bankbook set accountopendate='2020-04-05 18:13:15',accountinterest='0.01' where custcode = 'B001';
 select custname from customer;
+
+select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%'; #총 자본금(예금,적금 총액)
+select sum(accountBalance) from bankbook where accountnum like '%-13-%'; #대출금(마이너스통장)
+select sum(loanBalance) from loan; #대출금총합(대출)
+
+select * from bankbook;

@@ -105,7 +105,7 @@
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/loan/mgn.do",
+					url: "${pageContext.request.contextPath}/bankwork/loan/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
@@ -162,7 +162,7 @@
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/loan/mgn.do",
+					url: "${pageContext.request.contextPath}/bankwork/loan/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
@@ -219,7 +219,7 @@
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/loan/mgn.do",
+					url: "${pageContext.request.contextPath}/bankwork/loan/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",

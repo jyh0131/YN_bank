@@ -1,22 +1,22 @@
 package com.yi.dto;
 
 public class Contribution {
-	private long totalDWAmount;
+	private long totalDepositWithdrawAmount;
 	private long totalLoanAmount;
 	private long totalContribution;
 	public Contribution() {
 		
 	}
-	public Contribution(long totalDWAmount, long totalLoanAmount, long totalContribution) {
-		this.totalDWAmount = totalDWAmount;
+	public Contribution(long totalDepositWithdrawAmount, long totalLoanAmount, long totalContribution) {
+		this.totalDepositWithdrawAmount = totalDepositWithdrawAmount;
 		this.totalLoanAmount = totalLoanAmount;
 		this.totalContribution = totalContribution;
 	}
-	public long getTotalDWAmount() {
-		return totalDWAmount;
+	public long getTotalDepositWithdrawAmount() {
+		return totalDepositWithdrawAmount;
 	}
-	public void setTotalDWAmount(long totalDWAmount) {
-		this.totalDWAmount = totalDWAmount;
+	public void setTotalDepositWithdrawAmount(long totalDepositWithdrawAmount) {
+		this.totalDepositWithdrawAmount = totalDepositWithdrawAmount;
 	}
 	public long getTotalLoanAmount() {
 		return totalLoanAmount;
@@ -32,7 +32,7 @@ public class Contribution {
 	}
 	@Override
 	public String toString() {
-		return String.format("Contribution [totalDWAmount=%s, totalLoanAmount=%s, totalContribution=%s]", totalDWAmount,
+		return String.format("Contribution [totalDWAmount=%s, totalLoanAmount=%s, totalContribution=%s]", totalDepositWithdrawAmount,
 				totalLoanAmount, totalContribution);
 	}
 	

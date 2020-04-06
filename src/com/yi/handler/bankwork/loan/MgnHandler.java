@@ -32,6 +32,7 @@ public class MgnHandler implements CommandHandler {
 					return "/WEB-INF/view/bankwork/loan/loanListCustSelect.jsp";
 				}
 				req.setAttribute("list", list);
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/loan/loanMgnNormal.jsp";
 			}
 			else {
@@ -41,6 +42,7 @@ public class MgnHandler implements CommandHandler {
 					return "/WEB-INF/view/bankwork/loan/loanListCustSelect.jsp";
 				}
 				req.setAttribute("list", list);
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/loan/loanMgnBusiness.jsp";
 			}
 			
@@ -48,10 +50,13 @@ public class MgnHandler implements CommandHandler {
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");
 			String div = req.getParameter("div");
+			String custdiv = req.getParameter("custdiv");
 			switch(div) {
 			case "계좌번호":
 				Loan loan = new Loan();
 				loan.setLoanAccountNum(search);
+				Customer customer = new Customer();
+				customer.setCustDiv(custdiv.equals("0")?false:true);
 				List<Loan> list = service.searchLoanAccountNum(loan);
 				if(list.size()==0) {
 					HashMap<String,String> map = new HashMap<>();
@@ -73,8 +78,9 @@ public class MgnHandler implements CommandHandler {
 				}
 				break;
 			case "고객이름":
-				Customer customer = new Customer();
+				customer = new Customer();
 				customer.setCustName(search);
+				customer.setCustDiv(custdiv.equals("0")?false:true);
 				loan = new Loan();
 				loan.setCustCode(customer);
 				list = service.searchLoanCustName(loan);
@@ -102,6 +108,8 @@ public class MgnHandler implements CommandHandler {
 				plan.setPlanName(search);
 				loan = new Loan();
 				loan.setPlanCode(plan);
+				customer = new Customer();
+				customer.setCustDiv(custdiv.equals("0")?false:true);
 				list = service.searchLoanPlanName(loan);
 				if(list.size()==0) {
 					HashMap<String,String> map = new HashMap<>();

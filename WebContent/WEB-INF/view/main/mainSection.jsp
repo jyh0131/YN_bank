@@ -107,20 +107,16 @@
 	      function drawVisualization() {
 	        // Some raw data (not necessarily accurate)
 	        var data = google.visualization.arrayToDataTable([
-	          ['Month', '예금',      '적금',       '대출',         'Average' ],
-	          ['2004/05',  165,      938,         522,             998,   ],
-	          ['2005/06',  135,      1120,        599,             1268,  ],
-	          ['2006/07',  157,      1167,        587,             807,   ],
-	          ['2007/08',  139,      1110,        615,             968,   ],
-	          ['2008/09',  136,      691,         629,             1026,  ]
+	          [' ','예적금 총금액','대출 총금액','현재 은행 출자금'],
+	          [' ',${contribution.totalDepositWithdrawAmount},${contribution.totalLoanAmount},${contribution.totalContribution}]
 	        ]);
 	
 	        var options = {
-	          title : '월별 예/적금/대출 금액',
+	          title : 'YN-BANK 출자금',
 	          vAxis: {title: 'Amount'},
-	          hAxis: {title: 'Month'},
+	          hAxis: {title: ''},
 	          seriesType: 'bars',
-	          series: {5: {type: 'line'}}        };
+	          series: {5: {type: 'line'}}};
 	
 	        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 	        chart.draw(data, options);

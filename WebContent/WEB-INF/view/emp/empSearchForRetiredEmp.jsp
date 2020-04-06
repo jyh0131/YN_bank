@@ -336,7 +336,7 @@
 	  $(".oneEmp").click(function(){
 		  var OneCode = $(this).attr("data-empCode");
 		  //alert(OneCode);
-		  location.href="${pageContext.request.contextPath}/emp/empDetail.do?empCode="+OneCode;
+		  location.href="${pageContext.request.contextPath}/emp/empDetailForRetired.do?empCode="+OneCode;
 	  })
 	  
 	   

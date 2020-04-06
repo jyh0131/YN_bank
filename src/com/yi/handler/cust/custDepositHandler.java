@@ -17,25 +17,18 @@ public class custDepositHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			String custName = req.getParameter("custName");
-			String accountNum = req.getParameter("accountNum");
-			String accountBalance = req.getParameter("accountBalance");
-			Long balance = Long.parseLong(accountBalance);
+			String custCode = req.getParameter("custCode");
 			String dw = req.getParameter("dw");
-			BankBook bankbook = new BankBook();
-			bankbook.setAccountNum(accountNum);    
-			bankbook.setAccountBalance(balance);
-			
-			List<Customer> list = service.showCustomerWHasAccByName(custName);
-			Customer cust = list.get(0);
-			cust.setBankbook(bankbook);
-			  
-			req.setAttribute("cust", cust);
+			String accountNum = req.getParameter("accountNum");
+			List<Customer> listBal = service.showCustomerBankInfoByAcc(accountNum);
+			Customer custBal = listBal.get(0);
+			req.setAttribute("accountNum", accountNum);
+			req.setAttribute("custBal", custBal);
 			req.setAttribute("dw", dw);
 			
-			return "/WEB-INF/view/cust/custDepositForm.jsp?dw=dw";  
+			return "/WEB-INF/view/cust/custDepositForm.jsp";  
 		}         
 		return null;     
-	}   
+	}        
   
 }

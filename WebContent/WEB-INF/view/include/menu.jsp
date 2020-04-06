@@ -54,10 +54,6 @@
 			var dw = $(this).children("a").html();   
 			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?dw="+dw;
 		})
-		$("#withdrawal").click(function(){          
-			var dw = $(this).children("a").html();   
-			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?dw="+dw;
-		})     
 		                     
 		$("#bankbookMgn").click(function() {  
 			$("#bankbookAdd").toggle();       

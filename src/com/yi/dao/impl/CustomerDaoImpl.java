@@ -374,14 +374,14 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		return list;
 	}
-
+  
 	private Customer getCustomerByAcc(ResultSet rs) throws SQLException {
 		Customer customer = new Customer();
 		BankBook bankbook = new BankBook();
 		customer.setCustCode(rs.getString(1));
 		customer.setCustName(rs.getString(2));
 		bankbook.setAccountNum(rs.getString(7));
-		bankbook.setAccountBalance(Long.parseLong(rs.getString(12)));
+		bankbook.setAccountBalance(Long.parseLong(rs.getString(13)));
 		customer.setBankbook(bankbook);
 		return customer;
 	}

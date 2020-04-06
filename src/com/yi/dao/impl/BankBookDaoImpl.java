@@ -653,4 +653,20 @@ public class BankBookDaoImpl implements BankBookDao {
 		}
 		return list;
 	}
+
+	@Override
+	public void update_balance_locking(int amount, String accountNum, String text) throws SQLException {
+		String sql = "call pro_update_balance_locking_commit(?, ?, ?);";
+		
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, amount);
+			pstmt.setString(2, accountNum);
+			pstmt.setString(3, text);
+			pstmt.executeQuery();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

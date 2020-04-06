@@ -170,6 +170,14 @@ select * from cust_DW_audit cda ;
 select * from customer c join bankbook b on c.custCode = b.custCode where accountNum = "293133-11-000001";
 select custName, accountNum, accountBalance from customer c join bankbook b on c.custcode = b.custCode where custName like "%김%";
 
+-- 기본 스토리지 엔진 확인
+select engine from information_schema.`ENGINES` where `SUPPORT` = 'DEFAULT';
+
+
+
+
+select * from bankbook;
+
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';
 select * from plan where planCode like 'B%';

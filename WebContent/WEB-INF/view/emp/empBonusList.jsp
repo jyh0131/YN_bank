@@ -93,6 +93,8 @@
 		  $("table").load(location.href+" table");
 		  $("#searchForEmp").val("");
 	  })
+	  
+	  
 	  $("button").eq(0).click(function(){
 		  var div = $("#searchMenu option:selected").val();
 	      var search = $("input[name='search']").val();
@@ -100,7 +102,7 @@
     
     
         var $table = $("<table>").addClass("tableList");
-        var $tr = $("<tr>");
+     
         
         var $menutr = $("<tr>");
         var $menutd1 = $("<td>").html("사원코드");
@@ -131,7 +133,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empBonus.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -144,7 +146,7 @@
 				    		$(".tableList").remove();
 		
 				    		$(res).each(function(i,obj){
-				    			
+				    			var $tr = $("<tr class='oneEmp'>").attr('data-empCode',obj.empCode).attr('data-perf',obj.perf);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -175,7 +177,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empBonus.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -189,7 +191,7 @@
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
 				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr>");
+				    			var $tr = $("<tr class='oneEmp'>").attr('data-empCode',obj.empCode).attr('data-perf',obj.perf);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -220,7 +222,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empBonus.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -233,7 +235,7 @@
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
 				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr>");
+				    			var $tr = $("<tr class='oneEmp'>").attr('data-empCode',obj.empCode).attr('data-perf',obj.perf);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -265,7 +267,7 @@
 				
 				
 				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+				    url: "${pageContext.request.contextPath}/emp/empBonus.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
@@ -278,7 +280,8 @@
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
 				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr>");
+				    			
+				    			var $tr = $("<tr class='oneEmp'>").attr('data-empCode',obj.empCode).attr('data-perf',obj.perf);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
@@ -296,6 +299,8 @@
 				    			$tr.append($td7);
 				    			
 				    			
+				    			
+				    			
 				    			$table.append($tr);
 				    		})
 				    		//테이블 div
@@ -310,8 +315,10 @@
 	  })
 	   
 	    //각 줄을 클릭할 때마다 내가 부여한 data-empCode를 받아오기 
-	  $(".oneEmp").click(function(){
-		  var OneCode = $(this).attr("data-empCode");
+	    
+	    
+	    $(document).on("click",".oneEmp",function(){
+          var OneCode = $(this).attr("data-empCode");
 		  var perf = $(this).attr("data-perf");
 		  if(perf == 0){
 			  alert("실적이 없는 사원입니다.");

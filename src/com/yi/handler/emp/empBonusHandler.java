@@ -33,7 +33,7 @@ public class empBonusHandler implements CommandHandler {
 				switch(div) {
 				
 				case "사원번호":
-					Employee emp = service.showPikedEmpByCode(search,0);
+					Employee emp = service.showEmpPerformPicked(search);
 					if(emp == null) {
 						HashMap<String,String> map = new HashMap<>();
 						map.put("error", "notExist");
@@ -60,7 +60,7 @@ public class empBonusHandler implements CommandHandler {
 					
 				case "사원이름":
 					List<Employee> list2 = new ArrayList<Employee>();
-					list2 = service.showPickedEmpList(search,0);
+					list2 = service.showPickedEmpListForPerform(search);
 					if(list2.size() == 0) {
 						HashMap<String,String> map = new HashMap<>();
 						map.put("error", "notExist");
@@ -83,7 +83,7 @@ public class empBonusHandler implements CommandHandler {
 				
 				case "부서(인사 or 고객)":
 					List<Employee> list3 = new ArrayList<Employee>();
-					list3 = service.showPickedEmpByDept(search,0);
+					list3 = service.showPickedEmpByDeptForPerform(search);
 					if(list3.size() == 0) {
 						HashMap<String,String> map = new HashMap<>();
 						map.put("error", "notExist");
@@ -105,7 +105,7 @@ public class empBonusHandler implements CommandHandler {
 					
 				case "직급":
 					List<Employee> list4 = new ArrayList<Employee>();
-					list4 = service.showPickedEmpByTitle(search,0);
+					list4 = service.showPickedEmpByTitleForPerform(search);
 					if(list4.size() == 0) {
 						HashMap<String,String> map = new HashMap<>();
 						map.put("error", "notExist");

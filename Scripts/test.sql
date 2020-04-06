@@ -93,7 +93,12 @@ select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d
 			 from employee e left join department d on e.deptNo = d.deptNo 
 			  order by empCode; 
  
- 
+select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo, empRetire 
+					from employee e left join department d on e.deptNo = d.deptNo
+					where empTitle='부장' and empRetire =1;
+			 
+			 
+			 
 #고객 - 황하나
 -- test 
 select custCode, custName, custRank, custCredit, custAddr, custTel from customer;

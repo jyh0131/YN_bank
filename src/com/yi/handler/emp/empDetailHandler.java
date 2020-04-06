@@ -20,30 +20,9 @@ public class empDetailHandler implements CommandHandler {
 		
 		
 		String empCode = req.getParameter("empCode");  //코드를 뽑아옴 
-//	    String empName = req.getParameter("empName");
-//	    String empTitle = req.getParameter("empTitle");
-//	    String empAuth = req.getParameter("empAuth");
-//	    int empSalary = Integer.parseInt(req.getParameter("empSalary"));
-//	    String empTel = req.getParameter("empTel");
-//	    String empId = req.getParameter("empId");
-//	    String empPwd = req.getParameter("empPwd");
-//		int deptNo = Integer.parseInt(req.getParameter("deptNo"));
-//		byte[] pic = req.getParameter("pic").getBytes();
-//		
-//		Employee emp = new Employee();
-//				emp.setEmpCode(empCode);
-//				emp.setEmpName(empName);
-//				emp.setEmpTitle(empTitle);
-//				emp.setEmpAuth(empAuth);
-//				emp.setEmpSalary(empSalary);
-//				emp.setEmpTel(empTel);
-//				emp.setEmpId(empId);
-//				emp.setEmpPwd(empPwd);
-//				new Department(deptNo);
-//				emp.setPic(pic);
-				
+
 		Employee emp = service.showPikedEmpByCode(empCode);
-		System.out.println(emp);
+	//	System.out.println(emp);
 		req.setAttribute("emp", emp);
 		
 		

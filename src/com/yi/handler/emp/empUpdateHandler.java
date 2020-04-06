@@ -67,30 +67,7 @@ public class empUpdateHandler implements CommandHandler {
 				String dbPic = dbEmp.getPic();
 				String dbEmpPwd = dbEmp.getEmpPwd();
 				//System.out.println("dbPic은"+dbPic);
-		/*
-           emp.setEmpName(multi.getParameter("empName"));
-           emp.setEmpTitle(multi.getParameter("empTitle"));
-           emp.setEmpAuth(multi.getParameter("empAuth"));
-           emp.setEmpSalary(Integer.parseInt(multi.getParameter("empSalary")));
-           emp.setEmpTel(multi.getParameter("empTel"));
-           emp.setEmpId(multi.getParameter("empId"));
-           emp.setEmpPwd(multi.getParameter("empPwd"));
-           emp.setDept(new Department(Integer.parseInt(multi.getParameter("deptNo"))));
-           emp.setPic(multi.getFilesystemName("pic"));*/
-           
-//		   Employee emp = new Employee(
-//					multi.getParameter("empCode"),
-//					multi.getParameter("empName"), 
-//					multi.getParameter("empTitle"), 
-//					multi.getParameter("empAuth"), 
-//					Integer.parseInt(multi.getParameter("empSalary")), 
-//					multi.getParameter("empTel"), 
-//					multi.getParameter("empId"), 
-//					multi.getParameter("empPwd"), 
-//					new Department(Integer.parseInt(multi.getParameter("deptNo"))), 
-//					multi.getFilesystemName("pic"));
-//			        
-//			       // 
+
 				
 			//비번을 수정했는지 여부 
 			if(empPwd.contentEquals("**********")) {

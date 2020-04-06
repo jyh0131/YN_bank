@@ -24,7 +24,7 @@ public class empBonusDetailHandler implements CommandHandler {
 		
 		//System.out.println("보너스디테일"+emp);
 		List<Employee> list = service.showDetailEmpPerformance(empCode);
-		System.out.println("리스트 사이즈"+list.size());
+		//System.out.println("리스트 사이즈"+list.size());
 		//System.out.println("보너스디테일"+list);
 				req.setAttribute("list", list);
 				req.setAttribute("emp", emp);

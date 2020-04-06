@@ -739,6 +739,30 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return emp;
 	}
+	
+	@Override
+	public Employee selectEmpByCode(String empCode) throws SQLException {
+		Employee emp = null;
+		String sql = "select empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo, pic from employee e left join department d on e.deptNo = d.deptNo where empCode=?";
+		
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			pstmt.setString(1,empCode);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					//list.add(getEmployee(rs));
+					
+					emp = getEmployeePic(rs);
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return emp;
+	}
 
 	// 실적 랭킹
 	

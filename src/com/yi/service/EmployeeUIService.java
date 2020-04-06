@@ -41,6 +41,10 @@ public class EmployeeUIService {
     public Employee showPickedEmp(String empName) throws SQLException{
     	return empDao.selectEmpByName(empName);
     }
+    
+    public Employee showPikedEmpByCode(String empCode) throws SQLException{
+    	return empDao.selectEmpByCode(empCode);
+    }
     public Employee showPikedEmpByCode(String empCode ,int empRetired) throws SQLException{
     	return empDao.selectEmpByCode(empCode, empRetired);
     }

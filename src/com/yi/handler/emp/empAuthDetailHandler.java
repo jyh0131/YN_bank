@@ -42,7 +42,7 @@ public class empAuthDetailHandler implements CommandHandler {
 //				new Department(deptNo);
 //				emp.setPic(pic);
 				
-		Employee emp = service.showPikedEmpByCode(empCode,0);
+		Employee emp = service.showPikedEmpByCode(empCode);
 //		System.out.println(emp);
 		req.setAttribute("emp", emp);
 		

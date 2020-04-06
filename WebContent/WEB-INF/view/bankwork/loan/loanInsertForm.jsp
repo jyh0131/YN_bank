@@ -64,6 +64,8 @@
 	<script>
     $(function() {
     	$(".normal").hide();
+    	$("#loanAdd").show();
+		$("#loanList").show();
     	$('#date').datepicker({
             dateFormat: 'yy-mm-dd',
             onSelect: function(datetext) {

@@ -9,6 +9,8 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
 	$(function(){
+		$("#cardAdd").show();
+		$("#cardList").show();
 		$("button").click(function() {
 			var idx = $("button").index($(this));
 			var accountNum = $("tr").eq(idx).children("td").eq(0).html();

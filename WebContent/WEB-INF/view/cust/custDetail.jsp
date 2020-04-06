@@ -12,7 +12,8 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
     $(function() {
-    	
+    	$("#custAdd").show();
+		$("#custList").show();
     	$("input[value='확인']").css("display", "none");
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/cust/custSearch.do";

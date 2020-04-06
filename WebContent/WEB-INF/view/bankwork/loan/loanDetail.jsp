@@ -13,6 +13,8 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
     $(function() {
+    	$("#loanAdd").show();
+		$("#loanList").show();
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/bankwork/card/mgn.do";
     	})

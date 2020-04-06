@@ -61,6 +61,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
+		$("#custAdd").show();
+		$("#custList").show();
 		$("input[type='submit']").click(function(){
 			var name = $("input[name='name']").val();
 			var addr = $("input[name='addr']").val();

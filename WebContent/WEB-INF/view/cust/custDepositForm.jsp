@@ -85,6 +85,8 @@
 </style>
 <script>
 	$(function(){
+		$("#deposit").show();
+		$("#dwList").show();
 		$("#cancel").click(function() {
 			var choose = confirm("취소하시겠습니까? 리스트로 돌아갑니다.");
 			if(choose){

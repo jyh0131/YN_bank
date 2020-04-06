@@ -33,6 +33,11 @@ public class BankBookService {
 	public List<BankBook> showBankBookByCustName(BankBook bankbook) throws SQLException {
 		return bankBookDao.showBankBooksByCustName(bankbook);
 	}
+	
+	public void update_balance_locking(int amount, String accountNum, String text) throws SQLException{
+		bankBookDao.update_balance_locking(amount, accountNum, text);
+	}
+	
 	public int insertBankBook(BankBook bankbook) throws SQLException {
 		return bankBookDao.insertBankBook(bankbook);
 	}

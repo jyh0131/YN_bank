@@ -33,7 +33,7 @@ public class custDWSearchHandler implements CommandHandler {
 			
 			
 			switch(div) {
-			case "고객 코드":
+			case "고객 코드":   
 				List<Customer> list = service.showCustomerWHasAccByCode(search);
 				if(list.size()==0) {  
 					HashMap<String,String> map = new HashMap<>();

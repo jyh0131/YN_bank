@@ -37,7 +37,52 @@
 			$(this).find(".side2").toggle();
 			
 		})
-		
+		$("#empAuth").click(function() {
+			$("#empAuthAdd").toggle();
+		})
+		$("#empBonus").click(function() {
+			$("#empBonusList").toggle();
+		})
+		$("#custMgn").click(function() {
+			$("#custAdd").toggle();
+			$("#custList").toggle();
+		})
+		$("#dwMgn").click(function() {
+			$("#deposit").toggle();
+			$("#withdrawal").toggle();
+			$("#dwList").toggle();
+		})
+		$("#deposit").click(function(){
+			var dw = $(this).children("a").html();   
+			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?dw="+dw;
+		})
+		                     
+		$("#bankbookMgn").click(function() {  
+			$("#bankbookAdd").toggle();       
+			$("#bankbookList").toggle();
+		})
+		$("#cardMgn").click(function() {
+			$("#cardAdd").toggle();
+			$("#cardList").toggle();
+		})
+		$("#loanMgn").click(function() {
+			$("#loanAdd").toggle();
+			$("#loanList").toggle();
+		})
+		$("#planMgn").click(function() {
+			$("#planAdd").toggle();
+			$("#planList").toggle();
+		})
+		$("#custStatistic").click(function() {
+			$("#custStatistic2").toggle();
+			$("#bankworkStatistic").toggle();
+		})
+		$("#statistic").click(function() {
+			$("#empStatistic").toggle();
+			$("#custStatistic").toggle();
+			$("#bankworkStatistic").toggle();
+		})
+
 		$(".side2").hide();
 	});
 </script>

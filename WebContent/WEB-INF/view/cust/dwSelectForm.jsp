@@ -47,14 +47,14 @@
 		$("#dwList").show();
 		$("#dep").click(function(){
 			var dw = $(this).html();
-			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custName=${custName}&dw='+dw+"&accountNum=${accountNum}&accountBalance=${accountBalance}");
+			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
 		})
 		$("#wd").click(function(){
 			var dw = $(this).html();
-			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custName=${custName}&dw='+dw+"&accountNum=${accountNum}&accountBalance=${accountBalance}");
+			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
 		})
 		$("#back").click(function(){
-			$(location).attr('href','${pageContext.request.contextPath}/main/main.do');
+			$(location).attr('href','${pageContext.request.contextPath}/cust/custDWSearch.do');
 		})
 	})    
 </script>

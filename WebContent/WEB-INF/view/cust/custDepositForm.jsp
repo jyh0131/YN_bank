@@ -94,10 +94,32 @@
 			}
     	})
     	
-    	$("#searchBtn").click(function(){
-    		location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do";	
-    	})
     	
+    	$("input[value='입금']").click(function(){
+    		
+    		var deposit = confirm("입금하시겠습니까?");
+    		if(deposit){
+
+        		var accountNum = $("input[name='accNum']").val();
+        		var amount=$("input[name='amount']").val();
+        		
+        		location.href= "${pageContext.request.contextPath}/cust/custDWFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=입금";
+    		}
+    		
+    	})  
+    	
+    	$("input[value='출금']").click(function(){
+    		
+    		var deposit = confirm("출금하시겠습니까?");
+    		if(deposit){
+
+        		var accountNum = $("input[name='accNum']").val();
+        		var amount=$("input[name='amount']").val();
+        		  
+        		location.href= "${pageContext.request.contextPath}/cust/custDWFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=출금";
+    		}
+    		
+    	})
     	
 	})
 </script>
@@ -110,9 +132,7 @@
 			<c:if test="${dw=='입금' }">   
 				<h1>입금</h1>
 			</c:if>
-		</div>
-		<form>
-			
+		</div>	
 			<div id="profile">
 				<h2>고객 정보</h2>
 						
@@ -122,24 +142,24 @@
 						<tr>
 							<th>고객 코드</th>
 							<td>
-								<input type="text" name="code" value="${cust.custCode }" readonly="readonly">
+								<input type="text" name="code" value="${custBal.custCode }" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
 							<th>고객명</th>
-							<td><input type="text" name="name" value="${cust.custName }" readonly="readonly"></td>
+							<td><input type="text" name="name" value="${custBal.custName }" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<th>계좌번호</th>
 							<td>
-								<input type="text" name="accNum" value="${cust.bankbook.accountNum }" readonly="readonly">
+								<input type="text" name="accNum" value="${accountNum }" readonly="readonly">
 							</td>
-						</tr>
+						</tr>   
 						<tr>           
 							<th>잔액</th>
 							<td>
-								<input type="text" name="accBal" value="${cust.bankbook.accountBalance }" readonly="readonly">
-							</td>
+								<input type="text" name="accBal" value="${custBal.bankbook.accountBalance }" readonly="readonly">
+							</td>   
 						</tr>
 						<tr>
 							<th>입금 금액</th>
@@ -160,7 +180,6 @@
 				</div>
 				
 			</div>
-		</form>
 	</div>
 </body>
 </html>

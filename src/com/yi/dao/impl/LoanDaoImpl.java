@@ -69,12 +69,12 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public int insertLoan(Loan loan) throws SQLException {
 		int res = -1;
-		String sql = "insert into loan values(?,?,?,?,?,?,(select empcode from employee where empname = ?))";
+		String sql = "insert into loan values(?,(select custcode from customer where custname = ?),(select plancode from plan where planname = ?),?,?,?,(select empcode from employee where empname = ?))";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, loan.getLoanAccountNum());
-			pstmt.setString(2, loan.getCustCode().getCustCode());
-			pstmt.setString(3, loan.getPlanCode().getPlanCode());
+			pstmt.setString(2, loan.getCustCode().getCustName());
+			pstmt.setString(3, loan.getPlanCode().getPlanName());
 			pstmt.setTimestamp(4, new Timestamp(loan.getLoanDate().getTime()));
 			pstmt.setFloat(5, loan.getLoanInterest());
 			pstmt.setLong(6, loan.getLoanBalance());

@@ -68,10 +68,11 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public List<BankBook> showBankBooksByCustName(BankBook bankbook) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest,c.custDiv from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where c.custname like ?";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest,c.custDiv from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where c.custname like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + bankbook.getCustCode().getCustName() + "%");
+			pstmt.setBoolean(2, bankbook.getCustCode().getCustDiv());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getBankBook(rs));
@@ -411,10 +412,11 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public List<BankBook> showBankBooksByAccountNum(BankBook bankbook) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountnum like ?";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountnum like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%"+bankbook.getAccountNum()+"%");
+			pstmt.setBoolean(2, bankbook.getCustCode().getCustDiv());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getBankBook(rs));
@@ -427,10 +429,11 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public List<BankBook> showBankBooksByPlanName(BankBook bankbook) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where p.planname like ?";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where p.planname like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%"+bankbook.getAccountPlanCode().getPlanName()+"%");
+			pstmt.setBoolean(2, bankbook.getCustCode().getCustDiv());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getBankBook(rs));
@@ -441,45 +444,51 @@ public class BankBookDaoImpl implements BankBookDao {
 	}
 
 	@Override
-	public List<BankBook> showBankBooksByDeposit() throws SQLException {
+	public List<BankBook> showBankBooksByDeposit(Customer customer) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-11-%'";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-11-%' and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			while(rs.next()) {
-				list.add(getBankBook(rs));
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setBoolean(1, customer.getCustDiv());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getBankBook(rs));
+				}
 			}
+			return list;
 		}
-		return list;
 	}
 
 	@Override
-	public List<BankBook> showBankBooksBySaving() throws SQLException {
+	public List<BankBook> showBankBooksBySaving(Customer customer) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-12-%'";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-12-%' and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			while(rs.next()) {
-				list.add(getBankBook(rs));
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setBoolean(1, customer.getCustDiv());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getBankBook(rs));
+				}
 			}
+			return list;
 		}
-		return list;
 	}
 
 	@Override
-	public List<BankBook> showBankBooksByMinus() throws SQLException {
+	public List<BankBook> showBankBooksByMinus(Customer customer) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
-		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-13-%'";
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountnum like '%-13-%' and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			while(rs.next()) {
-				list.add(getBankBook(rs));
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setBoolean(1, customer.getCustDiv());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getBankBook(rs));
+				}
 			}
+			return list;
 		}
-		return list;
 	}
 
 	@Override

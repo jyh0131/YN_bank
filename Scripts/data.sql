@@ -155,7 +155,6 @@ values("코로나19 다 함께 이겨냅시다!","작성자",now(),"YN BANK 직�
 create view bank_totalBalance as select (select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') as 'totalBankBookAmount', 
 ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + (select sum(loanBalance) from loan)) as 'totalLoanAmount',
 ((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') - ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + (select sum(loanBalance) from loan))) as 'totalBankAmount'; 
-select * from bank_totalBalance;
 
 -- 입금/출금 기능 
 drop trigger if exists tri_after_update_BankBook;

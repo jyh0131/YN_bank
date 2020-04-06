@@ -31,6 +31,7 @@ public class MgnHandler implements CommandHandler {
 					return "/WEB-INF/view/bankwork/bankbook/bankbookListCustSelect.jsp";
 				}
 				req.setAttribute("list", list);
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/bankbook/bankbookMgnNormal.jsp";
 			}
 			else {
@@ -40,6 +41,7 @@ public class MgnHandler implements CommandHandler {
 					return "/WEB-INF/view/bankwork/bankbook/bankbookListCustSelect.jsp";
 				}
 				req.setAttribute("list", list);
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/bankbook/bankbookMgnBusiness.jsp";
 			}
 			
@@ -47,10 +49,14 @@ public class MgnHandler implements CommandHandler {
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");
 			String div = req.getParameter("div");
+			String custdiv = req.getParameter("custdiv");
 			switch(div) {
 			case "계좌번호":
 				BankBook bankbook = new BankBook();
 				bankbook.setAccountNum(search);
+				Customer customer = new Customer();
+				customer.setCustDiv(custdiv.equals("0")?false:true);
+				bankbook.setCustCode(customer);
 				List<BankBook> list = service.showBankBookByAccoutNum(bankbook);
 				if(list.size()==0) {
 					HashMap<String,String> map = new HashMap<>();
@@ -72,8 +78,9 @@ public class MgnHandler implements CommandHandler {
 				}
 				break;
 			case "고객이름":
-				Customer customer = new Customer();
+				customer = new Customer();
 				customer.setCustName(search);
+				customer.setCustDiv(custdiv.equals("0")?false:true);
 				bankbook = new BankBook();
 				bankbook.setCustCode(customer);
 				list = service.showBankBookByCustName(bankbook);
@@ -99,8 +106,11 @@ public class MgnHandler implements CommandHandler {
 			case "상품명":
 				Plan plan = new Plan();
 				plan.setPlanName(search);
+				customer = new Customer();
+				customer.setCustDiv(custdiv.equals("0")?false:true);
 				bankbook = new BankBook();
 				bankbook.setAccountPlanCode(plan);
+				bankbook.setCustCode(customer);
 				list = service.showBankBookByPlanName(bankbook);
 				if(list.size()==0) {
 					HashMap<String,String> map = new HashMap<>();
@@ -124,39 +134,81 @@ public class MgnHandler implements CommandHandler {
 			case "통장상품":
 				switch(search) {
 				case "예금":
-					list = service.showBankBookByDeposit();
-					ObjectMapper om = new ObjectMapper();
-					String json = om.writeValueAsString(list);
-					res.setContentType("application/json;charset=UTF-8");
-					PrintWriter out = res.getWriter();
-					out.write(json);
-					out.flush();
+					customer = new Customer();
+					customer.setCustDiv(custdiv.equals("0")?false:true);
+					list = service.showBankBookByDeposit(customer);
+					if(list.size()==0) {
+						HashMap<String,String> map = new HashMap<>();
+						map.put("errorNoDiv", "error");
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(map);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
+					else {
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(list);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
 					break;
 				case "적금":
-					list = service.showBankBookBySaving();
-					om = new ObjectMapper();
-					json = om.writeValueAsString(list);
-					res.setContentType("application/json;charset=UTF-8");
-					out = res.getWriter();
-					out.write(json);
-					out.flush();
+					customer = new Customer();
+					customer.setCustDiv(custdiv.equals("0")?false:true);
+					list = service.showBankBookBySaving(customer);
+					if(list.size()==0) {
+						HashMap<String,String> map = new HashMap<>();
+						map.put("errorNoDiv", "error");
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(map);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
+					else {
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(list);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
 					break;
 				case "마이너스":
-					list = service.showBankBookByMinus();
-					om = new ObjectMapper();
-					json = om.writeValueAsString(list);
-					res.setContentType("application/json;charset=UTF-8");
-					out = res.getWriter();
-					out.write(json);
-					out.flush();
+					customer = new Customer();
+					customer.setCustDiv(custdiv.equals("0")?false:true);
+					list = service.showBankBookByMinus(customer);
+					if(list.size()==0) {
+						HashMap<String,String> map = new HashMap<>();
+						map.put("errorNoDiv", "error");
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(map);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
+					else {
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(list);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
 					break;
 				default :
 					HashMap<String,String> map = new HashMap<>();
 					map.put("errorBankBookName", "error");
-					om = new ObjectMapper();
-					json = om.writeValueAsString(map);
+					ObjectMapper om = new ObjectMapper();
+					String json = om.writeValueAsString(map);
 					res.setContentType("application/json;charset=UTF-8");
-					out = res.getWriter();
+					PrintWriter out = res.getWriter();
 					out.write(json);
 					out.flush();
 					break;

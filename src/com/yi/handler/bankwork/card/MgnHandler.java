@@ -31,6 +31,7 @@ public class MgnHandler implements CommandHandler {
 					session.setAttribute("errornonnormal", "error");
 					return "/WEB-INF/view/bankwork/card/cardListCustSelect.jsp";
 				}
+				req.setAttribute("custdiv", div);
 				req.setAttribute("list", list);
 				return "/WEB-INF/view/bankwork/card/cardMgnNormal.jsp";
 			}
@@ -41,17 +42,20 @@ public class MgnHandler implements CommandHandler {
 					session.setAttribute("errornonbusiness", "error");
 					return "/WEB-INF/view/bankwork/card/cardListCustSelect.jsp";
 				}
+				req.setAttribute("custdiv", div);
 				req.setAttribute("list", list);
 				return "/WEB-INF/view/bankwork/card/cardMgnBusiness.jsp";
 			}
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");
+			String custdiv = req.getParameter("custdiv");
 			String div = req.getParameter("div");
 			switch(div) {
 			case "고객이름":
 				Customer customer = new Customer();
 				customer.setCustName(search);
+				customer.setCustDiv(custdiv.equals("0")?false:true);
 				Card card = new Card();
 				card.setCustCode(customer);
 				List<Card> list = service.showCardByCustName(card);
@@ -79,6 +83,9 @@ public class MgnHandler implements CommandHandler {
 				plan.setPlanName(search);
 				card = new Card();
 				card.setPlanCode(plan);
+				customer = new Customer();
+				customer.setCustDiv(custdiv.equals("0")?false:true);
+				card.setCustCode(customer);
 				list = service.showCardByPlanName(card);
 				if(list.size()==0) {
 					HashMap<String,String> map = new HashMap<>();
@@ -102,30 +109,58 @@ public class MgnHandler implements CommandHandler {
 			case "카드구분":
 				switch(search) {
 				case "체크카드":
-					list = service.showCardByCheckCard();
-					ObjectMapper om = new ObjectMapper();
-					String json = om.writeValueAsString(list);
-					res.setContentType("application/json;charset=UTF-8");
-					PrintWriter out = res.getWriter();
-					out.write(json);
-					out.flush();
+					customer = new Customer();
+					customer.setCustDiv(custdiv.equals("0")?false:true);
+					list = service.showCardByCheckCard(customer);
+					if(list.size()==0) {
+						HashMap<String,String> map = new HashMap<>();
+						map.put("errorNoDiv", "error");
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(map);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
+					else {
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(list);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
 					break;
 				case "신용카드":
-					list = service.showCardByCreditCard();
-					om = new ObjectMapper();
-					json = om.writeValueAsString(list);
-					res.setContentType("application/json;charset=UTF-8");
-					out = res.getWriter();
-					out.write(json);
-					out.flush();
+					customer = new Customer();
+					customer.setCustDiv(custdiv.equals("0")?false:true);
+					list = service.showCardByCreditCard(customer);
+					if(list.size()==0) {
+						HashMap<String,String> map = new HashMap<>();
+						map.put("errorNoDiv", "error");
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(map);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
+					else {
+						ObjectMapper om = new ObjectMapper();
+						String json = om.writeValueAsString(list);
+						res.setContentType("application/json;charset=UTF-8");
+						PrintWriter out = res.getWriter();
+						out.write(json);
+						out.flush();
+					}
 					break;
 				default :
 					HashMap<String,String> map = new HashMap<>();
 					map.put("errorCardDiv", "error");
-					om = new ObjectMapper();
-					json = om.writeValueAsString(map);
+					ObjectMapper om = new ObjectMapper();
+					String json = om.writeValueAsString(map);
 					res.setContentType("application/json;charset=UTF-8");
-					out = res.getWriter();
+					PrintWriter out = res.getWriter();
 					out.write(json);
 					out.flush();
 					break;

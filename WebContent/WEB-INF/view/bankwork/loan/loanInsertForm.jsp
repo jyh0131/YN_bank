@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +64,9 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
+    	var str = ${contribution.totalContribution};
+    	var totalContribution = str.toLocaleString();
+    	alert("대출 총 가능 금액은 " + totalContribution + "원입니다");
     	$(".normal").hide();
     	$('#date').datepicker({
             dateFormat: 'yy-mm-dd',
@@ -131,12 +135,13 @@
 	</c:if>
 	<div id="container">
 		<div id="header">
-			<h1>통장 추가</h1>
+			<h1>대출 추가</h1>
 		</div>
 		<form action="${pageContext.request.contextPath}/bankwork/loan/add.do" method="post">
 			<input type="hidden" value=${Auth.empName} name="empname">
+			<input type="hidden" value=${contribution.totalContribution} name="contribution">
 			<div id="profile">
-				<h2>통장 정보</h2>
+				<h2>대출 정보</h2>
 				<div id="profileEdit">
 					<table>
 						<tr>

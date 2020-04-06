@@ -4,17 +4,26 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.yi.dto.Contribution;
 import com.yi.dto.Notice;
 import com.yi.mvc.CommandHandler;
+import com.yi.service.LoginService;
 import com.yi.service.NoticeService;
 
 public class MainHandler implements CommandHandler {
-	private NoticeService service = new NoticeService();
+	private NoticeService noticeService = new NoticeService();
+	private LoginService loginService = new LoginService();
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		List<Notice> list = service.showNoticeByAll();
+		List<Notice> list = noticeService.showNoticeByAll();
+		Contribution contribution = loginService.bankTotalAmount();
+		System.out.println(contribution);
 		req.setAttribute("list", list);
+		HttpSession session = req.getSession();
+		session.removeAttribute("contribution");
+		session.setAttribute("contribution", contribution);
 		return "/WEB-INF/view/main/mainSection.jsp";
 	}
 

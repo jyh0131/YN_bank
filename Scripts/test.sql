@@ -310,5 +310,5 @@ select custname from customer;
 select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%'; #총 자본금(예금,적금 총액)
 select sum(accountBalance) from bankbook where accountnum like '%-13-%'; #대출금(마이너스통장)
 select sum(loanBalance) from loan; #대출금총합(대출)
-
-select * from bankbook;
+select * from bank_totalBalance;
+delete from loan where custcode = 'B001' and loanPlanCode = 'C007';

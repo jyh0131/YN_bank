@@ -78,10 +78,11 @@ public class CardDaoImpl implements CardDao {
 	@Override
 	public List<Card> showCardByCustName(Card card) throws SQLException {
 		List<Card> list = new ArrayList<>();
-		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where cs.custname like ?";
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where cs.custname like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);  
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + card.getCustCode().getCustName() + "%");
+			pstmt.setBoolean(2, card.getCustCode().getCustDiv());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getCardInfo(rs));
@@ -239,10 +240,11 @@ public class CardDaoImpl implements CardDao {
 	@Override
 	public List<Card> showCardByPlanName(Card card) throws SQLException {
 		List<Card> list = new ArrayList<>();
-		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where p.planname like ?";
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where p.planname like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + card.getPlanCode().getPlanName() + "%");
+			pstmt.setBoolean(2, card.getCustCode().getCustDiv());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
 					list.add(getCardInfo(rs));
@@ -252,30 +254,35 @@ public class CardDaoImpl implements CardDao {
 		return list;
 	}
 	@Override
-	public List<Card> showCardByCheckCard() throws SQLException {
+	public List<Card> showCardByCheckCard(Customer customer) throws SQLException {
 		List<Card> list = new ArrayList<>();
-		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where c.cardnum like '%331%'";
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where c.cardnum like '%331%' and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			while(rs.next()) {
-				list.add(getCardInfo(rs));
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setBoolean(1, customer.getCustDiv());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getCardInfo(rs));
+				}
 			}
+			return list;
 		}
-		return list;
+				
 	}
 	@Override
-	public List<Card> showCardByCreditCard() throws SQLException {
+	public List<Card> showCardByCreditCard(Customer customer) throws SQLException {
 		List<Card> list = new ArrayList<>();
-		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where c.cardnum like '%332%'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver); 
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			while(rs.next()) {
-				list.add(getCardInfo(rs));
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where c.cardnum like '%332%' and custdiv = ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setBoolean(1, customer.getCustDiv());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getCardInfo(rs));
+				}
 			}
+			return list;
 		}
-		return list;
 	}
 	@Override
 	public int updateAccountBalance(Card card) throws SQLException {

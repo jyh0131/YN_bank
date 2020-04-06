@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.yi.dto.Contribution;
 import com.yi.dto.Employee;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.LoginService;
@@ -32,7 +33,10 @@ public class LoginHandler implements CommandHandler {
 			else {
 				HttpSession session = req.getSession();
 				Employee Auth = service.GetEmpAuth(loginEmp);
+				Contribution contribution = service.bankTotalAmount();
 				session.setAttribute("Auth", Auth);
+				session.removeAttribute("contribution");
+				session.setAttribute("contribution", contribution);
 				res.sendRedirect(req.getContextPath()+"/main/main.do");
 			}
 		}

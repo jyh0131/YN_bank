@@ -103,7 +103,7 @@
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do",
+					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
@@ -138,7 +138,7 @@
 								a[3] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[4] = $("<a>").html(obj.cardSecuCode).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								var date = new Date(obj.cardIssueDate);
-								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
@@ -161,7 +161,7 @@
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do",
+					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
@@ -196,7 +196,7 @@
 								a[3] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[4] = $("<a>").html(obj.cardSecuCode).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								var date = new Date(obj.cardIssueDate);
-								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
@@ -219,11 +219,16 @@
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do",
+					url: "${pageContext.request.contextPath}/bankwork/card/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
 				    success : function(res) {
+				    	if(res.errorNoDiv!=null) {
+				    		alert("체크카드나 신용카드 상품이 존재하지 않습니다");
+				    		$("input[name='search']").val("");
+				    		return;
+				    	}
 				    	if(res.errorCardDiv!=null) {
 				    		alert("그런 상품은 없습니다. 다시 입력하세요");
 				    		$("input[name='search']").val("");
@@ -254,7 +259,7 @@
 								a[3] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[4] = $("<a>").html(obj.cardSecuCode).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								var date = new Date(obj.cardIssueDate);
-								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+date.getHours()+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);

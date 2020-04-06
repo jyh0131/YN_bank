@@ -15,9 +15,9 @@ public interface BankBookDao {
 	public abstract List<BankBook> showBankBooksByAccountNum(BankBook bankbook) throws SQLException;
 	public abstract List<BankBook> showBankBooksByCustName(BankBook bankbook) throws SQLException;
 	public abstract List<BankBook> showBankBooksByPlanName(BankBook bankbook) throws SQLException;
-	public abstract List<BankBook> showBankBooksByDeposit() throws SQLException;
-	public abstract List<BankBook> showBankBooksBySaving() throws SQLException;
-	public abstract List<BankBook> showBankBooksByMinus() throws SQLException;
+	public abstract List<BankBook> showBankBooksByDeposit(Customer customer) throws SQLException;
+	public abstract List<BankBook> showBankBooksBySaving(Customer customer) throws SQLException;
+	public abstract List<BankBook> showBankBooksByMinus(Customer customer) throws SQLException;
 	public abstract String showDPTotalAmount() throws SQLException;//예금 총금액
 	public abstract String showSvTotalAmount() throws SQLException;//적금 총금액
 	public abstract String showLoTotalAmount() throws SQLException;//대출 총금액

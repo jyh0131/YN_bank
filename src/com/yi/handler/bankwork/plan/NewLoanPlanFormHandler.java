@@ -29,12 +29,12 @@ public class NewLoanPlanFormHandler implements CommandHandler {
 			}else if(text.equals("신용 대출")) {  
 				//신용 대출 상품 숫자
 				int planCBnum = service.showPlanCB();
-				planCwhat = "BB"+String.format("%03d", planCBnum+1);
+				planCwhat = "CB"+String.format("%03d", planCBnum+1);
 			}else {
 				//카드 대출 상품 숫자
 				int planCCnum = service.showPlanCC();
-				planCwhat = "BB"+String.format("%03d", planCCnum+1);
-			}
+				planCwhat = "CC"+String.format("%03d", planCCnum+1);
+			}  
 			
 			req.setAttribute("planCwhat", planCwhat);
 			return "/WEB-INF/view/bankwork/plan/newLoanPlanForm.jsp";

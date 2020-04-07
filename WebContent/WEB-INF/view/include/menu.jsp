@@ -226,7 +226,7 @@
 					</li>
 					<li id="statistic" class="side1"><a href="#">통계</a>
 						<ul>
-							<li id="empStatistic" class="side2"><a href="#">사원 통계</a></li>	
+							<li id="empStatistic" class="side2"><a href="${pageContext.request.contextPath}/emp/empStatistic.do">사원 통계</a></li>	
 							<li id="custStatistic" class="side2"><a href="#">고객 통계</a></li>
 							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a>
 								<ul>

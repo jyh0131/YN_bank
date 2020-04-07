@@ -96,6 +96,10 @@
 	  background: goldenrod;
 	  font-weight: bold;
 }
+
+  div#table th.thTel{
+      width: 300px;
+   }
 </style>
 <script>
    $(function(){
@@ -116,15 +120,15 @@
         var $table = $("<table>").addClass("tableList");
         
         var $menutr = $("<tr>");
-        var $menutd1 = $("<td>").html("사원코드");
-        var $menutd2 = $("<td>").html("사원이름");
-        var $menutd3 = $("<td>").html("직책");
-        var $menutd4 = $("<td>").html("권한");
-        var $menutd5 = $("<td>").html("월급");
-        var $menutd6 = $("<td>").html("연락처");
-        var $menutd7 = $("<td>").html("아이디");
-        var $menutd8 = $("<td>").html("비밀번호");
-        var $menutd9 = $("<td>").html("부서");
+        var $menutd1 = $("<th>").html("사원코드");
+        var $menutd2 = $("<th>").html("사원이름");
+        var $menutd3 = $("<th>").html("직책");
+        var $menutd4 = $("<th>").html("권한");
+        var $menutd5 = $("<th>").html("월급");
+        var $menutd6 = $("<th class='thTel'>").html("연락처");
+        var $menutd7 = $("<th>").html("아이디");
+        var $menutd8 = $("<th>").html("비밀번호");
+        var $menutd9 = $("<th>").html("부서");
         $menutr.append($menutd1);
         $menutr.append($menutd2);
         $menutr.append($menutd3);
@@ -379,7 +383,7 @@
 					<th>직책</th>
 					<th>권한</th>
 					<th>월급</th>
-					<th>연락처</th>
+					<th class="thTel">연락처</th>
 					<th>아이디</th>
 					<th>비밀번호</th>
 					<th>부서</th>

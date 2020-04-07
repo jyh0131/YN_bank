@@ -48,6 +48,7 @@
   	<url-pattern>/emp/empAuthUpdate.do</url-pattern>
   	<url-pattern>/emp/empDelete.do</url-pattern>
   	<url-pattern>/emp/empSearchRetired.do</url-pattern>
+  	<url-pattern>/emp/empStatistic.do</url-pattern>
   	<url-pattern>/cust/custSearch.do</url-pattern>
   	<url-pattern>/cust/addCust.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/mgn.do</url-pattern>

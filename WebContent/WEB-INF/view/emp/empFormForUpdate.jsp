@@ -162,6 +162,9 @@ div#profileEdit table td #inputId {
 div#profileEdit table td #inputCode {
    background: darkgray;
 }
+div#submit input#delRed{
+   background: tomato;
+}
 </style>
 
 <script>
@@ -429,7 +432,7 @@ div#profileEdit table td #inputCode {
 				<div id="submit">
 					<input type="submit" value="수정"> 
 					<input type="reset" value="취소" id="returnToList">
-					<a href="empDelete.do?no=${emp.empCode }"><input type="button" value="삭제"></a>
+					<a href="empDelete.do?no=${emp.empCode }"><input type="button" value="삭제" id="delRed"></a>
 				</div>
 
 			</div>

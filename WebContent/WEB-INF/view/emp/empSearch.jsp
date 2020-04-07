@@ -346,7 +346,6 @@
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empDetail.do?empCode="+OneCode;
 	  })
-	  
 	   
    })
 
@@ -388,12 +387,12 @@
 				</tr>
 				<span id="renew">
 				<c:forEach var='empList' items="${list }">
-				<tr class="oneEmp" data-empCode="${empList.empCode }">
+				<tr class="oneEmp" data-empCode="${empList.empCode }" >
 					<td>${empList.empCode }</td>
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
 					<td>${empList.empAuth }</td>
-					<td>${empList.empSalary }</td>
+					<td><fmt:formatNumber value='${empList.empSalary }' pattern='###,###,###'/></td>
 					<td>${empList.empTel }</td>
 					<td>${empList.empId }</td>
 					<td>**********</td>

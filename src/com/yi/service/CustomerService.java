@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.yi.dao.CustomerDao;
 import com.yi.dao.impl.CustomerDaoImpl;
+import com.yi.dto.Cust_dw_audit;
 import com.yi.dto.Customer;
 
 public class CustomerService {
@@ -59,6 +60,21 @@ public class CustomerService {
 	public Customer showCustomerByTel(String custTel) throws SQLException{
 		return dao.selectCustomerByTel(custTel);
 	}
+	
+	public List<Cust_dw_audit> showCust_dw_audit() throws SQLException{
+		return dao.selectCust_dw_audit();
+	}
+	
+	public List<Cust_dw_audit> showCust_dw_auditByAcc(String accountNum) throws SQLException{
+		return dao.selectCust_dw_auditByAcc(accountNum);
+		
+	}
+	
+	public List<Cust_dw_audit> showCust_dw_auditByName(String custName) throws SQLException{
+		return dao.selectCust_dw_auditByName(custName);
+	}
+	
+	
 	
 	public List<Customer> showCustomersByBalance() throws SQLException{
 		return dao.selectCustomerBalance();

@@ -386,7 +386,7 @@
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
 					<td>${empList.empAuth }</td>
-					<td>${empList.empSalary }</td>
+					<td><fmt:formatNumber value='${empList.empSalary }' pattern='###,###,###'/></td>
 					<td>${empList.empTel }</td>
 					<td>${empList.empId }</td>
 					<td>${empList.dept}</td>

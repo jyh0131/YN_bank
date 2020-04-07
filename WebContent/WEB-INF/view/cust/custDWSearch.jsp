@@ -146,12 +146,12 @@
 				    		$(res).each(function(i, obj) {
 				    			var $tr2 = $("<tr>");
 				    			
-				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
-					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
-					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "#");
-					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "#");
+				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a7;
 					    		if(obj.custDiv==true){    
 					    			$a7 = $("<a>").html("기업").attr("href", "#");
@@ -232,12 +232,12 @@
 				    		$(res).each(function(i, obj) {
 								var $tr2 = $("<tr>");
 				    			
-								var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
-					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
-					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "#");
-					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "#");
+								var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 				    			var $a7;
 				    			if(obj.custDiv==true){    
 					    			$a7 = $("<a>").html("기업").attr("href", "#");
@@ -319,12 +319,12 @@
 				    		$(res).each(function(i, obj) {
 								var $tr2 = $("<tr>");
 				    			
-								var $a1 = $("<a>").html(obj.custCode).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");  
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "#");
-					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "#");
-					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "#");
-					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "#");
+								var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);  
+					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 				    			var $a7;
 					    		
 				    			if(obj.custDiv==true){      

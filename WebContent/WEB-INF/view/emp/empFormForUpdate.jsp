@@ -383,7 +383,7 @@ div#profileEdit table td #inputCode {
 						</tr>
 						<tr>
 							<th>월급</th>
-							<td><input type="text" name="empSalary" placeholder="숫자만입력" value="${emp.empSalary }"><br>
+							<td><input type="text" name="empSalary" placeholder="숫자만입력" value="<fmt:formatNumber value='${emp.empSalary }' pattern='###,###,###'/>"><br>
 								<span class="errorMSG">월급을 입력해주세요</span> 
 								<span class="errorMSG">숫자만 입력해주세요.</span></td>
 						</tr>

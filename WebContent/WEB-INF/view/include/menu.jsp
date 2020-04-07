@@ -111,6 +111,7 @@
 					<li id="empBonus" class="side1"><a href="#">인센티브</a>
 					    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
 					</li>
+					<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
 				</c:if>
 				
 				

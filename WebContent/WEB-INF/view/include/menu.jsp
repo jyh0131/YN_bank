@@ -38,9 +38,6 @@
 			
 		})
 		$(".side2").click(function() {
-			$(this).removeClass("side2");
-			$(this).addClass("side1");
-			$(".side2").hide();
 			$(this).find(".side3").toggle();
 		})
 		$(".side2").hide();
@@ -75,10 +72,10 @@
 							background: #464646;
 							border-top: 1px solid gray;
 							border-bottom: 1px solid gray;}
-	nav div#menu li.side3 {  text-indent:60px;
-							background: #464646;
-							border-top: 1px solid gray;
-							border-bottom: 1px solid gray;}						
+	nav div#menu li.side3 {  text-indent:80px;
+							background: grey;
+							border-top: 1px solid lightgray;
+							border-bottom: 1px solid lightgray;}						
 	
 	nav div#menu a {  color: gainsboro;
 				     display: block;  }

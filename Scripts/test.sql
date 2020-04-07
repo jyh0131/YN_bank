@@ -325,12 +325,20 @@ select * from bankbook_deposit_connect_to_card_info;
 
 update bankbook set accountopendate='2020-04-05 18:13:15',accountinterest='0.01' where custcode = 'B001';
 select custname from customer;
-
 select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%'; #총 자본금(예금,적금 총액)
 select sum(accountBalance) from bankbook where accountnum like '%-13-%'; #대출금(마이너스통장)
 select sum(loanBalance) from loan; #대출금총합(대출)
 select * from bank_totalBalance;
 delete from loan where custcode = 'B001' and loanPlanCode = 'C007';
 select * from bankbook where accountTermination = 1;
+select sum(accountbalance) from bankbook where accountnum like '%-11-%' group by month(accountopenDate); #이번달 예금
+select sum(accountbalance) from bankbook where accountnum like '%-12-%' group by month(accountopenDate); #이번달 적금
+select sum(accountbalance) from bankbook where accountnum like '%-13-%' group by month(accountopenDate); #이번달 마이너스
+select sum(cardBalance) from card where cardnum like '%331%' group by month(cardIssueDate); #이번달 체크카드 통계
+select sum(cardLimit) from card where cardnum like '%332%' group by month(cardIssueDate); #이번달 신용카드 통계
+select sum(loanBalance) from loan where loanAccountNum like '%-11-%' group by month(loanDate); #이번달 일반대출 통계
+select sum(loanBalance) from loan where loanAccountNum like '%-12-%' group by month(loanDate); #이번달 신용대출 통계
+select sum(loanBalance) from loan where loanAccountNum like '%-13-%' group by month(loanDate); #이번달 카드론 통계
+
 
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 1 and accountTermination = 0 and c.custDiv = 1

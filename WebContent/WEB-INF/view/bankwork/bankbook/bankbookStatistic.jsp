@@ -8,108 +8,146 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <style>
 	* { font-family: 'Noto Sans KR', sans-serif; }
-	div.table {
-		width: 900px;
-		margin: 30px auto;
+	div#container {
+		width: 1200px;
+		height : 80%;
+		margin: 50px auto;
 	}
-	section h1 {
-		margin-left : 500px;
+	div#year {
+		width : 100%;
+		padding : 20px;
+	}
+	label {
+		float : left;
+		width : 50px;
+		font-weight: bold;
+	}
+	select {
+		border : 1px solid goldenrod;
+		background : goldenrod;
+		color : white;
+		font-weight: bold;
+		padding : 2px;
 	}
 	div#dummy { height: 75px; background: #292929;}
-	.btnMenu {
-		margin : 30px 0;
+	input[type='radio'] {
+		margin-left : 10px;
 	}
-	.btnMenu:first-child {
-	   margin-left:400px;
-	   width:150px;
-	   border:2px solid goldenrod;
-	   border-radius: 10px;
-	   background: none;
+	p {
+		margin-bottom : 20px;
+		margin-left : 135px; 
 	}
-	.btnMenu:nth-child(2) {
-	   margin-left: 50px;
-	   width:150px;
-	   border:2px solid goldenrod;
-	   border-radius: 10px;
-	   background: none;
-	}	
-	.btnMenu:hover {
-	  background: goldenrod;
-	  font-weight: bold;
+	span {
+		font-weight: bold;
+	}
 }
-
-  div#table th.thTel{
-      width: 300px;
-   }
 </style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
    $(function(){
-	   $("#transInfo").hide();
-	   $(".btnMenu").click(function() {
-			if($(this).html()=='통장 거래 내역') {
-				$("#transInfo").toggle();
-			}
+	   var amounts = [];
+	   var drawchart = function(subject,year) {
+		   google.charts.load("current", {packages:['corechart']});
+	 	    google.charts.setOnLoadCallback(drawChart);
+	 	    function drawChart() {
+	 	      var data = google.visualization.arrayToDataTable([
+	 	        ["월", "총액", { role: "style" } ],
+	 	        ["1월", 1000, "red"],
+	 	        ["2월", 700, "orange"],
+	 	        ["3월", 600, "yellow"],
+	 	        ["4월", 1200, "lightgreen"],
+	 	        ["5월", 1300, "green"],
+	 	        ["6월", 2000, "darkgreen"],
+	 	        ["7월", 100, "lightblue"],
+	 	        ["8월", 500, "blue"],
+	 	        ["9월", 800, "deepblue"],
+	 	        ["10월", 100, "navy"],
+	 	        ["11월", 200, "grey"],
+	 	        ["12월", 400, "darkgrey"]
+	 	      ]);
+
+	 	      var view = new google.visualization.DataView(data);
+	 	      view.setColumns([0, 1,
+	 	                       { calc: "stringify",
+	 	                         sourceColumn: 1,
+	 	                         type: "string",
+	 	                         role: "annotation" },
+	 	                       2]);
+
+	 	      var options = {
+	 	        title: year + "년도 "+ subject + " 통계",
+	 	        width: 1400,
+	 	        height: 600,
+	 	        bar: {groupWidth: "95%"},
+	 	        legend: { position: "none" },
+	 	      };
+	 	      var chart = new google.visualization.ColumnChart(document.getElementById("chart"));
+	 	      chart.draw(view, options);
+	 	  	}
+	   }
+	   
+	   for (i = new Date().getFullYear(); i > 2000; i--)
+	   {
+	       $('#yearpicker').append($('<option />').val(i).html(i));
+	   }
+	   $(".chk").change(function() {
+		    var year = $("select option:selected").val();
+		    var div = $(this).val();
+		 	switch($(this).val()) {
+		 	case "예금":
+		 		drawchart(div,year);
+		 		break;
+		 	case "적금":
+		 		drawchart(div,year);
+		 		break;
+		 	case "마이너스":
+		 		drawchart(div,year);
+		 		break;
+		 	case "체크카드":
+		 		drawchart(div,year);
+		 		break;
+		 	case "신용카드":
+		 		drawchart(div,year);
+		 		break;
+		 	case "일반대출":
+		 		drawchart(div,year);
+		 		break;
+		 	case "신용대출":
+		 		drawchart(div,year);
+		 		break;
+		 	case "카드론":
+		 		drawchart(div,year);
+		 		break;
+		 	}
 		})
    })
 </script>
 <body>
 	<section>
-	<button class="btnMenu">통장 거래 내역</button>
-	<button class="btnMenu">통장 정보</button>
-	<div id="transInfo">
-		<h1>휴면 계좌 조회</h1>
-		<div class="table">
-			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	    	<script type="text/javascript">
-			     google.charts.load('current', {'packages':['table']});
-			     google.charts.setOnLoadCallback(drawTable);
-			
-			     function drawTable() {
-			       var data = new google.visualization.DataTable();
-			       data.addColumn('string', 'Name');
-			       data.addColumn('number', 'Salary');
-			       data.addRows([
-			         ['Mike',  {v: 10000, f: '$10,000'}],
-			         ['Jim',   {v:8000,   f: '$8,000'}],
-			         ['Alice', {v: 12500, f: '$12,500'}],
-			         ['Bob',   {v: 7000,  f: '$7,000'}]
-			       ]);
-			
-			       var table = new google.visualization.Table(document.getElementsByClassName('table')[0]);
-			
-			       table.draw(data, {showRowNumber: true, width: '100%', height: '20%'});
-			     }
-	    	</script>
+		<div id="container">
+			<div id="year">
+				<p>
+					<label>연도</label>
+					<select name="yearpicker" id="yearpicker"></select>
+				</p>
+				<p>
+					<label>구분</label>
+					<input type="radio" name="div" value="예금" class="chk"><span>예금</span>
+					<input type="radio" name="div" value="적금" class="chk"><span>적금</span>
+					<input type="radio" name="div" value="마이너스" class="chk"><span>마이너스</span>
+					<input type="radio" name="div" value="체크카드" class="chk"><span>체크카드</span>
+					<input type="radio" name="div" value="신용카드" class="chk"><span>신용카드</span>
+					<input type="radio" name="div" value="일반대출" class="chk"><span>일반대출</span>
+					<input type="radio" name="div" value="신용대출" class="chk"><span>신용대출</span>
+					<input type="radio" name="div" value="카드론" class="chk"><span>카드론</span> 
+				</p>
+			</div>
+			<div id="chart">
+			</div>
 		</div>
-		<h1>해지 계좌 조회</h1>
-		<div class="table">
-			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	    	<script type="text/javascript">
-			     google.charts.load('current', {'packages':['table']});
-			     google.charts.setOnLoadCallback(drawTable);
-			
-			     function drawTable() {
-			       var data = new google.visualization.DataTable();
-			       data.addColumn('string', 'Name');
-			       data.addColumn('number', 'Salary');
-			       data.addRows([
-			         ['Mike',  {v: 10000, f: '$10,000'}],
-			         ['Jim',   {v:8000,   f: '$8,000'}],
-			         ['Alice', {v: 12500, f: '$12,500'}],
-			         ['Bob',   {v: 7000,  f: '$7,000'}]
-			       ]);
-			
-			       var table = new google.visualization.Table(document.getElementsByClassName('table')[1]);
-			
-			       table.draw(data, {showRowNumber: true, width: '100%', height: '20%'});
-			     }
-	    	</script>
-		</div>
-	</div>
 	</section>
 </body>
 </html>

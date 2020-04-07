@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/menu.jsp"%>
+<%@include file="../include/sectionBar.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +89,7 @@
 		                    lineHeight: 1.6
 		                },
 		                formatter: function(value, ctx) {
-		                    return ctx.chart.data.labels[ctx.dataIndex] + '\total' + value + '%';
+		                	 return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
 		                }
 		            }
 		        }
@@ -112,9 +113,6 @@
 		      <h1>부서별 사원 수</h1>
 		      <div class="empChart">
               <canvas id="empChart1" width="1000" height="400"></canvas>
-              </div>
-              <div class="myChart">
-              <canvas id="myChart" width="1000" height="400"></canvas>
               </div>
 				<c:forEach var='empList' items="${list }">
 				<%-- <tr class="oneEmp" data-empCode="${empList.empCode }" >

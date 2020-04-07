@@ -160,7 +160,7 @@
     			</div>
     			<span id="bestTeam">
     			
-    			YN 인사팀</span>
+    			YN Bank</span>
     			<span id="bestWho">${empNo1.empName } ${empNo1.empTitle }</span>
     		</li>
     	</ul>

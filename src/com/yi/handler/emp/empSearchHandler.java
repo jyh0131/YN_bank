@@ -23,6 +23,18 @@ public class empSearchHandler implements CommandHandler {
 	//		System.out.println(list);
 
 			req.setAttribute("list", list);
+			
+			//각 부서별 사람 수 구하기
+            //인사팀
+             List<Employee> listForExistHR = service.showPickedEmpByDept("인사", 0);
+             List<Employee> listForExistCS = service.showPickedEmpByDept("고객", 0);
+
+             req.setAttribute("HR", listForExistHR.size());
+             req.setAttribute("CS", listForExistCS.size());
+             
+             int avgSalary = service.avgOfSalary();
+             req.setAttribute("avgSal", avgSalary);
+			
 			return "/WEB-INF/view/emp/empSearch.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");

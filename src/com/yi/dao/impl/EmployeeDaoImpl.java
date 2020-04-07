@@ -444,7 +444,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public int selectAvgOfSalary() {
-		String sql="select (sum(empSalary))/(count(*)) as 'avgSal' from employee where empRetire =0";
+		String sql="select ceiling((sum(empSalary))/(count(*))) as 'avgSal' from employee where empRetire =0";
 		
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);

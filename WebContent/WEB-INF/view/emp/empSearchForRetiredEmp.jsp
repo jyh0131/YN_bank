@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/menu.jsp"%>
+<%@include file="../include/sectionBar.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +63,7 @@
 		
 		div#table {
 			width: 900px;
-			margin: 100px auto;
+			margin: 20px auto;
 		}
 		
 		div#table table {
@@ -96,6 +97,10 @@
 	  background: goldenrod;
 	  font-weight: bold;
 }
+  div#coutOfEmp{
+      width:300px;
+      margin-left:500px;
+  }
 </style>
 <script>
    $(function(){
@@ -365,7 +370,8 @@
 					</fieldset>
 				
 		</div>
-		<a href="empSearch.do"><button id="btnNone">일반사원 리스트</button></a>
+		<a href="empSearch.do"><button id="btnNone">일반사원 리스트</button></a><br><br>
+		<div id="coutOfEmp">인사팀  : ${HR }명 ,  고객팀 : ${CS }명</div>
 		<div id="table">
 			<table class="tableList">
 				<tr>

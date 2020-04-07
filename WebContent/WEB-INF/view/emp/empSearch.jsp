@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/menu.jsp"%>
+<%@include file="../include/sectionBar.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +64,7 @@
 		
 		div#table {
 			width: 900px;
-			margin: 100px auto;
+			margin: 20px auto;
 		}
 		
 		div#table table {
@@ -100,6 +102,14 @@
   div#table th.thTel{
       width: 300px;
    }
+  div#coutOfEmp{
+      width:300px;
+      margin-left:500px;
+  }
+  div#avgSalary{
+      width:300px;
+      margin-left:780px; 
+  }
 </style>
 <script>
    $(function(){
@@ -374,7 +384,9 @@
 					</fieldset>
 				
 		</div>
-		<a href="empSearchRetired.do"><button id="btnNone">퇴사사원 조회</button></a>
+		<a href="empSearchRetired.do"><button id="btnNone">퇴사사원 조회</button></a><br><br>
+		<div id="coutOfEmp">인사팀  : ${HR }명 ,  고객팀 : ${CS }명</div>
+		<div id="avgSalary"> 평균급여 : <fmt:formatNumber value="${avgSal}" pattern="###,###,###"/> 원</div>
 		<div id="table">
 			<table class="tableList">
 				<tr>

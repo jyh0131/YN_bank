@@ -153,7 +153,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.perf);
-				    			var $td5 = $("<td>").html(obj.bonus);
+				    			var $td5 = $("<td>").html(obj.bonus.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.pCode);
 				    			var $td7 = $("<td>").html(obj.pName);
 	                         
@@ -198,7 +198,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.perf);
-				    			var $td5 = $("<td>").html(obj.bonus);
+				    			var $td5 = $("<td>").html(obj.bonus.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.pCode);
 				    			var $td7 = $("<td>").html(obj.pName);
 	                         
@@ -242,7 +242,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.perf);
-				    			var $td5 = $("<td>").html(obj.bonus);
+				    			var $td5 = $("<td>").html(obj.bonus.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.pCode);
 				    			var $td7 = $("<td>").html(obj.pName);
 	                         
@@ -288,7 +288,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.perf);
-				    			var $td5 = $("<td>").html(obj.bonus);
+				    			var $td5 = $("<td>").html(obj.bonus.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.pCode);
 				    			var $td7 = $("<td>").html(obj.pName);
 	                         

@@ -167,7 +167,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
+				    			var $td5 = $("<td>").html(obj.empSalary.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
 				    			var $td8 = $("<td>").html("**********");
@@ -216,7 +216,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
+				    			var $td5 = $("<td>").html(obj.empSalary.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
 				    			var $td8 = $("<td>").html("**********");
@@ -264,7 +264,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
+				    			var $td5 = $("<td>").html(obj.empSalary.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
 				    			var $td8 = $("<td>").html("**********");
@@ -313,7 +313,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
+				    			var $td5 = $("<td>").html(obj.empSalary.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
 				    			var $td8 = $("<td>").html("**********");

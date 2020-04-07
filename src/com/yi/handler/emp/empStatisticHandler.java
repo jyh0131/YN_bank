@@ -29,11 +29,14 @@ public class empStatisticHandler implements CommandHandler {
              List<Employee> listForExistHR = service.showPickedEmpByDept("인사", 0);
              List<Employee> listForExistCS = service.showPickedEmpByDept("고객", 0);
              
-             Map<String, Integer> map = new HashMap<>();
-             map.put("HR",listForExistHR.size());
-             map.put("CS",listForExistCS.size());
-             
-             req.setAttribute("size", map);
+//             
+//             Map<String, Integer> map = new HashMap<>();
+//             map.put("HR",listForExistHR.size());
+//             map.put("CS",listForExistCS.size());
+//             
+//             System.out.println(map);
+             req.setAttribute("HR", listForExistHR.size());
+             req.setAttribute("CS", listForExistCS.size());
 			
 			
 			return "/WEB-INF/view/emp/empStatisticList.jsp";

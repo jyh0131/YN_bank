@@ -44,12 +44,6 @@ public class BankBookService {
 	public int updateBankBook(BankBook bankbook) throws SQLException {
 		return bankBookDao.updateBankBook(bankbook);
 	}
-	public int insertDormantAccountProcedure(BankBook bankbook) throws SQLException {
-		return bankBookDao.insertDormantAccountProcedure(bankbook);
-	}
-	public int insertTerminationAccountProcedure(BankBook bankbook) throws SQLException {
-		return bankBookDao.insertTerminationAccountProcedure(bankbook);
-	}
 	public int deleteBankBook(BankBook bankbook) throws SQLException {
 		return bankBookDao.deleteBankBook(bankbook);
 	}
@@ -111,12 +105,6 @@ public class BankBookService {
 	public List<AccountInfo> bankBookInfoYearly() throws SQLException {
 		return bankBookDao.showBankBookInfoYearly();
 	}
-	public List<AccountInfo> showDormantAccountInfo() throws SQLException {
-		return bankBookDao.showBankBookDormantAccountInfo();
-	}
-	public List<AccountInfo> showTerminationAccountInfo() throws SQLException {
-		return bankBookDao.showBankBookTerminationAccountInfo();
-	}
 	public List<BankBook> showBankBookByAccoutNum(BankBook bankbook) throws SQLException {
 		return bankBookDao.showBankBooksByAccountNum(bankbook);
 	}
@@ -143,5 +131,11 @@ public class BankBookService {
 	}
 	public int changeBankBookTermination(BankBook bankbook) throws SQLException {
 		return bankBookDao.changeBankBookTermination(bankbook);
+	}
+	public List<BankBook> showBankBookByDormant(BankBook bankbook) throws SQLException {
+		return bankBookDao.showBankBookByDormant(bankbook);
+	}	
+	public List<BankBook> showBankBookByTermination(BankBook bankbook) throws SQLException {
+		return bankBookDao.showBankBookByTermination(bankbook);
 	}
 }

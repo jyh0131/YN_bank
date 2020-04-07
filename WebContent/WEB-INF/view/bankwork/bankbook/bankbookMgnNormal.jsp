@@ -88,7 +88,24 @@
 		
 		div#table tr:hover td { background: goldenrod;}
 		div#dummy { height: 75px; background: #292929;}
-		
+		#btnMenu1 {
+		   margin-left:510px;
+		   width:150px;
+		   border:2px solid goldenrod;
+		   border-radius: 10px;
+		   background: none;
+		}
+		#btnMenu2 {
+		   margin-left: 20px;
+		   width:150px;
+		   border:2px solid goldenrod;
+		   border-radius: 10px;
+		   background: none;
+		}
+		#btnMenu1:hover, #btnMenu2:hover {
+		   background: goldenrod;
+		   font-weight: bold;
+		}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
@@ -345,6 +362,12 @@
 			  
 			location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
 	  	});
+		$("#btnMenu1").click(function() {
+			location.href = "${pageContext.request.contextPath}/bankbook/bankbook/dormantList.do?custdiv=${custdiv}";
+		})
+		$("#btnMenu2").click(function() {
+			location.href = "${pageContext.request.contextPath}/bankbook/bankbook/terminationList.do?custdiv=${custdiv}";
+		})
 	})
 </script>
 </head>
@@ -366,6 +389,8 @@
 					</fieldset>
 				
 		</div>
+		<button id="btnMenu1">휴면 계좌 조회</button>
+		<button id="btnMenu2">해지 계좌 조회</button>
 		<div id="table">
 			<table>
 				<tr>
@@ -388,6 +413,22 @@
 				</c:forEach>
 			</table>
 		</div>
+		<c:if test="${nonDormant!=null}">
+			<script>
+				alert("휴면계좌가 존재하지 않습니다.");
+				<%
+					session.removeAttribute("nonDormant");
+				%>
+			</script>
+		</c:if>
+		<c:if test="${nonTermination!=null}">
+			<script>
+				alert("해지계좌가 존재하지 않습니다");
+				<%
+					session.removeAttribute("nonTermination");
+				%>
+			</script>
+		</c:if>
 		<c:if test="${successmod!=null}">
 			<script>
 				alert("수정하였습니다.");

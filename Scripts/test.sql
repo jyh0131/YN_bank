@@ -327,3 +327,6 @@ select sum(accountBalance) from bankbook where accountnum like '%-13-%'; #대출
 select sum(loanBalance) from loan; #대출금총합(대출)
 select * from bank_totalBalance;
 delete from loan where custcode = 'B001' and loanPlanCode = 'C007';
+select * from bankbook where accountTermination = 1;
+
+select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 1 and accountTermination = 0 and c.custDiv = 1

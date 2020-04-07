@@ -37,15 +37,11 @@
 			$(this).find(".side2").toggle();
 			
 		})
-		$(".side2").click(function() {
-			$(this).find(".side3").toggle();
-		})
 		$(".side2").hide();
-		$(".side3").hide();
 	});
 </script>
 <style>
-	* { margin: 0; padding: 0; /* font-family: 'Noto Serif KR', serif; */font-family: 'Noto Sans KR', sans-serif;}
+	* { margin: 0; padding: 0; font-family: 'Noto Sans KR', sans-serif;}
 	body { min-width: 1900px;  }
 	ul li { list-style: none; }
 	a { text-decoration: none; color: #000; }
@@ -115,9 +111,6 @@
 					<li id="empBonus" class="side1"><a href="#">인센티브</a>
 					    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
 					</li>
-					<li id="empStatistic" class="side1"><a href="#">통계</a>
-					  <ul><li id="empStatistic" class="side2"><a href="#">사원 통계</a></li></ul>	
-					</li>
 				</c:if>
 				
 				
@@ -159,18 +152,7 @@
 							<li id="planList" class="side2"><a href="#">상품 조회</a></li>
 						</ul>
 					</li>
-					<li id="custStatistic" class="side1"><a href="#">통계</a>	    
-						<ul>
-							<li id="custStatistic2" class="side2"><a href="#">고객 통계</a></li>
-							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a>
-								<ul>
-									<li id="bankbookStatistic" class="side3"><a href="#">통장 통계</a></li>
-									<li id="cardStatistic" class="side3"><a href="#">카드 통계</a></li>
-									<li id="loanStatistic" class="side3"><a href="#">대출 통계</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
+					<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
 				</c:if>
 				<c:if test="${Auth.empAuth=='AD'}"> <!-- 관리자일때 -->
 					<li id="empMgn" class="side1"><a href="#">사원 관리</a>
@@ -221,19 +203,7 @@
 							<li id="planList" class="side2"><a href="#">상품 조회</a></li>
 						</ul>
 					</li>
-					<li id="statistic" class="side1"><a href="#">통계</a>
-						<ul>
-							<li id="empStatistic" class="side2"><a href="${pageContext.request.contextPath}/emp/empStatistic.do">사원 통계</a></li>	
-							<li id="custStatistic" class="side2"><a href="#">고객 통계</a></li>
-							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a>
-								<ul>
-									<li id="bankbookStatistic" class="side3"><a href="#">통장 통계</a></li>
-									<li id="cardStatistic" class="side3"><a href="#">카드 통계</a></li>
-									<li id="loanStatistic" class="side3"><a href="#">대출 통계</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
+					<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
 				</c:if>
 			</ul>	
 		</div>

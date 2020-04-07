@@ -351,67 +351,6 @@ public class BankBookDaoImpl implements BankBookDao {
 	}
 
 	@Override
-	public int insertDormantAccountProcedure(BankBook bankbook) throws SQLException {
-		int res = -1;
-		String sql = "call make_dormant(?,?)";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareCall(sql)) {
-			pstmt.setString(1, bankbook.getCustCode().getCustName());
-			pstmt.setString(2, bankbook.getAccountPlanCode().getPlanName());
-			res = pstmt.executeUpdate();
-		}
-		return res;
-	}
-
-	@Override
-	public int insertTerminationAccountProcedure(BankBook bankbook) throws SQLException {
-		int res = -1;
-		String sql = "call make_termination(?,?)";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareCall(sql)) {
-			pstmt.setString(1, bankbook.getCustCode().getCustName());
-			pstmt.setString(2, bankbook.getAccountPlanCode().getPlanName());
-			res = pstmt.executeUpdate();
-		}
-		return res;
-	}
-
-	@Override
-	public List<AccountInfo> showBankBookDormantAccountInfo() throws SQLException {
-		List<AccountInfo> list = new ArrayList<>();
-		String sql = "select * from changebankbookdormantinfo";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			while(rs.next()) {
-				list.add(getAccountInfo(rs));
-			}
-		}
-		return list;
-	}
-
-	private AccountInfo getAccountInfo(ResultSet rs) throws SQLException {
-		String custname = rs.getString("custname");
-		String accountnum = rs.getString("accountnum");
-		Date transDate = rs.getTimestamp("changedate");
-		return new AccountInfo(custname, accountnum, transDate);
-	}
-
-	@Override
-	public List<AccountInfo> showBankBookTerminationAccountInfo() throws SQLException {
-		List<AccountInfo> list = new ArrayList<>();
-		String sql = "select * from changebankbookterminationinfo";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-		PreparedStatement pstmt = con.prepareStatement(sql);
-		ResultSet rs = pstmt.executeQuery()) {
-			while(rs.next()) {
-				list.add(getAccountInfo(rs));
-			}
-		}
-		return list;
-	}
-
-	@Override
 	public List<BankBook> showBankBooksByAccountNum(BankBook bankbook) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
 		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountnum like ? and custdiv = ?";
@@ -668,7 +607,6 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public void update_balance_locking(int amount, String accountNum, String text) throws SQLException {
 		String sql = "call pro_update_balance_locking_commit(?, ?, ?);";
-		
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, amount);
@@ -679,6 +617,41 @@ public class BankBookDaoImpl implements BankBookDao {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public List<BankBook> showBankBookByDormant(BankBook bankbook) throws SQLException {
+		List<BankBook> list = new ArrayList<>();
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountDormant = ? and c.custDiv = ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setBoolean(1, bankbook.isAccountDormant());
+			pstmt.setBoolean(2, bankbook.getCustCode().getCustDiv());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getBankBook(rs));
+				}
+				
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<BankBook> showBankBookByTermination(BankBook bankbook) throws SQLException {
+		List<BankBook> list = new ArrayList<>();
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountTermination = ? and c.custDiv = ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setBoolean(1, bankbook.isAccountTermination());
+			pstmt.setBoolean(2, bankbook.getCustCode().getCustDiv());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getBankBook(rs));
+				}
+			}
+		}
+		return list;
 	}
 
 }

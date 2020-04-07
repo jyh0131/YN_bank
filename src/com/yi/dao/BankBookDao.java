@@ -30,16 +30,14 @@ public interface BankBookDao {
 	public abstract void update_balance_locking(int amount, String accountNum, String text) throws SQLException; //입출금 처리 - 해당 계좌번호 row에만 locking
 	public abstract int insertBankBook(BankBook bankbook) throws SQLException;
 	public abstract int updateBankBook(BankBook bankbook) throws SQLException;
-	public abstract int insertDormantAccountProcedure(BankBook bankbook) throws SQLException;
-	public abstract int insertTerminationAccountProcedure(BankBook bankbook) throws SQLException;
 	public abstract int deleteBankBook(BankBook bankbook) throws SQLException;
 	public abstract int updateBankBalance(Customer customer) throws SQLException;
 	public abstract List<AccountInfo> showBankBookInfoDaily() throws SQLException;
 	public abstract List<AccountInfo> showBankBookInfoWeekly() throws SQLException;
 	public abstract List<AccountInfo> showBankBookInfoMonthly() throws SQLException;
 	public abstract List<AccountInfo> showBankBookInfoYearly() throws SQLException;
-	public abstract List<AccountInfo> showBankBookDormantAccountInfo() throws SQLException;
-	public abstract List<AccountInfo> showBankBookTerminationAccountInfo() throws SQLException;
+	public abstract List<BankBook> showBankBookByDormant(BankBook bankbook) throws SQLException;
+	public abstract List<BankBook> showBankBookByTermination(BankBook bankbook) throws SQLException;
 	public abstract int updateCardBalance(Customer customer) throws SQLException;
 	public abstract List<BankBook> showBankBookByIsConnect(Card card) throws SQLException;
 	public abstract int updateConnectChk(Card card) throws SQLException;

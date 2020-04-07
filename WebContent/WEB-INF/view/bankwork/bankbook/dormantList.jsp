@@ -23,7 +23,7 @@
 			width: 200px; height : 30px;
 			border: none;
 			font-size: 16px;
-			border: 1px solid goldenrod;
+			border: 1px solid goldenrod;;
 		}
 		
 		fieldset { position: relative;  
@@ -85,8 +85,9 @@
 			background: gainsboro;
 			font-size: 15px;
 		}
+		
 		div#table tr:hover td { background: goldenrod;}
-		div#dummy { height: 75px; background: #292929;}		
+		div#dummy { height: 75px; background: #292929;}
 		#btnMenu1 {
 		   margin-left:510px;
 		   width:150px;
@@ -94,14 +95,7 @@
 		   border-radius: 10px;
 		   background: none;
 		}
-		#btnMenu2 {
-		   margin-left: 20px;
-		   width:150px;
-		   border:2px solid goldenrod;
-		   border-radius: 10px;
-		   background: none;
-		}
-		#btnMenu1:hover, #btnMenu2:hover {
+		#btnMenu1:hover {
 		   background: goldenrod;
 		   font-weight: bold;
 		}
@@ -119,14 +113,13 @@
 				break;
 			case "계좌번호":
 				var div = $("#searchMenu option:selected").val();
-				var custdiv = ${custdiv};
 				var search = $("input[name='search']").val();
 				if(search=="") {
 					alert("계좌번호를 입력하세요");
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv="+custdiv,
+					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
@@ -175,14 +168,13 @@
 				break;
 			case "고객이름":
 				var div = $("#searchMenu option:selected").val();
-				var custdiv = ${custdiv};
 				var search = $("input[name='search']").val();
 				if(search=="") {
 					alert("고객 이름을 입력하세요");
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv="+custdiv,
+					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
@@ -231,14 +223,13 @@
 				break;
 			case "상품명":
 				var div = $("#searchMenu option:selected").val();
-				var custdiv = ${custdiv};
 				var search = $("input[name='search']").val();
 				if(search=="") {
 					alert("상품명을 입력하세요");
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv="+custdiv,
+					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
@@ -287,21 +278,20 @@
 				break;
 			case "통장상품":
 				var div = $("#searchMenu option:selected").val();
-				var custdiv = ${custdiv};
 				var search = $("input[name='search']").val();
 				if(search=="") {
 					alert("통장상품(예금,적금,마이너스 중 하나)을 입력하세요");
 					return;
 				}
 				$.ajax({
-					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv="+custdiv,
+					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv=${custdiv}",
 				    data: {search:search,div:div},
 				    type: "POST", 
 				    dataType: "json",
 				    success : function(res) {
 				    	if(res.errorNoDiv!=null) {
 				    		alert("예금,적금,마이너스 통장 중 있는 상품만 입력하세요");
-				    		("input[name='search']").val("");
+				    		$("input[name='search']").val("");
 				    		return;
 				    	}
 				    	if(res.errorBankBookName!=null) {
@@ -366,10 +356,7 @@
 			location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
 	  	});
 		$("#btnMenu1").click(function() {
-			location.href = "${pageContext.request.contextPath}/bankbook/bankbook/dormantList.do?custdiv=${custdiv}";
-		})
-		$("#btnMenu2").click(function() {
-			location.href = "${pageContext.request.contextPath}/bankbook/bankbook/terminationList.do?custdiv=${custdiv}";
+			location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}";
 		})
 	})
 </script>
@@ -389,10 +376,10 @@
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>	
-					</fieldset>	
+					</fieldset>
+				
 		</div>
-		<button id="btnMenu1">휴면 계좌 조회</button>
-		<button id="btnMenu2">해지 계좌 조회</button>
+		<button id="btnMenu1">통장 조회</button>
 		<div id="table">
 			<table>
 				<tr>
@@ -415,22 +402,6 @@
 				</c:forEach>
 			</table>
 		</div>
-		<c:if test="${nonDormant!=null}">
-			<script>
-				alert("휴면계좌가 존재하지 않습니다.");
-				<%
-					session.removeAttribute("nonDormant");
-				%>
-			</script>
-		</c:if>
-		<c:if test="${nonTermination!=null}">
-			<script>
-				alert("해지계좌가 존재하지 않습니다");
-				<%
-					session.removeAttribute("nonTermination");
-				%>
-			</script>
-		</c:if>
 		<c:if test="${successmod!=null}">
 			<script>
 				alert("수정하였습니다.");
@@ -444,14 +415,6 @@
 				alert("삭제하였습니다.");
 				<%
 					session.removeAttribute("successdel");
-				%>
-			</script>
-		</c:if>
-		<c:if test="${successchange!=null}">
-			<script>
-				alert("휴면계좌로 전환되었습니다.");
-				<%
-					session.removeAttribute("successchange");
 				%>
 			</script>
 		</c:if>

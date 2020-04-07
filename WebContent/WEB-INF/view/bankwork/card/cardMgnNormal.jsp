@@ -130,7 +130,7 @@
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7).append(th8);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
-								var tr = $("<tr>");
+								var tr = $("<tr>").attr("data-cardNum",obj.cardNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = [];
 								a[0] = $("<a>").html(obj.cardNum).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
@@ -188,7 +188,7 @@
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7).append(th8);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
-								var tr = $("<tr>");
+								var tr = $("<tr>").attr("data-cardNum",obj.cardNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = [];
 								a[0] = $("<a>").html(obj.cardNum).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
@@ -251,7 +251,7 @@
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7).append(th8);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
-								var tr = $("<tr>");
+								var tr = $("<tr>").attr("data-cardNum",obj.cardNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = [];
 								a[0] = $("<a>").html(obj.cardNum).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
@@ -288,7 +288,13 @@
 		  var custNameForPick = $(this).attr("data-custName");
 		  
 		  location.href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+cardtNumForPick+"&custname="+custNameForPick;
-	  })
+	  	})
+	  	$(document).on("click",'.pickedOne',function() {
+	  		var accountNumForPick = $(this).attr("data-cardNum");
+			var custNameForPick = $(this).attr("data-custName");
+			  
+			location.href="${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+accountNumForPick+"&custname="+custNameForPick;
+	  	});
 	})
 </script>
 </head>
@@ -326,8 +332,8 @@
 					<td>${card.cardNum}</td>
 					<td>${card.custCode.custName}</td>
 					<td>${card.planCode.planName}</td>
-					<td>${fn:substring(card.cardNum,6,7) eq '1'?'체크카드':'신용카드'}</a></td>
-					<td>${card.cardSecuCode}</a></td>
+					<td>${fn:substring(card.cardNum,6,7) eq '1'?'체크카드':'신용카드'}</td>
+					<td>${card.cardSecuCode}</td>
 					<td><fmt:formatDate value="${card.cardIssueDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 					<td><fmt:formatNumber value="${card.cardLimit}" type="number" maxFractionDigits="3"/></td>
 					<td><fmt:formatNumber value="${card.cardBalance}" type="number" maxFractionDigits="3"/></td>

@@ -22,7 +22,7 @@
 			}
 		})
     	$("#cancel").click(function() {
-    		location.href = "${pageContext.request.contextPath}/bankwork/card/mgn.do?div=${custdiv}";
+    		location.href = "${pageContext.request.contextPath}/bankwork/loan/mgn.do?div=${custdiv}";
     	})
     });
 </script>

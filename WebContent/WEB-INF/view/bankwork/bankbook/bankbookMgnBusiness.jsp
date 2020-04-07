@@ -131,7 +131,7 @@
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
-								var tr = $("<tr>");
+								var tr = $("<tr>").attr("data-accountNum",obj.accountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = []
 								a[0] = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
 								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
@@ -187,7 +187,7 @@
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
 				    		table.append(tr);
 				    		$(res).each(function(i, obj) {
-								var tr = $("<tr>");
+								var tr = $("<tr>").attr("data-accountNum",obj.accountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = []
 								a[0] = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
 								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
@@ -243,7 +243,7 @@
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
 				    		table.append(tr);
 				    		$(res).each(function(i, obj) {
-								var tr = $("<tr>");
+								var tr = $("<tr>").attr("data-accountNum",obj.accountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = []
 								a[0] = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
 								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
@@ -304,7 +304,7 @@
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
 				    		table.append(tr);
 				    		$(res).each(function(i, obj) {
-								var tr = $("<tr>");
+								var tr = $("<tr>").attr("data-accountNum",obj.accountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = []
 								a[0] = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
 								a[1] = $("<a>").html(obj.custCode.custName).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
@@ -340,7 +340,13 @@
 		  var custNameForPick = $(this).attr("data-custName");
 		  
 		  location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
-	  })
+	  	})
+	  	$(document).on("click",'.pickedOne',function() {
+	  		var accountNumForPick = $(this).attr("data-accountNum");
+			var custNameForPick = $(this).attr("data-custName");
+			  
+			location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
+	  	});
 	})
 </script>
 </head>

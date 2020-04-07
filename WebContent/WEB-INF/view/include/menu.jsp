@@ -149,7 +149,7 @@
 					</li>
 					<li id="planMgn" class="side1"><a href="#">상품 관리</a>
 						<ul>
-							<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
+							<li id="planAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/plan/selectPlan.do">상품 추가</a></li>
 							<li id="planList" class="side2"><a href="#">상품 조회</a></li>
 						</ul>
 					</li>
@@ -200,11 +200,14 @@
 					</li>
 					<li id="planMgn" class="side1"><a href="#">상품 관리</a>
 						<ul>
-							<li id="planAdd" class="side2"><a href="#">상품 추가</a></li>
-							<li id="planList" class="side2"><a href="#">상품 조회</a></li>
+							<li id="planAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/plan/selectBBookPlan.do">통장 상품 추가</a></li>
+							<li id="planAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/plan/selectCardPlan.do">카드 상품 추가</a></li>
+							<li id="planAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/plan/selectLoanPlan.do">대출 상품 추가</a></li>
+							<li id="planList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/plan/planSearch.do">상품 조회</a></li>   
 						</ul>
 					</li>
 					<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
+
 				</c:if>
 			</ul>	
 		</div>

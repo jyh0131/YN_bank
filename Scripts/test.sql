@@ -182,7 +182,8 @@ select engine from information_schema.`ENGINES` where `SUPPORT` = 'DEFAULT';
 select * from bankbook;
 select * from cust_dw_audit cda ;
 
-
+desc plan;
+select * from plan;
 
 
 

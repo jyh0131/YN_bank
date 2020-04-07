@@ -49,7 +49,7 @@
 		        data: {
 			            labels: ['인사팀', '고객팀'],
 			            datasets: [{
-			            data: [30,50],
+			            data: [${map.HR},${map.CS}],
 			            backgroundColor: ['#1e88e5', '#ffd600'],
 			            borderWidth: 0.5 ,
 			            borderColor: '#ddd'

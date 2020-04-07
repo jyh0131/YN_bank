@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../include/menu.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +12,10 @@
 	* { margin:0; padding:0; 
 		font-family: 'Noto Sans KR', sans-serif;
 		color: #252525; }
-	#container { width: 1000px; margin: 0 auto;}
+	#container { width: 1000px; margin: 30px auto;}
 	div#header { background: goldenrod;
 			     height: 150px; }
-	div#header h1 { padding: 30px;  }
+	div#header h1 { padding: 30px;  }   
 	
 	/* 프로필 */
 	
@@ -101,6 +102,7 @@
 	})
 </script>
 <body>
+	<%@include file="../include/sectionBar.jsp"%>
 	<div id="container">
 		<div id="header">
 			<h1>고객 추가</h1>

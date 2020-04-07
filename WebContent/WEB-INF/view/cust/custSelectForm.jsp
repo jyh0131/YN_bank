@@ -13,7 +13,7 @@
 	* { margin:0; padding:0; 
 		font-family: 'Noto Sans KR', sans-serif;
 		color: #252525; }
-	#container { width: 1000px; margin: 0 auto;}
+	#container { width: 1000px; margin: 30px auto;}
 	div#dummy { height: 75px; background: #292929;}	
 	
 	div#header { background: goldenrod;

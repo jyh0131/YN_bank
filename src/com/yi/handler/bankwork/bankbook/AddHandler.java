@@ -63,13 +63,24 @@ public class AddHandler implements CommandHandler {
 			interestStr = interestStr.replaceAll("[\\%]", "");
 			float accountInterest = (Float.parseFloat(interestStr) / 100);
 			BankBook bankbook = new BankBook(accountNum, custCode, accountPlanCode, accountOpenDate, accountInterest);
-			String empName = req.getParameter("empname");
-			Employee emp = new Employee(empName);
-			bankbook.setEmployee(emp);
-			bankbookService.insertBankBook(bankbook);
-			HttpSession session = req.getSession();
-			session.setAttribute("successadd", "success");
-			res.sendRedirect(req.getContextPath()+"/main/main.do");
+			long accountBalance = Long.parseLong(req.getParameter("accountBalance"));
+			long contribution = Long.parseLong(req.getParameter("contribution"));
+			if(contribution - accountBalance < 0) {
+				HttpSession session = req.getSession();
+				session.setAttribute("Insufficient", "Insufficient");
+				res.sendRedirect(req.getContextPath() + "/main/main.do");
+			}
+			else {
+				String empName = req.getParameter("empname");
+				Employee emp = new Employee(empName);
+				bankbook.setEmployee(emp);
+				bankbook.setAccountBalance(accountBalance);
+				bankbookService.insertBankBook(bankbook);
+				HttpSession session = req.getSession();
+				session.setAttribute("successadd", "success");
+				res.sendRedirect(req.getContextPath()+"/main/main.do");
+			}
+			
 		}
 		return null;
 	}

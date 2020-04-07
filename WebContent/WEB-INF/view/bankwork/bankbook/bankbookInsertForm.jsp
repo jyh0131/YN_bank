@@ -65,7 +65,6 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
-    	
     	$(".normal").hide();
     	$("#bankbookAdd").show();
 		$("#bankbookList").show();
@@ -88,7 +87,7 @@
             }
         });
     	$("form").submit(function() {
-    		if($("input[name='accountnum']").val()==""||$("input[name='accountOpenDate']")==""||$("input[name='accountInterest']").val()=="") {
+    		if($("input[name='accountnum']").val()==""||$("input[name='accountOpenDate']").val()==""||$("input[name='accountInterest']").val()==""||$("input[name='accountBalance']").val()=="") {
     			alert("입력란을 모두 입력해주세요");
     			return false;
     		}
@@ -104,10 +103,27 @@
     			alert("이자율 형식에 맞지 않습니다. 다시 입력해주세요(0~100%)");
     			return false;
     		}
+    		var accountBalance = $("input[name='accountBalance']").val();
+			var accountBalanceReg = /^[0-9]*$/;
+			if(!accountBalanceReg.test(accountBalance)) {
+				alert("숫자만 입력하세요");
+				return false;
+			}
     	})
     	$("input[type='reset']").click(function() {
     		location.href = "${pageContext.request.contextPath}/main/main.do";
     	})
+    	$("#plan").change(function() {
+		    var str = $("#plan option:selected").attr("data-planDetail");
+		    var plandiv = str.substring(1,2);
+		    if(plandiv == 'C') {
+		    	$("#balance").show();
+		    }
+		    else {
+		    	$("#balance").hide();
+		    }
+		})
+		$("#balance").hide();
     });
 	</script>
 	<c:if test="${normal!=null}">
@@ -134,6 +150,7 @@
 		</div>
 		<form action="${pageContext.request.contextPath}/bankwork/bankbook/add.do" method="post">
 			<input type="hidden" value=${Auth.empName} name="empname">
+			<input type="hidden" value=${contribution.totalContribution} name="contribution">
 			<div id="profile">
 				<h2>통장 정보</h2>
 				<div id="profileEdit">
@@ -157,11 +174,12 @@
 							<td>
 								<select name="planname" id="plan">
 									<c:forEach var="plan" items="${planList}">
-										<option class="vip">${plan}</option>
+										<option class="vip" data-planDetail="${plan.planDetail}">${plan}</option>
 									</c:forEach>
 									<c:forEach var="planNormal" items="${planListNormal}">
-										<option class='normal'>${planNormal}</option>
+										<option class='normal' data-planDetail="${planNormal.planDetail}">${planNormal}</option>
 									</c:forEach>
+									
 								</select>
 							</td>
 								
@@ -173,6 +191,10 @@
 						<tr>
 							<th>이자율</th>
 							<td><input type="text" name="accountInterest"></td>
+						</tr>
+						<tr id="balance">
+							<th>대출금액</th>
+							<td><input type="text" name="accountBalance"></td>
 						</tr>
 					</table>
 				</div>

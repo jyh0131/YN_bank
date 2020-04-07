@@ -87,6 +87,10 @@
 		
 		div#table tr:hover td { background: goldenrod;}
 		
+		div#table th.thPlanName{
+		 width: 300px;
+		}
+		
 </style>
 <script>
    $(function(){
@@ -114,7 +118,7 @@
         var $menutd4 = $("<td>").html("실적");
         var $menutd5 = $("<td>").html("인센티브");
         var $menutd6 = $("<td>").html("상품종류");
-        var $menutd7 = $("<td>").html("상품이름");
+        var $menutd7 = $("<td class='thPlanName'>").html("상품이름");
     
        
         $menutr.append($menutd1);
@@ -364,7 +368,7 @@
 					<th>실적</th>
 					<th>인센티브</th>
 					<th>상품 종류</th>
-					<th>상품 이름</th>
+					<th class="thPlanName">상품 이름</th>
 				
 
 				</tr>

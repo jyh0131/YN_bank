@@ -253,7 +253,7 @@ div#profileEdit table td #inputEmpAuth::placeholder {
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>사용자 프로필</h1>
+			<h1>사원 정보</h1>
 		</div>
 		<form action="empAuthUpdate.do" method="post" >
             <input type="hidden" name="pic" value="${emp.pic }">

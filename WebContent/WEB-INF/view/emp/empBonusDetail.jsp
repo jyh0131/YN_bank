@@ -165,7 +165,7 @@ div#submit input {
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>사용자 프로필</h1>
+			<h1>사원 실적 정보</h1>
 		</div>
 		
 

@@ -13,6 +13,7 @@
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
+		div#dummy { height: 75px; background: #292929;}
 		div#search {
 			width: 900px;
 			margin: 50px auto;  
@@ -279,6 +280,7 @@
 </script>
 <body>
 	<section>
+	<%@include file="../include/sectionBar.jsp"%>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색 구분</option>

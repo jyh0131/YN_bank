@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/menu.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,9 @@
 			margin: 50px auto;  
 			text-align: center;
 		}
+		
+		
+		div#dummy { height: 75px; background: #292929;}	
 		
 		div#search select {
 			width: 200px; height : 30px;
@@ -367,6 +371,7 @@
 </script>
 <body>
 	<section>
+	<%@include file="../include/sectionBar.jsp"%>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색 구분</option>

@@ -67,9 +67,11 @@
 	* { margin:0; padding:0; 
 		font-family: 'Noto Sans KR', sans-serif;
 		color: #252525; }
+	div#dummy { height: 75px; background: #292929;}
 	#container { width: 1000px; margin: 50px auto;}
 	div#header { background: goldenrod;
 			     height: 150px; }
+			     
 	div#header h1 { padding: 30px;  }
 	div#profile { background: whitesmoke;
 				  height: 500px;
@@ -116,6 +118,7 @@
 </style>
 <body>
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
+	<%@include file="../include/sectionBar.jsp"%>
 	<div id="container">
 		<div id="header">
 			<h1>고객 세부 정보</h1>

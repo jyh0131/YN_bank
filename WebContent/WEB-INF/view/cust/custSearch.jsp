@@ -9,8 +9,10 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js">
+</script>
 </head>
-<style>
+<style>  
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		div#search {
 			width: 900px;
@@ -68,6 +70,10 @@
 			width: 1000px;
 			margin: 100px auto;
 		}
+		div#table p { font-family: 'Noto Sans KR', sans-serif; 
+					  font-weight: bold;
+					  height: 30px;}
+						
 		
 		div#table table {
 			border-collapse: collapse; 
@@ -387,8 +393,10 @@
 						</button>	
 					</fieldset>
 				
-		</div>
+		</div>  
 		<div id="table">
+			<p><i class="fas fa-user"></i> VIP 고객 : ${vipNum } 명</p>
+			<p><i class="far fa-user"></i> 일반 고객 : ${norNum } 명</p>
 			<table class="tableList">
 				<tr>
 					<th>고객 코드</th>
@@ -415,7 +423,7 @@
 							<c:if test="${custList.custDiv==false}">
 								<td><a href="#">일반</a></td>
 							</c:if>
-							
+							  
 					</tr>
 				
 				</c:forEach>

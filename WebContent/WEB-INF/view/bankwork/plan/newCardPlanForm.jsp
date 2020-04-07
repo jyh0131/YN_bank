@@ -24,7 +24,8 @@
 	div#profile { background: whitesmoke;
 				  height: 500px;
 				  border-radius: 10px;
-				  padding: 50px;}
+				  padding: 50px;
+				  position: relative;}
 	div#profile h2 { height: 50px; }				  
 	div#profileMain { float: left; }
 	
@@ -45,6 +46,9 @@
 									  height: 40px;
 									  line-height: 40px;
 									  display: none;  }
+	div#messeage { width: 650px; 
+				   position: absolute; top: -100px;
+				   display: none;}									  
 	div#profileEdit table td input { width: 250px;
 									 background: whitesmoke;
 								     border: none; 
@@ -64,8 +68,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
-		$("#custAdd").show();
-		$("#custList").show();
+		$("a#code").mouseover(function() {
+			$("div#messeage").css("display", "block");
+		})
+		$("a#code").mouseout(function() {
+			$("div#messeage").css("display", "none");
+		})
 		
 		
 		   $("input[type='submit']").submit(function(){
@@ -97,8 +105,13 @@
 		<form action="addCardPlan.do" method="post">
 			
 			<div id="profile">
+			
 				<h2>상품</h2>
 				<div id="profileEdit">
+				<div id="messeage">
+						<img src="${pageContext.request.contextPath}/images/plan.png">
+					</div>
+					<a href="#" id="code"><i class="far fa-question-circle" id="q1"></i> 코드 분류 체계</a>
 					<table>
 						<tr>
 							<th>상품 코드</th>
@@ -129,6 +142,7 @@
 									<option>구분 코드 선택</option>
 									<option>V</option>
 									<option>N</option>
+									<option>B</option>
 								</select></td>
 							<td class="mark"><i class="far fa-question-circle"></i></td>
 						</tr>

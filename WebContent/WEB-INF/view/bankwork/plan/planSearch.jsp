@@ -73,7 +73,7 @@
 			border-collapse: collapse; 
 		}
 		
-		div#table table a { display: block; width: 150px; }
+		div#table table a { display: block;  }
 		
 		div#table th, td {
 			width: 250px; 
@@ -83,7 +83,7 @@
 		}
 		
 		div#table td.long a {
-			width: 220px; 
+			width: 220px;  text-align: center;
 		}
 		
 		div#table tr:nth-child(odd) {
@@ -146,10 +146,10 @@
 				    		$(res).each(function(i, obj) {
 				    			var $tr2 = $("<tr>");
 				    			
-				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "#");
-					    		var $a3 = $("<a>").html(obj.planName).attr("href", "#");
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "#");
+				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		
 				    			   
 					    		
@@ -210,10 +210,10 @@
 				    		$(res).each(function(i, obj) {
 				    			var $tr2 = $("<tr>");
 				    			
-				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "#");
-					    		var $a3 = $("<a>").html(obj.planName).attr("href", "#");
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "#");
+				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		
 				    			   
 					    		
@@ -274,10 +274,10 @@
 				    		$(res).each(function(i, obj) {
 				    			var $tr2 = $("<tr>");
 				    			
-				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "#");
-					    		var $a3 = $("<a>").html(obj.planName).attr("href", "#");
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "#");
+				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		
 				    			   
 					    		
@@ -344,10 +344,10 @@
 				<c:forEach var='planList' items="${list }">
 					
 					<tr>
-							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${planList.planCode }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${planList.planDetail }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${planList.planName }</a></td>
-							<td class="long"><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${planList.planDiv }</a></td>
+							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planCode }</a></td>
+							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planDetail }</a></td>
+							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planName }</a></td>
+							<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planDiv }</a></td>
 		
 							
 					</tr>

@@ -152,14 +152,9 @@
 					    		var $a4 = $("<a>").html(obj.amount).attr("href", "#");
 					    		var $a5 = $("<a>").html(obj.accountBalance).attr("href", "#");
 					    		var date = new Date(obj.accountTransDate);
-					    		var year = date.getFullYear();
-					    		var month = date.getMonth();
-					    		var day = date.getDate();
-					    		var hour = date.getHours();
-					    		var minute = date.getMinutes();
-					    		var seconds = date.getSeconds();
+					    		var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 					    		
-					    		var $a6 = $("<a>").html(year + "-" + (month+1)+"-" + day + " " + hour + ":" + minute + ":" + seconds).attr("href", "#");
+					    		var $a6 = $("<a>").html(dateFormat).attr("href", "#");
 					    		
 				    			   
 					    		
@@ -236,14 +231,9 @@
 					    		var $a4 = $("<a>").html(obj.amount).attr("href", "#");
 					    		var $a5 = $("<a>").html(obj.accountBalance).attr("href", "#");
 					    		var date = new Date(obj.accountTransDate);
-					    		var year = date.getFullYear();
-					    		var month = date.getMonth();
-					    		var day = date.getDate();
-					    		var hour = date.getHours();
-					    		var minute = date.getMinutes();
-					    		var seconds = date.getSeconds();
+					    		var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 					    		
-					    		var $a6 = $("<a>").html(year + "-" + (month+1)+"-" + day + " " + hour + ":" + minute + ":" + seconds).attr("href", "#");
+					    		var $a6 = $("<a>").html(dateFormat).attr("href", "#");
 					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");

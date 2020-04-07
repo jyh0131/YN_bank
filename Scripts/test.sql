@@ -184,8 +184,10 @@ select * from cust_dw_audit cda ;
 
 desc plan;
 select * from plan;
+select * from bankbook;
+select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = "11" or "12" or "13";
 
-
+select substr(accountNum, 8,2) from bankbook;
 
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';

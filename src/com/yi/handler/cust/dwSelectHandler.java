@@ -1,9 +1,13 @@
 package com.yi.handler.cust;
 
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.yi.dto.Customer;
 import com.yi.mvc.CommandHandler;
@@ -17,11 +21,13 @@ public class dwSelectHandler implements CommandHandler {
 		String custCode = req.getParameter("custCode");
 		req.setAttribute("custCode", custCode);
 		String accountNum = req.getParameter("accountNum");
+		String num = accountNum.substring(7, 9);
+		req.setAttribute("num", num);
 		req.setAttribute("accountNum", accountNum);
 		String dw = req.getParameter("dw");
 		req.setAttribute("dw", dw);
-
 		
+			
 		return "/WEB-INF/view/cust/dwSelectForm.jsp";
 	}
 

@@ -23,6 +23,14 @@ public class empSearchForRetiredEmpHandler implements CommandHandler {
 	//		System.out.println(list);
 
 			req.setAttribute("list", list);
+			
+			//각 부서별 사람 수 구하기
+            //인사팀
+             List<Employee> listForExistHR = service.showPickedEmpByDept("인사", 1);
+             List<Employee> listForExistCS = service.showPickedEmpByDept("고객", 1);
+
+             req.setAttribute("HR", listForExistHR.size());
+             req.setAttribute("CS", listForExistCS.size());
 			return "/WEB-INF/view/emp/empSearchForRetiredEmp.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");

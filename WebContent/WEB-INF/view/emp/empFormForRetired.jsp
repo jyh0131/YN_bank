@@ -12,6 +12,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <%@include file="../include/menu.jsp"%>
+<%@include file="../include/sectionBar.jsp"%>
 <style>
 * {
 	margin: 0;
@@ -182,7 +183,7 @@ div#profileEdit table td input {
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>사용자 프로필</h1>
+			<h1>퇴사 사원 정보</h1>
 		</div>
 		<form action="empUpdate.do" method="post" enctype="multipart/form-data">
 

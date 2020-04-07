@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/menu.jsp"%>
+<%@include file="../include/sectionBar.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,14 +43,18 @@
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empDetail.do?empCode="+OneCode;
 	  })
-	  var ctx = document.getElementById('myChart');
+	  
+              var HR = $("#numOfHR").val(); 
+		      var CS = $("#numOfCS").val(); 
+		      var total = HR + CS;
+	  var ctx = document.getElementById('empChart1');
 	  var myChart = new Chart(ctx, {
 		      
 		        type: 'pie', 
 		        data: {
 			            labels: ['인사팀', '고객팀'],
 			            datasets: [{
-			            data: [30,50],
+			            data: [HR,CS],
 			            backgroundColor: ['#1e88e5', '#ffd600'],
 			            borderWidth: 0.5 ,
 			            borderColor: '#ddd'
@@ -84,7 +89,7 @@
 		                    lineHeight: 1.6
 		                },
 		                formatter: function(value, ctx) {
-		                    return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
+		                	 return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value + '%';
 		                }
 		            }
 		        }
@@ -92,6 +97,7 @@
 
 		   
 		});
+	  
 	   
    })
 
@@ -101,11 +107,12 @@
 
 
 	<section>
-		
+		<input type="hidden" value="${HR }" id="numOfHR">
+		<input type="hidden" value="${CS }" id="numOfCS">
 		<div id="empStatisticCenter">
 		      <h1>부서별 사원 수</h1>
 		      <div class="empChart">
-              <canvas id="myChart" width="1000" height="400"></canvas>
+              <canvas id="empChart1" width="1000" height="400"></canvas>
               </div>
 				<c:forEach var='empList' items="${list }">
 				<%-- <tr class="oneEmp" data-empCode="${empList.empCode }" >

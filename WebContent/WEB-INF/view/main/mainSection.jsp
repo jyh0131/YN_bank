@@ -13,7 +13,7 @@
 	/* 섹션 */
 	section { height: 100%; } 
 	
-	section div#dummy { height: 75px; background: #292929;}		  
+			  
 	
 	/* 환율 */
 	section div#currency { width: 700px; height: 300px; margin-top: 50px; margin-left: 300px; float: left; }
@@ -160,7 +160,7 @@
     			</div>
     			<span id="bestTeam">
     			
-    			YN 인사팀</span>
+    			YN Bank</span>
     			<span id="bestWho">${empNo1.empName } ${empNo1.empTitle }</span>
     		</li>
     	</ul>

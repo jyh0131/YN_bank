@@ -45,9 +45,13 @@ public class EmployeeUIService {
     public Employee showPikedEmpByCode(String empCode) throws SQLException{
     	return empDao.selectEmpByCode(empCode);
     }
+    
+    
     public Employee showPikedEmpByCode(String empCode ,int empRetired) throws SQLException{
     	return empDao.selectEmpByCode(empCode, empRetired);
     }
+    
+    //근무하는 사원의 수만 
     public List<Employee> showPickedEmpByDept(String empItem, int empRetired) throws SQLException{
     	return empDao.selectEmpByDept(empItem, empRetired);
     }
@@ -55,6 +59,8 @@ public class EmployeeUIService {
     public List<Employee> showPickedEmpByDeptNo(int empItem) throws SQLException{
     	return empDao.selectEmpByDeptNo(empItem);
     }
+
+ 
     
     public List<Employee> showPickedEmpByEmpNo(String empItem) throws SQLException{
     	return empDao.selectEmpByNo(empItem);

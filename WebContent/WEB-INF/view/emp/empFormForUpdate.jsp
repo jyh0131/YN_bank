@@ -12,6 +12,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <%@include file="../include/menu.jsp"%>
+<%@include file="../include/sectionBar.jsp"%>
 <style>
 * {
 	margin: 0;
@@ -169,7 +170,8 @@ div#submit input#delRed{
 
 <script>
 	$(function() {
-
+		$("#empAdd").show();
+		$("#empList").show();
 /* 		//get에서 부서별로 사원들의 마지막 값을 받아옴 
 		var lastNumForHR = "${numHR}";
 		var lastNumForCS = "${numCS}";
@@ -187,6 +189,7 @@ div#submit input#delRed{
 
 		//아이디와 비밀번호 정규표현식으로 걸러내기 
 		$("form").submit(
+				
 				function() {
 					$(".errorMSG").css("display", "none");
 					var empCode = $("input[name='empCode']").val();
@@ -343,7 +346,7 @@ div#submit input#delRed{
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>사용자 프로필</h1>
+			<h1>사원 정보</h1>
 		</div>
 		<form action="empUpdate.do" method="post" enctype="multipart/form-data">
 

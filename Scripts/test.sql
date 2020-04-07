@@ -4,6 +4,7 @@ use bank;
 select * from employee e ;
 select  * from performance p ;
 
+
 delete from employee where empCode ="B022";
 select * from customer;
 delete from customer where custCode ="C030";

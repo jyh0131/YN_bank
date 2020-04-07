@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js">
+</script>
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
@@ -67,6 +69,9 @@
 			width: 1000px;
 			margin: 100px auto;
 		}
+		
+		div#table p { font-weight: bold;
+					  height: 30px; }
 		
 		div#table table {
 			border-collapse: collapse; 
@@ -297,6 +302,7 @@
 				
 		</div>
 		<div id="table">
+			<p><i class="fas fa-dollar-sign"></i> 총 입출금 건수 : ${size } 건</p>
 			<table class="tableList">
 				<tr>
 					<th>분류</th>

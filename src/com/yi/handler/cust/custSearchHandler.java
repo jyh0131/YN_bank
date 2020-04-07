@@ -19,6 +19,10 @@ public class custSearchHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
+			int vipNum = service.showVIPCustNum();
+			int norNum = service.showNormalCustNum();
+			req.setAttribute("vipNum", vipNum);
+			req.setAttribute("norNum", norNum);
 			List<Customer> list = service.showCustomers();
 			req.setAttribute("list", list);
 			return "/WEB-INF/view/cust/custSearch.jsp";

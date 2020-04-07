@@ -48,6 +48,11 @@
 		$("#deposit").show();
 		$("#dwList").show();
 		$("#dep").click(function(){
+			var num = ${num };
+			if(num=="13"){
+				alert("해당 계좌는 입금이 제한되는 마이너스 통장입니다.");
+				return false;
+			}
 			var dw = $(this).html();
 			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
 		})

@@ -469,7 +469,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public List<Customer> selectCustomerWhoHasAcc() throws SQLException {
 		List<Customer> list = null;
-		String sql = "select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode";
+		String sql = "select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = \"11\" or \"12\" or \"13\"";
 		ResultSet rs = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){

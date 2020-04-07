@@ -22,6 +22,8 @@ public class custDWRecordHandler implements CommandHandler {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			List<Cust_dw_audit> list = service.showCust_dw_audit();
 			req.setAttribute("list", list);
+			int size = list.size();
+			req.setAttribute("size", size);
 			return "/WEB-INF/view/cust/custDWRecordSearch.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search"); //검색어
@@ -30,7 +32,7 @@ public class custDWRecordHandler implements CommandHandler {
 			switch(div) {
 			case "계좌 번호":
 				List<Cust_dw_audit> list = service.showCust_dw_auditByAcc(search);
-				if(list.size()==0) {
+				if(list==null) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om = new ObjectMapper();

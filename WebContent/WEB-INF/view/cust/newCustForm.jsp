@@ -12,10 +12,10 @@
 	* { margin:0; padding:0; 
 		font-family: 'Noto Sans KR', sans-serif;
 		color: #252525; }
-	#container { width: 1000px; margin: 0 auto;}
+	#container { width: 1000px; margin: 30px auto;}
 	div#header { background: goldenrod;
 			     height: 150px; }
-	div#header h1 { padding: 30px;  }
+	div#header h1 { padding: 30px;  }  
 	
 	/* 프로필 */
 	

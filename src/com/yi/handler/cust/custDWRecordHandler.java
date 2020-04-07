@@ -30,7 +30,7 @@ public class custDWRecordHandler implements CommandHandler {
 			switch(div) {
 			case "계좌 번호":
 				List<Cust_dw_audit> list = service.showCust_dw_auditByAcc(search);
-				if(list.size()==0) {
+				if(list==null) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om = new ObjectMapper();

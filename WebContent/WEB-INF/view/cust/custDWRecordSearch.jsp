@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@include file="../include/menu.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -70,16 +71,18 @@
 			border-collapse: collapse; 
 		}
 		
-		div#table table a { display: block; }
 		
-		div#table th, td {
-			width: 200px; 
+		div#table th, div#table td {
+			width: 180px; 
 			height: 30px;
 			text-align: center;
 			font-size: 15px;
 		}
+		div#table td.long {
+			width: 250px; 
+		}
 		
-		div#table tr:nth-child(odd) {
+		div#table tr:nth-child(odd) {  
 			width: 200px; 
 			height: 30px;
 			text-align: center;
@@ -305,16 +308,16 @@
 				<c:forEach var='audit' items="${list }">
 					
 					<tr>
-							<td><a href="#">${audit.dw }</a></td>
-							<td><a href="#">${audit.custName }</a></td>
-							<td><a href="#">${audit.accountNum }</a></td>
-							<td><a href="#">${audit.amount }</a></td>
-							<td><a href="#">${audit.accountBalance }</a></td>
-							<td><a href="#">${audit.accountTransDate }</a></td>
+							<td>${audit.dw }</td>
+							<td>${audit.custName }</td>
+							<td>${audit.accountNum }</td>
+							<td><fmt:formatNumber value="${audit.amount}" groupingUsed="true"/>원</td>
+							<td class="long"><fmt:formatNumber value="${audit.accountBalance}" groupingUsed="true"/>원</td>
+							<td class="long">${audit.accountTransDate }</td>
 							
 							
 					</tr>
-				
+				   
 				</c:forEach>
 		</table>
 		</div>  

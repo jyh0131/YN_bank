@@ -375,7 +375,7 @@
 				<span id="renew">
 				<c:forEach var='empList' items="${list }">
 				<tr class="oneEmp" data-empCode="${empList.empCode }" data-perf="${empList.perf }">
-					<td >${empList.empCode }</td>
+					<td>${empList.empCode }</td>
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
 					<td>${empList.perf}</td>
@@ -388,7 +388,7 @@
 				</span>
 		</table>
 		
-		</div>
+		</div>   
 		</section>
 </body>
 </html>

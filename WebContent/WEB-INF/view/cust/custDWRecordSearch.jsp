@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@include file="../include/menu.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,7 @@
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
+		div#dummy { height: 75px; background: #292929;}
 		div#search {
 			width: 900px;
 			margin: 50px auto;  
@@ -70,16 +72,18 @@
 			border-collapse: collapse; 
 		}
 		
-		div#table table a { display: block; }
 		
-		div#table th, td {
-			width: 200px; 
+		div#table th, div#table td {
+			width: 180px; 
 			height: 30px;
 			text-align: center;
 			font-size: 15px;
 		}
+		div#table td.long {
+			width: 250px; 
+		}
 		
-		div#table tr:nth-child(odd) {
+		div#table tr:nth-child(odd) {  
 			width: 200px; 
 			height: 30px;
 			text-align: center;
@@ -152,14 +156,9 @@
 					    		var $a4 = $("<a>").html(obj.amount).attr("href", "#");
 					    		var $a5 = $("<a>").html(obj.accountBalance).attr("href", "#");
 					    		var date = new Date(obj.accountTransDate);
-					    		var year = date.getFullYear();
-					    		var month = date.getMonth();
-					    		var day = date.getDate();
-					    		var hour = date.getHours();
-					    		var minute = date.getMinutes();
-					    		var seconds = date.getSeconds();
+					    		var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 					    		
-					    		var $a6 = $("<a>").html(year + "-" + (month+1)+"-" + day + " " + hour + ":" + minute + ":" + seconds).attr("href", "#");
+					    		var $a6 = $("<a>").html(dateFormat).attr("href", "#");
 					    		
 				    			   
 					    		
@@ -236,14 +235,9 @@
 					    		var $a4 = $("<a>").html(obj.amount).attr("href", "#");
 					    		var $a5 = $("<a>").html(obj.accountBalance).attr("href", "#");
 					    		var date = new Date(obj.accountTransDate);
-					    		var year = date.getFullYear();
-					    		var month = date.getMonth();
-					    		var day = date.getDate();
-					    		var hour = date.getHours();
-					    		var minute = date.getMinutes();
-					    		var seconds = date.getSeconds();
+					    		var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 					    		
-					    		var $a6 = $("<a>").html(year + "-" + (month+1)+"-" + day + " " + hour + ":" + minute + ":" + seconds).attr("href", "#");
+					    		var $a6 = $("<a>").html(dateFormat).attr("href", "#");
 					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
@@ -286,6 +280,7 @@
 </script>
 <body>
 	<section>
+	<%@include file="../include/sectionBar.jsp"%>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색 구분</option>
@@ -315,16 +310,16 @@
 				<c:forEach var='audit' items="${list }">
 					
 					<tr>
-							<td><a href="#">${audit.dw }</a></td>
-							<td><a href="#">${audit.custName }</a></td>
-							<td><a href="#">${audit.accountNum }</a></td>
-							<td><a href="#">${audit.amount }</a></td>
-							<td><a href="#">${audit.accountBalance }</a></td>
-							<td><a href="#">${audit.accountTransDate }</a></td>
+							<td>${audit.dw }</td>
+							<td>${audit.custName }</td>
+							<td>${audit.accountNum }</td>
+							<td><fmt:formatNumber value="${audit.amount}" groupingUsed="true"/>원</td>
+							<td class="long"><fmt:formatNumber value="${audit.accountBalance}" groupingUsed="true"/>원</td>
+							<td class="long">${audit.accountTransDate }</td>
 							
 							
 					</tr>
-				
+				   
 				</c:forEach>
 		</table>
 		</div>  

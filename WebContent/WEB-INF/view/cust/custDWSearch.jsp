@@ -11,6 +11,9 @@
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
+		
+		div#dummy { height: 75px; background: #292929;}
+		
 		div#search {
 			width: 900px;
 			margin: 50px auto;  
@@ -61,7 +64,7 @@
 		
 		
 		div#table {
-			width: 900px;
+			width: 1000px;
 			margin: 100px auto;
 		}
 		
@@ -70,9 +73,9 @@
 		}
 		
 		div#table table a { display: block; }
-		
+		  
 		div#table th, td {
-			width: 200px; 
+			width: 14%;    
 			height: 30px;
 			text-align: center;
 			font-size: 15px;
@@ -378,6 +381,7 @@
 </script>
 <body>
 	<section>
+		<%@include file="../include/sectionBar.jsp"%>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색 구분</option>
@@ -414,15 +418,16 @@
 							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custRank }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custCredit }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.bankbook.accountNum }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.bankbook.accountBalance }</a></td>
+							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}"><fmt:formatNumber value="${listForBal.bankbook.accountBalance}" groupingUsed="true"/> 원</a></td>
+							<%-- <td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.bankbook.accountBalance }</a></td> --%>
 			
 							<c:if test="${listForBal.custDiv==true}">
 								<td><a href="#">기업</a></td>
-							</c:if>   
+							</c:if>     
 							<c:if test="${listForBal.custDiv==false}">
 								<td><a href="#">일반</a></td>
-							</c:if>
-					</tr>
+							</c:if>    
+					</tr> 
 				</c:forEach>
 				
 		</table>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/menu.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,9 @@
 			margin: 50px auto;  
 			text-align: center;
 		}
+		
+		
+		div#dummy { height: 75px; background: #292929;}	
 		
 		div#search select {
 			width: 200px; height : 30px;
@@ -61,7 +65,7 @@
 		
 		
 		div#table {
-			width: 900px;
+			width: 1000px;
 			margin: 100px auto;
 		}
 		
@@ -69,13 +73,17 @@
 			border-collapse: collapse; 
 		}
 		
-		div#table table a { display: block; }
+		div#table table a { display: block; width: 150px; }
 		
 		div#table th, td {
-			width: 200px; 
+			width: 150px; 
 			height: 30px;
 			text-align: center;
 			font-size: 15px;
+		}
+		
+		div#table td.long a {
+			width: 220px; 
 		}
 		
 		div#table tr:nth-child(odd) {
@@ -363,6 +371,7 @@
 </script>
 <body>
 	<section>
+	<%@include file="../include/sectionBar.jsp"%>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색 구분</option>
@@ -398,7 +407,7 @@
 							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custName }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custRank }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custCredit }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custAddr }</a></td>
+							<td class="long"><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custAddr }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custTel }</a></td>
 							<c:if test="${custList.custDiv==true}">
 								<td><a href="#">기업</a></td>

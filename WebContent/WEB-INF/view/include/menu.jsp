@@ -37,8 +37,14 @@
 			$(this).find(".side2").toggle();
 			
 		})
-
+		$(".side2").click(function() {
+			$(this).removeClass("side2");
+			$(this).addClass("side1");
+			$(".side2").hide();
+			$(this).find(".side3").toggle();
+		})
 		$(".side2").hide();
+		$(".side3").hide();
 	});
 </script>
 <style>
@@ -69,6 +75,10 @@
 							background: #464646;
 							border-top: 1px solid gray;
 							border-bottom: 1px solid gray;}
+	nav div#menu li.side3 {  text-indent:60px;
+							background: #464646;
+							border-top: 1px solid gray;
+							border-bottom: 1px solid gray;}						
 	
 	nav div#menu a {  color: gainsboro;
 				     display: block;  }
@@ -155,7 +165,13 @@
 					<li id="custStatistic" class="side1"><a href="#">통계</a>	    
 						<ul>
 							<li id="custStatistic2" class="side2"><a href="#">고객 통계</a></li>
-							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a></li>
+							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a>
+								<ul>
+									<li id="bankbookStatistic" class="side3"><a href="#">통장 통계</a></li>
+									<li id="cardStatistic" class="side3"><a href="#">카드 통계</a></li>
+									<li id="loanStatistic" class="side3"><a href="#">대출 통계</a></li>
+								</ul>
+							</li>
 						</ul>
 					</li>
 				</c:if>
@@ -212,7 +228,13 @@
 						<ul>
 							<li id="empStatistic" class="side2"><a href="#">사원 통계</a></li>	
 							<li id="custStatistic" class="side2"><a href="#">고객 통계</a></li>
-							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a></li>
+							<li id="bankworkStatistic" class="side2"><a href="#">은행 업무 통계</a>
+								<ul>
+									<li id="bankbookStatistic" class="side3"><a href="#">통장 통계</a></li>
+									<li id="cardStatistic" class="side3"><a href="#">카드 통계</a></li>
+									<li id="loanStatistic" class="side3"><a href="#">대출 통계</a></li>
+								</ul>
+							</li>
 						</ul>
 					</li>
 				</c:if>

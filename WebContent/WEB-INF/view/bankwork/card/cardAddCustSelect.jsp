@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../../include/sectionBar.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +31,8 @@
 					   background: gray; 
 					   margin-left:20px; 
 					   font-size: 17px;
-					   color: whitesmoke;}						    
+					   color: whitesmoke;}
+	div#dummy { height: 75px; background: #292929;}						    
 </style>
 <script>
 	$(function(){

@@ -90,7 +90,7 @@
 				</c:if>
 				<li id="greeting"><span id="name">${Auth.empName} </span>님 환영합니다.</li>
 				<li id="btns">
-					<a href="#">내 프로필</a>
+					<a href="${pageContext.request.contextPath}/emp/empProfile.do">내 프로필</a>
 					<a href="${pageContext.request.contextPath}/main/logout.do">로그아웃</a>
 				</li>
 			</ul>

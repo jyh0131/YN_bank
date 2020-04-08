@@ -26,6 +26,7 @@ public interface CustomerDao {
 	abstract List<Cust_dw_audit> selectCust_dw_audit() throws SQLException;
 	abstract List<Cust_dw_audit> selectCust_dw_auditByAcc(String accountNum) throws SQLException;
 	abstract List<Cust_dw_audit> selectCust_dw_auditByName(String custName) throws SQLException;
+	abstract List<Cust_dw_audit> selectCust_dw_auditByDate(String date) throws SQLException;
 	abstract int selectNormalCustNum() throws SQLException; 
 	abstract int selectVIPCustNum() throws SQLException;
 	abstract int selectBRankCustNum() throws SQLException;

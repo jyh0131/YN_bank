@@ -188,6 +188,9 @@ select * from bankbook;
 select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = "11" or "12" or "13";
 
 select substr(accountNum, 8,2) from bankbook;
+select substr(accountTransDate, 1, 10) from cust_dw_audit;
+select * from cust_dw_audit where substr(accountTransDate, 1, 10) = "2020-04-06";
+
 
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';

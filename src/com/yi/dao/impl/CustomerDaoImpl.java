@@ -655,7 +655,26 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 			
 		}
-				  
+				    
+		return list;
+	}
+
+	@Override
+	public List<Cust_dw_audit> selectCust_dw_auditByDate(String date) throws SQLException {
+		String sql = "select * from cust_dw_audit where substr(accountTransDate, 1, 10) = ?";
+		List<Cust_dw_audit> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, date);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCust_dw_audit(rs));
+				}while(rs.next());
+			}
+		}
 		return list;
 	}
 

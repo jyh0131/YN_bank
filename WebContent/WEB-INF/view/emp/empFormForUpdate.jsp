@@ -304,7 +304,7 @@ div#submit input#delRed{
 				//     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
                    // alert(f_name);
 		
-				  $("#empPicture").attr("src","${pageContext.request.contextPath}/images/"+f_name);
+				  $("#empPicture").attr("src","upload/"+f_name);
 				}	
 			})
 			
@@ -336,6 +336,21 @@ div#submit input#delRed{
 			$("#returnToList").click(function(){
 				location.href="${pageContext.request.contextPath}/emp/empSearch.do";
 			})
+			$("#empFile").change(function(){
+					
+					setImgFromFile(this,"#empPicture");
+					
+			});
+			 function setImgFromFile(input, expression){
+		    	if(input.files && input.files[0]){
+		    		var reader = new FileReader();
+		    		
+		    		 reader.onload = function(e){
+		    			 $(expression).attr('src',e.target.result);
+		    		 }
+		    		 reader.readAsDataURL(input.files[0])
+		    	}
+		    }
 			
 			
 	})
@@ -355,7 +370,7 @@ div#submit input#delRed{
 				<div id="profileMain">
 					<div id="pic">
 						<img alt="사원사진"
-							src="${pageContext.request.contextPath}/images/${emp.pic ==null?'no-img.jpg':emp.pic}" id="empPicture">
+							src="${pageContext.request.contextPath}/empPic/${emp.pic ==null?'no-img.jpg':emp.pic}" id="empPicture">
 						<span id="proName">${emp.empName }</span> <span id="proDept"></span>
 
 					</div>

@@ -130,6 +130,8 @@
 		 }
 	 
 	 })
+	 
+	 
 	 /*  if($(".tdForRank").children().eq(1).html() == rankMemCode[0]){
 		 $(".imgSpan").html("<img src='YN_bank../../../images/ranking1.png' class='rankingImg'>");
 	  } 
@@ -374,7 +376,7 @@
 		  location.href="${pageContext.request.contextPath}/emp/empBonusDetail.do?empCode="+OneCode;
 	  })
 	  
-	  
+	  $(".tdForRank").mouseover();
    })
 
 

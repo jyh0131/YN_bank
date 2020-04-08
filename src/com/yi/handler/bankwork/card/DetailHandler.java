@@ -56,8 +56,10 @@ public class DetailHandler implements CommandHandler {
 				String cardSecuCode = req.getParameter("cardSecuCode");
 				String dateStr = req.getParameter("cardIssueDate");
 				Date cardIssueDate = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(dateStr);
-				int cardLimit = Integer.parseInt(req.getParameter("cardLimit")==null?"0":req.getParameter("cardLimit"));
-				long cardBalance = Long.parseLong(req.getParameter("cardBalance")==null?"0":req.getParameter("cardBalance"));
+				String limitStr = req.getParameter("cardLimit")==null?"0":req.getParameter("cardLimit").replaceAll("[\\,]", "");
+				String balanceStr = req.getParameter("cardBalance")==null?"0":req.getParameter("cardBalance").replaceAll("[\\,]", "");
+				int cardLimit = Integer.parseInt(limitStr);
+				long cardBalance = Long.parseLong(balanceStr);
 				Card card = new Card(cardNum, custCode, planCode, cardSecuCode, cardIssueDate);
 				card.setCardLimit(cardLimit);
 				card.setCardBalance(cardBalance);

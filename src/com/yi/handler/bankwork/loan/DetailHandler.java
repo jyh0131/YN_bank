@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.yi.dto.Contribution;
 import com.yi.dto.Customer;
 import com.yi.dto.Loan;
@@ -59,6 +58,13 @@ public class DetailHandler implements CommandHandler {
 			balanceStr = balanceStr.replaceAll("[\\,]", "");
 			long loanBalance = Long.parseLong(balanceStr);
 			Loan loan = new Loan(loanAccountNum, custCode, planCode, loanDate, loanInterest, loanBalance);
+			Loan chkLoan = loanService.showLoanByLoanAccountNumAndCustName(loan);
+			if(chkLoan.getLoanBalance() < loan.getLoanBalance()) {
+				req.setAttribute("loan", loan);
+				HttpSession session = req.getSession();
+				session.setAttribute("errorbalance", "error");
+				return "/WEB-INF/view/bankwork/loan/loanDetail.jsp";
+			}
 			if(cmd.equals("mod")) {
 				loanService.updateLoan(loan);
 				HttpSession session = req.getSession();

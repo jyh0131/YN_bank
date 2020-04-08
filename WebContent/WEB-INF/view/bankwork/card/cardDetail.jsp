@@ -25,6 +25,56 @@
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/bankwork/card/mgn.do?div=${custDiv}";
     	})
+    	$("form").submit(function() {
+    		if($("#cust option:selected").val()==""||$("input[name='cardnum']").val()==""||$("#plan option:selected").val()==""||
+    	    	$("input[name='cardSecuCode']").val()==""||$("input[name='cardIssueDate']").val()=="") {
+    	    	alert("입력란을 모두 다 입력해주세요");
+    	    	return false;
+    	    }
+    		if($("#cust option:selected").val()==""||$("input[name='cardnum']").val()==""||$("#plan option:selected").val()==""||
+    	    	$("input[name='cardSecuCode']").val()==""||$("input[name='cardIssueDate']").val()=="") {
+    	    		alert("입력란을 모두 다 입력해주세요");
+    	    		return false;
+    	    	}
+    	    	var cardnum = $("input[name='cardnum']").val();
+    	    	var cardnumReg = /^(29313310|29313320)[0-9]{7}(0)$/;
+    	    	if(!cardnumReg.test(cardnum)) {
+    	    		alert("카드 형식에 맞게 입력해주세요");
+    	    		return false;
+    	    	}
+    	    	var cardSecuCode = $("input[name='cardSecuCode']").val();
+    	    	var secuCodeReg = /^[0-9]{3}$/;
+    	    	if(!secuCodeReg.test(cardSecuCode)) {
+    	    		alert("카드 보안 코드 형식에 맞게 입력해주세요(0~9,3자리)");
+    	    		return false;
+    	    	}
+    	    	var str = $("#plan option:selected").attr("data-planDetail");
+    	    	var planDetail = str.substring(1,2);
+    	    	if(planDetail=='A') {
+    	    		if($("input[name='cardBalance']").val()=="") {
+    	    			alert("카드 잔액을 입력해주세요");
+    	    			return false;
+    	    		}
+    	    		var cardBalance = $("input[name='cardBalance']").val();
+    	    		var cardBalanceReg = /^[0-9]*$/;
+    	    		if(!cardBalanceReg.test(cardBalance)) {
+    	    			alert("숫자만 입력하세요");
+    	    			return false;
+    	    		}	
+    	    	}
+    	    	else {
+    	    		if($("input[name='cardLimit']").val()=="") {
+    	    			alert("카드 한도를 입력해주세요");
+    	    			return false;
+    	    		}
+    	    		var cardLimit = $("input[name='cardLimit']").val();
+    	    		var cardLimitReg = /^[0-9]*$/;
+    	    		if(!cardLimitReg.test(cardLimit)) {
+    	    			alert("숫자만 입력하세요");
+    	    			return false;
+    	    		}
+    	    	}
+    	})    	
     });
 </script>
 </head>

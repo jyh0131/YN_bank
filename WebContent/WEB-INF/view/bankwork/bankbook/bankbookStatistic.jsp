@@ -176,6 +176,15 @@
 		 		break;
 		 	}
 		})
+		$("#yearpicker").change(function() {
+			 var year = $("select option:selected").val();
+			 var div = $("input[type='radio']:checked").val();
+			 drawchart(div,year);
+		})
+		$(".chk").eq(0).prop("checked",true);
+	    var year = $("select option:selected").val();
+	    var div = $("input[type='radio']:checked").val();
+	    drawchart(div,year);
    })
 </script>
 <body>

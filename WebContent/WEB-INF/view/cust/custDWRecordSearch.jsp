@@ -405,7 +405,7 @@
 							<td>${audit.accountNum }</td>
 							<td><fmt:formatNumber value="${audit.amount}" groupingUsed="true"/>원</td>
 							<td class="long"><fmt:formatNumber value="${audit.accountBalance}" groupingUsed="true"/>원</td>
-							<td class="long"><fmt:formatDate value="${audit.accountTransDate }" pattern="yyyy-MM-dd hh:MM:ss"/></td>
+							<td class="long"><fmt:formatDate value="${audit.accountTransDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							
 							
 					</tr>  

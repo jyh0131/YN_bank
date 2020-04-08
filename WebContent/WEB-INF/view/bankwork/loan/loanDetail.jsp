@@ -127,7 +127,14 @@
 					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=del&custdiv=${custdiv}" formmethod="post" id="del">
 					<input type="reset" value="취소" id="cancel">
 				</div>
-				
+				<c:if test="${errorbalance!=null}">
+					<script>
+						alert("현재 대출 금액보다 더 많은 금액은 입력하실 수 없습니다. 다시 입력해주세요");
+					</script>
+					<%
+						session.removeAttribute("errorbalance");
+					%>
+				</c:if>
 			</div>
 		</form>
 	</div>

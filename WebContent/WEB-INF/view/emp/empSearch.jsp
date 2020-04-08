@@ -108,7 +108,8 @@
   }
   div#avgSalary{
       width:300px;
-      margin-left:780px; 
+      margin-left:790px; 
+      margin-bottom:50px;
   }
 </style>
 <script>
@@ -386,7 +387,7 @@
 		</div>
 		<a href="empSearchRetired.do"><button id="btnNone">퇴사사원 조회</button></a><br><br>
 		<div id="coutOfEmp">인사팀  : ${HR }명 ,  고객팀 : ${CS }명</div>
-		<div id="avgSalary"> 평균급여 : <fmt:formatNumber value="${avgSal}" pattern="###,###,###"/> 원</div>
+		
 		<div id="table">
 			<table class="tableList">
 				<tr>
@@ -421,6 +422,7 @@
 		</table>
 		
 		</div>
+		<div id="avgSalary"> 평균급여 : <fmt:formatNumber value="${avgSal}" pattern="###,###,###"/> 원</div>
 		</section>
 </body>
 </html>

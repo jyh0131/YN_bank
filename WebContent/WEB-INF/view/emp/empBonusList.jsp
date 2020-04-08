@@ -119,7 +119,8 @@
 	  //alert(rankMemCode[0]);
 	  //alert($(".tdForRank").children().eq(1).html());
 	  
-	 $(document).on('mouseover',".tdForRank",function(){
+	 $(document).on("mouseover",".tdForRank",function(){
+
 		 if($(this).children().eq(1).html() == rankMemCode[0]){
 			 $(this).children().eq(0).html("<img src='YN_bank../../../images/ranking1.png' class='rankingImg'>");
 		 }else if($(this).children().eq(1).html() == rankMemCode[1]){

@@ -16,6 +16,8 @@
 		color: #252525; }
 	div#dummy { height: 75px; background: #292929;}			
 	#container { width: 1000px; margin: 30px auto;}
+	
+	/* 헤더 (입금 부분) */
 	div#header { background: goldenrod;
 			     height: 150px; }
 	div#header h1 { padding: 30px;  }
@@ -23,56 +25,28 @@
 				  height: 600px;
 				  border-radius: 10px;
 				  padding: 50px;}
-
-		 		   
-		input, button { position: relative;  
-						width: 200px;  height: 35px;  
-						padding: 0;  
-						display: inline-block;  
-						float: left; }
-		input {  color: #666;  
-		 		 z-index: 2; 
-		 		 border:none;  
-		 		 border-bottom: 1px solid goldenrod; 
-		 		 background: whitesmoke;}
-		input:focus {  outline: 0 none; } 
-
-	
-		button { z-index: 1;  
-				 width: 40px;  
-				 border: 0 none;  
-				 background: goldenrod;  
-				 cursor: pointer;  
-				 border-radius: 0 5px 5px 0;
-				 background-image: url("${pageContext.request.contextPath}/images/search.png");
-				 background-size: 25px; 
-				 background-repeat: no-repeat;      
-				 background-position: center;}
-		.fa-search { font-size: 1.4rem;  
-					 color: #29abe2;    
-					 z-index: 3;    
-					 top: 25%;  }
 				  
+	div#profile h2 { height: 50px;}
+
 				  
-	div#profile h2 { height: 50px; }	
-	
-	
+	/* 고객 정보 부분 */
 	div#profileEdit { width:600px; 
 					  height: 450px; 
 					  overflow: hidden;
 					  margin-left: 200px;  }
 	div#profileEdit table { width: 500px;}
 	div#profileEdit table tr { height: 30px; }
-	div#profileEdit table th { width: 100px; text-align: left; }
+	div#profileEdit table th { width: 100px; height: 50px; text-align: left; }
 	div#profileEdit table td { width: 200px; text-align: center;
 							   padding-left: 70px; }
 	div#profileEdit table td input { width: 250px;
 									 background: whitesmoke;
 								     border: none; 
 								     margin: 10px 10px 10px 60px; 
-								     border-bottom: 1px solid gray;}
-	table td#noline input[name='file'] { border: none;}									     
-	div#profileEdit table td select { width: 250px; margin: 20px 0 20px 40px;}		
+								     border-bottom: 1px solid gray;
+								     color: dimgray;}
+	
+	/* 버튼 */							     
 	div#submit {  width: 500px;  
 				 height: 80px; 
 				 margin-left: 300px;
@@ -87,8 +61,11 @@
 </style>
 <script>
 	$(function(){
+		//클릭한 메뉴만 보이게 하기
 		$("#deposit").show();
 		$("#dwList").show();
+		
+		//취소 클릭 시
 		$("#cancel").click(function() {
 			var choose = confirm("취소하시겠습니까? 리스트로 돌아갑니다.");
 			if(choose){
@@ -96,7 +73,7 @@
 			}
     	})
     	
-    	
+    	//입금 클릭 시
     	$("input[value='입금']").click(function(){
     		
     		var deposit = confirm("입금하시겠습니까?");
@@ -110,6 +87,7 @@
     		
     	})  
     	
+    	//출금 클릭 시
     	$("input[value='출금']").click(function(){
     		
     		var deposit = confirm("출금하시겠습니까?");

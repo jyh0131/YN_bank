@@ -26,6 +26,8 @@
 				  padding: 50px;}
 	div#profile h2 { height: 50px; }				  
 	div#profile h3 {text-align: center; }
+	
+	/* 버튼 영역 */
 	div#submit { text-align: center; 
 				 height: 250px; 
 				  line-height: 250px;  }
@@ -35,7 +37,8 @@
 					   margin-left:20px; 
 					   font-size: 17px;
 					   color: whitesmoke;}
-					   
+	
+	/* 이전으로 버튼 */				   
 	div#backTotheMain {height: 100px; 
 					   text-align: center;
 					   line-height: 100px;  }

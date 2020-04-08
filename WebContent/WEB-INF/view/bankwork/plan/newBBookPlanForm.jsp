@@ -19,7 +19,7 @@
 			     height: 150px; }
 	div#header h1 { padding: 30px;  }
 	
-	/* 프로필 */
+	/* 상품 영역 */
 	
 	div#profile { background: whitesmoke;
 				  height: 500px;
@@ -38,13 +38,6 @@
 	div#profileEdit table th { width: 100px; text-align: left; }
 	div#profileEdit table tr td { width: 250px; text-align: center; }
 	div#profileEdit table tr.long { height: 70px; }
-	div#profileEdit table td#regExp { width: 200px; 
-									  color: maroon;
-									  font-weight: bold;  
-									  font-size: 14px;
-									  height: 40px;
-									  line-height: 40px; 
-									  display: none;  }
 	div#messeage { width: 650px; 
 				   position: absolute; top: -100px;
 				   display: none;}								     
@@ -54,6 +47,8 @@
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}						     
 	div#profileEdit table td select { width: 250px; margin: 20px 0;}		  
+	
+	/* 버튼 영역 */
 	div#submit { text-align: center; 
 				 height: 100px;           
 				 line-height: 160px; }
@@ -72,9 +67,11 @@
 			$("#planMgn").find(".side2").toggle();
 		
 			$("a#code").mouseover(function() {
+				$("#code").css("color", "maroon").css("font-weight", "bold");
 				$("div#messeage").css("display", "block");
 			})
 			$("a#code").mouseout(function() {
+				$("#code").css("color", "#000").css("font-weight", "bold");
 				$("div#messeage").css("display", "none");
 			})
 			
@@ -108,7 +105,7 @@
 		<form action="addPlan.do" method="post">
 			
 			<div id="profile">
-				<h2>상품</h2>
+				<h2>통장 상품</h2>
 				<div id="profileEdit">
 					<div id="messeage">
 						<img src="${pageContext.request.contextPath}/images/plan.png">

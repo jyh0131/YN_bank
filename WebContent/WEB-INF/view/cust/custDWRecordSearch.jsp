@@ -16,6 +16,8 @@
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		div#dummy { height: 75px; background: #292929;}
+		
+		/* 검색 구분 부분 */
 		div#search {
 			width: 900px;
 			margin: 50px auto;  
@@ -65,18 +67,20 @@
 					 top: 25%;  }
 		
 		
+		
+		/* 테이블 부분 */
 		div#table {
 			width: 1000px;
 			margin: 100px auto;
 		}
 		
+		/* 테이블 위에 표시되는 정보 */
 		div#table p { font-weight: bold;
 					  height: 30px; }
 		
 		div#table table {
 			border-collapse: collapse; 
 		}
-		
 		
 		div#table th, div#table td {
 			width: 180px; 
@@ -101,15 +105,17 @@
 </style>
 <script>
 	$(function(){
-		
+		//클릭한 메뉴만 표시되기
 		$(".side2").hide();
 		$("#dwMgn").find(".side2").toggle();
 		
+		//검색 구분의 검색 조건 변경할 때마다 테이블 다시 reload
 		$("select").on("change", function(){
 				$("table").load(location.href+" table");
 				$("input[name='search']").val("");   
 		})
 		
+		//검색어 입력 후 검색 버튼 클릭 시
 		$("button").click(function() {  
 			switch($("#searchMenu option:selected").val()) {
 			case "검색 구분":
@@ -151,33 +157,18 @@
 				    		$table.append($tr1);
 				    		
 				    		$(res).each(function(i, obj) {
-				    			var $tr2 = $("<tr>");
+								var $tr2 = $("<tr>");
 				    			
-				    			var $a1 = $("<a>").html(obj.dw).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
-					    		var $a3 = $("<a>").html(obj.accountNum).attr("href", "#");
-					    		var $a4 = $("<a>").html(obj.amount).attr("href", "#");
-					    		var $a5 = $("<a>").html(obj.accountBalance).attr("href", "#");
 					    		var date = new Date(obj.accountTransDate);
 					    		var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 					    		
-					    		var $a6 = $("<a>").html(dateFormat).attr("href", "#");
 					    		
-				    			   
-					    		
-					    		var $td1 = $("<td>");
-					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
-					    		var $td4 = $("<td>");
-					    		var $td5 = $("<td>"); 
-					    		var $td6 = $("<td>");
-					    		
-					    		$td1.append($a1);
-					    		$td2.append($a2);
-					    		$td3.append($a3);
-					    		$td4.append($a4);
-					    		$td5.append($a5);
-					    		$td6.append($a6);
+					    		var $td1 = $("<td>").html(obj.dw);
+					    		var $td2 = $("<td>").html(obj.custName);
+					    		var $td3 = $("<td>").html(obj.accountNum);
+					    		var $td4 = $("<td>").html(obj.amount);
+					    		var $td5 = $("<td>").html(obj.accountBalance); 
+					    		var $td6 = $("<td>").html(dateFormat);
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
@@ -185,7 +176,6 @@
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
-					    		
 					    		
 					    		$table.append($tr2);
 					    		
@@ -204,7 +194,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
@@ -232,29 +222,16 @@
 				    		$(res).each(function(i, obj) {
 								var $tr2 = $("<tr>");
 				    			
-								var $a1 = $("<a>").html(obj.dw).attr("href", "#");
-					    		var $a2 = $("<a>").html(obj.custName).attr("href", "#");
-					    		var $a3 = $("<a>").html(obj.accountNum).attr("href", "#");
-					    		var $a4 = $("<a>").html(obj.amount).attr("href", "#");
-					    		var $a5 = $("<a>").html(obj.accountBalance).attr("href", "#");
 					    		var date = new Date(obj.accountTransDate);
 					    		var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+('0' + (date.getSeconds())).slice(-2);
 					    		
-					    		var $a6 = $("<a>").html(dateFormat).attr("href", "#");
 					    		
-					    		var $td1 = $("<td>");
-					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
-					    		var $td4 = $("<td>");
-					    		var $td5 = $("<td>"); 
-					    		var $td6 = $("<td>");
-					    		
-					    		$td1.append($a1);
-					    		$td2.append($a2);
-					    		$td3.append($a3);
-					    		$td4.append($a4);
-					    		$td5.append($a5);
-					    		$td6.append($a6);
+					    		var $td1 = $("<td>").html(obj.dw);
+					    		var $td2 = $("<td>").html(obj.custName);
+					    		var $td3 = $("<td>").html(obj.accountNum);
+					    		var $td4 = $("<td>").html(obj.amount);
+					    		var $td5 = $("<td>").html(obj.accountBalance); 
+					    		var $td6 = $("<td>").html(dateFormat);
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
@@ -262,7 +239,6 @@
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
-					    		
 					    		
 					    		$table.append($tr2);
 					    		

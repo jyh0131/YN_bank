@@ -12,12 +12,19 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
     $(function() {
+    	//클릭한 메뉴만 보이게 하기
     	$(".side2").hide();
 		$("#planMgn").find(".side2").toggle();
+		
+		//로딩될 때 확인 버튼 숨김 
     	$("input[value='확인']").css("display", "none");
+		
+		//취소 버튼 클릭 시 
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/bankwork/plan/planSearch.do";
     	})
+    	
+    	//수정 버튼 클릭 시
     	$("input[value='수정']").click(function(){
     		$("input[value='확인']").css("display", "inline");
     		$("input").removeAttr("readonly");  
@@ -85,7 +92,9 @@
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}
 	table td.long {height: 150px; 
-				    }							     		
+				    }		
+				    
+	/* 버튼 영역 */				    					     			
 	div#submit { text-align: center; 
 				 height: 100px; 
 				 line-height: 200px; }

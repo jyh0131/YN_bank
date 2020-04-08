@@ -25,6 +25,8 @@
 				  padding: 50px;}
 	div#profile h2 { height: 50px; }				  
 	div#profile h3 { text-align: center;}
+	
+	/* 버튼 */
 	div#submit { text-align: center; 
 				 height: 250px; 
 				  line-height: 250px;  }
@@ -34,7 +36,8 @@
 					   margin-left:20px; 
 					   font-size: 17px;
 					   color: whitesmoke;}
-					   
+	
+	/* 이전으로 버튼 */				   
 	div#backTotheMain {height: 100px; 
 					   text-align: center;
 					   line-height: 100px;  }
@@ -46,15 +49,19 @@
 </style>
 <script>
 	$(function(){
+		//클릭한 메뉴만 보이게 하기
 		$(".side2").hide();
 		$("#custMgn").find(".side2").toggle();
 		
+		//버튼
 		$("#bus").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/cust/addBusCust.do');
 		})
 		$("#nor").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/cust/addCust.do');
 		})
+		
+		//이전으로 버튼
 		$("#back").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/main/main.do');
 		})

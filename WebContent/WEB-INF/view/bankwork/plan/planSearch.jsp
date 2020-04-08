@@ -12,6 +12,8 @@
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
+		
+		/* 검색 구분 부분 */
 		div#search {
 			width: 900px;
 			margin: 50px auto;  
@@ -63,6 +65,7 @@
 					 top: 25%;  }
 		
 		
+		/* 테이블 영역  */
 		div#table {
 			width: 1000px;
 			margin: 100px auto 100px auto;
@@ -102,6 +105,8 @@
 		
 		$(".side2").hide();
 		$("#planMgn").find(".side2").toggle();
+		
+		//검색 구분 조건 바뀔 때 테이블 reload
 		$("select").on("change", function(){
 			
 				$("table").load(location.href+" table");
@@ -187,9 +192,9 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
-				    			alert("존재하지 않는 고객 입니다.");
+				    			alert("존재하지 않는 상품 입니다.");
 				    		}
 				    	else {
 							$(".tableList").remove();
@@ -251,9 +256,9 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
-				    			alert("존재하지 않는 고객 입니다.");
+				    			alert("존재하지 않는 상품 입니다.");
 				    		}
 				    	else {
 							$(".tableList").remove();

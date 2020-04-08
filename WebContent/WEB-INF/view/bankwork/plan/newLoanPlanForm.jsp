@@ -19,7 +19,7 @@
 			     height: 150px; }
 	div#header h1 { padding: 30px;  }
 	
-	/* 프로필 */
+	/* 대출 영역 */
 	
 	div#profile { background: whitesmoke;
 				  height: 500px;
@@ -48,13 +48,16 @@
 									  display: none;  }
 	div#messeage { width: 650px; 
 				   position: absolute; top: -100px;
-				   display: none;}									  
+				   display: none;}	
+				  								  
 	div#profileEdit table td input { width: 250px;
 									 background: whitesmoke;
 								     border: none; 
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}						     
-	div#profileEdit table td select { width: 250px; margin: 20px 0;}		  
+	div#profileEdit table td select { width: 250px; margin: 20px 0;}	
+	
+	/* 버튼 영역 */	  
 	div#submit { text-align: center; 
 				 height: 100px;           
 				 line-height: 160px; }
@@ -70,10 +73,14 @@
 	$(function(){
 		$(".side2").hide();
 		$("#planMgn").find(".side2").toggle();
+		
+		/* 코드 분류 체계 */
 		$("a#code").mouseover(function() {
+			$("#code").css("color", "maroon").css("font-weight", "bold");
 			$("div#messeage").css("display", "block");
 		})
 		$("a#code").mouseout(function() {
+			$("#code").css("color", "#000").css("font-weight", "bold");
 			$("div#messeage").css("display", "none");
 		})
 		
@@ -107,7 +114,7 @@
 		<form action="addPlan.do" method="post">
 			
 			<div id="profile">
-				<h2>상품</h2>
+				<h2>대출 상품</h2>
 				<div id="profileEdit">
 				<div id="messeage">
 						<img src="${pageContext.request.contextPath}/images/plan.png">

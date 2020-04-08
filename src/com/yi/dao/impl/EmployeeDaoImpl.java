@@ -49,7 +49,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public Employee getEmpAuth(Employee emp) throws SQLException {
-		String sql = "select empname, empauth, empTitle from employee where empname = ?";
+		String sql = "select empname, empauth, empTitle, pic from employee where empname = ?";
 		Employee employee = new Employee();
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -68,6 +68,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		emp.setEmpName(rs.getString("empname"));
 		emp.setEmpAuth(rs.getString("empauth"));
 		emp.setEmpTitle(rs.getString("empTitle"));
+		emp.setPic(rs.getString("pic"));
 		return emp;
 	}
 

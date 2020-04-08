@@ -33,6 +33,7 @@ public class LoginHandler implements CommandHandler {
 			else {
 				HttpSession session = req.getSession();
 				Employee Auth = service.GetEmpAuth(loginEmp);
+				//System.out.println(Auth);
 				Contribution contribution = service.bankTotalAmount();
 				session.setAttribute("Auth", Auth);
 				session.removeAttribute("contribution");

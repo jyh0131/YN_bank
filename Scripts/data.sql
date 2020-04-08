@@ -20,7 +20,7 @@ insert into employee values
 ('B003','박인선','부장','CS',6000000,'010-2992-2222','csid2222',password('testforcs'),2,null,0),
 ('B004','황하나','차장','CS',5000000,'010-2222-1111','csid3333',password('testforcs'),2,null,0),
 ('B005','현재승','과장','CS',4000000,'010-2282-4848','csid4444',password('testforcs'),2,null,0),
-('B006','황태원','대리','CS',3000000,'010-2902-5959','cscscs',password('cscscs'),2,null,0),
+('B006','황태원','대리','CS',3000000,'010-2902-5959','cscscs',password('cscscs'),2,'staff2.png',0),
 ('B007','나고객','사원','CS',2000000,'010-5489-7346','csid7777',password('testforcs'),2,'staff2.jpg',0),
 ('B008','테스트','지점장','AD',10000000,'010-1234-1234','111',password('111'),2,'chaeunwoo.png',0),
 ('B009','아몬드','대리','CS',2000000,'010-1578-5436','csid9999',password('testforcs'),2,null,0),

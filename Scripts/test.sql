@@ -190,8 +190,10 @@ select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBala
 select substr(accountNum, 8,2) from bankbook;
 select substr(accountTransDate, 1, 10) from cust_dw_audit;
 select * from cust_dw_audit where substr(accountTransDate, 1, 10) = "2020-04-06";
+select * from card;
+select cardBalance from card where custCode="C001" and accountNum ="293133-11-000001";
 
-
+desc bankbook;
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';
 select * from plan where planCode like 'B%';

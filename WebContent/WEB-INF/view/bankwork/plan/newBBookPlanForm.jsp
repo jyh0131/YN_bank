@@ -138,21 +138,21 @@
 						<tr>
 							<th>상품 명</th>     
 							<td>
-								<input type="text" name="planName">
+								<input type="text" name="planName"  placeholder="상품 명을 입력하세요.">
 							</td>  
 								
 						</tr>
 						<tr>
 							<th>상품 세부 설명</th>
-							<td><textarea cols="50" rows="3" name="planDesc"></textarea></td>
+							<td><textarea cols="40" rows="3" name="planDesc" placeholder="세부 설명을 입력하세요."></textarea></td>
 						</tr>  
 						<tr class="long">
 							<th>상품 구분코드</th>
 							<td><select name="planDiv" id="div">
-									<option>구분 코드 선택</option>  
-									<option>V</option>
-									<option>N</option>
-									<option>B</option>
+									<option>구분 코드 선택</option>
+									<option>V(VIP 고객용)</option>
+									<option>N(일반 고객용)</option>
+									<option>B(기업 고객용)</option>
 								</select></td>
 						</tr>
 						

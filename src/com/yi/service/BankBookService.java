@@ -37,6 +37,10 @@ public class BankBookService {
 		return bankBookDao.showBankBooksByCustName(bankbook);
 	}
 	
+	public Long showAccBalanceByCodeAccNum(Customer customer) throws SQLException{
+		return bankBookDao.showAccBalanceByCodeAccNum(customer);
+	}
+	
 	public void update_balance_locking(int amount, String accountNum, String text) throws SQLException{
 		bankBookDao.update_balance_locking(amount, accountNum, text);
 	}

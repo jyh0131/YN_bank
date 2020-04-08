@@ -97,18 +97,20 @@
 		div#table span#pickSearch { width: 50px; }	  
 		div#table span#pickSearch a { display: block; width: 50px; }		    					    
 		
-		div#table table {    
+		div#table table.tableList {    
 			clear: both;  
 			border-collapse: collapse;  
 			margin-top: 10px;  
-		}      
+		}        
 		
 		div#table th, div#table td {
 			width: 180px;    
 			height: 30px;
-			text-align: center;
+			text-align: center;   
 			font-size: 15px;
 		}
+		
+	
 		div#table td.long {
 			width: 250px; 
 		}
@@ -136,16 +138,18 @@
 				$("input[name='search']").val("");   
 		})
 		
+		//전체 보기 버튼
 		$("#seeAll").on("click", function(){
-				$("table").load(location.href+" table"); 
+				$(".tableList").load(window.location.href+" .tableList tr"); 
 		})
-		
+		  
 		//검색어 입력 후 검색 버튼 클릭 시
 		$("#searchBtn").click(function() {  
 			switch($("#searchMenu option:selected").val()) {
+			
 			case "검색 구분":
 				alert("검색 조건을 선택해주세요.");
-				$("input[name='search']").val("");
+				$("input[name='search']").val("");     
 				break;
 			case "계좌 번호":
 				var div = $("#searchMenu option:selected").val();
@@ -322,10 +326,10 @@
 				    		
 				    		
 				    		var $td1 = $("<td>").html(obj.dw);
-				    		var $td2 = $("<td>").html(obj.custName);
+				    		var $td2 = $("<td>").html(obj.custName);  
 				    		var $td3 = $("<td>").html(obj.accountNum);
-				    		var $td4 = $("<td>").html(obj.amount);
-				    		var $td5 = $("<td>").html(obj.accountBalance); 
+				    		var $td4 = $("<td>").html(obj.amount.toLocaleString()+"원");
+				    		var $td5 = $("<td>").html(obj.accountBalance.toLocaleString()+"원"); 
 				    		var $td6 = $("<td>").html(dateFormat);
 				    		
 				    		$tr2.append($td1);
@@ -344,14 +348,6 @@
 		})  
 	});
 		
-		String.prototype.format = function(){
-		    var num = parseFloat(this);
-		    if( isNaN(num) ) return "0";
-
-		    return num.format();
-		};
-		
-		$("")
 		
 		$("button").eq(1).click(function() {   
 			$("input[name='search']").val("");
@@ -377,7 +373,7 @@
 					<option>고객명</option>	
 				</select>
 				
-					<fieldset><input type="search" name="search" placeholder="검색어를 입력하세요."/>
+					<fieldset><input type="search" name="search" placeholder="검색어를 입력하세요." autocomplete="off"/>
 						<button type="submit" id="searchBtn">
 							<i class="fa fa-search"></i>
 						</button>	
@@ -409,12 +405,12 @@
 							<td>${audit.accountNum }</td>
 							<td><fmt:formatNumber value="${audit.amount}" groupingUsed="true"/>원</td>
 							<td class="long"><fmt:formatNumber value="${audit.accountBalance}" groupingUsed="true"/>원</td>
-							<td class="long">${audit.accountTransDate }</td>
+							<td class="long"><fmt:formatDate value="${audit.accountTransDate }" pattern="yyyy-MM-dd hh:MM:ss"/></td>
 							
 							
-					</tr>
-				   
-				</c:forEach>
+					</tr>  
+				         
+				</c:forEach>      
 		</table>
 		</div>  
 		</section>

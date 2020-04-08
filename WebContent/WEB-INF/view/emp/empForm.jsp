@@ -307,22 +307,45 @@ div#profileEdit table td #inputCode {
 
 				}) //서밋 끝나는거 
 				
-				//파일 선택시 이미지 변경 
+	//파일 선택시 이미지 변경 
 				$("#empFile").change(function(){
-					var full = $(this).val().split("\\");
+					
+					setImgFromFile(this,"#empPicture");
+					/* var full = $(this).val().split("\\");
 					//alert(full);
 				    
 					if(full ==""){
 						$("#empPicture").attr("src","${pageContext.request.contextPath}/images/no-img.jpg");	
 					}else{
 					f_name = full[full.length-1]; //마지막 화일명
-				//     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
-                   // alert(f_name);
+			        s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
+                    alert(f_name);
 		
-				  $("#empPicture").attr("src","${pageContext.request.contextPath}/images/"+f_name);
-				}	
-			})
-			
+				  $("#empPicture").attr("src","${pageContext.request.contextPath}/empPic/"+f_name);
+				}	 */
+			});
+		    function setImgFromFile(input, expression){
+		    	if(input.files && input.files[0]){
+		    		var reader = new FileReader();
+		    		
+		    		 reader.onload = function(e){
+		    			 $(expression).attr('src',e.target.result);
+		    		 }
+		    		 reader.readAsDataURL(input.files[0])
+		    	}
+		    }
+		
+/* 			function imagePath(input){
+			 if (input.files && input.files[0]) {
+			        var reader = new FileReader();
+
+			        reader.onload = function(e) {
+			            $("#empPicture").attr('src', e.target.result)
+			        }
+			        reader.readAsDataURL(input.files[0]);
+			    } 
+		}
+			 */
 			$("#empName").change(function(){
 				var empNameForProfile = $("#empName").val(); 
 				//alert(empNameForProfile);

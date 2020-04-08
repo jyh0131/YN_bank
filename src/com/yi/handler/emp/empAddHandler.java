@@ -35,7 +35,7 @@ public class empAddHandler implements CommandHandler {
 	
 			
 			//서버안에 파일 저장 공간이 있어야 한다 -바탕화면 c드라이버 공간을 지정해줘야한다 
-			String uploadPath = req.getRealPath("upload"); //서버 루트 안에 업로드 폴더 절대경로를 반환해준다
+			String uploadPath = req.getRealPath("empPic"); //서버 루트 안에 업로드 폴더 절대경로를 반환해준다
 			//폴더의 존재여부를 알아봐야한다
 			File dir = new File(uploadPath);
 			if(dir.exists() == false) { //저장공간이 없으면 폴더를 만들어야함
@@ -46,12 +46,11 @@ public class empAddHandler implements CommandHandler {
 			//System.out.println(uploadPath); //경로만들어지는가 확인 후 넘어간다 
 			//파일을 저장해보자
 			int size = 1024*1024*10; //업로드시 파일 크기 제한이 있기 때문에  10M까지만 1024 =1k *1024 =1m * 10 
-			MultipartRequest multi = new MultipartRequest(
-					                               req,  //매개변수는 내가 원하는 만큼
+			MultipartRequest multi = new MultipartRequest(req,  //매개변수는 내가 원하는 만큼
 					                               uploadPath, //업로드 절대경로
 			                                       size,
-			                                       "UTF-8");//, //한글깨지지 말라는 것 
-			                                       //new DefaultFileRenamePolicy()); //파일이 중복되었을때 바뀔 수 있도록
+			                                       "UTF-8",//, //한글깨지지 말라는 것 
+			                                       new DefaultFileRenamePolicy()); //파일이 중복되었을때 바뀔 수 있도록
 			//기존에 같은 이름인 파일은 바껴서 들어가야한다 //하지만 여기선 그냥 덮어쓰도록 함 
 
 			try{
@@ -66,7 +65,7 @@ public class empAddHandler implements CommandHandler {
 					multi.getParameter("empId"), 
 					multi.getParameter("empPwd"), 
 					new Department(Integer.parseInt(multi.getParameter("deptNo"))), 
-					multi.getFilesystemName("pic"));
+					uploadPath);
 	
 			       // 
 			//System.out.println(emp);

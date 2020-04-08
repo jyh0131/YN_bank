@@ -29,6 +29,8 @@ public class empFormHandler implements CommandHandler {
 		//System.out.println("A"+String.format("%03d", listForHR.size()+1));
 		req.setAttribute("numHR", "A"+String.format("%03d", listForHR.size()+1));
 		req.setAttribute("numCS", "B"+String.format("%03d", listForCS.size()+1));
+		
+		
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 		
 		  try{

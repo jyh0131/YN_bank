@@ -19,7 +19,7 @@
 			     height: 150px; }
 	div#header h1 { padding: 30px;  }
 	
-	/* 프로필 */
+	/* 카드 영역  */
 	
 	div#profile { background: whitesmoke;
 				  height: 500px;
@@ -39,13 +39,7 @@
 	div#profileEdit table tr td { width: 250px; text-align: center; }
 	div#profileEdit table td.mark { width: 50px; height: 50px; text-align: left; line-height: 80px;}
 	div#profileEdit table tr.long { height: 70px; }
-	div#profileEdit table td#regExp { width: 200px; 
-									  color: maroon;
-									  font-weight: bold;  
-									  font-size: 14px;
-									  height: 40px;
-									  line-height: 40px;
-									  display: none;  }
+	
 	div#messeage { width: 650px; 
 				   position: absolute; top: -100px;
 				   display: none;}									  
@@ -54,7 +48,9 @@
 								     border: none; 
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}						     
-	div#profileEdit table td select { width: 250px; margin: 20px 0;}		  
+	div#profileEdit table td select { width: 250px; margin: 20px 0;}	
+	
+	/* 버튼 영역 */	  
 	div#submit { text-align: center; 
 				 height: 100px;           
 				 line-height: 160px; }
@@ -68,19 +64,38 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
+		$(".side2").hide();
+		$("#planMgn").find(".side2").toggle();
+		
+		//코드 분류 체계
 		$("a#code").mouseover(function() {
+			$("#code").css("color", "maroon").css("font-weight", "bold");
 			$("div#messeage").css("display", "block");
 		})
 		$("a#code").mouseout(function() {
+			$("#code").css("color", "#000").css("font-weight", "bold");
 			$("div#messeage").css("display", "none");
 		})
 		
 		
-		   $("input[type='submit']").submit(function(){
-			var add = confirm("상품을 추가하시겠습니까?");
-			if(add==false){
-				return false;
-			}
+		 $("form").submit(function(){
+			   var planName = $("input[name='planName']").val();
+			   var planDesc = $("textarea[name='planDesc']").val();
+			   var planDiv = $("select[name='planDiv']").val();
+			   
+			   if(planName=="" || planDesc ==""){
+				   alert("모든 항목을 입력 해주세요.");
+				   return false;
+			   }
+			   if(planDiv=="구분 코드 선택"){
+				   alert("구분 코드를 선택 해주세요.");
+				   return false;
+			   }
+				 var add = confirm("상품을 추가하시겠습니까?");
+				if(add==false){   
+					return false;
+				} 
+			
 			
 		})
 		
@@ -106,7 +121,7 @@
 			
 			<div id="profile">
 			
-				<h2>상품</h2>
+				<h2>카드 상품</h2>
 				<div id="profileEdit">
 				<div id="messeage">
 						<img src="${pageContext.request.contextPath}/images/plan.png">

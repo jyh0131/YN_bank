@@ -14,6 +14,7 @@
 		
 		div#dummy { height: 75px; background: #292929;}
 		
+		/* 검색 부분 부분 */
 		div#search {
 			width: 900px;
 			margin: 50px auto;  
@@ -94,16 +95,18 @@
 </style>
 <script>
 	$(function(){
+		//선택한 메뉴만 보이게 하기
+		$(".side2").hide();
+		$("#dwMgn").find(".side2").toggle();
 		
+		//검색 구분 조건 변경하면 테이블 reload
 		$("select").on("change", function(){
-			if($("select option:selected").val()=="고객 코드"){
-				$("input[name='search']").val("");  
-				$("input[name='search']").val("B");
-			}
+			
 				$("table").load(location.href+" table");
 				$("input[name='search']").val("");   
 		})
 		
+		//버튼 클릭 시 
 		$("button").click(function() {  
 			switch($("#searchMenu option:selected").val()) {
 			case "검색 구분":
@@ -119,7 +122,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
@@ -162,7 +165,6 @@
 					    			$a7 = $("<a>").html("고객").attr("href", "#");
 					    		}
 				    			   
-					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
 					    		var $td3 = $("<td>");
@@ -205,7 +207,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
@@ -292,7 +294,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}

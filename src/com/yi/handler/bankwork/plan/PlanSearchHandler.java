@@ -30,7 +30,7 @@ public class PlanSearchHandler implements CommandHandler {
 			switch(div) {
 			case "상품 코드(A)":
 				List<Plan> list = service.showPlansByCode(search);
-				if(list.size()==0) {
+				if(list==null) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om = new ObjectMapper();

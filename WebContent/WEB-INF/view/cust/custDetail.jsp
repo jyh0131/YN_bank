@@ -12,16 +12,23 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
     $(function() {
+    	//클릭한 메뉴만 보이게 하기
     	$("#custAdd").show();
 		$("#custList").show();
+		
+		//로딩 될 때 확인버튼 없음
     	$("input[value='확인']").css("display", "none");
+		
+		//취소 클릭 시
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/cust/custSearch.do";
     	})
+    	//수정 클릭 시 input readonly  해제
     	$("input[value='수정']").click(function(){
     		$("input[value='확인']").css("display", "inline");
     		$("h1").html("고객 세부 정보 수정");
-    		$("input").removeAttr("readonly");  
+    		$("input").removeAttr("readonly");
+    		$("select").removeAttr("disabled");
     		$("input[name='custDiv']").attr("readonly", "readonly");
     		$("input[name='custCode']").attr("readonly", "readonly");
     		$("input[name='custName']").focus();
@@ -31,15 +38,8 @@
     	})
     	
     	
-    	var custDiv = $("input[name='custDiv']").val();
-    	var custCode = $("input[name='custCode']").val();
-    	var custName = $("input[name='custName']").val();
-    	var custRank = $("select[name='custRank']").val();
-    	var custCredit = $("select[name='custCredit']").val();
-    	var addr = $("input[name='addr']").val();
-    	var contact = $("input[name='contact']").val();
-    	
     	 //동적으로 생성된 input 태그에 이벤트
+    	 //내용 수정 후 확인 클릭 시
  		$("input[value='확인']").on({
  			"click" : function(){
  				var edit = confirm("수정하시겠습니까?");
@@ -48,7 +48,7 @@
  				}
  			}
  		}) 
- 		
+ 		//삭제 클릭 시 
  		$("input[value='삭제']").on({
  			"click" : function(){
  				var del = confirm("삭제하시겠습니까?");
@@ -69,32 +69,24 @@
 		color: #252525; }
 	div#dummy { height: 75px; background: #292929;}
 	#container { width: 1000px; margin: 50px auto;}
+	/* 헤더(고객 세부 정보) */
 	div#header { background: goldenrod;
 			     height: 150px; }
 			     
 	div#header h1 { padding: 30px;  }
+	
+	/* 고객 정보 부분 */
 	div#profile { background: whitesmoke;
 				  height: 500px;
 				  border-radius: 10px;
 				  padding: 50px;}
 	div#profile h2 { height: 50px; }				  
-	div#profileMain { float: left; }
-	div#profileMain div#pic { width: 250px; height: 350px;}
-	div#profileMain div#pic span { display: block;
-							       width: 100px; height: 100px;
-							       float: left; 
-							       text-align: center;}
-	div#profileMain div#pic #proName { width: 100x; font-size: 30px; 
-									   font-weight: bold;
-							    	   line-height: 100px;  }
-	div#profileMain div#pic #proDept { line-height: 110px;
-									   font-size: 20px;
-									   text-align: left; }
-	div#profile div#pic img { width: 200px; height: 250px; display: block;}
+	
 	
 	div#profileEdit { width:600px; 
 					  overflow: hidden;
 					  margin-left: 200px;  }
+					  
 	div#profileEdit table { width: 500px; }
 	div#profileEdit table tr { height: 30px; }
 	div#profileEdit table th { width: 100px; text-align: left; }
@@ -104,8 +96,10 @@
 								     border: none; 
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}
-	table td#noline input[name='file'] { border: none;}									     
-	div#profileEdit table td select { width: 250px; margin: 20px 0;}		
+									     
+	div#profileEdit table td select { width: 250px; margin: 20px 0;}	
+	
+	/* 버튼 */	
 	div#submit { text-align: center; 
 				 height: 100px; 
 				 line-height: 200px; }
@@ -156,7 +150,7 @@
 							<th>고객 등급</th>
 							<td>
 								<c:if test="${customer.custRank=='D' }">
-									<select name="custRank">
+									<select name="custRank" disabled="disabled">
 										<option>등급 선택</option>
 										<option selected>Diamond</option>
 										<option>Platinum</option>
@@ -215,7 +209,7 @@
 							<th>고객 신용등급</th>
 							<td>
 								<c:if test="${customer.custCredit==1 }">
-									<select name="custCredit">
+									<select name="custCredit"  disabled="disabled">
 										<option>신용등급 선택</option>
 										<option selected>1</option>
 										<option>2</option>

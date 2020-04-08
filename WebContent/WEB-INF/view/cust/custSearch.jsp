@@ -14,14 +14,16 @@
 </head>
 <style>  
 		* { font-family: 'Noto Sans KR', sans-serif; }
+	
+		div#dummy { height: 75px; background: #292929;}	
+		
+		/* 검색 구분 부분 */	
 		div#search {
 			width: 900px;
 			margin: 50px auto;  
 			text-align: center;
 		}
 		
-		
-		div#dummy { height: 75px; background: #292929;}	
 		
 		div#search select {
 			width: 200px; height : 30px;
@@ -66,6 +68,7 @@
 					 top: 25%;  }
 		
 		
+		/* 테이블 영역 */
 		div#table {
 			width: 1000px;
 			margin: 100px auto;
@@ -105,17 +108,17 @@
 </style>
 <script>
 	$(function(){
+		//클릭한 메뉴만 보이게 하기
 		$("#custAdd").show();
 		$("#custList").show();
+		
+		/* 검색 구분 조건 변경할 때 테이블 reload */
 		$("select").on("change", function(){
-			if($("select option:selected").val()=="고객 코드"){
-				$("input[name='search']").val("");  
-				$("input[name='search']").val("B");
-			}
 				$("table").load(location.href+" table");
 				$("input[name='search']").val("");   
 		})
 		
+		/* 검색 버튼 클릭 시 */
 		$("button").click(function() {  
 			switch($("#searchMenu option:selected").val()) {
 			case "검색 구분":
@@ -217,7 +220,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
@@ -297,7 +300,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		console.log(res);
+				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}

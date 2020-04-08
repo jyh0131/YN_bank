@@ -37,6 +37,11 @@
 			$(this).find(".side2").toggle();
 			
 		})
+		$(".side2").click(function() {
+			$(".side2").hide();
+			$(this).toggle();
+			
+		})
 		$(".side2").hide();
 	});
 </script>

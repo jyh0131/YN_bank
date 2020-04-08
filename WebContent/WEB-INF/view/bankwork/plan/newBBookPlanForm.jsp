@@ -19,7 +19,7 @@
 			     height: 150px; }
 	div#header h1 { padding: 30px;  }
 	
-	/* 프로필 */
+	/* 상품 영역 */
 	
 	div#profile { background: whitesmoke;
 				  height: 500px;
@@ -38,13 +38,6 @@
 	div#profileEdit table th { width: 100px; text-align: left; }
 	div#profileEdit table tr td { width: 250px; text-align: center; }
 	div#profileEdit table tr.long { height: 70px; }
-	div#profileEdit table td#regExp { width: 200px; 
-									  color: maroon;
-									  font-weight: bold;  
-									  font-size: 14px;
-									  height: 40px;
-									  line-height: 40px; 
-									  display: none;  }
 	div#messeage { width: 650px; 
 				   position: absolute; top: -100px;
 				   display: none;}								     
@@ -54,6 +47,8 @@
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}						     
 	div#profileEdit table td select { width: 250px; margin: 20px 0;}		  
+	
+	/* 버튼 영역 */
 	div#submit { text-align: center; 
 				 height: 100px;           
 				 line-height: 160px; }
@@ -67,22 +62,41 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
+			
+			$(".side2").hide();
+			$("#planMgn").find(".side2").toggle();
+		
 			$("a#code").mouseover(function() {
+				$("#code").css("color", "maroon").css("font-weight", "bold");
 				$("div#messeage").css("display", "block");
 			})
 			$("a#code").mouseout(function() {
+				$("#code").css("color", "#000").css("font-weight", "bold");
 				$("div#messeage").css("display", "none");
 			})
 			
 		   
-		   $("input[type='submit']").submit(function(){
-			var add = confirm("상품을 추가하시겠습니까?");
-			if(add==false){
-				return false;
-			}
+		   $("form").submit(function(){
+			   var planName = $("input[name='planName']").val();
+			   var planDesc = $("textarea[name='planDesc']").val();
+			   var planDiv = $("select[name='planDiv']").val();
+			   
+			   if(planName=="" || planDesc ==""){
+				   alert("모든 항목을 입력 해주세요.");
+				   return false;
+			   }
+			   if(planDiv=="구분 코드 선택"){
+				   alert("구분 코드를 선택 해주세요.");
+				   return false;
+			   }
+				 var add = confirm("상품을 추가하시겠습니까?");
+				if(add==false){   
+					return false;
+				} 
+			
 			
 		})
-		
+		   
 		
 		$("input[type='reset']").click(function(){
 			var choose = confirm("신규 상품 추가를 취소하시겠습니까? 메인으로 돌아갑니다.");
@@ -104,7 +118,7 @@
 		<form action="addPlan.do" method="post">
 			
 			<div id="profile">
-				<h2>상품</h2>
+				<h2>통장 상품</h2>
 				<div id="profileEdit">
 					<div id="messeage">
 						<img src="${pageContext.request.contextPath}/images/plan.png">
@@ -134,7 +148,7 @@
 						</tr>  
 						<tr class="long">
 							<th>상품 구분코드</th>
-							<td><select name="planDiv">
+							<td><select name="planDiv" id="div">
 									<option>구분 코드 선택</option>  
 									<option>V</option>
 									<option>N</option>

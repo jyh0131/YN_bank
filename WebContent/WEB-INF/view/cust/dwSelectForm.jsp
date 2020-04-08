@@ -24,6 +24,8 @@
 				  padding: 50px;}
 	div#profile h2 { height: 50px; }				  
 	div#profile h3 { text-align: center;}
+	
+	/* 버튼 */
 	div#submit { text-align: center; 
 				 height: 250px; 
 				  line-height: 250px;  }
@@ -34,6 +36,7 @@
 					   font-size: 17px;
 					   color: whitesmoke;}
 					   
+	/* 이전으로 버튼 */				   
 	div#backTotheMain {height: 100px; 
 					   text-align: center;
 					   line-height: 100px;  }
@@ -45,10 +48,14 @@
 </style>
 <script>
 	$(function(){
+		//클릭한 메뉴만 보이게 하기
 		$("#deposit").show();
 		$("#dwList").show();
+		
+		//입금 클릭 시 
 		$("#dep").click(function(){
 			var num = ${num };
+			//계좌번호 중간 번호 "13"-> 마이너스 통장 '입금' 제한 (마이너스 통장은 한도가 정해져 있고 출금만 가능)
 			if(num=="13"){
 				alert("해당 계좌는 입금이 제한되는 마이너스 통장입니다.");
 				return false;
@@ -56,10 +63,13 @@
 			var dw = $(this).html();
 			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
 		})
+		//출금 클릭 시 
 		$("#wd").click(function(){
 			var dw = $(this).html();
 			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
 		})
+		
+		//이전으로 클릭 시 
 		$("#back").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/cust/custDWSearch.do');
 		})

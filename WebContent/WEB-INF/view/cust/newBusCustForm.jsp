@@ -17,14 +17,13 @@
 			     height: 150px; }
 	div#header h1 { padding: 30px;  }   
 	
-	/* 프로필 */
+	/* 기업 고객 부분 */
 	
 	div#profile { background: whitesmoke;
 				  height: 500px;
 				  border-radius: 10px;
 				  padding: 50px;}
-	div#profile h2 { height: 50px; }				  
-	div#profileMain { float: left; }
+	div#profile h2 { height: 50px; }		
 	
 	
 	div#profileEdit { width:600px; 
@@ -46,9 +45,11 @@
 								     border: none; 
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}
-	table td#noline input[name='file'] { border: none;}
+	
 	div#profileEdit table td input.contact { width: 63px; }									     
-	div#profileEdit table td select { width: 250px; margin: 20px 0;}		
+	div#profileEdit table td select { width: 250px; margin: 20px 0;}	
+	
+	/* 버튼 */	
 	div#submit { text-align: center; 
 				 height: 100px; 
 				 line-height: 160px; }
@@ -62,8 +63,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
+		//클릭한 메뉴만 보이게 하기
 		$("#custAdd").show();
 		$("#custList").show();
+		
+		//등록 버튼 클릭 시
 		$("input[type='submit']").click(function(){
 			var name = $("input[name='name']").val();
 			var addr = $("input[name='addr']").val();
@@ -89,7 +93,7 @@
 			
 		})
 		
-		
+		//취소 버튼 클릭 시
 		$("input[type='reset']").click(function(){
 			var choose = confirm("신규 고객 추가를 취소하시겠습니까? 목록으로 돌아갑니다.");
 			if(choose){

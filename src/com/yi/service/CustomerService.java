@@ -74,6 +74,10 @@ public class CustomerService {
 		return dao.selectCust_dw_auditByName(custName);
 	}
 	
+	public List<Cust_dw_audit> showCust_dw_auditByDate(String date) throws SQLException{
+		return dao.selectCust_dw_auditByDate(date);
+	}
+	
 	
 	
 	public List<Customer> showCustomersByBalance() throws SQLException{

@@ -17,7 +17,7 @@
 		$("#planMgn").find(".side2").toggle();
 		
 		//로딩될 때 확인 버튼 숨김 
-    	$("input[value='확인']").css("display", "none");
+    	$("input[value='수정 완료']").css("display", "none");
 		
 		//취소 버튼 클릭 시 
     	$("#cancel").click(function() {
@@ -25,8 +25,9 @@
     	})
     	
     	//수정 버튼 클릭 시
-    	$("input[value='수정']").click(function(){
-    		$("input[value='확인']").css("display", "inline");
+    	$("input[value='수정하기']").click(function(){
+    		$(this).css("display", "none");
+    		$("input[value='수정 완료']").css("display", "inline");
     		$("input").removeAttr("readonly");  
     		$("textarea").removeAttr("readonly");  
     		$("input[name='planCode']").attr("readonly", "readonly"); 
@@ -40,7 +41,7 @@
     	
     	
     	 //동적으로 생성된 input 태그에 이벤트
- 		$("input[value='확인']").on({
+ 		$("input[value='수정 완료']").on({
  			"click" : function(){
  				var edit = confirm("수정하시겠습니까?");
  				if(edit==false){
@@ -153,8 +154,8 @@
 				</div>
 				
 				<div id="submit">
-					<input type="submit" value="수정">
-					<input type="submit" value="확인">
+					<input type="submit" value="수정하기">
+					<input type="submit" value="수정 완료">
 					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/bankwork/plan/planDelete.do?planCode=${plan.planCode}">   
 					<input type="reset" value="취소" id="cancel">
 				</div>

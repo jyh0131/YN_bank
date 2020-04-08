@@ -9,6 +9,7 @@ import com.yi.dto.Customer;
 
 public interface CardDao {
 	public abstract List<Card> showCards() throws SQLException;
+	public abstract List<Card> showCardsByNormal() throws SQLException;
 	public abstract List<Card> showCardsByBusiness() throws SQLException;
 	public abstract Card showCardByCardNumAndCustName(Card card) throws SQLException;
 	public abstract List<Card> showCardByCustName(Card card) throws SQLException;

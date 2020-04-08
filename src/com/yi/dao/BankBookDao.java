@@ -11,6 +11,7 @@ import com.yi.dto.Customer;
 
 public interface BankBookDao {
 	public abstract List<BankBook> showBankBooks() throws SQLException;
+	public abstract List<BankBook> showBankBooksByNormal() throws SQLException;
 	public abstract List<BankBook> showBankBooksByBusiness() throws SQLException;
 	public abstract BankBook showBankBookByCustNameAndAccountNum(BankBook bankbook) throws SQLException;
 	public abstract List<BankBook> showBankBooksByAccountNum(BankBook bankbook) throws SQLException;

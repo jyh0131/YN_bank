@@ -25,9 +25,24 @@ public class CardDaoImpl implements CardDao {
 	public static CardDaoImpl getInstance() {
 		return instance;
 	}
-
+	
 	@Override
 	public List<Card> showCards() throws SQLException {
+		List<Card> list = new ArrayList<>();
+		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode";
+		try(Connection con = DriverManager.getConnection(jdbcDriver); 
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while(rs.next()) {
+				list.add(getCardInfo(rs));
+			}
+		}
+		return list;
+	}
+	
+
+	@Override
+	public List<Card> showCardsByNormal() throws SQLException {
 		List<Card> list = new ArrayList<>();
 		String sql = "select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where cs.custDiv = 0";
 		try(Connection con = DriverManager.getConnection(jdbcDriver); 

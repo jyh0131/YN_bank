@@ -25,7 +25,7 @@ public class MgnHandler implements CommandHandler {
 			String div = req.getParameter("div");
 			HttpSession session = req.getSession();
 			if(div.equals("0")) {
-				List<BankBook> list = service.showBankBooks();
+				List<BankBook> list = service.showBankBooksByNormal();
 				if(list.size()==0) {
 					session.setAttribute("errornonnormal", "error");
 					return "/WEB-INF/view/bankwork/bankbook/bankbookListCustSelect.jsp";

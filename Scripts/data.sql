@@ -1,7 +1,9 @@
 use bank;
 
 #insert문
-insert into department values
+insert into department
+
+values
 (1,'인사'),
 (2,'고객');
 #퇴사 사원 구분은 0을 근무사원, 1를 퇴사사원으로 한다

@@ -346,4 +346,4 @@ select
 (select sum(loanBalance) from loan where loanAccountNum like '%-13-%' and month(loandate) = 4) as 'cardloan';
 
 
-select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 1 and accountTermination = 0 and c.custDiv = 1
+select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode;

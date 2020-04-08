@@ -66,9 +66,10 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
-    	var str = ${contribution.totalContribution};
-    	var totalContribution = str.toLocaleString();
-    	alert("대출 총 가능 금액은 " + totalContribution + "원입니다");
+    	function pad(n, width) {
+  		  n = n + '';
+  		  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+  		}
     	$(".normal").hide();
     	$("#loanAdd").show();
 		$("#loanList").show();
@@ -114,9 +115,25 @@
 				return false;
 			}
     	})
+    	$("#plan").change(function() {
+		    var str = $("#plan option:selected").attr("data-planDetail");
+		    var plandiv = str.substring(1,2);
+		    switch(plandiv) {
+		    case 'A':
+		    	$("input[name='accountnum']").val('293133-11-'+pad((${number}+1),6));
+		    	break;
+		    case 'B':
+		    	$("input[name='accountnum']").val('293133-12-'+pad((${number}+1),6));
+		    	break;
+		    case 'C':
+		    	$("input[name='accountnum']").val('293133-13-'+pad((${number}+1),6));
+		    	break;
+		    }
+		});
     	$("input[type='reset']").click(function() {
     		location.href = "${pageContext.request.contextPath}/main/main.do";
-    	})
+    	});
+    	$("input[name='accountnum']").val('293133-11-'+pad((${number}+1),6));
     });
 	</script>
 	<c:if test="${normal!=null}">
@@ -160,17 +177,17 @@
 						</tr>
 						<tr>
 							<th>계좌번호</th>
-							<td><input type="text" name="accountnum"></td>
+							<td><input type="text" name="accountnum" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<th>상품명</th>
 							<td>
 								<select name="planname" id="plan">
 									<c:forEach var="plan" items="${planList}">
-										<option class="vip">${plan}</option>
+										<option class="vip" data-planDetail="${plan.planDetail}">${plan}</option>
 									</c:forEach>
 									<c:forEach var="planNormal" items="${planListNormal}">
-										<option class='normal'>${planNormal}</option>
+										<option class='normal' data-planDetail="${planNormal.planDetail}">${planNormal}</option>
 									</c:forEach>
 								</select>
 							</td>

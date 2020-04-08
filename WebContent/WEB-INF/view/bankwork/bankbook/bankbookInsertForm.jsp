@@ -65,6 +65,10 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
+    	function pad(n, width) {
+    		  n = n + '';
+    		  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    	}
     	$(".normal").hide();
     	$("#bankbookAdd").show();
 		$("#bankbookList").show();
@@ -87,7 +91,7 @@
             }
         });
     	$("form").submit(function() {
-    		if($("input[name='accountnum']").val()==""||$("input[name='accountOpenDate']").val()==""||$("input[name='accountInterest']").val()==""||$("input[name='accountBalance']").val()=="") {
+    		if($("input[name='accountnum']").val()==""||$("input[name='accountOpenDate']").val()==""||$("input[name='accountInterest']").val()=="") {
     			alert("입력란을 모두 입력해주세요");
     			return false;
     		}
@@ -104,11 +108,19 @@
     			return false;
     		}
     		var accountBalance = $("input[name='accountBalance']").val();
-			var accountBalanceReg = /^[0-9]*$/;
-			if(!accountBalanceReg.test(accountBalance)) {
-				alert("숫자만 입력하세요");
-				return false;
-			}
+    		var str = $("#plan option:selected").attr("data-planDetail");
+    		var plandiv = str.substring(1,2);
+ 		    if(plandiv == 'C') {
+ 		    	if($("input[name='accountInterest']").val()=="") {
+ 		    		alert("입력란을 모두 입력하세요");
+ 		    		return false;
+ 		    	}
+ 		    	var accountBalanceReg = /^[0-9]*$/;
+ 				if(!accountBalanceReg.test(accountBalance)) {
+ 					alert("숫자만 입력하세요");
+ 					return false;
+ 				}
+ 		    }
     	})
     	$("input[type='reset']").click(function() {
     		location.href = "${pageContext.request.contextPath}/main/main.do";
@@ -122,8 +134,20 @@
 		    else {
 		    	$("#balance").hide();
 		    }
+		    switch(plandiv) {
+		    case 'A':
+		    	$("input[name='accountnum']").val('293133-11-'+pad(${number},6));
+		    	break;
+		    case 'B':
+		    	$("input[name='accountnum']").val('293133-12-'+pad(${number},6));
+		    	break;
+		    case 'C':
+		    	$("input[name='accountnum']").val('293133-13-'+pad(${number},6));
+		    	break;
+		    }
 		})
 		$("#balance").hide();
+    	$("input[name='accountnum']").val('293133-11-'+pad(${number},6));
     });
 	</script>
 	<c:if test="${normal!=null}">
@@ -167,7 +191,7 @@
 						</tr>
 						<tr>
 							<th>계좌번호</th>
-							<td><input type="text" name="accountnum"></td>
+							<td><input type="text" name="accountnum" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<th>상품명</th>

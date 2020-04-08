@@ -25,7 +25,7 @@ public class MgnHandler implements CommandHandler {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			String div = req.getParameter("div");
 			if(div.equals("0")) {
-				List<Card> list = service.showCards();
+				List<Card> list = service.showCardsByNormal();
 				if(list.size()==0) {
 					HttpSession session = req.getSession();
 					session.setAttribute("errornonnormal", "error");

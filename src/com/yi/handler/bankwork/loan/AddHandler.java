@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.yi.dto.BankBook;
 import com.yi.dto.Customer;
 import com.yi.dto.Employee;
 import com.yi.dto.Loan;
@@ -23,6 +24,7 @@ public class AddHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
+			List<Loan> list = loanService.showLoans();
 			String div = req.getParameter("div");
 			if(div.equals("0")) {
 				List<Customer> custList = custService.showCustomerByNormal();
@@ -32,6 +34,7 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("normal", "normal");
+				req.setAttribute("number", list.size());
 				return "/WEB-INF/view/bankwork/loan/loanInsertForm.jsp";
 			}
 			else {
@@ -39,6 +42,7 @@ public class AddHandler implements CommandHandler {
 				List<Plan> planList = loanService.showPlanByLoanBusiness();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
+				req.setAttribute("number", list.size());
 				return "/WEB-INF/view/bankwork/loan/loanInsertForm.jsp";
 			}
 			

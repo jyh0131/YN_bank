@@ -65,6 +65,10 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
+    	function pad(n, width) {
+    		n = n + '';
+    		return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    	}
     	$("#cardAdd").show();
 		$("#cardList").show();
     	var open;
@@ -105,7 +109,7 @@
         });
     	$("input[type='submit']").click(function() {
     		var custname = $("#cust option:selected").val();
-    		var str = $("#plan option:selected").attr("data-detail");
+    		var str = $("#plan option:selected").attr("data-planDetail");
     		var planDetail = str.substring(1,2);
     		if(planDetail=='A') {
     			$.ajax({
@@ -128,6 +132,24 @@
     			})
     		}
     	});
+    	$("#plan").change(function() {
+		    var str = $("#plan option:selected").attr("data-planDetail");
+		    var plandiv = str.substring(1,2);
+		    if(plandiv=='B') {
+				$("#cardLimit").show();
+			}
+			else {
+				$("#cardLimit").hide();
+			}
+		    switch(plandiv) {
+		    case 'A':
+		    	$("input[name='cardnum']").val('29313310'+pad((${number}+1),7) + "0");
+		    	break;
+		    case 'B':
+		    	$("input[name='cardnum']").val('29313320'+pad((${number}+1),7) + "0");
+		    	break;
+		    }
+		});
     	$("form").submit(function() {
     		if($("#cust option:selected").val()==""||$("input[name='cardnum']").val()==""||$("#plan option:selected").val()==""||
     		$("input[name='cardSecuCode']").val()==""||$("input[name='cardIssueDate']").val()=="") {
@@ -146,7 +168,7 @@
     			alert("카드 보안 코드 형식에 맞게 입력해주세요(0~9,3자리)");
     			return false;
     		}
-    		var str = $("#plan option:selected").attr("data-detail");
+    		var str = $("#plan option:selected").attr("data-planDetail");
     		var planDetail = str.substring(1,2);
     		if(planDetail=='A') {
     			return false;	
@@ -167,6 +189,7 @@
     	$("input[type='reset']").click(function() {
     		location.href = "${pageContext.request.contextPath}/main/main.do";
     	})
+    	$("input[name='cardnum']").val('29313310'+pad((${number}+1),7) + "0");
     });
 	</script>
 	<script>
@@ -182,16 +205,6 @@
 						$(".vip").show();
 						$(".vip").eq(0).prop("selected", true)
 					}
-		    	})
-		    	$("#plan").change(function() {
-		    		var str = $("#plan option:selected").attr("data-detail");
-		    		var planDetail = str.substring(1,2);
-		    		if(planDetail=='B') {
-		    			$("#cardLimit").show();
-		    		}
-		    		else {
-		    			$("#cardLimit").hide();
-		    		}
 		    	})
 			})
 	</script>
@@ -218,17 +231,17 @@
 						</tr>
 						<tr>
 							<th>카드번호</th>
-							<td><input type="text" name="cardnum"></td>
+							<td><input type="text" name="cardnum" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<th>상품명</th>
 							<td>
 								<select name="planname" id="plan">
 									<c:forEach var="plan" items="${planList}">
-										<option class="vip" data-detail="${plan.planDetail}">${plan}</option>
+										<option class="vip" data-planDetail="${plan.planDetail}">${plan}</option>
 									</c:forEach>
 									<c:forEach var="planNormal" items="${planListNormal}">
-										<option class='normal' data-detail="${planNormal.planDetail}">${planNormal}</option>
+										<option class='normal' data-planDetail="${planNormal.planDetail}">${planNormal}</option>
 									</c:forEach>
 								</select>
 							</td>	

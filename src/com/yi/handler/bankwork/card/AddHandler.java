@@ -1,6 +1,5 @@
 package com.yi.handler.bankwork.card;
 
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -8,8 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.codehaus.jackson.map.ObjectMapper;
 
 import com.yi.dto.BankBook;
 import com.yi.dto.Card;
@@ -26,6 +23,7 @@ public class AddHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
+			List<Card> list = cardService.showCards();
 			String custname = req.getParameter("custname");
 			if(custname!=null) {
 				String cardnum = req.getParameter("cardnum");
@@ -59,6 +57,7 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("normal", "normal");
+				req.setAttribute("number", list.size());
 				return "/WEB-INF/view/bankwork/card/cardInsertForm.jsp";
 			}
 			else {
@@ -66,6 +65,7 @@ public class AddHandler implements CommandHandler {
 				List<Plan> planList = cardService.showPlansByCardBusiness();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
+				req.setAttribute("number", list.size());
 				return "/WEB-INF/view/bankwork/card/cardInsertForm.jsp";
 			}
 			

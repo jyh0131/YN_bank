@@ -34,6 +34,9 @@ public class CardService {
 	public List<Card> showCards() throws SQLException {
 		return cardDao.showCards();
 	}
+	public List<Card> showCardsByNormal() throws SQLException {
+		return cardDao.showCardsByNormal();
+	}
 	public List<Card> showCardsByBusiness() throws SQLException {
 		return cardDao.showCardsByBusiness();
 	}

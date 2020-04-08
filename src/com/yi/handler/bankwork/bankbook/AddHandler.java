@@ -30,6 +30,8 @@ public class AddHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			String div = req.getParameter("div");
+			List<BankBook> list = bankbookService.showBankBooks();
+			int number = list.size() + 1;
 			if(div.equals("0")) {
 				List<Customer> custList = custService.showCustomerByNormal();
 				List<Plan> planList = bankbookService.showPlanByBankBook();
@@ -38,6 +40,7 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("normal", "normal");
+				req.setAttribute("number", number);
 				return "/WEB-INF/view/bankwork/bankbook/bankbookInsertForm.jsp";
 			}
 			else {
@@ -45,6 +48,7 @@ public class AddHandler implements CommandHandler {
 				List<Plan> planList = bankbookService.showPlanByBankBookBusiness();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
+				req.setAttribute("number", number);
 				return "/WEB-INF/view/bankwork/bankbook/bankbookInsertForm.jsp";
 			}
 			
@@ -63,7 +67,7 @@ public class AddHandler implements CommandHandler {
 			interestStr = interestStr.replaceAll("[\\%]", "");
 			float accountInterest = (Float.parseFloat(interestStr) / 100);
 			BankBook bankbook = new BankBook(accountNum, custCode, accountPlanCode, accountOpenDate, accountInterest);
-			long accountBalance = Long.parseLong(req.getParameter("accountBalance"));
+			long accountBalance = Long.parseLong(req.getParameter("accountBalance")==""?"0":req.getParameter("accountBalance"));
 			long contribution = Long.parseLong(req.getParameter("contribution"));
 			if(contribution - accountBalance < 0) {
 				HttpSession session = req.getSession();

@@ -27,6 +27,9 @@ public class BankBookService {
 	public List<BankBook> showBankBooks() throws SQLException {
 		return bankBookDao.showBankBooks();
 	}
+	public List<BankBook> showBankBooksByNormal() throws SQLException {
+		return bankBookDao.showBankBooksByNormal();
+	}
 	public List<BankBook> showBankBooksByBusiness() throws SQLException {
 		return bankBookDao.showBankBooksByBusiness();
 	}

@@ -29,9 +29,22 @@ public class BankBookDaoImpl implements BankBookDao {
 	public static BankBookDaoImpl getInstance() {
 		return instance;
 	}
-
 	@Override
 	public List<BankBook> showBankBooks() throws SQLException {
+		List<BankBook> list = new ArrayList<>();
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while(rs.next()) {
+				list.add(getBankBook(rs));
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<BankBook> showBankBooksByNormal() throws SQLException {
 		List<BankBook> list = new ArrayList<>();
 		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 0 and accountTermination = 0 and c.custDiv = 0";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
@@ -620,5 +633,4 @@ public class BankBookDaoImpl implements BankBookDao {
 		long cardloan = rs.getLong("cardloan");
 		return new long[]{deposit,saving,minus,checkcard,creditcard,normalloan,creditloan,cardloan};
 	}
-
 }

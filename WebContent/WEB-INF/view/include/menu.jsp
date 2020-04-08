@@ -99,19 +99,53 @@
 			<ul>
 				<li id="menuTitle">Menu</li>
 				<c:if test="${Auth.empAuth=='HR'}"> <!-- 인사팀일때 -->
-					<li id="empMgn" class="side1"><a href="#">사원 관리</a>
-						<ul>
-							<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
-							<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
-						</ul>
-					</li>
-					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a>
-					    <ul><li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li></ul>
-					</li>
-					<li id="empBonus" class="side1"><a href="#">인센티브</a>
-					    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
-					</li>
-					<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
+				   <c:choose>
+					<c:when test="${Auth.empTitle =='사원'}">
+						    <li id="empMgn" class="side1"><a href="#">사원 관리</a>
+							<ul>
+								<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
+								<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
+							</ul>
+						</li>
+<%-- 						<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a>
+						    <ul><li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li></ul>
+						</li> --%>
+						<li id="empBonus" class="side1"><a href="#">인센티브</a>
+						    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
+						</li>
+						<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
+					</c:when>
+					<c:when test="${Auth.empTitle =='대리'}">
+						    <li id="empMgn" class="side1"><a href="#">사원 관리</a>
+							<ul>
+								<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
+								<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
+							</ul>
+						</li>
+<%-- 						<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a>
+						    <ul><li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li></ul>
+						</li> --%>
+						<li id="empBonus" class="side1"><a href="#">인센티브</a>
+						    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
+						</li>
+						<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
+					</c:when>
+					<c:otherwise>
+					    <li id="empMgn" class="side1"><a href="#">사원 관리</a>
+							<ul>
+								<li id="empAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empForm.do">신규 사원 추가</a></li>
+								<li id="empList" class="side2"><a href="${pageContext.request.contextPath}/emp/empSearch.do">사원 목록</a></li>
+							</ul>
+						</li>
+						<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a>
+						    <ul><li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li></ul>
+						</li>
+						<li id="empBonus" class="side1"><a href="#">인센티브</a>
+						    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
+						</li>
+						<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
+					</c:otherwise>
+				  </c:choose>
 				</c:if>
 				
 				

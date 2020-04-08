@@ -99,8 +99,9 @@
 </style>
 <script>
 	$(function(){
-		$("#custAdd").show();
-		$("#custList").show();
+		
+		$(".side2").hide();
+		$("#planMgn").find(".side2").toggle();
 		$("select").on("change", function(){
 			
 				$("table").load(location.href+" table");

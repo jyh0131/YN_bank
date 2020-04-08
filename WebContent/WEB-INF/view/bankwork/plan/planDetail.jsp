@@ -12,6 +12,8 @@
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
     $(function() {
+    	$(".side2").hide();
+		$("#planMgn").find(".side2").toggle();
     	$("input[value='확인']").css("display", "none");
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/bankwork/plan/planSearch.do";
@@ -20,7 +22,7 @@
     		$("input[value='확인']").css("display", "inline");
     		$("input").removeAttr("readonly");  
     		$("textarea").removeAttr("readonly");  
-    		$("input[name='planCode']").attr("readonly", "readonly");
+    		$("input[name='planCode']").attr("readonly", "readonly"); 
     		$("input[name='planDetail']").attr("readonly", "readonly");
     		$("input[name='planDiv']").attr("readonly", "readonly");
     		$("input[name='planName']").focus();

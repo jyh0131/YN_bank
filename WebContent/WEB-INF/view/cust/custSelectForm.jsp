@@ -46,8 +46,9 @@
 </style>
 <script>
 	$(function(){
-		$("#custAdd").show();
-		$("#custList").show();
+		$(".side2").hide();
+		$("#custMgn").find(".side2").toggle();
+		
 		$("#bus").click(function(){
 			$(location).attr('href','${pageContext.request.contextPath}/cust/addBusCust.do');
 		})

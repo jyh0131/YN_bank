@@ -47,8 +47,10 @@
 </style>
 <script>
 	$(function(){
-		$("#custAdd").show();
-		$("#custList").show();
+
+		$(".side2").hide();
+		$("#planMgn").find(".side2").toggle();
+		
 		$(".bbook").click(function(){
 			var text = $(this).html();
 			$(location).attr('href','${pageContext.request.contextPath}/bankwork/plan/addPlan.do?text='+text);

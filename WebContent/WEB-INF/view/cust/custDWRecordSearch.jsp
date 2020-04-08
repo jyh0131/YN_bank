@@ -101,13 +101,11 @@
 </style>
 <script>
 	$(function(){
-		$("#custAdd").show();
-		$("#custList").show();
+		
+		$(".side2").hide();
+		$("#dwMgn").find(".side2").toggle();
+		
 		$("select").on("change", function(){
-			if($("select option:selected").val()=="고객 코드"){
-				$("input[name='search']").val("");  
-				$("input[name='search']").val("B");
-			}
 				$("table").load(location.href+" table");
 				$("input[name='search']").val("");   
 		})

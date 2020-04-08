@@ -81,8 +81,9 @@
 
         		var accountNum = $("input[name='accNum']").val();
         		var amount=$("input[name='amount']").val();
+        		var code = $("input[name='code']").val();
         		
-        		location.href= "${pageContext.request.contextPath}/cust/custDWFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=입금";
+        		location.href= "${pageContext.request.contextPath}/cust/custDWFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=입금&code="+code;
     		}
     		
     	})  
@@ -95,8 +96,9 @@
 
         		var accountNum = $("input[name='accNum']").val();
         		var amount=$("input[name='amount']").val();
+        		var code = $("input[name='code']").val();
         		  
-        		location.href= "${pageContext.request.contextPath}/cust/custDWFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=출금";
+        		location.href= "${pageContext.request.contextPath}/cust/custDWFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=출금&code="+code;
     		}
     		
     	})

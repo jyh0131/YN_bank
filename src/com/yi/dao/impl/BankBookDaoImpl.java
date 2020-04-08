@@ -368,12 +368,13 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public int updateCardBalance(Customer customer) throws SQLException {
 		int res = -1;
-		String sql = "call change_cardbalance(?,?,?)";
+		String sql = "update Card set CardBalance = ? where custCode=? and accountNum =?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareCall(sql)) {
-			pstmt.setString(1, customer.getCustName());
-			pstmt.setLong(2, customer.getBankbook().getAccountBalance());
+			pstmt.setLong(1, customer.getBankbook().getAccountBalance());
+			pstmt.setString(2, customer.getCustCode());
 			pstmt.setString(3, customer.getBankbook().getAccountNum());
+			System.out.println(pstmt + " pstmt");
 			res = pstmt.executeUpdate();
 		}
 		return res;
@@ -619,6 +620,24 @@ public class BankBookDaoImpl implements BankBookDao {
 		long creditloan = rs.getLong("creditloan");
 		long cardloan = rs.getLong("cardloan");
 		return new long[]{deposit,saving,minus,checkcard,creditcard,normalloan,creditloan,cardloan};
+	}
+
+	@Override
+	public Long showAccBalanceByCodeAccNum(Customer customer) throws SQLException {
+		String sql = "select accountBalance from bankbook where custCode= ? and accountNum = ?";
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, customer.getCustCode());
+			pstmt.setString(2, customer.getBankbook().getAccountNum());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Long balance = rs.getLong(1);
+				return balance;
+			}
+		return null;
+		}
+		
 	}
 
 }

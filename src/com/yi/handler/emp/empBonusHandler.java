@@ -23,6 +23,17 @@ public class empBonusHandler implements CommandHandler {
 	//		System.out.println(list);
 
 			req.setAttribute("list", list);
+			
+			String mem1 = list.get(0).getEmpCode();
+			String mem2 = list.get(1).getEmpCode();
+			String mem3 = list.get(2).getEmpCode();
+			
+			req.setAttribute("mem1", mem1);
+			req.setAttribute("mem2", mem2);
+			req.setAttribute("mem3", mem3);
+			
+			
+			
 			return "/WEB-INF/view/emp/empBonusList.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");

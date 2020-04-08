@@ -149,10 +149,10 @@
 						<tr class="long">
 							<th>상품 구분코드</th>
 							<td><select name="planDiv" id="div">
-									<option>구분 코드 선택</option>  
-									<option>V</option>
-									<option>N</option>
-									<option>B</option>
+									<option>구분 코드 선택</option>
+									<option>V(VIP 고객용)</option>
+									<option>N(일반 고객용)</option>
+									<option>B(기업 고객용)</option>
 								</select></td>
 						</tr>
 						

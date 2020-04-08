@@ -17,15 +17,17 @@
 		$("#custList").show();
 		
 		//로딩 될 때 확인버튼 없음
-    	$("input[value='확인']").css("display", "none");
+    	$("input[value='수정 완료']").css("display", "none");
 		
 		//취소 클릭 시
     	$("#cancel").click(function() {
     		location.href = "${pageContext.request.contextPath}/cust/custSearch.do";
     	})
     	//수정 클릭 시 input readonly  해제
-    	$("input[value='수정']").click(function(){
-    		$("input[value='확인']").css("display", "inline");
+    	$("input[value='수정 하기']").click(function(){
+    		$(this).css("display", "none");
+    		$("input[value='삭제']").css("display", "none");
+    		$("input[value='수정 완료']").css("display", "inline");
     		$("h1").html("고객 세부 정보 수정");
     		$("input").removeAttr("readonly");
     		$("select").removeAttr("disabled");
@@ -33,14 +35,14 @@
     		$("input[name='custCode']").attr("readonly", "readonly");
     		$("input[name='custName']").focus();
     		$("input[value='삭제']").remove();
-    		$("input[value='수정']").remove();
+    		$("input[value='수정']").remove();  
     		return false;
-    	})
+    	})     
     	
-    	
+    	    
     	 //동적으로 생성된 input 태그에 이벤트
     	 //내용 수정 후 확인 클릭 시
- 		$("input[value='확인']").on({
+ 		$("input[value='수정 완료']").on({   
  			"click" : function(){
  				var edit = confirm("수정하시겠습니까?");
  				if(edit==false){
@@ -275,8 +277,8 @@
 				</div>
 				
 				<div id="submit">
-					<input type="submit" value="수정">
-					<input type="submit" value="확인">
+					<input type="submit" value="수정 하기">
+					<input type="submit" value="수정 완료">
 					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/cust/custDelete.do?custCode=${customer.custCode}">   
 					<input type="reset" value="취소" id="cancel">
 				</div>

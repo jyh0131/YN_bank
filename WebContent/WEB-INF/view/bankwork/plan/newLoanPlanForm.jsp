@@ -139,12 +139,10 @@
 							<td>
 								<input type="text" name="planCode" value="${planC }" readonly="readonly">
 							</td>
-							<td class="mark"><i class="far fa-question-circle"></i></td>
 						</tr>
 						<tr>
 							<th>상품 세부코드</th>
 							<td><input type="text" name="planDetail" value="${planCwhat }" readonly="readonly"></td>
-							<td class="mark"><i class="far fa-question-circle"></i></td>
 						</tr>
 						<tr>
 							<th>상품 명</th>     
@@ -161,11 +159,10 @@
 							<th>상품 구분코드</th>
 							<td><select name="planDiv">
 									<option>구분 코드 선택</option>
-									<option>V</option>
-									<option>N</option>
-									<option>B</option>
+									<option>V(VIP 고객용)</option>
+									<option>N(일반 고객용)</option>
+									<option>B(기업 고객용)</option>
 								</select></td>
-							<td class="mark"><i class="far fa-question-circle"></i></td>
 						</tr>
 						
 						

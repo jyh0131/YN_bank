@@ -133,12 +133,10 @@
 							<td>
 								<input type="text" name="planCode" value="${planB }" readonly="readonly">
 							</td>
-							<td class="mark"><i class="far fa-question-circle"></i></td>
 						</tr>
 						<tr>
 							<th>상품 세부코드</th>
 							<td><input type="text" name="planDetail" value="${planBwhat }" readonly="readonly"></td>
-							<td class="mark"><i class="far fa-question-circle"></i></td>
 						</tr>
 						<tr>
 							<th>상품 명</th>     
@@ -159,7 +157,6 @@
 									<option>N</option>
 									<option>B</option>
 								</select></td>
-							<td class="mark"><i class="far fa-question-circle"></i></td>
 						</tr>
 						
 						

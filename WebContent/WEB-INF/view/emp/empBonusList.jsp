@@ -91,11 +91,49 @@
 		 width: 300px;
 		}
 		
+		span.imgSpan{
+	   margin-left:0;
+       width: 60px;
+       height: 30px;
+       position: relative;
+     }
+
+	img.rankingImg{
+	   width:25px;
+	   height:20px;
+	   margin-right:10px;
+	   display: block;
+	   position: absolute;
+	   top:2;
+	   left:-30px;
+	}
+
+		
 </style>
 <script>
    $(function(){
 	   //메뉴보이기
 	   $("#empBonusList").show();
+	  //랭크 탑3의 코드를 불러옴  
+	  var rankMemCode = ["${mem1}","${mem2}","${mem3}"];
+	  //alert(rankMemCode[0]);
+	  //alert($(".tdForRank").children().eq(1).html());
+	  
+	 $(document).on('mouseover',".tdForRank",function(){
+		 if($(this).children().eq(1).html() == rankMemCode[0]){
+			 $(this).children().eq(0).html("<img src='YN_bank../../../images/ranking1.png' class='rankingImg'>");
+		 }else if($(this).children().eq(1).html() == rankMemCode[1]){
+			 $(this).children().eq(0).html("<img src='YN_bank../../../images/ranking2.png' class='rankingImg'>");
+		 }else if($(this).children().eq(1).html() == rankMemCode[2]){
+			 $(this).children().eq(0).html("<img src='YN_bank../../../images/ranking3.png' class='rankingImg'>");
+		 }
+	 
+	 })
+	 /*  if($(".tdForRank").children().eq(1).html() == rankMemCode[0]){
+		 $(".imgSpan").html("<img src='YN_bank../../../images/ranking1.png' class='rankingImg'>");
+	  } 
+		   */
+	   
 	  $("select").on("change",function(){
 		  $("table").load(location.href+" table");
 		  $("#searchForEmp").val("");
@@ -375,7 +413,7 @@
 				<span id="renew">
 				<c:forEach var='empList' items="${list }">
 				<tr class="oneEmp" data-empCode="${empList.empCode }" data-perf="${empList.perf }">
-					<td >${empList.empCode }</td>
+					<td class="tdForRank"><span class="imgSpan"></span><span class="codeSpan">${empList.empCode }</span></td>
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
 					<td>${empList.perf}</td>

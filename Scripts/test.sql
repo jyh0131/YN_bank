@@ -331,14 +331,16 @@ select sum(loanBalance) from loan; #대출금총합(대출)
 select * from bank_totalBalance;
 delete from loan where custcode = 'B001' and loanPlanCode = 'C007';
 select * from bankbook where accountTermination = 1;
-select sum(accountbalance) from bankbook where accountnum like '%-11-%' group by month(accountopenDate); #이번달 예금
-select sum(accountbalance) from bankbook where accountnum like '%-12-%' group by month(accountopenDate); #이번달 적금
-select sum(accountbalance) from bankbook where accountnum like '%-13-%' group by month(accountopenDate); #이번달 마이너스
-select sum(cardBalance) from card where cardnum like '%331%' group by month(cardIssueDate); #이번달 체크카드 통계
-select sum(cardLimit) from card where cardnum like '%332%' group by month(cardIssueDate); #이번달 신용카드 통계
-select sum(loanBalance) from loan where loanAccountNum like '%-11-%' group by month(loanDate); #이번달 일반대출 통계
-select sum(loanBalance) from loan where loanAccountNum like '%-12-%' group by month(loanDate); #이번달 신용대출 통계
-select sum(loanBalance) from loan where loanAccountNum like '%-13-%' group by month(loanDate); #이번달 카드론 통계
+
+select
+(select sum(accountbalance) from bankbook where accountnum like '%-11-%' and month(accountopendate) = 4) as 'deposit',
+(select sum(accountbalance) from bankbook where accountnum like '%-12-%' and month(accountopendate) = 4) as 'saving', 
+(select sum(accountbalance) from bankbook where accountnum like '%-13-%' and month(accountopendate) = 4) as 'minus', 
+(select sum(cardBalance) from card where cardnum like '%331%' and month(cardissuedate) = 4) as 'checkcard', 
+(select sum(cardLimit) from card where cardnum like '%332%' and month(cardissuedate) = 4) as 'creditcard', 
+(select sum(loanBalance) from loan where loanAccountNum like '%-11-%' and month(loandate) = 4) as 'normalloan',
+(select sum(loanBalance) from loan where loanAccountNum like '%-12-%' and month(loandate) = 4) as 'creditloan',
+(select sum(loanBalance) from loan where loanAccountNum like '%-13-%' and month(loandate) = 4) as 'cardloan';
 
 
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 1 and accountTermination = 0 and c.custDiv = 1

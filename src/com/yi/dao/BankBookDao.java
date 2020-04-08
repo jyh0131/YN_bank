@@ -32,10 +32,6 @@ public interface BankBookDao {
 	public abstract int updateBankBook(BankBook bankbook) throws SQLException;
 	public abstract int deleteBankBook(BankBook bankbook) throws SQLException;
 	public abstract int updateBankBalance(Customer customer) throws SQLException;
-	public abstract List<AccountInfo> showBankBookInfoDaily() throws SQLException;
-	public abstract List<AccountInfo> showBankBookInfoWeekly() throws SQLException;
-	public abstract List<AccountInfo> showBankBookInfoMonthly() throws SQLException;
-	public abstract List<AccountInfo> showBankBookInfoYearly() throws SQLException;
 	public abstract List<BankBook> showBankBookByDormant(BankBook bankbook) throws SQLException;
 	public abstract List<BankBook> showBankBookByTermination(BankBook bankbook) throws SQLException;
 	public abstract int updateCardBalance(Customer customer) throws SQLException;
@@ -44,4 +40,5 @@ public interface BankBookDao {
 	public abstract int updateCardBalanceByAccountBalance(Card card) throws SQLException;
 	public abstract int changeBankBookDormant(BankBook bankbook) throws SQLException;
 	public abstract int changeBankBookTermination(BankBook bankbook) throws SQLException;
+	public abstract long[] TotalPlanTransAmountYearly() throws SQLException;
 }

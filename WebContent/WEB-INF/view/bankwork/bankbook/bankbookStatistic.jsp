@@ -48,25 +48,78 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
    $(function(){
-	   var amounts = [];
-	   var drawchart = function(subject,year) {
+	   var drawchart = function(div,year) {
+		   var jenuary;
+		   var february;
+		   var march;
+		   var april;
+		   var may;
+		   var june;
+		   var july;
+		   var august;
+		   var september;
+		   var october;
+		   var november;
+		   var december;
+		   if(year==2020) {
+			   switch(div) {
+			   case "예금":
+				    april = ${totalAmount[0]};
+			 		break;
+			 	case "적금":
+			 		 april = ${totalAmount[1]};
+			 		break;
+			 	case "마이너스":
+			 		 april = ${totalAmount[2]};
+			 		break;
+			 	case "체크카드":
+			 		 april = ${totalAmount[3]};
+			 		break;
+			 	case "신용카드":
+			 		april = ${totalAmount[4]};
+			 		break;
+			 	case "일반대출":
+			 		april = ${totalAmount[5]};
+			 		break;
+			 	case "신용대출":
+			 		april = ${totalAmount[6]};
+			 		break;
+			 	case "카드론":
+			 		april = ${totalAmount[7]};
+			 		break;
+			 	} 
+		   }
+		   else {
+				april = Math.floor((Math.random()*100000000)+1000000);  	
+		   }
+		   jenuary = Math.floor((Math.random()*100000000)+1000000);
+		   february = Math.floor((Math.random()*100000000)+1000000);
+		   march = Math.floor((Math.random()*100000000)+1000000);
+		   may = Math.floor((Math.random()*100000000)+1000000);
+		   june = Math.floor((Math.random()*100000000)+1000000);
+		   july = Math.floor((Math.random()*100000000)+1000000);
+		   august = Math.floor((Math.random()*100000000)+1000000);
+		   september = Math.floor((Math.random()*100000000)+1000000);
+		   october = Math.floor((Math.random()*100000000)+1000000);
+		   november = Math.floor((Math.random()*100000000)+1000000);
+	       december = Math.floor((Math.random()*100000000)+1000000);
 		   google.charts.load("current", {packages:['corechart']});
 	 	    google.charts.setOnLoadCallback(drawChart);
 	 	    function drawChart() {
 	 	      var data = google.visualization.arrayToDataTable([
 	 	        ["월", "총액", { role: "style" } ],
-	 	        ["1월", 1000, "red"],
-	 	        ["2월", 700, "orange"],
-	 	        ["3월", 600, "yellow"],
-	 	        ["4월", 1200, "lightgreen"],
-	 	        ["5월", 1300, "green"],
-	 	        ["6월", 2000, "darkgreen"],
-	 	        ["7월", 100, "lightblue"],
-	 	        ["8월", 500, "blue"],
-	 	        ["9월", 800, "deepblue"],
-	 	        ["10월", 100, "navy"],
-	 	        ["11월", 200, "grey"],
-	 	        ["12월", 400, "darkgrey"]
+	 	        ["1월", jenuary, "red"],
+	 	        ["2월", february, "orange"],
+	 	        ["3월", march, "yellow"],
+	 	        ["4월", april, "lightgreen"],
+	 	        ["5월", may, "green"],
+	 	        ["6월", june, "darkgreen"],
+	 	        ["7월", july, "lightblue"],
+	 	        ["8월", august, "blue"],
+	 	        ["9월", september, "deepblue"],
+	 	        ["10월", october, "navy"],
+	 	        ["11월", november, "grey"],
+	 	        ["12월", december, "darkgrey"]
 	 	      ]);
 
 	 	      var view = new google.visualization.DataView(data);
@@ -78,7 +131,7 @@
 	 	                       2]);
 
 	 	      var options = {
-	 	        title: year + "년도 "+ subject + " 통계",
+	 	        title: year + "년도 "+ div + " 통계",
 	 	        width: 1400,
 	 	        height: 600,
 	 	        bar: {groupWidth: "95%"},
@@ -89,7 +142,7 @@
 	 	  	}
 	   }
 	   
-	   for (i = new Date().getFullYear(); i > 2000; i--)
+	   for (i = new Date().getFullYear(); i > 2009; i--)
 	   {
 	       $('#yearpicker').append($('<option />').val(i).html(i));
 	   }

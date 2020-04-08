@@ -284,73 +284,6 @@ public class BankBookDaoImpl implements BankBookDao {
 	}
 
 	@Override
-	public List<AccountInfo> showBankBookInfoDaily() throws SQLException {
-		List<AccountInfo> list = new ArrayList<>();
-		String sql = "select custname,if(substring(accountnum,9,1)=1,'예금',if(substring(accountnum,9,1)=2,'적금','마이너스')) as 'div',count(transDate) as 'count' from bankbookinfo where date(transdate) = date(now()) group by accountnum";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getBankBookInfo(rs));
-				}
-			}
-		}
-		return list;
-	}
-
-	private AccountInfo getBankBookInfo(ResultSet rs) throws SQLException {
-		String custName = rs.getString("custname");
-		String div = rs.getString("div");
-		int count = rs.getInt("count");
-		return new AccountInfo(custName, div, count);
-	}
-
-	@Override
-	public List<AccountInfo> showBankBookInfoWeekly() throws SQLException {
-		List<AccountInfo> list = new ArrayList<>();
-		String sql = "select custname,if(substring(accountnum,9,1)=1,'예금',if(substring(accountnum,9,1)=2,'적금','마이너스')) as 'div',count(transDate) as 'count' from bankbookinfo where week(transdate,1) = week(now(),1) group by accountnum";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getBankBookInfo(rs));
-				}
-			}
-		}
-		return list;
-	}
-
-	@Override
-	public List<AccountInfo> showBankBookInfoMonthly() throws SQLException {
-		List<AccountInfo> list = new ArrayList<>();
-		String sql = "select custname,if(substring(accountnum,9,1)=1,'예금',if(substring(accountnum,9,1)=2,'적금','마이너스')) as 'div',count(transDate) as 'count' from bankbookinfo where month(transdate) = month(now()) group by accountnum";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getBankBookInfo(rs));
-				}
-			}
-		}
-		return list;
-	}
-
-	@Override
-	public List<AccountInfo> showBankBookInfoYearly() throws SQLException {
-		List<AccountInfo> list = new ArrayList<>();
-		String sql = "select custname,if(substring(accountnum,9,1)=1,'예금',if(substring(accountnum,9,1)=2,'적금','마이너스')) as 'div',count(transDate) as 'count' from bankbookinfo where year(transdate) = year(now()) group by accountnum";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getBankBookInfo(rs));
-				}
-			}
-		}
-		return list;
-	}
-
-	@Override
 	public List<BankBook> showBankBooksByAccountNum(BankBook bankbook) throws SQLException {
 		List<BankBook> list = new ArrayList<>();
 		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountnum like ? and custdiv = ?";
@@ -652,6 +585,40 @@ public class BankBookDaoImpl implements BankBookDao {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public long[] TotalPlanTransAmountYearly() throws SQLException {
+		long[] TotalPlanAmount = null;
+		String sql = "select\r\n" + 
+				"(select sum(accountbalance) from bankbook where accountnum like '%-11-%' and month(accountopendate) = 4) as 'deposit',\r\n" + 
+				"(select sum(accountbalance) from bankbook where accountnum like '%-12-%' and month(accountopendate) = 4) as 'saving', \r\n" + 
+				"(select sum(accountbalance) from bankbook where accountnum like '%-13-%' and month(accountopendate) = 4) as 'minus', \r\n" + 
+				"(select sum(cardBalance) from card where cardnum like '%331%' and month(cardissuedate) = 4) as 'checkcard', \r\n" + 
+				"(select sum(cardLimit) from card where cardnum like '%332%' and month(cardissuedate) = 4) as 'creditcard', \r\n" + 
+				"(select sum(loanBalance) from loan where loanAccountNum like '%-11-%' and month(loandate) = 4) as 'normalloan',\r\n" + 
+				"(select sum(loanBalance) from loan where loanAccountNum like '%-12-%' and month(loandate) = 4) as 'creditloan',\r\n" + 
+				"(select sum(loanBalance) from loan where loanAccountNum like '%-13-%' and month(loandate) = 4) as 'cardloan'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			while(rs.next()) {
+				TotalPlanAmount = getToalPlanTransAmount(rs);
+			}
+		}
+		return TotalPlanAmount;
+	}
+
+	private long[] getToalPlanTransAmount(ResultSet rs) throws SQLException {
+		long deposit = rs.getLong("deposit");
+		long saving = rs.getLong("saving");
+		long minus = rs.getLong("minus");
+		long checkcard = rs.getLong("checkcard");
+		long creditcard = rs.getLong("creditcard");
+		long normalloan = rs.getLong("normalloan");
+		long creditloan = rs.getLong("creditloan");
+		long cardloan = rs.getLong("cardloan");
+		return new long[]{deposit,saving,minus,checkcard,creditcard,normalloan,creditloan,cardloan};
 	}
 
 }

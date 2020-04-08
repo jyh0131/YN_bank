@@ -89,22 +89,6 @@ public class BankBookService {
 	public List<String> showDepositMonth() throws SQLException{
 		return bankBookDao.showDepositMonth();
 	}
-	
-	public List<String> showWithdrawalMonth() throws SQLException{
-		return bankBookDao.showWithDrawalMonth();
-	}
-	public List<AccountInfo> bankBookInfoDaily() throws SQLException {
-		return bankBookDao.showBankBookInfoDaily();
-	}
-	public List<AccountInfo> bankBookInfoWeekly() throws SQLException {
-		return bankBookDao.showBankBookInfoWeekly();
-	}
-	public List<AccountInfo> bankBookInfoMonthly() throws SQLException {
-		return bankBookDao.showBankBookInfoMonthly();
-	}
-	public List<AccountInfo> bankBookInfoYearly() throws SQLException {
-		return bankBookDao.showBankBookInfoYearly();
-	}
 	public List<BankBook> showBankBookByAccoutNum(BankBook bankbook) throws SQLException {
 		return bankBookDao.showBankBooksByAccountNum(bankbook);
 	}
@@ -137,5 +121,8 @@ public class BankBookService {
 	}	
 	public List<BankBook> showBankBookByTermination(BankBook bankbook) throws SQLException {
 		return bankBookDao.showBankBookByTermination(bankbook);
+	}
+	public long[] TotalPlanTransAmountYearly() throws SQLException {
+		return bankBookDao.TotalPlanTransAmountYearly();
 	}
 }

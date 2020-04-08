@@ -44,7 +44,7 @@ public class NewCardPlanFormHandler implements CommandHandler {
 			Plan plan = new Plan(planCode, planDetail, planName, planDesc, planDiv);
 			service.addPlan(plan);
 			
-			res.sendRedirect(req.getContextPath()+"/main/main.do");
+			res.sendRedirect(req.getContextPath()+"/bankwork/plan/planSearch.do");
 		}      
 		
 		return null;

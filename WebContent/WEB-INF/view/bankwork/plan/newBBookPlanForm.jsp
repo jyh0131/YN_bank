@@ -76,14 +76,27 @@
 			})
 			
 		   
-		   $("input[type='submit']").submit(function(){
-			var add = confirm("상품을 추가하시겠습니까?");
-			if(add==false){
-				return false;
-			}
+		   $("form").submit(function(){
+			   var planName = $("input[name='planName']").val();
+			   var planDesc = $("textarea[name='planDesc']").val();
+			   var planDiv = $("select[name='planDiv']").val();
+			   
+			   if(planName=="" || planDesc ==""){
+				   alert("모든 항목을 입력 해주세요.");
+				   return false;
+			   }
+			   if(planDiv=="구분 코드 선택"){
+				   alert("구분 코드를 선택 해주세요.");
+				   return false;
+			   }
+				 var add = confirm("상품을 추가하시겠습니까?");
+				if(add==false){   
+					return false;
+				} 
+			
 			
 		})
-		
+		   
 		
 		$("input[type='reset']").click(function(){
 			var choose = confirm("신규 상품 추가를 취소하시겠습니까? 메인으로 돌아갑니다.");
@@ -135,7 +148,7 @@
 						</tr>  
 						<tr class="long">
 							<th>상품 구분코드</th>
-							<td><select name="planDiv">
+							<td><select name="planDiv" id="div">
 									<option>구분 코드 선택</option>  
 									<option>V</option>
 									<option>N</option>

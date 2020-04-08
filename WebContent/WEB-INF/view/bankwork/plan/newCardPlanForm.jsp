@@ -78,11 +78,24 @@
 		})
 		
 		
-		   $("input[type='submit']").submit(function(){
-			var add = confirm("상품을 추가하시겠습니까?");
-			if(add==false){
-				return false;
-			}
+		 $("form").submit(function(){
+			   var planName = $("input[name='planName']").val();
+			   var planDesc = $("textarea[name='planDesc']").val();
+			   var planDiv = $("select[name='planDiv']").val();
+			   
+			   if(planName=="" || planDesc ==""){
+				   alert("모든 항목을 입력 해주세요.");
+				   return false;
+			   }
+			   if(planDiv=="구분 코드 선택"){
+				   alert("구분 코드를 선택 해주세요.");
+				   return false;
+			   }
+				 var add = confirm("상품을 추가하시겠습니까?");
+				if(add==false){   
+					return false;
+				} 
+			
 			
 		})
 		

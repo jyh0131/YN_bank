@@ -25,9 +25,9 @@
 				  height: 500px;
 				  border-radius: 10px;
 				  padding: 50px;
-				  position: relative;}
+				  position: relative;}   
 	div#profile h2 { height: 50px; }				  
-	div#profileMain { float: left; }
+	div#profileMain { float: left; }  
 	
 	
 	div#profileEdit { width:600px; 
@@ -55,7 +55,7 @@
 								     border: none; 
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}						     
-	div#profileEdit table td select { width: 250px; margin: 20px 0;}	
+	div#profileEdit table td select { width: 250px; margin: 20px 0; border: 1px solid goldenrod; background: whitesmoke;}	
 	
 	/* 버튼 영역 */	  
 	div#submit { text-align: center; 
@@ -147,13 +147,13 @@
 						<tr>
 							<th>상품 명</th>     
 							<td>
-								<input type="text" name="planName">
+								<input type="text" name="planName" placeholder="상품 명을 입력하세요.">
 							</td>  
 								
 						</tr>
 						<tr>
 							<th>상품 세부 설명</th>
-							<td><textarea cols="50" rows="3" name="planDesc"></textarea></td>
+							<td><textarea cols="40" rows="3" name="planDesc" placeholder="세부 설명을 입력하세요."></textarea></td>
 						</tr>  
 						<tr class="long">
 							<th>상품 구분코드</th>

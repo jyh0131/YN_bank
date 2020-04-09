@@ -402,15 +402,15 @@
 					
 				</select>
 			
-					<fieldset><input type="search" name="search" id="searchForEmp" />
+					<fieldset><input type="search" name="search" id="searchForEmp" placeholder="검색어를 입력하세요."/>
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>	
 					</fieldset>
 				
-		</div>
+		</div>  
 		<div id="table">
-		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">인센티브를 조회하려면 사원을 클릭하세요.</span>
+		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">세부 내역을 조회하려면 사원을 클릭하세요.</span>
 			<table class="tableList">
 				<tr>
 					<th>사원코드</th>

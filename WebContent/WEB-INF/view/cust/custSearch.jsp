@@ -12,9 +12,7 @@
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>  
-		* { font-family: 'Noto Sans KR', sans-serif; }
-	
-	
+		* { font-family: 'Noto Sans KR', sans-serif; }  
 		
 		div#dummy { height: 75px; background: #292929;}	
 		h2#menuLocation { width: 200px; height: 60px;  
@@ -71,7 +69,9 @@
 					 z-index: 3;    
 					 top: 25%;  }
 		
-		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }
 		/* 테이블 영역 */
 		div#table {
 			width: 1000px;
@@ -399,6 +399,7 @@
 		<div id="table">
 			<p><i class="fas fa-user"></i> VIP 고객 : ${vipNum } 명</p>
 			<p><i class="far fa-user"></i> 일반 고객 : ${norNum } 명</p>
+			<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">고객 상세정보를 보려면 고객을 클릭하세요.</span>
 			<table class="tableList">
 				<tr>
 					<th>고객 코드</th>

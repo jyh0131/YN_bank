@@ -382,12 +382,12 @@
 				    <option>검색구분</option>
 					<option>사원번호</option>
 					<option>사원이름</option>
-					<option>부서(인사 or 고객)</option>
+					<option>부서(인사 or 고객)</option>    
 					<option>직급</option>
-					
+					   
 				</select>
 			
-					<fieldset><input type="search" name="search" id="searchForEmp" />
+					<fieldset><input type="search" name="search" id="searchForEmp" placeholder="검색어를 입력하세요."/>
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>	

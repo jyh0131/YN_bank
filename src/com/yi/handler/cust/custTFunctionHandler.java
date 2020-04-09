@@ -23,14 +23,45 @@ public class custTFunctionHandler implements CommandHandler {
 		//송금
 		String toAccountNum = req.getParameter("findAccNum");
 	    String transferAmount =req.getParameter("transferAmount");
-	    
 		try {
 			BankBook bankBook = service.showOneBankBook(accountNum);
 			BankBook bankBook2 = service.showOneBankBook(toAccountNum);
 			
 			service.changeBankBookBalance(bankBook, bankBook2, Integer.parseInt(transferAmount));
 			
+			//받는 사람   
+			Customer toCust = new Customer();
+			BankBook toBankBook = new BankBook();
+			toBankBook.setAccountNum(toAccountNum);  
+			toCust.setBankbook(toBankBook);
+			String toCustCode = service.showCodeByAccNum(toAccountNum);
+			toCust.setCustCode(toCustCode);
 			
+			
+			//보내는 사람
+			Customer fromCust = new Customer();
+			BankBook fromBankBook = new BankBook();
+			fromBankBook.setAccountNum(accountNum);
+			fromCust.setBankbook(fromBankBook);
+			fromCust.setCustCode(code);
+			
+			
+			//받는 사람 잔액
+			Long toBalance = service.showAccBalanceByCodeAccNum(toCust);
+			toCust.getBankbook().setAccountBalance(toBalance);
+			
+			
+			//보내는 사람 잔액
+			Long fromBalance = service.showAccBalanceByCodeAccNum(fromCust);
+			fromCust.getBankbook().setAccountBalance(fromBalance);
+			
+			
+			//받는 사람 카드 잔액 세팅
+			service.updateCardBalance(toCust);
+			
+			
+			//보내는 사람 카드 잔액 세팅
+			service.updateCardBalance(fromCust);
 		
 		}catch(RuntimeException e) {          
 			e.printStackTrace();

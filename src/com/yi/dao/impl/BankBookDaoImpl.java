@@ -707,4 +707,38 @@ public class BankBookDaoImpl implements BankBookDao {
 		}
 		return res;
 	}
+
+	@Override
+	public String selectCodeByAccNum(String accountNum) throws SQLException {
+		String sql = "select custCode from bankbook where accountNum = ?";
+		String custCode = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, accountNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				custCode = rs.getString("custCode");
+				return custCode;
+			}
+			
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

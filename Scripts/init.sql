@@ -161,7 +161,7 @@ ALTER TABLE bank.Performance
 -- 입출금
 CREATE TABLE bank.cust_DW_audit (
 	dw               varchar(5) NULL COMMENT '입출금', -- 입출금
-	custname         VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
+	custname         VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
 	accountnum       char(16)   NULL COMMENT '계좌번호', -- 계좌번호
 	amount           int(20)    NULL COMMENT '거래금액', -- 거래금액
 	accountbalance   BIGINT     NULL COMMENT '계좌잔액', -- 계좌잔액
@@ -171,7 +171,7 @@ COMMENT '입출금';
 
 -- 카드 정보
 CREATE TABLE bank.cardInfo (
-	custname    VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
+	custname    VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
 	cardnum     char(16)   NULL COMMENT '카드번호', -- 카드번호
 	transDate   DATETIME   NULL COMMENT '거래일자', -- 거래일자
 	cardBalance BIGINT     NULL COMMENT '카드잔액' -- 카드잔액
@@ -180,7 +180,7 @@ COMMENT '카드 정보';
 
 -- 통장정보
 CREATE TABLE bank.bankbookinfo (
-	custname   VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
+	custname   VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
 	accountnum char(16)   NULL COMMENT '계좌번호', -- 계좌번호
 	transdate  DATETIME   NULL COMMENT '거래일자' -- 거래일자
 )

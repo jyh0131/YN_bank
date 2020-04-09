@@ -71,6 +71,10 @@ public class BankBookService {
 		return bankBookDao.updateBankBalance(customer);
 	}
 	
+	public String showCodeByAccNum(String accountNum) throws SQLException {
+		return bankBookDao.selectCodeByAccNum(accountNum);
+	}
+	
 	public String showDpBalance () throws SQLException{
 		return bankBookDao.showDPTotalAmount();
 	}

@@ -184,6 +184,7 @@ select * from cust_dw_audit cda ;
 
 desc plan;
 select * from plan;
+select * from card;
 select * from bankbook;
 select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = "11" or "12" or "13";
 

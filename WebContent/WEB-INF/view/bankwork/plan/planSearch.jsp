@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
@@ -76,6 +77,10 @@
 			margin: 50px auto 50px auto;
 			padding-left:100px;
 		}  
+		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }
 		
 		div#table table {
 			border-collapse: collapse; 
@@ -371,6 +376,7 @@
 				
 		</div>
 		<div id="table">
+		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">상품 세부정보를 보려면 상품을 클릭하세요.</span>
 			<table class="tableList">
 				<tr>
 					<th>상품 코드</th>

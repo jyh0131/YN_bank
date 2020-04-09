@@ -65,6 +65,12 @@
 		})
 		//출금 클릭 시 
 		$("#wd").click(function(){
+			var num = ${num };
+			//계좌번호 중간 번호 "12"-> 적금 통장 '출금' 제한    
+			if(num=="12"){     
+				alert("해당 계좌는 출금이 제한되는 적금 통장입니다.");
+				return false;		
+			}
 			var dw = $(this).html();
 			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
 		})

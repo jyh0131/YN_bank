@@ -24,7 +24,6 @@
 	div#profile { background: whitesmoke;
 				  height: 500px;
 				  border-radius: 10px;
-				  position: relative; 
 				  padding: 50px;}
 	div#profile h2 { height: 50px; }				  
 	div#profileMain { float: left; }
@@ -37,10 +36,7 @@
 	div#profileEdit table tr { height: 50px; }
 	div#profileEdit table th { width: 100px; text-align: left; }
 	div#profileEdit table tr td { width: 250px; text-align: center; }
-	div#profileEdit table tr.long { height: 70px; }
-	div#messeage { width: 650px; 
-				   position: absolute; top: -100px;
-				   display: none;}								     
+	div#profileEdit table tr.long { height: 70px; }							     
 	div#profileEdit table td input { width: 250px;
 									 background: whitesmoke;   
 								     border: none; 
@@ -65,16 +61,15 @@
 			
 			$(".side2").hide();
 			$("#planMgn").find(".side2").toggle();
-		
-			$("a#code").mouseover(function() {
-				$("#code").css("color", "maroon").css("font-weight", "bold");
-				$("div#messeage").css("display", "block");
-			})
-			$("a#code").mouseout(function() {
-				$("#code").css("color", "#000").css("font-weight", "bold");
-				$("div#messeage").css("display", "none");
-			})
 			
+			//코드 분류 체계 팝업창
+			$("a#code").click(function(){
+				function winopen(){
+					window.open("${pageContext.request.contextPath}/bankwork/plan/codeSystem.do", "codeSystem","width=1000,height=900");				
+				}
+				winopen();
+			})
+			   
 		   
 		   $("form").submit(function(){
 			   var planName = $("input[name='planName']").val();
@@ -120,9 +115,6 @@
 			<div id="profile">
 				<h2>통장 상품</h2>
 				<div id="profileEdit">
-					<div id="messeage">
-						<img src="${pageContext.request.contextPath}/images/plan.png">
-					</div>
 					<a href="#" id="code"><i class="far fa-question-circle" id="q1"></i> 코드 분류 체계</a>
 					<table>
 						<tr>

@@ -74,15 +74,13 @@
 		$(".side2").hide();
 		$("#planMgn").find(".side2").toggle();
 		
-		/* 코드 분류 체계 */
-		$("a#code").mouseover(function() {
-			$("#code").css("color", "maroon").css("font-weight", "bold");
-			$("div#messeage").css("display", "block");
-		})
-		$("a#code").mouseout(function() {
-			$("#code").css("color", "#000").css("font-weight", "bold");
-			$("div#messeage").css("display", "none");
-		})
+		/* 코드 분류 체계  팝업창 */
+		$("a#code").click(function(){
+				function winopen(){
+					window.open("${pageContext.request.contextPath}/bankwork/plan/codeSystem.do", "codeSystem","width=1000,height=900");				
+				}
+				winopen();
+			})
 		
 		
 		 $("form").submit(function(){
@@ -159,24 +157,16 @@
 							<th>상품 가입 대상</th>
 							<td><select name="planFor" id="div">
 									<option>가입 대상 선택</option>
-									<option>기업용</option>
-									<option>일반 고객용</option>
-								</select></td>
-						</tr>
-						<tr class="long">
-							<th>상품 가입 대상</th>
-							<td><select name="planFor" id="div">
-									<option>가입 대상 선택</option>
 									<option>기업 고객용</option>
 									<option>일반 고객용</option>
 								</select></td>
 						</tr>
-						<tr>    
+						<tr>       
 							<th>상품 가입 대상 등급</th>
 							<td><select name="planForDetail" id="div">
 									<option>등급 선택</option>  
 									<option>VIP 등급용</option>
-									<option>일반 등급용</option>
+									<option>일반 등급용</option>    
 								</select></td>
 						</tr>
 						

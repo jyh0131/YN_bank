@@ -57,6 +57,7 @@
   	<url-pattern>/cust/custTtoSame.do</url-pattern>
   	<url-pattern>/cust/custTtoDifferent.do</url-pattern>
   	<url-pattern>/cust/custTFunction.do</url-pattern>
+  	<url-pattern>/cust/custTFunctionToOther.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/mgn.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/select.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/detail.do</url-pattern>

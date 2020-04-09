@@ -46,55 +46,6 @@ public class PlanDaoImpl implements PlanDao {
 		String planDiv = rs.getString("planDiv");
 		return new Plan(planCode, planDetail, planName, planDesc, planDiv);
 	}
-
-	@Override
-	public List<Plan> selectPlanByBankBook() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv <> 'B'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "A%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
-	}
-
-	@Override
-	public List<Plan> selectPlanByCard() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv <> 'B'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "B%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
-	}
-
-	@Override
-	public List<Plan> selectPlanByLoan() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv <> 'B'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "C%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
-	}
-
 	
 	//!!!!!!!!!! 한글 깨짐 문제로 고객명으로 검색이 안돼서 상 코드 검색으로 임시변경함
 	@Override
@@ -382,99 +333,75 @@ public class PlanDaoImpl implements PlanDao {
 	}
 
 	@Override
-	public List<Plan> selectPlanByBankBookNormal() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv = 'N'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "A%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
+	public List<Plan> selectPlanByBankBookCustomerNormal() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public List<Plan> selectPlanByCardNormal() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv = 'N'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "B%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
+	public List<Plan> selectPlanByBankBookCustomerVip() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public List<Plan> selectPlanByLoanNormal() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv = 'N'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "C%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
+	public List<Plan> selectPlanByBankBookBusinessNormal() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public List<Plan> selectPlanByBankBookBusiness() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv = 'B'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "A%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
+	public List<Plan> selectPlanByBankBookBusinessVip() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public List<Plan> selectPlanByCardBusiness() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv = 'B'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "B%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
+	public List<Plan> selectPlanByCardCustomerNormal() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public List<Plan> selectPlanByLoanBusiness() throws SQLException {
-		List<Plan> list = new ArrayList<>();
-		String sql = "select * from plan where planCode like ? and plandiv = 'B'";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "C%");
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getPlan(rs));
-				}
-			}
-		}
-		return list;
+	public List<Plan> selectPlanByCardCustomerVip() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Plan> selectPlanByCardBusinessNormal() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Plan> selectPlanByCardBusinessVip() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Plan> selectPlanByLoanCustomerNormal() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Plan> selectPlanByLoanCustomerVip() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Plan> selectPlanByLoanBusinessNormal() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Plan> selectPlanByLoanBusinessVip() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

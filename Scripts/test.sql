@@ -350,3 +350,5 @@ select
 
 
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode;
+select * from plan where plancode like '%A%' and plandiv = 'CV';
+select * from plan where plancode like '%A%' and plandiv = 'CN';

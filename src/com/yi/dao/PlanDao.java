@@ -25,13 +25,16 @@ public interface PlanDao {
 	abstract List<Plan> selectPlanByName(String planName) throws SQLException;
 	abstract List<Plan> selectPlanByCode(String planCode) throws SQLException;
 	abstract List<Plan> selectPlanByDetail(String planDetail) throws SQLException;
-	abstract List<Plan> selectPlanByBankBook() throws SQLException;
-	abstract List<Plan> selectPlanByBankBookNormal() throws SQLException;
-	abstract List<Plan> selectPlanByBankBookBusiness() throws SQLException;
-	abstract List<Plan> selectPlanByCard() throws SQLException;
-	abstract List<Plan> selectPlanByCardNormal() throws SQLException;
-	abstract List<Plan> selectPlanByCardBusiness() throws SQLException;
-	abstract List<Plan> selectPlanByLoan() throws SQLException;
-	abstract List<Plan> selectPlanByLoanNormal() throws SQLException;
-	abstract List<Plan> selectPlanByLoanBusiness() throws SQLException;
+	abstract List<Plan> selectPlanByBankBookCustomerNormal() throws SQLException;
+	abstract List<Plan> selectPlanByBankBookCustomerVip() throws SQLException;
+	abstract List<Plan> selectPlanByBankBookBusinessNormal() throws SQLException;
+	abstract List<Plan> selectPlanByBankBookBusinessVip() throws SQLException;
+	abstract List<Plan> selectPlanByCardCustomerNormal() throws SQLException;
+	abstract List<Plan> selectPlanByCardCustomerVip() throws SQLException;
+	abstract List<Plan> selectPlanByCardBusinessNormal() throws SQLException;
+	abstract List<Plan> selectPlanByCardBusinessVip() throws SQLException;
+	abstract List<Plan> selectPlanByLoanCustomerNormal() throws SQLException;
+	abstract List<Plan> selectPlanByLoanCustomerVip() throws SQLException;
+	abstract List<Plan> selectPlanByLoanBusinessNormal() throws SQLException;
+	abstract List<Plan> selectPlanByLoanBusinessVip() throws SQLException;
 }

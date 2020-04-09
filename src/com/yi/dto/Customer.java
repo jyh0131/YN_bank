@@ -5,7 +5,6 @@ import java.util.Date;
 public class Customer {
 	private String custCode;
 	private String custName;
-	private String custRank;
 	private int custCredit;
 	private String custAddr;
 	private String custTel;
@@ -41,25 +40,13 @@ public class Customer {
 
 
 
-	public Customer(String custCode, String custName, String custRank, int custCredit, String custAddr,
+	public Customer(String custCode, String custName, int custCredit, String custAddr,
 			String custTel) {
 		this.custCode = custCode;
 		this.custName = custName;
-		this.custRank = custRank;
 		this.custCredit = custCredit;
 		this.custAddr = custAddr;
 		this.custTel = custTel;
-	}
-	
-	public Customer(String custCode, String custName, String custRank, int custCredit, String custAddr,
-			String custTel, Boolean custDiv) {
-		this.custCode = custCode;
-		this.custName = custName;
-		this.custRank = custRank;
-		this.custCredit = custCredit;
-		this.custAddr = custAddr;
-		this.custTel = custTel;
-		this.custDiv = custDiv;
 	}
 
 
@@ -77,12 +64,6 @@ public class Customer {
 	}
 	public void setCustName(String custName) {
 		this.custName = custName;
-	}
-	public String getCustRank() {
-		return custRank;
-	}
-	public void setCustRank(String custRank) {
-		this.custRank = custRank;
 	}
 	public int getCustCredit() {
 		return custCredit;

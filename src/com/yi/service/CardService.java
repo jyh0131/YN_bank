@@ -64,15 +64,6 @@ public class CardService {
 	public List<Customer> showCusts() throws SQLException {
 		return custDao.selectCustomerAll();
 	}
-	public List<Plan> showPlansByCard() throws SQLException {
-		return planDao.selectPlanByCard();
-	}
-	public List<Plan> showPlansByCardNormal() throws SQLException {
-		return planDao.selectPlanByCardNormal();
-	}
-	public List<Plan> showPlansByCardBusiness() throws SQLException {
-		return planDao.selectPlanByCardBusiness();
-	}
 	public List<CardInfo> cardInfoDaily() throws SQLException {
 		return cardDao.showCardInfoDaily();
 	}

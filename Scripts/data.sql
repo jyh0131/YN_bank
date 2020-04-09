@@ -143,8 +143,8 @@ insert into notice(subject,writer,write_date,content)
 values("코로나19 다 함께 이겨냅시다!","작성자",now(),"YN BANK 직원 어려분 코로나 19 때문에 은행이 부도 위기에 처했지만, 여러분의 노고만이 회사를 살리는 유일한 길입니다. 저희 은행은 절대 직원 여러분을 버리지 않습니다. 다들 심기일전하여 코로나 19를 극복하고, YN BANK를 전세계 1위 은행으로 발돋움하게 노력합시다");
 
 create view bank_totalBalance as select (select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') as 'totalBankBookAmount', 
-((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + (select sum(loanBalance) from loan)) as 'totalLoanAmount',
-((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') - ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + (select sum(loanBalance) from loan))) as 'totalBankAmount'; 
+((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan),0)) as 'totalLoanAmount',
+((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') - ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan),0))) as 'totalBankAmount'; 
 
 -- 입금/출금 기능 
 drop trigger if exists tri_after_update_BankBook;

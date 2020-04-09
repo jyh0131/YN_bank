@@ -23,7 +23,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public List<Customer> selectCustomerAll() throws SQLException {
 		List<Customer> list = null;
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer";
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();){
@@ -42,7 +42,6 @@ public class CustomerDaoImpl implements CustomerDao {
 	private Customer getCustomer(ResultSet rs) throws SQLException{
 		String custCode = rs.getString("custCode");
 		String custName = rs.getString("custName");
-		String custRank = rs.getString("custRank");
 		int custCredit = rs.getInt("custCredit");
 		String custAddr = rs.getString("custAddr");
 		String custTel = rs.getString("custTel");
@@ -54,13 +53,13 @@ public class CustomerDaoImpl implements CustomerDao {
 			custDivTF=true;
 		}
 		
-		return new Customer(custCode, custName, custRank, custCredit, custAddr, custTel, custDivTF);
+		return new Customer(custCode, custName, custCredit, custAddr, custTel, custDivTF);
 	}
 
 	  
 	@Override
 	public List<Customer> selectCustomerByName(String custName) throws SQLException {
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer where custName like ?";
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custName like ?";
 		List<Customer> list = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -102,17 +101,16 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public int updateCustomer(Customer customer) throws SQLException {
-		String sql = "update customer set custName =?, custRank=?, custCredit=?, custAddr=?, custTel=?, custDiv=? where custCode=? ";
+		String sql = "update customer set custName =?, custCredit=?, custAddr=?, custTel=?, custDiv=? where custCode=? ";
 		int res = -1;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){
 			pstmt.setString(1, customer.getCustName());
-			pstmt.setString(2, customer.getCustRank());
-			pstmt.setInt(3, customer.getCustCredit());
-			pstmt.setString(4, customer.getCustAddr());
-			pstmt.setString(5, customer.getCustTel());
-			pstmt.setBoolean(6, customer.getCustDiv());
-			pstmt.setString(7, customer.getCustCode());
+			pstmt.setInt(2, customer.getCustCredit());
+			pstmt.setString(3, customer.getCustAddr());
+			pstmt.setString(4, customer.getCustTel());
+			pstmt.setBoolean(5, customer.getCustDiv());
+			pstmt.setString(6, customer.getCustCode());
 			
 			res = pstmt.executeUpdate();
 		}
@@ -206,7 +204,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public int selectNormalCustNum() throws SQLException {
-		String sql ="select (count(*) - (select count(*) from customer where custRank = \"D\")) from customer";
+		String sql ="select (count(*) - (select count(*) from customer where custCredit = 1)) from customer";
 		int result;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -221,7 +219,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public int selectVIPCustNum() throws SQLException {
-		String sql ="select count(*) from customer where custRank = \'D\'";
+		String sql ="select count(*) from customer where custCredit = 1";
 		int result;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -235,8 +233,8 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public int selectBRankCustNum() throws SQLException {
-		String sql ="select count(*) from customer where custRank = \'B\'";
+	public int select5CreditCustNum() throws SQLException {
+		String sql ="select count(*) from customer where custCredit = 5";
 		int result;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -250,8 +248,8 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public int selectSRankCustNum() throws SQLException {
-		String sql ="select count(*) from customer where custRank = \'S\'";
+	public int select4CreditCustNum() throws SQLException {
+		String sql ="select count(*) from customer where custCredit = 4";
 		int result;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -265,8 +263,8 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public int selectGRankCustNum() throws SQLException {
-		String sql ="select count(*) from customer where custRank = \'G\'";
+	public int select3CreditCustNum() throws SQLException {
+		String sql ="select count(*) from customer where custCredit = 3";
 		int result;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -280,8 +278,8 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public int selectPRankCustNum() throws SQLException {
-		String sql ="select count(*) from customer where custRank = \'P\'";
+	public int select2CreditCustNum() throws SQLException {
+		String sql ="select count(*) from customer where custCredit = 2";
 		int result;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -313,7 +311,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Customer> selectCustomerByCode(String custCode) throws SQLException {
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer where custCode like ?";
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custCode like ?";
 		List<Customer> list = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -338,7 +336,7 @@ public class CustomerDaoImpl implements CustomerDao {
      
 	@Override
 	public Customer selectCustomerByTel(String custTel) throws SQLException {
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel from customer where custTel = ?";
+		String sql = "select custCode, custName, custCredit, custAddr, custTel from customer where custTel = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql)){
 			
@@ -410,7 +408,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public List<Customer> selectCustomerByNormal() throws SQLException {
 		List<Customer> list = null;
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer where custdiv = 0";
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custdiv = 0";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();){
@@ -429,7 +427,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public List<Customer> selectCustomerByBusiness() throws SQLException {
 		List<Customer> list = null;
-		String sql = "select custCode, custName, custRank, custCredit, custAddr, custTel, custDiv from customer where custdiv = 1";
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custdiv = 1";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();){

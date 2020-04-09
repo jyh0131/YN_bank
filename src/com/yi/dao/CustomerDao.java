@@ -29,10 +29,10 @@ public interface CustomerDao {
 	abstract List<Cust_dw_audit> selectCust_dw_auditByDate(String date) throws SQLException;
 	abstract int selectNormalCustNum() throws SQLException; 
 	abstract int selectVIPCustNum() throws SQLException;
-	abstract int selectBRankCustNum() throws SQLException;
-	abstract int selectSRankCustNum() throws SQLException;
-	abstract int selectGRankCustNum() throws SQLException;
-	abstract int selectPRankCustNum() throws SQLException;
+	abstract int select5CreditCustNum() throws SQLException;
+	abstract int select4CreditCustNum() throws SQLException;
+	abstract int select3CreditCustNum() throws SQLException;
+	abstract int select2CreditCustNum() throws SQLException;
 	abstract List<String> selectCustExistChk() throws SQLException;
 	abstract void insertCustomer(Customer customer) throws SQLException;
 	abstract int updateCustomer (Customer customer) throws SQLException;

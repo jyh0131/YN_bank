@@ -100,19 +100,19 @@ public class CustomerService {
 		return dao.selectVIPCustNum();
 	}
 	
-	public int showBRankCustNum() throws SQLException{
-		return dao.selectBRankCustNum();
+	public int show5CreditCustNum() throws SQLException{
+		return dao.select5CreditCustNum();
 	}
 	
-	public int showSRankCustNum() throws SQLException{
-		return dao.selectSRankCustNum();
+	public int show4CreditCustNum() throws SQLException{
+		return dao.select4CreditCustNum();
 	}
 	
-	public int showGRankCustNum() throws SQLException{
-		return dao.selectGRankCustNum();
+	public int show3CreditCustNum() throws SQLException{
+		return dao.select3CreditCustNum();
 	}
-	public int showPRankCustNum() throws SQLException{
-		return dao.selectPRankCustNum();
+	public int show2CreditCustNum() throws SQLException{
+		return dao.select2CreditCustNum();
 	}
 	
 	public List<String> custExistChk() throws SQLException{

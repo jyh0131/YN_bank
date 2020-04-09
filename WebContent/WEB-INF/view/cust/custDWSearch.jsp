@@ -134,7 +134,6 @@
 				    		
 				    		var $th1 = $("<th>").html("고객 코드");
 				    		var $th2 = $("<th>").html("고객명");
-				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
 				    		var $th5 = $("<th>").html("계좌번호");
 				    		var $th6 = $("<th>").html("잔액");
@@ -142,7 +141,6 @@
 				    		
 				    		$tr1.append($th1);    
 				    		$tr1.append($th2);
-				    		$tr1.append($th3);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
@@ -154,7 +152,6 @@
 				    			
 				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
@@ -167,7 +164,6 @@
 				    			   
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
@@ -175,7 +171,6 @@
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
-					    		$td3.append($a3);
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
@@ -183,7 +178,6 @@
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
-					    		$tr2.append($td3);
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
@@ -219,7 +213,6 @@
 				    		
 				    		var $th1 = $("<th>").html("고객 코드");
 				    		var $th2 = $("<th>").html("고객명");
-				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
 				    		var $th5 = $("<th>").html("계좌번호");
 				    		var $th6 = $("<th>").html("잔액");
@@ -227,7 +220,6 @@
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);
-				    		$tr1.append($th3);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
@@ -239,7 +231,6 @@
 				    			
 								var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
@@ -254,7 +245,6 @@
 				    			
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
@@ -262,7 +252,6 @@
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
-					    		$td3.append($a3);
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
@@ -270,7 +259,6 @@
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
-					    		$tr2.append($td3);
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
@@ -306,7 +294,6 @@
 				    		
 				    		var $th1 = $("<th>").html("고객 코드");
 				    		var $th2 = $("<th>").html("고객명");
-				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
 				    		var $th5 = $("<th>").html("계좌번호");
 				    		var $th6 = $("<th>").html("잔액");
@@ -314,7 +301,6 @@
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);  
-				    		$tr1.append($th3);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
@@ -326,7 +312,6 @@
 				    			
 								var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);  
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/dwSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
@@ -340,7 +325,6 @@
 				    			
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
@@ -348,7 +332,6 @@
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
-					    		$td3.append($a3);
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
@@ -356,7 +339,6 @@
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
-					    		$tr2.append($td3);
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
@@ -404,8 +386,7 @@
 			<table class="tableList">
 				<tr>
 					<th>고객 코드</th>
-					<th>고객명</th>
-					<th>고객 등급명</th>    
+					<th>고객명</th>  
 					<th>고객 신용등급</th>
 					<th>계좌번호</th>
 					<th>잔액</th>
@@ -417,7 +398,6 @@
 					<tr>
 							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custCode }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custName }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custRank }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custCredit }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.bankbook.accountNum }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/dwSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}"><fmt:formatNumber value="${listForBal.bankbook.accountBalance}" groupingUsed="true"/> 원</a></td>

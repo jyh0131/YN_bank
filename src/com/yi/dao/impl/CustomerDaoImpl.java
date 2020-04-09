@@ -468,7 +468,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public List<Customer> selectCustomerWhoHasAcc() throws SQLException {
 		List<Customer> list = null;
-		String sql = "select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = \"11\" or \"12\" or \"13\"";
+		String sql = "select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = \"11\" or \"12\" or \"13\"";
 		ResultSet rs = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){
@@ -488,7 +488,6 @@ public class CustomerDaoImpl implements CustomerDao {
 	private Customer getCustomerForAccBalance(ResultSet rs) throws SQLException {
 		String custCode = rs.getString("c.custCode");
 		String custName  = rs.getString("c.custName");
-		String custRank = rs.getString("c.custRank");
 		int custCredit = rs.getInt("c.custCredit");
 		String custAccnt = rs.getString("accountNum");
 		String custBalance = rs.getString("accountBalance");
@@ -508,7 +507,6 @@ public class CustomerDaoImpl implements CustomerDao {
 		Customer customer = new Customer();
 		customer.setCustCode(custCode);
 		customer.setCustName(custName);
-		customer.setCustRank(custRank);
 		customer.setCustCredit(custCredit);
 		customer.setCustDiv(custDiv);
 		
@@ -524,19 +522,19 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Customer> selectCustomerWHasAccByCode(String custCode) throws SQLException {
-		String sql ="select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custCode= ?";
+		String sql ="select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custCode like ?";
 		List<Customer> list = null;
 		ResultSet rs = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){   
-			pstmt.setString(1, custCode);
+			pstmt.setString(1, "%"+custCode+"%");
 			rs = pstmt.executeQuery();
 			if(rs.next()) {    
 				list = new ArrayList<>();
 				do {
 					list.add(getCustomerForAccBalance(rs));
 				}while(rs.next());
-			}
+			}  
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -545,12 +543,12 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Customer> selectCustomerWHasAccByName(String custName) throws SQLException {
-		String sql ="select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName= ?";
+		String sql ="select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName like ?";
 		List<Customer> list = null;
 		ResultSet rs = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){   
-			pstmt.setString(1, custName);
+			pstmt.setString(1, "%"+custName+"%");
 			rs = pstmt.executeQuery();
 			if(rs.next()) {    
 				list = new ArrayList<>();
@@ -566,15 +564,15 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Customer> selectCustomerWHasAccByTel(String custTel) throws SQLException {
-		String sql ="select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custTel= ?";
+		String sql ="select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custTel like ?";
 		List<Customer> list = null;
 		ResultSet rs = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){   
-			pstmt.setString(1, custTel);
+			pstmt.setString(1, "%"+custTel+"%");
 			rs = pstmt.executeQuery();
 			if(rs.next()) {    
-				list = new ArrayList<>();
+				list = new ArrayList<>();   
 				do {
 					list.add(getCustomerForAccBalance(rs));
 				}while(rs.next());

@@ -13,6 +13,7 @@ import com.yi.dto.Customer;
 import com.yi.dto.Loan;
 import com.yi.dto.LoanInfo;
 import com.yi.dto.Plan;
+import com.yi.dto.Repayment;
 
 public class LoanService {
 	private LoanDao loanDao;
@@ -73,5 +74,8 @@ public class LoanService {
 	}
 	public List<Plan> selectPlanByLoanBusinessVip() throws SQLException {
 		return planDao.selectPlanByLoanBusinessVip();
+	}
+	public List<Repayment> searchRepaymentsByAccountNum(String accountnum) throws SQLException {
+		return loanDao.searchRepaymentsByAccountNum(accountnum);
 	}
 }

@@ -63,10 +63,10 @@
 								     border: none; 
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}				     
-	div#profileEdit table td select { width: 250px; margin: 20px 0;}		
+	div#profileEdit table td select { width: 250px; margin: 20px 0;}	
 	div#submit { text-align: center; 
 				 height: 100px; 
-				 line-height: 250px; margin-top : 10px;}
+				 line-height: 100px; margin-top : 0px;}
 	#extend {width: 100px;  height: 40px; 
 					   border: none;
 					   background: gray; 
@@ -86,7 +86,7 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<div id="container">
 		<div id="header">
-			<h1>대출 세부 정보</h1>
+			<h1>대출 상환 세부 정보</h1>
 		</div>
 		<form>
 			<div id="profile">
@@ -125,6 +125,9 @@
 						</tr>
 						<tr>
 							<th>대출납입회차</th>
+							<td>
+								<input type="text" name="loanCount" readonly="readonly" value="${count+1}회차">
+							</td>
 						</tr>
 						<tr>
 							<th>대출방식</th>
@@ -142,6 +145,7 @@
 				</div>
 				<div id="submit">
 					<input type="submit" value="상환" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=repayment&custdiv=${custdiv}" formmethod="post" id="repayment">
+					<input type="submit" value="내역보기" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=list&custdiv=${custdiv}" formmethod="post" id="list">
 				</div>
 				<input type="submit" value="만기일 연장" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=extend&custdiv=${custdiv}" formmethod="post" id="extend">
 			</div>

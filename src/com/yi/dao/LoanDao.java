@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.yi.dto.Loan;
 import com.yi.dto.LoanInfo;
+import com.yi.dto.Repayment;
 
 public interface LoanDao {
 	public List<Loan> showLoans() throws SQLException;
@@ -19,4 +20,5 @@ public interface LoanDao {
 	public List<Loan> searchLoanAccountNums(Loan loan) throws SQLException;
 	public List<Loan> searchLoanCustNames(Loan loan) throws SQLException;
 	public List<Loan> searchLoanPlanNames(Loan loan) throws SQLException;
+	public List<Repayment> searchRepaymentsByAccountNum(String accountnum) throws SQLException;
 }

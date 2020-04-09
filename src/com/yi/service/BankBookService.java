@@ -132,4 +132,10 @@ public class BankBookService {
 	public long[] TotalPlanTransAmountYearly() throws SQLException {
 		return bankBookDao.TotalPlanTransAmountYearly();
 	}
+	
+	
+	//계좌번호 넣어서 통장 찾기
+	public BankBook showOneBankBook(String accountNum) throws SQLException{
+		return bankBookDao.findBankBook(accountNum);
+	}
 }

@@ -651,4 +651,33 @@ public class BankBookDaoImpl implements BankBookDao {
 		}
 		
 	}
+
+	//송금을 위함 
+	@Override
+	public BankBook findBankBook(String accountNum) throws SQLException {
+		String sql="select b.accountNum, b.accountBalance, c.custCode,c.custName,p.planCode,p.planName from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountNum =?";
+		BankBook bankBook = new BankBook();
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, accountNum);
+			
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					bankBook = getOneBankBook(rs);
+				}
+			}
+			
+		}
+		return bankBook;
+	}
+
+	private BankBook getOneBankBook(ResultSet rs) throws SQLException {
+		String accountNum = rs.getString("b.accountNum");
+		Customer cust= new Customer(rs.getString("c.custCode"));
+		cust.setCustName(rs.getString("c.custName"));
+		Plan plan = new Plan(rs.getString("p.planCode"));
+		plan.setPlanName(rs.getString("p.planName"));
+		long accountBalance = rs.getLong("b.accountBalance");
+		return new BankBook(accountNum, cust, plan, accountBalance);
+	}
 }

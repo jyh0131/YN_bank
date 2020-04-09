@@ -57,12 +57,56 @@
 					   background: gray; 
 					   margin-left:20px; 
 					   font-size: 15px;
-					   color: whitesmoke;}						    
+					   color: whitesmoke;}		
+    /* 계좌번호 조회를 위한 버튼 */					   
+    #btnSearch{
+       
+    }
+    
+    /* 에러 메세지 */
+  .errorMSG {
+	color: tomato;
+	display: none;
+	font-size: 12px;
+}
+					   				    
 </style>
 <script>
 	$(function(){
 		//클릭한 메뉴만 보이게 하기
 		$("#transfer").show();
+		
+		
+		//있는 계좌번호인지 판단 
+		$("#findAccNum").on("change",function(){
+			$(".errorMSG").css("display", "none");
+			var targetAccNum = $("#findAccNum").val();
+			//alert(targetAccNum);
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/cust/custTtoSame.do",
+			    type: "post", 
+			    data: {"targetAccNum":targetAccNum},
+			    dataType: "json",
+			    success : function(res){
+			         console.log(res)
+			    	if(res.successs =="existAccount"){
+			    		
+			    		$("input[name='findAccNum']").next().next().html(res.targetCustName);
+			    		$("input[name='findAccNum']").next().next().next().css("display", "inline");
+			    		
+			    	}if(res.error =="notExist"){
+			    		$("input[name='findAccNum']").next().css("display", "inline");
+			    	}
+			    	
+			    }
+			})
+			
+		})
+		
+		
+		
+		
 		
 		//취소 클릭 시
 		$("#cancel").click(function() {
@@ -109,14 +153,14 @@
 	<div id="container">
 		<div id="header">
 			<c:if test="${dw=='즉시이체' }">
-				<h1>즉시아체</h1>
+				<h1>즉시이체</h1>
 			</c:if>
 			<c:if test="${dw=='타행송금' }">   
 				<h1>타행송금</h1>
 			</c:if>
 		</div>	
 			<div id="profile">
-				<h2>송금 정보</h2>
+				<h2>송금정보</h2>
 						
 						<div id="profileEdit">
 							<table>
@@ -132,7 +176,7 @@
 							<td><input type="text" name="name" value="${custBal.custName }" readonly="readonly"></td>
 						</tr>
 						<tr>
-							<th>계좌번호</th>
+							<th>출금 계좌번호</th>
 							<td>
 								<input type="text" name="accNum" value="${accountNum }" readonly="readonly">
 							</td>
@@ -141,15 +185,24 @@
 							<th>잔액</th>
 							<td>
 								<input type="text" name="accBal" value="${custBal.bankbook.accountBalance }" readonly="readonly">
+								
 							</td>   
 						</tr>
 						<tr>
-							<c:if test="${dw=='즉시이체' }">
-							<th>이체</th>
+							<th>송금 계좌번호</th>
+							<td>
+								<input type="input" name="findAccNum" id="findAccNum" value="293133-">
+								<span class="errorMSG">없는 계좌번호 입니다. 확인해주세요</span>
+								<span></span><span class="errorMSG">님의 계좌번호가 맞다면 진행하세요</span>
+							</td>
+						</tr>
+						<tr>
+							<c:if test="${dw=='입금' }">
+							<th>입금 금액</th>
 							<td><input type="text" name="amount"></td>
 							</c:if>
-							<c:if test="${dw=='타행송금' }">
-							<th>이체</th>
+							<c:if test="${dw=='출금' }">
+							<th>출금 금액</th>
 							<td><input type="text" name="amount"></td>
 							</c:if>    
 						</tr>

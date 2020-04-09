@@ -270,7 +270,7 @@ div#profileEdit table td #inputCode {
 						$("input[name='empTel']").next().next().css("display","inline");
 						return false;
 					}else{
-						var phoneReg = /^(010|011|019|018|017)-?[0-9]{3,4}-?[0-9]{4}$/; 
+						var phoneReg = /^(010|011|019|018|017)-[0-9]{3,4}-[0-9]{4}$/; 
 						if (phoneReg.test(empTel) == false) {
 							$("input[name='empTel']").next().next().css("display", "inline");
 							return false;

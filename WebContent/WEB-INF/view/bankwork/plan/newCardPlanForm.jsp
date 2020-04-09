@@ -67,16 +67,13 @@
 		$(".side2").hide();
 		$("#planMgn").find(".side2").toggle();
 		
-		//코드 분류 체계
-		$("a#code").mouseover(function() {
-			$("#code").css("color", "maroon").css("font-weight", "bold");
-			$("div#messeage").css("display", "block");
-		})
-		$("a#code").mouseout(function() {
-			$("#code").css("color", "#000").css("font-weight", "bold");
-			$("div#messeage").css("display", "none");
-		})
-		
+		//코드 분류 체계 팝업창
+		$("a#code").click(function(){
+				function winopen(){
+					window.open("${pageContext.request.contextPath}/bankwork/plan/codeSystem.do", "codeSystem","width=1000,height=900");				
+				}
+				winopen();
+			})
 		
 		 $("form").submit(function(){
 			   var planName = $("input[name='planName']").val();

@@ -156,7 +156,7 @@
     	<ul>
     		<li>
     			<div id="bestImg">
-    				<img alt="우수사원" src="${pageContext.request.contextPath}/images/${empNo1.pic}">
+    				<img alt="우수사원" src="${pageContext.request.contextPath}/empPic/${empNo1.pic}">
     			</div>
     			<span id="bestTeam">
     			

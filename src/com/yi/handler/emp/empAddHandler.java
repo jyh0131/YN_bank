@@ -65,7 +65,7 @@ public class empAddHandler implements CommandHandler {
 					multi.getParameter("empId"), 
 					multi.getParameter("empPwd"), 
 					new Department(Integer.parseInt(multi.getParameter("deptNo"))), 
-					uploadPath);
+					multi.getFilesystemName("pic"));
 	
 			       // 
 			//System.out.println(emp);

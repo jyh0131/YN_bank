@@ -26,7 +26,7 @@ public class empUpdateHandler implements CommandHandler {
 			
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			
-			String uploadPath = req.getRealPath("upload"); //서버 루트 안에 업로드 폴더 절대경로를 반환해준다
+			String uploadPath = req.getRealPath("empPic"); //서버 루트 안에 업로드 폴더 절대경로를 반환해준다
 			//폴더의 존재여부를 알아봐야한다
 			File dir = new File(uploadPath);
 			if(dir.exists() == false) { //저장공간이 없으면 폴더를 만들어야함

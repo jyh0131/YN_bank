@@ -293,7 +293,7 @@ div#profileEdit table td #inputTitle {
 				<div id="profileMain">
 					<div id="pic">
 						<img alt="사원사진"
-							src="${pageContext.request.contextPath}/images/${emp.pic ==null?'no-img.jpg':emp.pic}" id="empPicture">
+							src="${pageContext.request.contextPath}/empPic/${emp.pic ==null?'no-img.jpg':emp.pic}" id="empPicture">
 						<span id="proName">${emp.empName }</span> <span id="proDept"></span>
 
 					</div>

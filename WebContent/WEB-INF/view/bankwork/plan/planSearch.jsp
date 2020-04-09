@@ -13,10 +13,15 @@
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 500px;      
+						  border-bottom: 2px solid #e9ebec;}       
+		       
 		/* 검색 구분 부분 */
-		div#search {
+		div#search {   
 			width: 900px;
-			margin: 50px auto;  
+			margin: 20px auto;     
 			text-align: center;
 		}
 		
@@ -68,7 +73,7 @@
 		/* 테이블 영역  */
 		div#table {
 			width: 1000px;
-			margin: 100px auto 100px auto;
+			margin: 50px auto 50px auto;
 			padding-left:100px;
 		}  
 		
@@ -347,8 +352,10 @@
 <body>
 	<section>
 	<%@include file="../../include/sectionBar.jsp"%>
+		<h2 id="menuLocation">상품 조회</h2>
+	
 		<div id="search">
-				<select id="searchMenu">
+				<select id="searchMenu">   
 					<option>검색 구분</option>
 					<option>상품 코드(A)</option>
 					<option>상품 세부코드(AB)</option>

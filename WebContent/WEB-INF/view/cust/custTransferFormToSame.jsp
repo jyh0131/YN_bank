@@ -59,11 +59,7 @@
 					   margin-left:20px; 
 					   font-size: 15px;
 					   color: whitesmoke;}		
-    /* 계좌번호 조회를 위한 버튼 */					   
-    #btnSearch{
-       
-    }
-    
+  
     /* 에러 메세지 */
   .errorMSG {
 	color: tomato;
@@ -115,11 +111,11 @@
 		$("#cancel").click(function() {
 			var choose = confirm("취소하시겠습니까? 리스트로 돌아갑니다.");
 			if(choose){
-				location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do";	
+				location.href = "${pageContext.request.contextPath}/cust/custTransfer.do";	
 			}
     	})
     	
-    	//입금 클릭 시
+    	//이체 클릭 시
     	$("input[value='이체']").click(function(){
     		
     		$(".errorMSG").css("display", "none");
@@ -145,7 +141,7 @@
     	})  
     	
     	//출금 클릭 시
-    	$("input[value='출금']").click(function(){
+/*     	$("input[value='출금']").click(function(){
     		
     		var deposit = confirm("출금하시겠습니까?");
     		if(deposit){
@@ -157,7 +153,7 @@
         		location.href= "${pageContext.request.contextPath}/cust/custTFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=출금&code="+code;
     		}
     		
-    	})
+    	}) */
     	
 	})
 </script>

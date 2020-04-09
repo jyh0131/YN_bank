@@ -123,4 +123,16 @@ public class BankBookService {
 	public long[] TotalPlanTransAmountYearly() throws SQLException {
 		return bankBookDao.TotalPlanTransAmountYearly();
 	}
+	public List<Plan> selectPlanByBankBookCustomerNormal() throws SQLException {
+		return planDao.selectPlanByBankBookCustomerNormal();
+	}
+	public List<Plan> selectPlanByBankBookCustomerVip() throws SQLException {
+		return planDao.selectPlanByBankBookCustomerVip();
+	}
+	public List<Plan> selectPlanByBankBookBusinessNormal() throws SQLException {
+		return planDao.selectPlanByBankBookBusinessNormal();
+	}
+	public List<Plan> selectPlanByBankBookBusinessVip() throws SQLException {
+		return planDao.selectPlanByBankBookBusinessVip();
+	}
 }

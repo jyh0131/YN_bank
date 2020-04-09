@@ -107,6 +107,18 @@
                 $('#date').val(datetext);
             }
         });
+    	$("#cust").change(function() {
+    		if($("#cust option:selected").attr("data-rank")!='1') {
+    			$(".vip").hide();
+    			$(".normal").show();
+    			$(".normal").eq(0).prop("selected", true)
+    		}
+    		else {
+    			$(".normal").hide();
+    			$(".vip").show();
+    			$(".vip").eq(0).prop("selected", true)
+    		}
+    	}
     	$("input[type='submit']").click(function() {
     		var custname = $("#cust option:selected").val();
     		var str = $("#plan option:selected").attr("data-planDetail");
@@ -191,22 +203,6 @@
     	})
     	$("input[name='cardnum']").val('29313310'+pad((${number}+1),7) + "0");
     });
-	</script>
-	<script>
-			$(function(){
-				$("#cust").change(function() {
-					if($("#cust option:selected").attr("data-rank")!='D') {
-						$(".vip").hide();
-						$(".normal").show();
-						$(".normal").eq(0).prop("selected", true)
-					}
-					else {
-						$(".normal").hide();
-						$(".vip").show();
-						$(".vip").eq(0).prop("selected", true)
-					}
-		    	})
-			})
 	</script>
 	<div id="container">
 		<div id="header">

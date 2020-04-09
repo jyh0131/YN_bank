@@ -133,5 +133,17 @@ public class CardService {
 	public Card showCardByCardNumAndCustName(Card card) throws SQLException {
 		return cardDao.showCardByCardNumAndCustName(card);
 	}
+	public List<Plan> selectPlanByCardCustomerNormal() throws SQLException {
+		return planDao.selectPlanByCardCustomerNormal();
+	}
+	public List<Plan> selectPlanByCardCustomerVip() throws SQLException {
+		return planDao.selectPlanByCardCustomerVip();
+	}
+	public List<Plan> selectPlanByCardBusinessNormal() throws SQLException {
+		return planDao.selectPlanByCardBusinessNormal();
+	}
+	public List<Plan> selectPlanByCardBusinessVip() throws SQLException {
+		return planDao.selectPlanByCardBusinessVip();
+	}
 }
 

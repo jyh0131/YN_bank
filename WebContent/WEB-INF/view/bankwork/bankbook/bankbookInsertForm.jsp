@@ -90,6 +90,18 @@
                 $('#date').val(datetext);
             }
         });
+    	$("#cust").change(function() {
+    		if($("#cust option:selected").attr("data-rank")!='1') {
+    			$(".vip").hide();
+    			$(".normal").show();
+    			$(".normal").eq(0).prop("selected", true)
+    		}
+    		else {
+    			$(".normal").hide();
+    			$(".vip").show();
+    			$(".vip").eq(0).prop("selected", true)
+    		}
+    	})
     	$("form").submit(function() {
     		if($("input[name='accountnum']").val()==""||$("input[name='accountOpenDate']").val()==""||$("input[name='accountInterest']").val()=="") {
     			alert("입력란을 모두 입력해주세요");
@@ -150,24 +162,6 @@
     	$("input[name='accountnum']").val('293133-11-'+pad(${number},6));
     });
 	</script>
-	<c:if test="${normal!=null}">
-		<script>
-			$(function(){
-				$("#cust").change(function() {
-					if($("#cust option:selected").attr("data-rank")!='D') {
-						$(".vip").hide();
-						$(".normal").show();
-						$(".normal").eq(0).prop("selected", true)
-					}
-					else {
-						$(".normal").hide();
-						$(".vip").show();
-						$(".vip").eq(0).prop("selected", true)
-					}
-		    	})
-			})
-		</script>
-	</c:if>
 	<div id="container">
 		<div id="header">
 			<h1>통장 추가</h1>
@@ -184,7 +178,7 @@
 							<td>
 								<select name="custname" id="cust">
 									<c:forEach var="cust" items="${custList}">
-										<option data-rank="${cust.custRank}">${cust}</option>
+										<option data-rank="${cust.custCredit}">${cust}</option>
 									</c:forEach>
 								</select>
 							</td>

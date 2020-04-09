@@ -25,8 +25,7 @@ public class busCustInsertHandler implements CommandHandler {
 			String nextCustNum = "B"+String.format("%03d", list.size()+1);
 			String code = nextCustNum;
 			String name = req.getParameter("name");
-			String rank = req.getParameter("rank");
-			String credit = req.getParameter("credit");
+			int credit = Integer.parseInt(req.getParameter("credit"));
 			String addr = req.getParameter("addr");
 			String contact1 = req.getParameter("contact1");
 			String contact2= req.getParameter("contact2");
@@ -35,19 +34,7 @@ public class busCustInsertHandler implements CommandHandler {
 			Boolean custDiv = true;
 			
 			try {
-				if(rank.equals("Diamond")) {
-					rank = "D";
-				}else if(rank.equals("Platinum")) {
-					rank = "P";
-				}else if(rank.equals("Gold")) {
-					rank = "G";
-				}else if(rank.equals("Silver")) {
-					rank = "S";
-				}else if(rank.equals("Bronze")) {
-					rank = "B";
-				}
-				
-				Customer customer = new Customer(code, name, rank, Integer.parseInt(credit), addr, contact, custDiv);
+				Customer customer = new Customer(code, name, credit, addr, contact, custDiv);
 				System.out.println(customer.getCustCode());
 				service.AddCustomer(customer);
 				res.sendRedirect(req.getContextPath()+"/cust/custSearch.do");

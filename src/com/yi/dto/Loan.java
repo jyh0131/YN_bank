@@ -6,9 +6,12 @@ public class Loan {
 	private String loanAccountNum;
 	private Customer custCode;
 	private Plan planCode;
-	private Date loanDate;
+	private Date loanStartDate;
+	private Date loanDelayDate;
+	private Date loanExpireDate;
 	private float loanInterest;
 	private long loanBalance;
+	private String loanMethod;
 	private Employee employee;
 	public Loan() {
 		
@@ -16,14 +19,32 @@ public class Loan {
 	public Loan(Customer custCode) {
 		this.custCode = custCode;
 	}
-	public Loan(String loanAccountNum, Customer custCode, Plan planCode, Date loanDate, float loanInterest,
-			long loanBalance) {
+	
+	
+	public Loan(String loanAccountNum, Customer custCode, Plan planCode, Date loanStartDate, Date loanDelayDate,
+			Date loanExpireDate, float loanInterest, long loanBalance, String loanMethod) {
 		this.loanAccountNum = loanAccountNum;
 		this.custCode = custCode;
 		this.planCode = planCode;
-		this.loanDate = loanDate;
+		this.loanStartDate = loanStartDate;
+		this.loanDelayDate = loanDelayDate;
+		this.loanExpireDate = loanExpireDate;
 		this.loanInterest = loanInterest;
 		this.loanBalance = loanBalance;
+		this.loanMethod = loanMethod;
+	}
+	public Loan(String loanAccountNum, Customer custCode, Plan planCode, Date loanStartDate, Date loanDelayDate,
+			Date loanExpireDate, float loanInterest, long loanBalance, String loanMethod, Employee employee) {
+		this.loanAccountNum = loanAccountNum;
+		this.custCode = custCode;
+		this.planCode = planCode;
+		this.loanStartDate = loanStartDate;
+		this.loanDelayDate = loanDelayDate;
+		this.loanExpireDate = loanExpireDate;
+		this.loanInterest = loanInterest;
+		this.loanBalance = loanBalance;
+		this.loanMethod = loanMethod;
+		this.employee = employee;
 	}
 	public String getLoanAccountNum() {
 		return loanAccountNum;
@@ -43,11 +64,11 @@ public class Loan {
 	public void setPlanCode(Plan planCode) {
 		this.planCode = planCode;
 	}
-	public Date getLoanDate() {
-		return loanDate;
+	public Date getLoanStartDate() {
+		return loanStartDate;
 	}
-	public void setLoanDate(Date loanDate) {
-		this.loanDate = loanDate;
+	public void setLoanStartDate(Date loanStartDate) {
+		this.loanStartDate = loanStartDate;
 	}
 	public float getLoanInterest() {
 		return loanInterest;
@@ -67,4 +88,23 @@ public class Loan {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+	public Date getLoanDelayDate() {
+		return loanDelayDate;
+	}
+	public void setLoanDelayDate(Date loanDelayDate) {
+		this.loanDelayDate = loanDelayDate;
+	}
+	public Date getLoanExpireDate() {
+		return loanExpireDate;
+	}
+	public void setLoanExpireDate(Date loanExpireDate) {
+		this.loanExpireDate = loanExpireDate;
+	}
+	public String getLoanMethod() {
+		return loanMethod;
+	}
+	public void setLoanMethod(String loanMethod) {
+		this.loanMethod = loanMethod;
+	}
+	
 }

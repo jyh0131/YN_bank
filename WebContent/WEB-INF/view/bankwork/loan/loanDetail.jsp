@@ -16,15 +16,24 @@
     $(function() {
     	$("#loanAdd").show();
 		$("#loanList").show();
-		$("#del").click(function() {
-			if(!confirm("삭제하시겠습니까?")) {
-				alert("삭제가 취소되었습니다");
+		$("#repayment").click(function() {
+			if(!confirm("상환하시겠습니까?")) {
+				alert("상환이 취소되었습니다");
 				return false;
 			}
+		});
+		$("#extend").click(function() {
+			if(!confirm("연장하시겠습니까?")) {
+				alert("연장이 취소되었습니다");
+				return false;
+			}
+			else {
+				if(${loan.custCode.custCredit>2}) {
+					alert("만기일이 연장되었습니다.");
+					return false;
+				}
+			}
 		})
-    	$("#cancel").click(function() {
-    		location.href = "${pageContext.request.contextPath}/bankwork/loan/mgn.do?div=${custdiv}";
-    	})
     });
 </script>
 </head>
@@ -41,21 +50,8 @@
 				  border-radius: 10px;
 				  padding: 50px;}
 	div#profile h2 { height: 50px; }				  
-	div#profileMain { float: left; }
-	div#profileMain div#pic { width: 250px; height: 350px;}
-	div#profileMain div#pic span { display: block;
-							       width: 100px; height: 100px;
-							       float: left; 
-							       text-align: center;}
-	div#profileMain div#pic #proName { width: 100x; font-size: 30px; 
-									   font-weight: bold;
-							    	   line-height: 100px;  }
-	div#profileMain div#pic #proDept { line-height: 110px;
-									   font-size: 20px;
-									   text-align: left; }
-	div#profile div#pic img { width: 200px; height: 250px; display: block;}
 	
-	div#profileEdit { width:600px; 
+	div#profileEdit { width:700px; 
 					  overflow: hidden;
 					  margin-left: 200px;  }
 	div#profileEdit table { width: 500px; }
@@ -66,12 +62,18 @@
 									 background: whitesmoke;
 								     border: none; 
 								     padding: 10px; 
-								     border-bottom: 1px solid gray;}
-	table td#noline input[name='file'] { border: none;}									     
+								     border-bottom: 1px solid gray;}				     
 	div#profileEdit table td select { width: 250px; margin: 20px 0;}		
 	div#submit { text-align: center; 
 				 height: 100px; 
-				 line-height: 250px; }
+				 line-height: 250px; margin-top : 10px;}
+	#extend {width: 100px;  height: 40px; 
+					   border: none;
+					   background: gray; 
+					   margin-left:20px; 
+					   font-size: 15px;
+					   color: whitesmoke;
+					   position: absolute; left : 1150px; top : 585px;}
 	div#submit input { width: 100px;  height: 40px; 
 					   border: none;
 					   background: gray; 
@@ -108,33 +110,40 @@
 							</td>	
 						</tr>
 						<tr>
-							<th>대출날짜</th>
-							<td><input type="text" name="loandate"  value="<fmt:formatDate value="${loan.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"></td>
+							<th>대출시작일</th>
+							<td><input type="text" name="loanStartDate"  value="<fmt:formatDate value="${loan.loanStartDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"></td>
+						</tr>
+						<tr>
+							<th>대출거치일</th>
+							<td><input type="text" name="loanDelayDate"  value="<fmt:formatDate value="${loan.loanDelayDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"></td>
+						</tr>
+						<tr>
+							<th>대출만기일</th>
+							<td>
+								<input type="text" name="loanExpireDate"  value="<fmt:formatDate value="${loan.loanExpireDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly">
+							</td>
+						</tr>
+						<tr>
+							<th>대출납입회차</th>
+						</tr>
+						<tr>
+							<th>대출방식</th>
+							<td><input type="text" name="loanMethod" readonly="readonly" value="${loan.loanMethod eq 'A'?'만기일시상환':'원금균등상환'}"></td>
 						</tr>
 						<tr>
 							<th>대출이자</th>
-							<td><input type="text" name="loaninterest" value=<fmt:formatNumber value="${loan.loanInterest}" type="percent"/>></td>
+							<td><input type="text" name="loaninterest" readonly="readonly" value=<fmt:formatNumber value="${loan.loanInterest}" type="percent"/>></td>
 						</tr>
 						<tr>
-							<th>대출금액</th>
-							<td><input type="text" name="loanbalance" value=<fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/>></td>
+							<th>상환금액</th>
+							<td><input type="text" name="loanbalance" readonly="readonly" value=<fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/>></td>
 						</tr>
 					</table>
 				</div>
-				
 				<div id="submit">
-					<input type="submit" value="수정" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=mod&custdiv=${custdiv}" formmethod="post">
-					<input type="submit" value="삭제" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=del&custdiv=${custdiv}" formmethod="post" id="del">
-					<input type="reset" value="취소" id="cancel">
+					<input type="submit" value="상환" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=repayment&custdiv=${custdiv}" formmethod="post" id="repayment">
 				</div>
-				<c:if test="${errorbalance!=null}">
-					<script>
-						alert("현재 대출 금액보다 더 많은 금액은 입력하실 수 없습니다. 다시 입력해주세요");
-					</script>
-					<%
-						session.removeAttribute("errorbalance");
-					%>
-				</c:if>
+				<input type="submit" value="만기일 연장" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=extend&custdiv=${custdiv}" formmethod="post" id="extend">
 			</div>
 		</form>
 	</div>

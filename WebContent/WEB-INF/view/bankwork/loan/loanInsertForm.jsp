@@ -14,7 +14,7 @@
 	* { margin:0; padding:0; 
 		font-family: 'Noto Sans KR', sans-serif;
 		color: #252525; }
-	#container { width: 1000px; margin: 50px auto;}
+	#container { width: 1100px; margin: 50px auto;}
 	div#header { background: goldenrod;
 			     height: 150px; }
 	div#header h1 { padding: 30px;  }
@@ -22,38 +22,25 @@
 				  height: 500px;
 				  border-radius: 10px;
 				  padding: 50px;}
-	div#profile h2 { height: 50px; }				  
-	div#profileMain { float: left; }
-	div#profileMain div#pic { width: 250px; height: 350px;}
-	div#profileMain div#pic span { display: block;
-							       width: 100px; height: 100px;
-							       float: left; 
-							       text-align: center;}
-	div#profileMain div#pic #proName { width: 100x; font-size: 30px; 
-									   font-weight: bold;
-							    	   line-height: 100px;  }
-	div#profileMain div#pic #proDept { line-height: 110px;
-									   font-size: 20px;
-									   text-align: left; }
-	div#profile div#pic img { width: 200px; height: 250px; display: block;}
+	div#profile h2 { height: 50px; }
 	
-	div#profileEdit { width:600px; 
-					  overflow: hidden;
-					  margin-left: 200px;  }
-	div#profileEdit table { width: 500px; }
-	div#profileEdit table tr { height: 30px; }
-	div#profileEdit table th { width: 100px; text-align: left; }
-	div#profileEdit table td { width: 200px; text-align: center;}
-	div#profileEdit table td input { width: 250px;
+	div#table1 { width:1000px;}
+	div#table1 table { width: 500px; float : left;}
+	div#table1 table tr { height: 30px; }
+	div#table1 table th { width: 100px; text-align: left; }
+	div#table1 table td { width: 200px; text-align: center;}
+	div#table1 table td input { width: 250px;
 									 background: whitesmoke;
 								     border: none; 
 								     padding: 10px; 
-								     border-bottom: 1px solid gray;}
-	table td#noline input[name='file'] { border: none;}									     
-	div#profileEdit table td select { width: 250px; margin: 20px 0;}		
+								     border-bottom: 1px solid gray;}					     
+	div#table1 table td select { width: 250px; margin: 20px 0;}
+	div#table1 table:last-child {
+		margin-top : 10px;
+	}
 	div#submit { text-align: center; 
 				 height: 100px; 
-				 line-height: 250px; }
+				 line-height: 250px; clear : both;}
 	div#submit input { width: 100px;  height: 40px; 
 					   border: none;
 					   background: gray; 
@@ -66,11 +53,18 @@
 	<jsp:include page="/WEB-INF/view/include/menu.jsp"/>
 	<script>
     $(function() {
+    	$(".vip").hide();
+    	$(".normal").hide();
     	function pad(n, width) {
   		  n = n + '';
   		  return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
   		}
-    	$(".normal").hide();
+    	if($("#cust option:selected").attr("data-rank")==1) {
+    		$(".vip").show();
+    	}
+    	else {
+    		$(".normal").show();	
+    	}
     	$("#loanAdd").show();
 		$("#loanList").show();
     	$('#date').datepicker({
@@ -91,8 +85,21 @@
                 $('#date').val(datetext);
             }
         });
+    	$("#cust").change(function() {
+    		if($("#cust option:selected").attr("data-rank")!=1) {
+    			$(".vip").hide();
+    			$(".normal").show();
+    			$(".normal").eq(0).prop("selected", true)
+    		}
+    		else {
+    			$(".normal").hide();
+    			$(".vip").show();
+    			$(".vip").eq(0).prop("selected", true)
+    		}
+    	})
     	$("form").submit(function() {
-    		if($("input[name='accountnum']").val()==""||$("input[name='loanDate']")==""||$("input[name='loanInterest']").val()==""||$("input[name='loanBalance']").val()=="") {
+    		if($("input[name='accountnum']").val()==""||$("input[name='loanDate']")==""||$("input[name='loanInterest']").val()==""||$("input[name='loanBalance']").val()=="" ||
+    				$("select[name='loanDelayTerm'] option:selected").val()==""||$("select[name='loanExpireTerm'] option:selected").val()=="") {
     			alert("입력란을 모두 입력해주세요");
     			return false;
     		}
@@ -134,26 +141,26 @@
     		location.href = "${pageContext.request.contextPath}/main/main.do";
     	});
     	$("input[name='accountnum']").val('293133-11-'+pad((${number}+1),6));
-    });
+    	for(var i=1;i<6;i++) {
+    		$("select[name='loanDelayTerm']").append("<option>" + i + "년" + "</option>");
+    	}
+    	$("select[name='loanDelayTerm']").change(function() {
+    		var limitYear = 10;
+    		var str = $("select[name='loanDelayTerm']").val();
+    		var delayYear = Number(str.substring(0, str.indexOf("년")));
+    		var expireYear = limitYear - delayYear;
+    		$("select[name='loanExpireTerm']").find("option").remove();
+    		for(var i=1;i<expireYear+1;i++) {
+    			$("select[name='loanExpireTerm']").append("<option>" + i + "년" + "</option>");
+    		}
+    	});
+    	$("select[name='loanExpireTerm']").click(function() {
+    		if($("select[name='loanExpireTerm'] option:selected").length==0) {
+    			alert("거치 기간을 먼저 선택해주세요");
+    		}
+    	})
+    })
 	</script>
-	<c:if test="${normal!=null}">
-		<script>
-			$(function(){
-				$("#cust").change(function() {
-					if($("#cust option:selected").attr("data-rank")!='D') {
-						$(".vip").hide();
-						$(".normal").show();
-						$(".normal").eq(0).prop("selected", true)
-					}
-					else {
-						$(".normal").hide();
-						$(".vip").show();
-						$(".vip").eq(0).prop("selected", true)
-					}
-		    	})
-			})
-		</script>
-	</c:if>
 	<div id="container">
 		<div id="header">
 			<h1>대출 추가</h1>
@@ -163,14 +170,14 @@
 			<input type="hidden" value=${contribution.totalContribution} name="contribution">
 			<div id="profile">
 				<h2>대출 정보</h2>
-				<div id="profileEdit">
+				<div id="table1">
 					<table>
 						<tr>
 							<th>고객명</th>
 							<td>
 								<select name="custname" id="cust">
 									<c:forEach var="cust" items="${custList}">
-										<option data-rank="${cust.custRank}">${cust}</option>
+										<option data-rank="${cust.custCredit}">${cust}</option>
 									</c:forEach>
 								</select>
 							</td>
@@ -190,20 +197,42 @@
 										<option class='normal' data-planDetail="${planNormal.planDetail}">${planNormal}</option>
 									</c:forEach>
 								</select>
-							</td>
-								
+							</td>						
 						</tr>
 						<tr>
-							<th>대출날짜</th>
-							<td><input type="text" id="date" name="loanDate"></td>
+							<th>대출시작일자</th>
+							<td><input type="text" id="date" name="loanStartDate"></td>
 						</tr>
 						<tr>
 							<th>이자율</th>
 							<td><input type="text" name="loanInterest"></td>
 						</tr>
+					</table>
+					<table>
 						<tr>
 							<th>대출금액</th>
 							<td><input type="text" name="loanBalance"></td>
+						</tr>
+						<tr>
+							<th>거치기간</th>
+							<td>
+								<select name="loanDelayTerm"></select>
+							</td>
+						</tr>
+						<tr>
+							<th>대출기간</th>
+							<td>
+								<select name="loanExpireTerm"></select>
+							</td>
+						</tr>
+						<tr>
+							<th>대출방식</th>
+							<td>
+								<select name="loanMethod">
+									<option>만기일시상환</option>
+									<option>원금균등분할상환</option>
+								</select>
+							</td>
 						</tr>
 					</table>
 				</div>

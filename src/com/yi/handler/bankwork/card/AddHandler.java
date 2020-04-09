@@ -51,20 +51,21 @@ public class AddHandler implements CommandHandler {
 			String div = req.getParameter("div");
 			if(div.equals("0")) {
 				List<Customer> custList = custService.showCustomerByNormal();
-				List<Plan> planList = cardService.showPlansByCard();
-				List<Plan> planListNormal = cardService.showPlansByCardNormal();
+				List<Plan> planList = cardService.selectPlanByCardCustomerVip();
+				List<Plan> planListNormal = cardService.selectPlanByCardCustomerNormal();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
-				req.setAttribute("normal", "normal");
 				req.setAttribute("number", list.size());
 				return "/WEB-INF/view/bankwork/card/cardInsertForm.jsp";
 			}
 			else {
 				List<Customer> custList = custService.showCustomerByBusiness();
-				List<Plan> planList = cardService.showPlansByCardBusiness();
+				List<Plan> planList = cardService.selectPlanByCardBusinessVip();
+				List<Plan> planListNormal = cardService.selectPlanByCardBusinessNormal();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
+				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", list.size());
 				return "/WEB-INF/view/bankwork/card/cardInsertForm.jsp";
 			}

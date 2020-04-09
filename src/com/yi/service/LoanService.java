@@ -62,4 +62,16 @@ public class LoanService {
 	public Loan showLoanByLoanAccountNumAndCustName(Loan loan) throws SQLException {
 		return loanDao.showLoanByLoanAccountNumAndCustName(loan);
 	}
+	public List<Plan> selectPlanByLoanCustomerNormal() throws SQLException {
+		return planDao.selectPlanByLoanCustomerNormal();
+	}
+	public List<Plan> selectPlanByLoanCustomerVip() throws SQLException {
+		return planDao.selectPlanByLoanCustomerVip();
+	}
+	public List<Plan> selectPlanByLoanBusinessNormal() throws SQLException {
+		return planDao.selectPlanByLoanBusinessNormal();
+	}
+	public List<Plan> selectPlanByLoanBusinessVip() throws SQLException {
+		return planDao.selectPlanByLoanBusinessVip();
+	}
 }

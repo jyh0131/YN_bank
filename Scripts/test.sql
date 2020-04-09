@@ -347,8 +347,9 @@ select
 (select sum(loanBalance) from loan where loanAccountNum like '%-11-%' and month(loandate) = 4) as 'normalloan',
 (select sum(loanBalance) from loan where loanAccountNum like '%-12-%' and month(loandate) = 4) as 'creditloan',
 (select sum(loanBalance) from loan where loanAccountNum like '%-13-%' and month(loandate) = 4) as 'cardloan';
-
-
+desc loan;
+select * from loan;
+delete from loan;
+select * from performance;
+delete from performance where plancode in ('C007','C008');
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode;
-select * from plan where plancode like '%A%' and plandiv = 'CV';
-select * from plan where plancode like '%A%' and plandiv = 'CN';

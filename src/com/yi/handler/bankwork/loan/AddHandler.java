@@ -1,7 +1,9 @@
 package com.yi.handler.bankwork.loan;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,20 +30,21 @@ public class AddHandler implements CommandHandler {
 			String div = req.getParameter("div");
 			if(div.equals("0")) {
 				List<Customer> custList = custService.showCustomerByNormal();
-				List<Plan> planList = loanService.showPlanByLoan();
-				List<Plan> planListNormal = loanService.showPlanByLoanNormal();
+				List<Plan> planList = loanService.selectPlanByLoanCustomerVip();
+				List<Plan> planListNormal = loanService.selectPlanByLoanCustomerNormal();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
-				req.setAttribute("normal", "normal");
 				req.setAttribute("number", list.size());
 				return "/WEB-INF/view/bankwork/loan/loanInsertForm.jsp";
 			}
 			else {
 				List<Customer> custList = custService.showCustomerByBusiness();
-				List<Plan> planList = loanService.showPlanByLoanBusiness();
+				List<Plan> planList = loanService.selectPlanByLoanBusinessVip();
+				List<Plan> planListNormal = loanService.selectPlanByLoanBusinessNormal();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
+				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", list.size());
 				return "/WEB-INF/view/bankwork/loan/loanInsertForm.jsp";
 			}
@@ -55,8 +58,22 @@ public class AddHandler implements CommandHandler {
 			String planName = req.getParameter("planname");
 			Plan planCode = new Plan();
 			planCode.setPlanName(planName);
-			String dateStr = req.getParameter("loanDate");
-			Date loanDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr);
+			String dateStr = req.getParameter("loanStartDate");
+			Date loanStartDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr);
+			Calendar cal = GregorianCalendar.getInstance();
+			cal.setTime(loanStartDate);
+			int year = cal.get(cal.YEAR);
+			int month = cal.get(cal.MONTH);
+			int date = cal.get(cal.DATE);
+			String loanDelayTerm = req.getParameter("loanDelayTerm").replaceAll("년", "");
+			String loanExpireTerm = req.getParameter("loanExpireTerm").replaceAll("년", "");
+			int loanDelayYear = year + Integer.parseInt(loanDelayTerm);
+			cal.set(loanDelayYear,month,date);
+			Date loanDelayDate = cal.getTime();
+			int loanExpireYear = loanDelayYear + Integer.parseInt(loanExpireTerm);
+			cal.set(loanExpireYear, month, date);
+			Date loanExpireDate = cal.getTime();
+			String loanMethod = req.getParameter("loanMethod").equals("만기일시상환")?"A":"B";
 			String interestStr = req.getParameter("loanInterest");
 			interestStr = interestStr.replaceAll("[\\%]", "");
 			float loanInterest = Float.parseFloat(interestStr) / 100;
@@ -70,11 +87,10 @@ public class AddHandler implements CommandHandler {
 				res.sendRedirect(req.getContextPath() + "/main/main.do");
 			}
 			else {
-				Loan loan = new Loan(loanAccountNum, custCode, planCode, loanDate, loanInterest, loanBalance);
 				String empName = req.getParameter("empname");
 				Employee employee = new Employee();
 				employee.setEmpName(empName);
-				loan.setEmployee(employee);
+				Loan loan = new Loan(loanAccountNum, custCode, planCode, loanStartDate, loanDelayDate, loanExpireDate, loanInterest, loanBalance, loanMethod, employee);
 				loanService.insertLoan(loan);
 				HttpSession session = req.getSession();
 				session.setAttribute("successadd", "success");

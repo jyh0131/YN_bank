@@ -334,74 +334,194 @@ public class PlanDaoImpl implements PlanDao {
 
 	@Override
 	public List<Plan> selectPlanByBankBookCustomerNormal() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%A%' and plandiv = 'CN'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByBankBookCustomerVip() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%A%' and plandiv like 'C%'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByBankBookBusinessNormal() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%A%' and plandiv = 'BN'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByBankBookBusinessVip() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%A%' and plandiv like 'B%'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByCardCustomerNormal() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%B%' and plandiv = 'CN'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByCardCustomerVip() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%B%' and plandiv like 'C%'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByCardBusinessNormal() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%B%' and plandiv = 'BN'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByCardBusinessVip() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%B%' and plandiv like 'B%'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByLoanCustomerNormal() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%C%' and plandiv like 'CN'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByLoanCustomerVip() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%C%' and plandiv like 'C%'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByLoanBusinessNormal() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%C%' and plandiv like 'BN'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 	@Override
 	public List<Plan> selectPlanByLoanBusinessVip() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Plan> list = new ArrayList<>();
+		String sql = "select * from plan where plancode like '%C%' and plandiv like 'B%'";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);								
+				ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					list.add(getPlan(rs));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 }

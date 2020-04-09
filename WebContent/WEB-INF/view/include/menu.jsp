@@ -188,7 +188,7 @@
 					<li id="loanMgn" class="side1"><a href="#">대출 관리</a>
 						<ul>
 							<li id="loanAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=add">대출 추가</a></li>
-							<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=mgn">대출 조회</a></li>
+							<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=mgn">대출 상환</a></li>
 						</ul>
 					</li>
 					<li id="planMgn" class="side1"><a href="#">상품 관리</a>
@@ -246,7 +246,7 @@
 					<li id="loanMgn" class="side1"><a href="#">대출 관리</a>
 						<ul>
 							<li id="loanAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=add">대출 추가</a></li>
-							<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=mgn">대출 조회</a></li>
+							<li id="loanList" class="side2"><a href="${pageContext.request.contextPath}/bankwork/loan/select.do?div=mgn">대출 상환</a></li>
 						</ul>
 					</li>
 					<li id="planMgn" class="side1"><a href="#">상품 관리</a>

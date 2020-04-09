@@ -27,7 +27,7 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> showLoans() throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -44,10 +44,13 @@ public class LoanDaoImpl implements LoanDao {
 		custCode.setCustName(rs.getString("c.custname"));
 		Plan planCode = new Plan();
 		planCode.setPlanName(rs.getString("p.planname"));
-		Date loanDate = rs.getTimestamp("l.loanDate");
+		Date loanStartDate = rs.getTimestamp("l.loanStartDate");
+		Date loanDelayDate = rs.getTimestamp("l.loanDelayDate");
+		Date loanExpireDate = rs.getTimestamp("l.loanExpireDate");
 		float loanInterest = rs.getFloat("l.loaninterest");
 		Long loanBalance = rs.getLong("l.loanbalance");
-		return new Loan(loanAccountNum, custCode, planCode, loanDate, loanInterest, loanBalance);
+		String loanMethod = rs.getString("l.loanMethod");
+		return new Loan(loanAccountNum, custCode, planCode, loanStartDate, loanDelayDate, loanExpireDate, loanInterest, loanBalance, loanMethod);
 	}
 	private Loan getLoanCustDiv(ResultSet rs) throws SQLException {
 		String loanAccountNum = rs.getString("l.loanaccountnum");
@@ -56,16 +59,35 @@ public class LoanDaoImpl implements LoanDao {
 		custCode.setCustDiv(rs.getBoolean("c.custDiv"));
 		Plan planCode = new Plan();
 		planCode.setPlanName(rs.getString("p.planname"));
-		Date loanDate = rs.getTimestamp("l.loanDate");
+		Date loanStartDate = rs.getTimestamp("l.loanStartDate");
+		Date loanDelayDate = rs.getTimestamp("l.loanDelayDate");
+		Date loanExpireDate = rs.getTimestamp("l.loanExpireDate");
 		float loanInterest = rs.getFloat("l.loaninterest");
 		Long loanBalance = rs.getLong("l.loanbalance");
-		return new Loan(loanAccountNum, custCode, planCode, loanDate, loanInterest, loanBalance);
+		String loanMethod = rs.getString("l.loanMethod");
+		return new Loan(loanAccountNum, custCode, planCode, loanStartDate, loanDelayDate, loanExpireDate, loanInterest, loanBalance, loanMethod);
+	}
+	private Loan getLoanCustDivAndCredit(ResultSet rs) throws SQLException {
+		String loanAccountNum = rs.getString("l.loanaccountnum");
+		Customer custCode = new Customer();
+		custCode.setCustName(rs.getString("c.custname"));
+		custCode.setCustDiv(rs.getBoolean("c.custDiv"));
+		custCode.setCustCredit(rs.getInt("c.custCredit"));
+		Plan planCode = new Plan();
+		planCode.setPlanName(rs.getString("p.planname"));
+		Date loanStartDate = rs.getTimestamp("l.loanStartDate");
+		Date loanDelayDate = rs.getTimestamp("l.loanDelayDate");
+		Date loanExpireDate = rs.getTimestamp("l.loanExpireDate");
+		float loanInterest = rs.getFloat("l.loaninterest");
+		Long loanBalance = rs.getLong("l.loanbalance");
+		String loanMethod = rs.getString("l.loanMethod");
+		return new Loan(loanAccountNum, custCode, planCode, loanStartDate, loanDelayDate, loanExpireDate, loanInterest, loanBalance, loanMethod);
 	}
 
 	@Override
 	public List<Loan> showLoanByCustName(Loan loan) throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custname = ?";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custname = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 				pstmt.setString(1, loan.getCustCode().getCustName());
@@ -81,16 +103,19 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public int insertLoan(Loan loan) throws SQLException {
 		int res = -1;
-		String sql = "insert into loan values(?,(select custcode from customer where custname = ?),(select plancode from plan where planname = ?),?,?,?,(select empcode from employee where empname = ?))";
+		String sql = "insert into loan values(?,(select custcode from customer where custname = ?),(select plancode from plan where planname = ?),?,?,?,?,?,?,(select empcode from employee where empname = ?))";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, loan.getLoanAccountNum());
 			pstmt.setString(2, loan.getCustCode().getCustName());
 			pstmt.setString(3, loan.getPlanCode().getPlanName());
-			pstmt.setTimestamp(4, new Timestamp(loan.getLoanDate().getTime()));
-			pstmt.setFloat(5, loan.getLoanInterest());
-			pstmt.setLong(6, loan.getLoanBalance());
-			pstmt.setString(7, loan.getEmployee().getEmpName());
+			pstmt.setTimestamp(4, new Timestamp(loan.getLoanStartDate().getTime()));
+			pstmt.setTimestamp(5, new Timestamp(loan.getLoanDelayDate().getTime()));
+			pstmt.setTimestamp(6, new Timestamp(loan.getLoanExpireDate().getTime()));
+			pstmt.setString(7, loan.getLoanMethod());
+			pstmt.setFloat(8, loan.getLoanInterest());
+			pstmt.setLong(9, loan.getLoanBalance());
+			pstmt.setString(10, loan.getEmployee().getEmpName());
 			res = pstmt.executeUpdate();
 		}
 		return res;
@@ -102,7 +127,7 @@ public class LoanDaoImpl implements LoanDao {
 		String sql = "update loan set loandate = ?,loaninterest=?,loanbalance=? where custcode = (select custcode from customer where custname = ?) and loanaccountnum = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setTimestamp(1, new Timestamp(loan.getLoanDate().getTime()));
+			pstmt.setTimestamp(1, new Timestamp(loan.getLoanStartDate().getTime()));
 			pstmt.setFloat(2, loan.getLoanInterest());
 			pstmt.setLong(3, loan.getLoanBalance());
 			pstmt.setString(4, loan.getCustCode().getCustName());
@@ -154,7 +179,7 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> searchLoanAccountNums(Loan loan) throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum like ? and custdiv = ?";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + loan.getLoanAccountNum() + "%");
@@ -171,7 +196,7 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> searchLoanCustNames(Loan loan) throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custname like ? and custdiv = ?";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custname like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + loan.getCustCode().getCustName() + "%");
@@ -188,7 +213,7 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> searchLoanPlanNames(Loan loan) throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where p.planname like ? and custdiv = ?";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where p.planname like ? and custdiv = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, "%" + loan.getPlanCode().getPlanName() + "%");
@@ -204,14 +229,14 @@ public class LoanDaoImpl implements LoanDao {
 
 	@Override
 	public Loan showLoanByLoanAccountNumAndCustName(Loan loan) throws SQLException {
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance,c.custdiv from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum = ? and c.custname = ?";
+		String sql = "select l.loanAccountNum,c.custName,c.custCredit,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod,c.custDiv from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where l.loanaccountnum = ? and c.custname = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, loan.getLoanAccountNum());
 			pstmt.setString(2, loan.getCustCode().getCustName());
 			try(ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {
-					return getLoanCustDiv(rs);
+					return getLoanCustDivAndCredit(rs);
 				}
 			}
 		}
@@ -221,7 +246,7 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> showLoansNormal() throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custdiv = 0";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custdiv = 0";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -235,7 +260,7 @@ public class LoanDaoImpl implements LoanDao {
 	@Override
 	public List<Loan> showLoansBuisness() throws SQLException {
 		List<Loan> list = new ArrayList<>();
-		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanDate,l.loanInterest,l.loanBalance from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where custdiv = 1";
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where custdiv = 1";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {

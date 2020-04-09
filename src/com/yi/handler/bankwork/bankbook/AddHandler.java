@@ -34,20 +34,21 @@ public class AddHandler implements CommandHandler {
 			int number = list.size() + 1;
 			if(div.equals("0")) {
 				List<Customer> custList = custService.showCustomerByNormal();
-				List<Plan> planList = bankbookService.showPlanByBankBook();
-				List<Plan> planListNormal = bankbookService.showPlanByBankBookNormal();
+				List<Plan> planList = bankbookService.selectPlanByBankBookCustomerVip();
+				List<Plan> planListNormal = bankbookService.selectPlanByBankBookCustomerNormal();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
-				req.setAttribute("normal", "normal");
 				req.setAttribute("number", number);
 				return "/WEB-INF/view/bankwork/bankbook/bankbookInsertForm.jsp";
 			}
 			else {
 				List<Customer> custList = custService.showCustomerByBusiness();
-				List<Plan> planList = bankbookService.showPlanByBankBookBusiness();
+				List<Plan> planList = bankbookService.selectPlanByBankBookBusinessVip();
+				List<Plan> planListNormal = bankbookService.selectPlanByBankBookBusinessNormal();
 				req.setAttribute("custList", custList);
 				req.setAttribute("planList", planList);
+				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", number);
 				return "/WEB-INF/view/bankwork/bankbook/bankbookInsertForm.jsp";
 			}

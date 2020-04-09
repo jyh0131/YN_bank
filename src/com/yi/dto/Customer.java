@@ -12,12 +12,17 @@ public class Customer {
 	private String lastAccount;
 	private BankBook bankbook;
 	private Boolean custDiv;
+	
+	
+
 	public Customer() {
 		
 	}
-	
-	
-	
+
+
+
+
+
 	public Customer(String custCode, String custName) {
 		super();
 		this.custCode = custCode;

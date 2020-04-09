@@ -13,7 +13,8 @@
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		div#search {
 			width: 900px;
-			margin: 50px auto;
+			margin: 50px 0;
+			margin-left : 600px;
 			text-align: center;
 		}
 		
@@ -61,8 +62,9 @@
 		
 		
 		div#table {
-			width: 900px;
-			margin: 100px auto;
+			width : 1300px;
+			margin: 100px 0;
+			margin-left : 400px;
 		}
 		
 		div#table table {
@@ -73,7 +75,7 @@
 			width: 200px; 
 			height: 30px;
 			text-align: center;
-			font-size: 15px;
+			font-size: 13px;
 		}
 		
 		div#table tr:nth-child(odd) {
@@ -91,6 +93,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
+		$("tr").each(function(i, obj) {
+			if(i!=0) {
+				var str1 = $(obj).find("td").eq(4).html();
+				var str2 = $(obj).find("td").eq(5).html();
+				var str3 = $(obj).find("td").eq(6).html();
+				var loanStartDate = new Date(str1);
+				var loanDelayDate = new Date(str2);
+				var loanExpireDate = new Date(str3);
+				var yearDiff = loanExpireDate.getFullYear() - loanStartDate.getFullYear();
+				var calCount = yearDiff * 12;
+				$("#count").html(calCount + "회차");
+			}
+		})
 		$("#loanAdd").show();
 		$("#loanList").show();
 		$("button").eq(0).click(function() {
@@ -316,17 +331,25 @@
 					<th>고객이름</th>
 					<th>상품명</th>
 					<th>대출구분</th>
-					<th>대출날짜</th>
+					<th>대출시작일</th>
+					<th>거치일</th>
+					<th>대출만기일</th>
+					<th>대출방식</th>
+					<th>대출총납입회차</th>
 					<th>대출이자</th>
 					<th>대출금액</th>
 				</tr>
 				<c:forEach var="loan" items="${list}">
-				<tr class="pickedOne" data-accountNum="${loan.loanAccountNum }" data-custName="${loan.custCode.custName}">
+				<tr class="pickedOne" data-accountNum="${loan.loanAccountNum}" data-custName="${loan.custCode.custName}">
 					<td>${loan.loanAccountNum}</td>
 					<td>${loan.custCode.custName}</td>
 					<td>${loan.planCode.planName}</td>
 					<td>${fn:substring(loan.loanAccountNum,8,9) eq '1'?'일반대출':fn:substring(loan.loanAccountNum,8,9) eq '2'?'신용대출':'카드론'}</td>
-					<td><fmt:formatDate value="${loan.loanDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+					<td><fmt:formatDate value="${loan.loanStartDate}" pattern="yyyy-MM-dd"/></td>
+					<td><fmt:formatDate value="${loan.loanDelayDate}" pattern="yyyy-MM-dd"/></td>
+					<td><fmt:formatDate value="${loan.loanExpireDate}" pattern="yyyy-MM-dd"/></td>
+					<td>${loan.loanMethod eq 'A'?'만기일시상환':'원금균등상환'}</td>
+					<td id="count"></td>
 					<td><fmt:formatNumber value="${loan.loanInterest}" type="percent"/></td>
 					<td><fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/></td>
 				</tr>

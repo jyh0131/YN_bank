@@ -15,7 +15,7 @@ CREATE TABLE bank.BankBook (
 	accountDormant     TINYINT  NULL     COMMENT '휴면여부', -- 휴면여부
 	accountTermination TINYINT  NULL     COMMENT '해지여부', -- 해지여부
 	empCode            char(4)  NOT NULL COMMENT '사원코드', -- 사원코드
-	connectChk		   tinyint  null     comment '연결여부' -- 연결여부
+	connectChk         TINYINT  NULL     COMMENT '연결여부' -- 연결여부
 )
 COMMENT '통장';
 
@@ -29,7 +29,7 @@ ALTER TABLE bank.BankBook
 -- 사원
 CREATE TABLE bank.Employee (
 	empCode   char(4)     NOT NULL COMMENT '사원코드', -- 사원코드
-	empName   VARCHAR(5)  NULL     COMMENT '사원이름', -- 사원이름
+	empName   VARCHAR(20) NULL     COMMENT '사원이름', -- 사원이름
 	empTitle  VARCHAR(10) NULL     COMMENT '사원직책', -- 사원직책
 	empAuth   char(2)     NULL     COMMENT '사원권한', -- 사원권한
 	empSalary INTEGER     NULL     COMMENT '사원월급', -- 사원월급
@@ -66,7 +66,7 @@ ALTER TABLE bank.Department
 -- 고객
 CREATE TABLE bank.Customer (
 	custCode   char(4)     NOT NULL COMMENT '고객코드', -- 고객코드
-	custName   VARCHAR(20)  NULL     COMMENT '고객이름', -- 고객이름
+	custName   VARCHAR(20) NULL     COMMENT '고객이름', -- 고객이름
 	custCredit INTEGER(1)  NULL     COMMENT '고객신용등급', -- 고객신용등급
 	custAddr   varchar(50) NULL     COMMENT '고객주소', -- 고객주소
 	custTel    char(13)    NULL     COMMENT '고객연락처', -- 고객연락처
@@ -160,29 +160,29 @@ ALTER TABLE bank.Performance
 
 -- 입출금
 CREATE TABLE bank.cust_DW_audit (
-	dw               varchar(5) NULL COMMENT '입출금', -- 입출금
-	custname         VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
-	accountnum       char(16)   NULL COMMENT '계좌번호', -- 계좌번호
-	amount           int(20)    NULL COMMENT '거래금액', -- 거래금액
-	accountbalance   BIGINT     NULL COMMENT '계좌잔액', -- 계좌잔액
-	accountTransDate DATETIME   NULL COMMENT '거래일자' -- 거래일자
+	dw               varchar(5)  NULL COMMENT '입출금', -- 입출금
+	custname         VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
+	accountnum       char(16)    NULL COMMENT '계좌번호', -- 계좌번호
+	amount           int(20)     NULL COMMENT '거래금액', -- 거래금액
+	accountbalance   BIGINT      NULL COMMENT '계좌잔액', -- 계좌잔액
+	accountTransDate DATETIME    NULL COMMENT '거래일자' -- 거래일자
 )
 COMMENT '입출금';
 
 -- 카드 정보
 CREATE TABLE bank.cardInfo (
-	custname    VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
-	cardnum     char(16)   NULL COMMENT '카드번호', -- 카드번호
-	transDate   DATETIME   NULL COMMENT '거래일자', -- 거래일자
-	cardBalance BIGINT     NULL COMMENT '카드잔액' -- 카드잔액
+	custname    VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
+	cardnum     char(16)    NULL COMMENT '카드번호', -- 카드번호
+	transDate   DATETIME    NULL COMMENT '거래일자', -- 거래일자
+	cardBalance BIGINT      NULL COMMENT '카드잔액' -- 카드잔액
 )
 COMMENT '카드 정보';
 
 -- 통장정보
 CREATE TABLE bank.bankbookinfo (
-	custname   VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
-	accountnum char(16)   NULL COMMENT '계좌번호', -- 계좌번호
-	transdate  DATETIME   NULL COMMENT '거래일자' -- 거래일자
+	custname   VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
+	accountnum char(16)    NULL COMMENT '계좌번호', -- 계좌번호
+	transdate  DATETIME    NULL COMMENT '거래일자' -- 거래일자
 )
 COMMENT '통장정보';
 
@@ -190,7 +190,7 @@ COMMENT '통장정보';
 CREATE TABLE bank.notice (
 	no         INTEGER     NOT NULL COMMENT '번호', -- 번호
 	subject    varchar(30) NULL     COMMENT '제목', -- 제목
-	writer     VARCHAR(5)  NULL     COMMENT '작성자', -- 작성자
+	writer     VARCHAR(20) NULL     COMMENT '작성자', -- 작성자
 	write_date DATETIME    NULL     COMMENT '작성일', -- 작성일
 	content    TEXT        NULL     COMMENT '내용' -- 내용
 )
@@ -202,7 +202,9 @@ ALTER TABLE bank.notice
 		PRIMARY KEY (
 			no -- 번호
 		);
-ALTER TABLE bank.notice modify column no int auto_increment; -- 공지사항 기본키
+
+ALTER TABLE bank.notice
+	MODIFY COLUMN no INTEGER NOT NULL AUTO_INCREMENT COMMENT '번호';
 
 -- 상환
 CREATE TABLE bank.Repayment (
@@ -218,9 +220,16 @@ CREATE TABLE bank.Repayment (
 	loanBalance    BIGINT   NULL     COMMENT '대출잔액', -- 대출잔액
 	loanRepayment  INTEGER  NULL     COMMENT '상환금액' -- 상환금액
 )
-
-
 COMMENT '상환';
+
+-- 타행송금정보
+CREATE TABLE bank.transferringBankBook (
+	accoutnum char(16)    NULL COMMENT '계좌번호', -- 계좌번호
+	bankcode  char(3)     NULL COMMENT '은행코드', -- 은행코드
+	bankname  varchar(20) NULL COMMENT '은행명', -- 은행명
+	custname  VARCHAR(20) NULL COMMENT '고객명' -- 고객명
+)
+COMMENT '타행송금정보';
 
 -- 통장
 ALTER TABLE bank.BankBook

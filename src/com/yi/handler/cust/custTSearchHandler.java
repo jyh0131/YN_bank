@@ -23,7 +23,7 @@ public class custTSearchHandler implements CommandHandler {
 			String dw = req.getParameter("dw");
 			req.setAttribute("dw", dw);
 			List<Customer> list = service.showCustomers();
-			List<Customer> listForBal = service.showCustomerWhoHasAcc();
+			List<Customer> listForBal = service.showCustomerWhoHas11Acc();
 			req.setAttribute("list", list);
 			req.setAttribute("listForBal", listForBal);
 			return "/WEB-INF/view/cust/custTSearch.jsp";

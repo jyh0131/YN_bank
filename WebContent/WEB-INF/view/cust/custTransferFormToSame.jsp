@@ -69,6 +69,7 @@
 	display: none;
 	font-size: 12px;
 }
+
 					   				    
 </style>
 <script>
@@ -80,6 +81,7 @@
 		//있는 계좌번호인지 판단 
 		$("#findAccNum").on("change",function(){
 			$(".errorMSG").css("display", "none");
+			$(".errorCust").html("");
 			var targetAccNum = $("#findAccNum").val();
 			//alert(targetAccNum);
 			
@@ -92,7 +94,7 @@
 			         console.log(res)
 			    	if(res.successs =="existAccount"){
 			    		
-			    		$("input[name='findAccNum']").next().next().html(res.targetCustName);
+			    		$("input[name='findAccNum']").next().next().html("  "+res.targetCustName);
 			    		$("input[name='findAccNum']").next().next().next().css("display", "inline");
 			    		
 			    	}if(res.error =="notExist"){
@@ -117,16 +119,26 @@
     	})
     	
     	//입금 클릭 시
-    	$("input[value='입금']").click(function(){
+    	$("input[value='이체']").click(function(){
     		
-    		var deposit = confirm("입금하시겠습니까?");
+    		$(".errorMSG").css("display", "none");
+    		var transferAmount = $("input[name='transferAmount']").val();
+    		var amountReg=/[0-9]/;
+    		if(transferAmount == "" || amountReg.test(transferAmount) == false){
+    			$("input[name='transferAmount']").next().css("display","inline");
+    			return false;
+    		}
+
+    		var deposit = confirm("이체하시겠습니까?");
     		if(deposit){
 
         		var accountNum = $("input[name='accNum']").val();
         		var amount=$("input[name='amount']").val();
         		var code = $("input[name='code']").val();
+        		var transferAmount = $("input[name='transferAmount']").val();
+        		var findAccNum = $("input[name='findAccNum']").val();
         		
-        		location.href= "${pageContext.request.contextPath}/cust/custDWFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=입금&code="+code;
+        		location.href= "${pageContext.request.contextPath}/cust/custTFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=송금&code="+code+"&transferAmount="+transferAmount+"&findAccNum="+findAccNum;
     		}
     		
     	})  
@@ -141,7 +153,7 @@
         		var amount=$("input[name='amount']").val();
         		var code = $("input[name='code']").val();
         		  
-        		location.href= "${pageContext.request.contextPath}/cust/custDWFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=출금&code="+code;
+        		location.href= "${pageContext.request.contextPath}/cust/custTFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=출금&code="+code;
     		}
     		
     	})
@@ -155,9 +167,9 @@
 			<c:if test="${dw=='즉시이체' }">
 				<h1>즉시이체</h1>
 			</c:if>
-			<c:if test="${dw=='타행송금' }">   
+	<%-- 		<c:if test="${dw=='타행송금' }">   
 				<h1>타행송금</h1>
-			</c:if>
+			</c:if> --%>
 		</div>	
 			<div id="profile">
 				<h2>송금정보</h2>
@@ -182,7 +194,7 @@
 							</td>
 						</tr>   
 						<tr>           
-							<th>잔액</th>
+							<th>고객 잔액</th>
 							<td>
 								<input type="text" name="accBal" value="${custBal.bankbook.accountBalance }" readonly="readonly">
 								
@@ -191,10 +203,18 @@
 						<tr>
 							<th>송금 계좌번호</th>
 							<td>
-								<input type="input" name="findAccNum" id="findAccNum" value="293133-">
-								<span class="errorMSG">없는 계좌번호 입니다. 확인해주세요</span>
-								<span></span><span class="errorMSG">님의 계좌번호가 맞다면 진행하세요</span>
+								<input type="input" name="findAccNum" id="findAccNum" value="293133-11-">
+								<span class="errorMSG">없는 계좌번호 입니다. 확인해주세요(6자리입력 필요)</span>
+								<span class="errorCust"></span><span class="errorMSG"> 님의 계좌번호가 맞다면 진행하세요</span>
 							</td>
+						</tr>
+						<tr>           
+							<th>이체 금액</th>
+							<td>
+								<input type="text" name="transferAmount">
+								<span class="errorMSG">숫자를 입력해주세요</span>
+								
+							</td>   
 						</tr>
 						<tr>
 							<c:if test="${dw=='입금' }">
@@ -214,9 +234,9 @@
 					<c:if test="${dw=='즉시이체' }">
 						<input type="submit" value="이체">
 					</c:if>
-					<c:if test="${dw=='타행송금' }">
+				<%-- 	<c:if test="${dw=='타행송금' }">
 						<input type="submit" value="이체">
-					</c:if>
+					</c:if> --%>
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				

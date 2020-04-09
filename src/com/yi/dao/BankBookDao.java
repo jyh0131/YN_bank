@@ -45,4 +45,5 @@ public interface BankBookDao {
 	public abstract long[] TotalPlanTransAmountYearly() throws SQLException;
 	
 	public BankBook findBankBook(String accountNum) throws SQLException;
+	public int changeBankBookBalance(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException;
 }

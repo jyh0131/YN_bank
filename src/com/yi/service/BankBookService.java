@@ -138,4 +138,8 @@ public class BankBookService {
 	public BankBook showOneBankBook(String accountNum) throws SQLException{
 		return bankBookDao.findBankBook(accountNum);
 	}
+	
+	public int changeBankBookBalance(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException {
+		return bankBookDao.changeBankBookBalance(bankBook, bankBook2, fromto);
+	}
 }

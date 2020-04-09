@@ -482,6 +482,27 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		return list;
 	}
+	
+	//예금통장만
+	@Override
+	public List<Customer> selectCustomerWhoHas11Acc() throws SQLException {
+		List<Customer> list = null;
+		String sql = "select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = \"11\"";
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	private Customer getCustomerForAccBalance(ResultSet rs) throws SQLException {
 		String custCode = rs.getString("c.custCode");

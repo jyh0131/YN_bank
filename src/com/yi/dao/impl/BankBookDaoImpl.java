@@ -680,4 +680,31 @@ public class BankBookDaoImpl implements BankBookDao {
 		long accountBalance = rs.getLong("b.accountBalance");
 		return new BankBook(accountNum, cust, plan, accountBalance);
 	}
+
+	//계좌에서 인출한 뒤 입금시키기  //앞이 출금계좌 뒤가 입금계좌
+	@Override
+	public int changeBankBookBalance(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException {
+		int res = -1;
+		String sql ="update bankbook set accountBalance = accountBalance-? where accountNum =?";
+			try(Connection con = DriverManager.getConnection(jdbcDriver)) {
+			con.setAutoCommit(false);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, fromto);
+			pstmt.setString(2, bankBook.getAccountNum());
+			res = pstmt.executeUpdate();
+			sql = "update bankbook set accountBalance = accountBalance+? where accountNum =?"; 
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, fromto);
+			pstmt.setString(2, bankBook2.getAccountNum());
+			
+			res += pstmt.executeUpdate();
+			if(res==2) {
+				con.commit();
+			}
+			else {
+				con.rollback();
+			}
+		}
+		return res;
+	}
 }

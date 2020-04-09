@@ -28,6 +28,12 @@ public class BankBook {
 		this.accountPlanCode = accountPlanCode;
 		this.accountBalance = accountBalance;
 	}
+	
+	
+	public BankBook(String accountNum) {
+		super();
+		this.accountNum = accountNum;
+	}
 	public BankBook(String accountNum, Customer custCode, boolean connectChk) {
 		this.accountNum = accountNum;
 		this.custCode = custCode;

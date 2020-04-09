@@ -45,6 +45,10 @@ public class CustomerService {
 		return dao.selectCustomerWhoHasAcc();
 	}
 	
+	public List<Customer> showCustomerWhoHas11Acc() throws SQLException{
+		return dao.selectCustomerWhoHas11Acc();
+	}
+	
 	public List<Customer> showCustomerWHasAccByCode(String custCode) throws SQLException{
 		return dao.selectCustomerWHasAccByCode(custCode);
 	}

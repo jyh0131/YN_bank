@@ -38,7 +38,7 @@ public class custTtoSameHandler implements CommandHandler {
 			
 			try {
 				BankBook bankBook = bankService.showOneBankBook(findAccNum);
-				System.out.println("통장정보임마"+bankBook);
+				//System.out.println("통장정보임마"+bankBook);
 				if(bankBook !=null) {
 					String custName = bankBook.getCustCode().getCustName();
 					 HashMap<String,String> map = new HashMap<>();

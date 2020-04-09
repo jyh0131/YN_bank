@@ -84,17 +84,16 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public void insertCustomer(Customer customer) throws SQLException {
-		String sql = "insert into customer values(?,?,?,?,?,?,?)";
+		String sql = "insert into customer values(?,?,?,?,?,?)";
 		try(Connection con = DriverManager.getConnection(jdbcDriver); 
 			PreparedStatement pstmt = con.prepareStatement(sql)){
 			
 			pstmt.setString(1, customer.getCustCode());
 			pstmt.setString(2, customer.getCustName());
-			pstmt.setString(3, customer.getCustRank());
-			pstmt.setInt(4, customer.getCustCredit());
-			pstmt.setString(5, customer.getCustAddr());
-			pstmt.setString(6, customer.getCustTel());
-			pstmt.setBoolean(7, customer.getCustDiv());
+			pstmt.setInt(3, customer.getCustCredit());
+			pstmt.setString(4, customer.getCustAddr());
+			pstmt.setString(5, customer.getCustTel());
+			pstmt.setBoolean(6, customer.getCustDiv());
 			
 			pstmt.executeUpdate();
 		}

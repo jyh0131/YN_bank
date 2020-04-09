@@ -102,9 +102,9 @@
 		//검색 구분 조건 변경하면 테이블 reload
 		$("select").on("change", function(){
 			
-				$("table").load(location.href+" table");
+				$(".tableList").load(location.href+" .tableList tr");
 				$("input[name='search']").val("");   
-		})
+		})   
 		
 		//버튼 클릭 시 
 		$("button").click(function() {  

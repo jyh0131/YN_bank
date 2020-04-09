@@ -128,7 +128,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		//console.log(res);
+//				    		console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 상품 입니다.");
 				    		}
@@ -151,13 +151,20 @@
 				    		
 				    		$(res).each(function(i, obj) {
 				    			var $tr2 = $("<tr>");
-				    			
+				    			console.log(obj.planDiv);
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
-					    		
-				    			   
+					    		var $a4;
+					    		if(obj.planDiv=="CV"){  
+					    			$a4 = $("<a>").html("일반고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="CN"){
+					    			$a4 = $("<a>").html("일반고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="BV"){
+					    			$a4 = $("<a>").html("기업고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else {
+					    			$a4 = $("<a>").html("기업고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}
 					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
@@ -219,7 +226,16 @@
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a4;
+					    		if(obj.planDiv=="CV"){  
+					    			$a4 = $("<a>").html("일반고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="CN"){
+					    			$a4 = $("<a>").html("일반고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="BV"){
+					    			$a4 = $("<a>").html("기업고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else {
+					    			$a4 = $("<a>").html("기업고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}
 					    		
 				    			   
 					    		
@@ -283,7 +299,16 @@
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a4;
+					    		if(obj.planDiv=="CV"){  
+					    			$a4 = $("<a>").html("일반고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="CN"){
+					    			$a4 = $("<a>").html("일반고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="BV"){
+					    			$a4 = $("<a>").html("기업고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else {
+					    			$a4 = $("<a>").html("기업고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}
 					    		
 				    			   
 					    		
@@ -353,7 +378,20 @@
 							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planCode }</a></td>
 							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planDetail }</a></td>
 							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planName }</a></td>
-							<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planDiv }</a></td>
+							
+							<c:if test="${planList.planDiv=='CV' }">
+								<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">일반고객(VIP 등급)</a></td>
+							</c:if>
+							<c:if test="${planList.planDiv=='CN' }">
+								<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">일반고객(일반 등급)</a></td>
+							</c:if>
+							<c:if test="${planList.planDiv=='BV' }">
+								<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">기업고객(VIP 등급)</a></td>
+							</c:if>
+							<c:if test="${planList.planDiv=='BN' }">
+								<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">기업고객(일반 등급)</a></td>
+							</c:if>
+							
 		
 							
 					</tr>

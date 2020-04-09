@@ -85,7 +85,7 @@
 					  margin-left: 200px;  }
 	div#profileEdit table { width: 500px; }
 	div#profileEdit table tr { height: 30px; }
-	div#profileEdit table th { width: 100px; text-align: left; }
+	div#profileEdit table th { width: 150px; text-align: left; }
 	div#profileEdit table td { width: 200px; text-align: center;}
 	div#profileEdit table td input { width: 250px;
 									 background: whitesmoke;
@@ -93,12 +93,13 @@
 								     padding: 10px; 
 								     border-bottom: 1px solid gray;}
 	table td.long {height: 150px; 
-				    }		
+				    }
+	div#profileEdit table td select { width: 250px; margin: 20px 0;}	
 				    
 	/* 버튼 영역 */				    					     			
 	div#submit { text-align: center; 
 				 height: 100px; 
-				 line-height: 200px; }
+				 line-height: 100px; }
 	div#submit input { width: 100px;  height: 40px; 
 					   border: none;
 					   background: gray; 
@@ -143,12 +144,105 @@
 							</td>
 								
 						</tr>
-						<tr>
-							<th>상품 구분</th>
-							<td>
-								<input type="text" readonly="readonly" name="planDiv" value="${plan.planDiv }">
-							</td>
-						</tr>   
+						
+						<c:if test="${plan.planDiv =='CV' }">   
+							<tr class="long">
+							<th>상품 가입 대상</th>
+								<td>
+									<select name="planFor" id="div" disabled="disabled">
+										<option>가입 대상 선택</option>
+										<option>기업 고객용</option>
+										<option selected="selected">일반 고객용</option>
+									</select>
+								</td>
+							</tr>   
+							
+							<tr>    
+								<th>상품 가입 대상 등급</th>
+								<td>
+									<select name="planForDetail" id="div" disabled="disabled">
+										<option>세부 선택</option>  
+										<option selected="selected">VIP 등급용</option>
+										<option>일반 등급용</option>
+									</select>
+								</td>
+							</tr>
+						</c:if>
+						
+						
+						<c:if test="${plan.planDiv =='CN' }">   
+							<tr class="long">
+							<th>상품 가입 대상</th>
+								<td>
+									<select name="planFor" id="div" disabled="disabled">
+										<option>가입 대상 선택</option>
+										<option>기업 고객용</option>
+										<option selected="selected">일반 고객용</option>
+									</select>
+								</td>
+							</tr>   
+							
+							<tr>    
+								<th>상품 가입 대상 등급</th>
+								<td>
+									<select name="planForDetail" id="div" disabled="disabled">
+										<option>세부 선택</option>  
+										<option>VIP 등급용</option>
+										<option selected="selected">일반 등급용</option>
+									</select>
+								</td>
+							</tr>
+						</c:if>
+						
+						
+						<c:if test="${plan.planDiv =='BV' }">   
+							<tr class="long">
+							<th>상품 가입 대상</th>
+								<td>
+									<select name="planFor" id="div" disabled="disabled">
+										<option>가입 대상 선택</option>
+										<option selected="selected">기업 고객용</option>
+										<option>일반 고객용</option>
+									</select>
+								</td>
+							</tr>   
+							
+							<tr>    
+								<th>상품 가입 대상 등급</th>
+								<td>
+									<select name="planForDetail" id="div" disabled="disabled">
+										<option>세부 선택</option>  
+										<option selected="selected">VIP 등급용</option>
+										<option>일반 등급용</option>
+									</select>
+								</td>
+							</tr>
+						</c:if>
+						
+						<c:if test="${plan.planDiv =='BN' }">   
+							<tr class="long">
+							<th>상품 가입 대상</th>
+								<td>
+									<select name="planFor" id="div" disabled="disabled">
+										<option>가입 대상 선택</option>
+										<option selected="selected">기업 고객용</option>
+										<option>일반 고객용</option>
+									</select>
+								</td>
+							</tr>   
+							
+							<tr>    
+								<th>상품 가입 대상 등급</th>
+								<td>
+									<select name="planForDetail" id="div" disabled="disabled">
+										<option>세부 선택</option>  
+										<option>VIP 등급용</option>
+										<option selected="selected">일반 등급용</option>
+									</select>
+								</td>
+							</tr>
+						</c:if>
+						
 						
 					</table>
 				</div>

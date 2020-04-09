@@ -156,12 +156,27 @@
 							<td><textarea cols="40" rows="3" name="planDesc" placeholder="세부 설명을 입력하세요."></textarea></td>
 						</tr>  
 						<tr class="long">
-							<th>상품 구분코드</th>
-							<td><select name="planDiv">
-									<option>구분 코드 선택</option>
-									<option>V(VIP 고객용)</option>
-									<option>N(일반 고객용)</option>
-									<option>B(기업 고객용)</option>
+							<th>상품 가입 대상</th>
+							<td><select name="planFor" id="div">
+									<option>가입 대상 선택</option>
+									<option>기업용</option>
+									<option>일반 고객용</option>
+								</select></td>
+						</tr>
+						<tr class="long">
+							<th>상품 가입 대상</th>
+							<td><select name="planFor" id="div">
+									<option>가입 대상 선택</option>
+									<option>기업 고객용</option>
+									<option>일반 고객용</option>
+								</select></td>
+						</tr>
+						<tr>    
+							<th>상품 가입 대상 등급</th>
+							<td><select name="planForDetail" id="div">
+									<option>등급 선택</option>  
+									<option>VIP 등급용</option>
+									<option>일반 등급용</option>
 								</select></td>
 						</tr>
 						

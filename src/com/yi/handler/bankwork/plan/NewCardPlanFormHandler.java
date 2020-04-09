@@ -39,14 +39,25 @@ public class NewCardPlanFormHandler implements CommandHandler {
 			String planDetail = req.getParameter("planDetail");    
 			String planName = req.getParameter("planName");
 			String planDesc = req.getParameter("planDesc");
-			String planDiv = req.getParameter("planDiv");
-			if(planDiv.equals("V(VIP 고객용)")) {
-				planDiv = "V";
-			}else if(planDiv.equals("N(일반 고객용)")) {
-				planDiv = "N";
+			String planFor = req.getParameter("planFor");
+			String planForDetail = req.getParameter("planForDetail");
+			String planDiv1;
+			String planDiv2;
+			String planDiv;
+			
+			if(planFor.equals("기업 고객용")) {
+				planDiv1 = "B";
 			}else {
-				planDiv = "B";
+				planDiv1 = "C";
 			}
+			
+			if(planForDetail.equals("VIP 등급용")) {
+				planDiv2 = "V";
+			}else {
+				planDiv2 = "N";
+			}
+			
+			planDiv = planDiv1 + planDiv2;
 			
 			Plan plan = new Plan(planCode, planDetail, planName, planDesc, planDiv);
 			service.addPlan(plan);

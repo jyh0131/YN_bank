@@ -15,6 +15,7 @@ import com.yi.dto.Customer;
 import com.yi.dto.Loan;
 import com.yi.dto.LoanInfo;
 import com.yi.dto.Plan;
+import com.yi.dto.Repayment;
 
 public class LoanDaoImpl implements LoanDao {
 	private static final LoanDaoImpl instance = new LoanDaoImpl();
@@ -269,6 +270,39 @@ public class LoanDaoImpl implements LoanDao {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public List<Repayment> searchRepaymentsByAccountNum(String accountnum) throws SQLException {
+		List<Repayment> list = new ArrayList<>();
+		String sql = "select loanaccountnum,custname,planname,loanstartdate,loandelaydate,loanexpiredate,loanmethod,loanround,loaninterest,loanbalance,loanrepayment from repayment r join customer c on r.custcode = c.custcode join plan p on r.loanplancode = p.plancode where loanaccountnum = ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, accountnum);
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getRepayment(rs));
+				}	
+			}
+		}
+		return list;
+	}
+
+	private Repayment getRepayment(ResultSet rs) throws SQLException {
+		String loanAccountNum = rs.getString("loanaccoutnum");
+		Customer cust = new Customer();
+		cust.setCustName(rs.getString("custname"));
+		Plan plan = new Plan();
+		plan.setPlanName(rs.getString("planname"));
+		Date loanStartDate = rs.getTimestamp("loanstartdate");
+		Date loanDelayDate = rs.getTimestamp("loandelaydate");
+		Date loanExpireDate = rs.getTimestamp("loanexpiredate");
+		String loanMethod = rs.getString("loanmethod");
+		int loanRound = rs.getInt("loanround");
+		float loanInterest = rs.getFloat("loaninterest");
+		long loanBalance = rs.getLong("loanbalance");
+		int loanRepayment = rs.getInt("loanrepayment");
+		return new Repayment(loanAccountNum, cust, plan, loanStartDate, loanDelayDate, loanExpireDate, loanMethod, loanRound, loanInterest, loanBalance, loanRepayment);
 	}
 
 }

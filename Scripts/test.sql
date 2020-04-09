@@ -355,7 +355,6 @@ delete from loan;
 select * from performance;
 delete from performance where plancode in ('C007','C008');
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode;
-=======
 
 
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode;
@@ -367,4 +366,4 @@ select * from bankbook b ;
 select b.accountNum, b.accountBalance, c.custCode,c.custName,p.planCode,p.planName from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountNum ='293133-11-000001';
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = 11;
 update bankbook set accountBalance = accountBalance+100 where accountNum ='293133-11-000001';
->>>>>>> branch 'master' of https://github.com/jyh0131/YN_bank.git
+select loanaccountnum,custname,planname,loanstartdate,loandelaydate,loanexpiredate,loanmethod,loanround,loaninterest,loanbalance,loanrepayment from repayment r join customer c on r.custcode = c.custcode join plan p on r.loanplancode = p.plancode where loanaccountnum = '293133-11-000001';

@@ -336,19 +336,19 @@ public class CustomerDaoImpl implements CustomerDao {
      
 	@Override
 	public Customer selectCustomerByTel(String custTel) throws SQLException {
-		String sql = "select custCode, custName, custCredit, custAddr, custTel from customer where custTel = ?";
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custTel like ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql)){
 			
-			pstmt.setString(1, custTel);
+			pstmt.setString(1, "%"+custTel+"%");
 			try(ResultSet rs = pstmt.executeQuery();){
 				if(rs.next()) {
 					return getCustomer(rs);
 				}
 			}
-			
+			  
 		}catch(SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();  
 		}
 		
 		return null;

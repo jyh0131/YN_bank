@@ -74,10 +74,9 @@
 			var contact1 = $("input[name='contact1']").val();
 			var contact2 = $("input[name='contact2']").val();
 			var contact3 = $("input[name='contact3']").val();
-			var rank = $("select[name='rank']").val();
 			var credit = $("select[name='credit']").val();
 			
-			if(name=="" || addr=="" || contact1=="" || contact2=="" || contact3=="" || rank=="등급 선택" || credit=="신용등급 선택"){
+			if(name=="" || addr=="" || contact1=="" || contact2=="" || contact3=="" || credit=="신용등급 선택"){
 				alert("모든 항목을 선택해주세요.");
 				return false;
 			}else{
@@ -124,20 +123,6 @@
 						<tr>
 							<th>회사 명</th>
 							<td><input type="text" name="name"></td>
-						</tr>
-						<tr>
-							<th>등급</th>
-							<td>
-								<select name="rank">
-									<option>등급 선택</option>
-									<option>Diamond</option>
-									<option>Platinum</option>
-									<option>Gold</option>
-									<option>Silver</option>
-									<option>Bronze</option>
-								</select>
-							</td>
-								
 						</tr>
 						<tr>
 							<th>신용등급</th>

@@ -8,14 +8,18 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		
 		div#dummy { height: 75px; background: #292929;}
-		
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 500px;      
+						  border-bottom: 2px solid #e9ebec;} 
 		/* 검색 부분 부분 */
-		div#search {
+		div#search {   
 			width: 900px;
 			margin: 50px auto;  
 			text-align: center;
@@ -62,7 +66,10 @@
 					 color: #29abe2;    
 					 z-index: 3;    
 					 top: 25%;  }
-		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }
+				  
 		
 		div#table {
 			width: 1000px;
@@ -378,6 +385,7 @@
 <body>
 	<section>
 		<%@include file="../include/sectionBar.jsp"%>
+		<h2 id="menuLocation">송금 (계좌 이체)</h2>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색 구분</option>
@@ -395,6 +403,7 @@
 				
 		</div>
 		<div id="table">
+		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">계좌이체를 수행하려면  고객을 클릭하세요.</span>
 			<table class="tableList">
 				<tr>
 					<th>고객 코드</th>

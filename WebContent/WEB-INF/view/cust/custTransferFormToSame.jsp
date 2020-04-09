@@ -14,6 +14,7 @@
 	* { margin:0; padding:0; 
 		font-family: 'Noto Sans KR', sans-serif;
 		color: #252525; }
+
 	div#dummy { height: 75px; background: #292929;}			
 	#container { width: 1000px; margin: 30px auto;}
 	
@@ -27,8 +28,8 @@
 				  padding: 50px;}
 				  
 	div#profile h2 { height: 50px;}
-
-				  
+	
+	
 	/* 고객 정보 부분 */
 	div#profileEdit { width:600px; 
 					  height: 450px; 
@@ -178,7 +179,7 @@
 							<table>
 								
 						<tr>
-							<th>고객 코드</th>
+							<th>고객 코드</th>   
 							<td>
 								<input type="text" name="code" value="${custBal.custCode }" readonly="readonly">
 							</td>

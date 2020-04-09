@@ -12,10 +12,9 @@ CREATE TABLE bank.BankBook (
 	accountOpenDate    DATETIME NOT NULL COMMENT '계좌개설일', -- 계좌개설일
 	accountInterest    FLOAT    NOT NULL COMMENT '이자율', -- 이자율
 	accountBalance     BIGINT   NOT NULL COMMENT '잔액', -- 잔액
-	accountDormant     tinyint(1)  NULL     COMMENT '휴면여부', -- 휴면여부
-	accountTermination tinyint(1)  NULL     COMMENT '해지여부', -- 해지여부
-	empCode            char(4)  NOT NULL COMMENT '사원코드', -- 사원코드
-	connectChk	       tinyint(1) null COMMENT '연결여부' -- 연결여부
+	accountDormant     TINYINT  NULL     COMMENT '휴면여부', -- 휴면여부
+	accountTermination TINYINT  NULL     COMMENT '해지여부', -- 해지여부
+	empCode            char(4)  NOT NULL COMMENT '사원코드' -- 사원코드
 )
 COMMENT '통장';
 
@@ -37,8 +36,8 @@ CREATE TABLE bank.Employee (
 	empId     varchar(12) NULL     COMMENT '사원아이디', -- 사원아이디
 	empPwd    varchar(41) NULL     COMMENT '사원비밀번호', -- 사원비밀번호
 	deptNo    INTEGER     NOT NULL COMMENT '부서번호', -- 부서번호
-	pic       varchar(255)    NULL     COMMENT '사원사진', -- 사원사진
-	empRetire tinyint(1)     NULL     COMMENT '퇴사여부' -- 퇴사여부
+	pic       LONGBLOB    NULL     COMMENT '사원사진', -- 사원사진
+	empRetire TINYINT     NULL     COMMENT '퇴사여부' -- 퇴사여부
 )
 COMMENT '사원';
 
@@ -66,12 +65,11 @@ ALTER TABLE bank.Department
 -- 고객
 CREATE TABLE bank.Customer (
 	custCode   char(4)     NOT NULL COMMENT '고객코드', -- 고객코드
-	custName   VARCHAR(20)  NULL     COMMENT '고객이름', -- 고객이름
-	custRank   char(1)     NULL     COMMENT '고객등급', -- 고객등급
+	custName   VARCHAR(5)  NULL     COMMENT '고객이름', -- 고객이름
 	custCredit INTEGER(1)  NULL     COMMENT '고객신용등급', -- 고객신용등급
 	custAddr   varchar(50) NULL     COMMENT '고객주소', -- 고객주소
 	custTel    char(13)    NULL     COMMENT '고객연락처', -- 고객연락처
-	custDiv    tinyint(1)     NULL     COMMENT '고객구분' -- 고객구분
+	custDiv    TINYINT     NULL     COMMENT '고객구분' -- 고객구분
 )
 COMMENT '고객';
 
@@ -88,7 +86,7 @@ CREATE TABLE bank.Plan (
 	planDetail char(5)      NOT NULL COMMENT '상품세부코드', -- 상품세부코드
 	planName   VARCHAR(30)  NULL     COMMENT '상품이름', -- 상품이름
 	planDesc   varchar(100) NULL     COMMENT '상품설명', -- 상품설명
-	planDiv    char(1)      NULL     COMMENT '상품구분코드' -- 상품구분코드
+	planDiv    char(2)      NULL     COMMENT '상품구분코드' -- 상품구분코드
 )
 COMMENT '고객상품';
 
@@ -104,7 +102,10 @@ CREATE TABLE bank.Loan (
 	loanAccountNum char(16) NOT NULL COMMENT '대출계좌번호', -- 대출계좌번호
 	custCode       char(4)  NOT NULL COMMENT '고객코드', -- 고객코드
 	loanPlanCode   char(4)  NOT NULL COMMENT '대출상품코드', -- 대출상품코드
-	loanDate       DATETIME NULL     COMMENT '대출날짜', -- 대출날짜
+	loanStartDate  DATETIME NULL     COMMENT '대출시작날짜', -- 대출시작날짜
+	loanDelayDate  DATETIME NULL     COMMENT '대출거치일자', -- 대출거치일자
+	loanExpireDate DATETIME NULL     COMMENT '대출만료일자', -- 대출만료일자
+	loanMethod     char(1)  NULL     COMMENT '대출상환방식', -- 대출상환방식
 	loanInterest   FLOAT    NULL     COMMENT '대출이자율', -- 대출이자율
 	loanBalance    BIGINT   NULL     COMMENT '대출잔액', -- 대출잔액
 	empCode        char(4)  NULL     COMMENT '사원코드' -- 사원코드
@@ -158,18 +159,18 @@ ALTER TABLE bank.Performance
 
 -- 입출금
 CREATE TABLE bank.cust_DW_audit (
-	dw         varchar(5)        NULL COMMENT '입출금구분', -- dw
-	custname   VARCHAR(20)        NULL COMMENT '고객이름', -- custname
-	accountnum char(16)          NULL COMMENT '계좌번호', -- accountnum
-	amount     int(20)            NULL COMMENT '잔액', -- amount
-	accountbalance     BIGINT     NULL COMMENT '통장잔액', -- accountbalance
-	accountTransDate     DATETIME   NULL COMMENT '거래일자' -- accountTransDate
+	dw               varchar(5) NULL COMMENT '입출금', -- 입출금
+	custname         VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
+	accountnum       char(16)   NULL COMMENT '계좌번호', -- 계좌번호
+	amount           int(20)    NULL COMMENT '거래금액', -- 거래금액
+	accountbalance   BIGINT     NULL COMMENT '계좌잔액', -- 계좌잔액
+	accountTransDate DATETIME   NULL COMMENT '거래일자' -- 거래일자
 )
 COMMENT '입출금';
 
 -- 카드 정보
 CREATE TABLE bank.cardInfo (
-	custname    VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
+	custname    VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
 	cardnum     char(16)   NULL COMMENT '카드번호', -- 카드번호
 	transDate   DATETIME   NULL COMMENT '거래일자', -- 거래일자
 	cardBalance BIGINT     NULL COMMENT '카드잔액' -- 카드잔액
@@ -178,19 +179,19 @@ COMMENT '카드 정보';
 
 -- 통장정보
 CREATE TABLE bank.bankbookinfo (
-	custname VARCHAR(20) NULL COMMENT '고객이름', -- custname
-	accountnum char(16)   NULL COMMENT '계좌번호', -- accountnum
-	transdate DATETIME   NULL COMMENT '거래일자' -- transdate
+	custname   VARCHAR(5) NULL COMMENT '고객이름', -- 고객이름
+	accountnum char(16)   NULL COMMENT '계좌번호', -- 계좌번호
+	transdate  DATETIME   NULL COMMENT '거래일자' -- 거래일자
 )
 COMMENT '통장정보';
 
 -- 공지사항
 CREATE TABLE bank.notice (
-	no     INTEGER     NOT NULL COMMENT '번호', -- no
-	subject     varchar(30) NULL     COMMENT '제목', -- subject
-	writer   VARCHAR(5)  NULL     COMMENT '작성자', -- writer
-	write_date DATETIME    NULL     COMMENT '작성일', -- write_date
-	content     TEXT        NULL     COMMENT '내용' -- content
+	no         INTEGER     NOT NULL COMMENT '번호', -- 번호
+	subject    varchar(30) NULL     COMMENT '제목', -- 제목
+	writer     VARCHAR(5)  NULL     COMMENT '작성자', -- 작성자
+	write_date DATETIME    NULL     COMMENT '작성일', -- 작성일
+	content    TEXT        NULL     COMMENT '내용' -- 내용
 )
 COMMENT '공지사항';
 
@@ -198,10 +199,24 @@ COMMENT '공지사항';
 ALTER TABLE bank.notice
 	ADD CONSTRAINT PK_notice -- 공지사항 기본키
 		PRIMARY KEY (
-			no -- no
+			no -- 번호
 		);
-ALTER TABLE bank.notice
-	modify column no int not null auto_increment;
+
+-- 상환
+CREATE TABLE bank.Repayment (
+	loanAccountNum char(16) NOT NULL COMMENT '대출계좌번호', -- 대출계좌번호
+	custCode       char(4)  NOT NULL COMMENT '고객코드', -- 고객코드
+	loanPlanCode   char(4)  NOT NULL COMMENT '대출상품코드', -- 대출상품코드
+	loanStartDate  DATETIME NULL     COMMENT '대출시작날짜', -- 대출시작날짜
+	loanDelayDate  DATETIME NULL     COMMENT '대출거치일자', -- 대출거치일자
+	loanExpireDate DATETIME NULL     COMMENT '대출만료일자', -- 대출만료일자
+	loanMethod     char(1)  NULL     COMMENT '대출상환방식', -- 대출상환방식
+	loanRound      INTEGER  NULL     COMMENT '대출상환회차', -- 대출상환회차
+	loanInterest   FLOAT    NULL     COMMENT '대출이자율', -- 대출이자율
+	loanBalance    BIGINT   NULL     COMMENT '대출잔액', -- 대출잔액
+	loanRepayment  INTEGER  NULL     COMMENT '상환금액' -- 상환금액
+)
+COMMENT '상환';
 
 -- 통장
 ALTER TABLE bank.BankBook

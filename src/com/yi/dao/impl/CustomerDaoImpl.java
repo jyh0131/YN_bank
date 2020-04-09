@@ -336,19 +336,19 @@ public class CustomerDaoImpl implements CustomerDao {
      
 	@Override
 	public Customer selectCustomerByTel(String custTel) throws SQLException {
-		String sql = "select custCode, custName, custCredit, custAddr, custTel from customer where custTel = ?";
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custTel like ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql)){
 			
-			pstmt.setString(1, custTel);
+			pstmt.setString(1, "%"+custTel+"%");
 			try(ResultSet rs = pstmt.executeQuery();){
 				if(rs.next()) {
 					return getCustomer(rs);
 				}
 			}
-			
+			  
 		}catch(SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace();  
 		}
 		
 		return null;
@@ -376,13 +376,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	private Customer getCustomerByAcc(ResultSet rs) throws SQLException {
 		Customer customer = new Customer();
 		BankBook bankbook = new BankBook();
-		customer.setCustCode(rs.getString(1));
-		customer.setCustName(rs.getString(2));
-		bankbook.setAccountNum(rs.getString(7));
-		bankbook.setAccountBalance(Long.parseLong(rs.getString(13)));
+		customer.setCustCode(rs.getString("custCode"));
+		customer.setCustName(rs.getString("custName"));
+		bankbook.setAccountNum(rs.getString("accountNum"));
+		bankbook.setAccountBalance(Long.parseLong(rs.getString("accountBalance")));
 		customer.setBankbook(bankbook);
 		return customer;
-	}
+	}   
 
 	@Override
 	public List<Customer> selectBusinessCust() throws SQLException {
@@ -467,6 +467,27 @@ public class CustomerDaoImpl implements CustomerDao {
 	public List<Customer> selectCustomerWhoHasAcc() throws SQLException {
 		List<Customer> list = null;
 		String sql = "select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = \"11\" or \"12\" or \"13\"";
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	//예금통장만
+	@Override
+	public List<Customer> selectCustomerWhoHas11Acc() throws SQLException {
+		List<Customer> list = null;
+		String sql = "select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = \"11\"";
 		ResultSet rs = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){
@@ -635,12 +656,12 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Cust_dw_audit> selectCust_dw_auditByName(String custName) throws SQLException {
-		String sql = "select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit where custName=? ";
+		String sql = "select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit where custName like ? ";
 		List<Cust_dw_audit> list = null;
 		ResultSet rs = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){
-			pstmt.setString(1, custName);
+			pstmt.setString(1, "%"+custName+"%");
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				list = new ArrayList<>();
@@ -649,7 +670,7 @@ public class CustomerDaoImpl implements CustomerDao {
 				}while(rs.next());
 			}
 			
-		}
+		}    
 				    
 		return list;
 	}

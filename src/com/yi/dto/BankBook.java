@@ -20,6 +20,20 @@ public class BankBook {
 		this.custCode = custCode;
 	}
 	
+    //송금위한 생성자 
+	public BankBook(String accountNum, Customer custCode, Plan accountPlanCode, long accountBalance) {
+		super();
+		this.accountNum = accountNum;
+		this.custCode = custCode;
+		this.accountPlanCode = accountPlanCode;
+		this.accountBalance = accountBalance;
+	}
+	
+	
+	public BankBook(String accountNum) {
+		super();
+		this.accountNum = accountNum;
+	}
 	public BankBook(String accountNum, Customer custCode, boolean connectChk) {
 		this.accountNum = accountNum;
 		this.custCode = custCode;

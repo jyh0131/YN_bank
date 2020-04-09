@@ -60,12 +60,12 @@
 				return false;
 			} */
 			var dw = $(this).html();
-			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
+			$(location).attr('href','${pageContext.request.contextPath}/cust/custTtoSame.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
 		})
 		//타행송금 클릭 시 
 		$("#wd").click(function(){
 			var dw = $(this).html();
-			$(location).attr('href','${pageContext.request.contextPath}/cust/custDeposit.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
+			$(location).attr('href','${pageContext.request.contextPath}/cust/custTtoDifferent.do?custCode=${custCode}&dw='+dw+"&accountNum=${accountNum}");
 		})
 		
 		//이전으로 클릭 시 

@@ -62,6 +62,10 @@ public class BankBookService {
 		return bankBookDao.updateBankBalance(customer);
 	}
 	
+	public String showCodeByAccNum(String accountNum) throws SQLException {
+		return bankBookDao.selectCodeByAccNum(accountNum);
+	}
+	
 	public String showDpBalance () throws SQLException{
 		return bankBookDao.showDPTotalAmount();
 	}
@@ -134,5 +138,13 @@ public class BankBookService {
 	}
 	public List<Plan> selectPlanByBankBookBusinessVip() throws SQLException {
 		return planDao.selectPlanByBankBookBusinessVip();
+	}
+	//계좌번호 넣어서 통장 찾기
+	public BankBook showOneBankBook(String accountNum) throws SQLException{
+		return bankBookDao.findBankBook(accountNum);
+	}
+	
+	public int changeBankBookBalance(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException {
+		return bankBookDao.changeBankBookBalance(bankBook, bankBook2, fromto);
 	}
 }

@@ -20,7 +20,6 @@ public class custUpdateHandler implements CommandHandler {
 			String addr = req.getParameter("addr");
 			String custTel = req.getParameter("custTel");
 			String div = req.getParameter("custDiv");
- 			  
  			Boolean custDiv = true;
  			if(div.equals("일반")) {
  				custDiv = false;

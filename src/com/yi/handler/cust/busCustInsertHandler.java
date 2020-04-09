@@ -25,7 +25,7 @@ public class busCustInsertHandler implements CommandHandler {
 			String nextCustNum = "B"+String.format("%03d", list.size()+1);
 			String code = nextCustNum;
 			String name = req.getParameter("name");
-			int credit = Integer.parseInt(req.getParameter("credit"));
+			String credit = req.getParameter("credit");
 			String addr = req.getParameter("addr");
 			String contact1 = req.getParameter("contact1");
 			String contact2= req.getParameter("contact2");
@@ -33,9 +33,8 @@ public class busCustInsertHandler implements CommandHandler {
 			String contact = contact1+"-"+contact2+"-"+contact3;
 			Boolean custDiv = true;
 			
-			try {
-				Customer customer = new Customer(code, name, credit, addr, contact, custDiv);
-				System.out.println(customer.getCustCode());
+			try {	
+				Customer customer = new Customer(code, name, Integer.parseInt(credit), addr, contact, custDiv);
 				service.AddCustomer(customer);
 				res.sendRedirect(req.getContextPath()+"/cust/custSearch.do");
 			}catch(Exception e) {

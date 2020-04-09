@@ -9,19 +9,21 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/6f2f0f2d95.js">
-</script>
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>  
-		* { font-family: 'Noto Sans KR', sans-serif; }
-	
-		div#dummy { height: 75px; background: #292929;}	
+		* { font-family: 'Noto Sans KR', sans-serif; }  
 		
-		/* 검색 구분 부분 */	
+		div#dummy { height: 75px; background: #292929;}	
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 450px;      
+						  border-bottom: 2px solid #e9ebec;} 
+		/* 검색 구분 부분 */	      
 		div#search {
 			width: 900px;
-			margin: 50px auto;  
-			text-align: center;
+			margin: 20px auto;      
+			text-align: center;   
 		}
 		
 		
@@ -67,11 +69,13 @@
 					 z-index: 3;    
 					 top: 25%;  }
 		
-		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }
 		/* 테이블 영역 */
 		div#table {
 			width: 1000px;
-			margin: 100px auto;
+			margin: 50px auto;
 		}
 		div#table p { font-family: 'Noto Sans KR', sans-serif; 
 					  font-weight: bold;
@@ -114,7 +118,7 @@
 		
 		/* 검색 구분 조건 변경할 때 테이블 reload */
 		$("select").on("change", function(){
-				$("table").load(location.href+" table");
+				$(".tableList").load(location.href+" .tableList tr");
 				$("input[name='search']").val("");   
 		})
 		
@@ -146,7 +150,6 @@
 				    		
 				    		var $th1 = $("<th>").html("고객 코드");
 				    		var $th2 = $("<th>").html("고객명");
-				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
 				    		var $th5 = $("<th>").html("고객 주소");
 				    		var $th6 = $("<th>").html("연락처");
@@ -154,7 +157,6 @@
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);
-				    		$tr1.append($th3);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
@@ -166,7 +168,6 @@
 				    			
 				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
@@ -174,13 +175,12 @@
 					    		if(obj.custDiv==true){
 					    			$a7 = $("<a>").html("기업").attr("href", "#");
 					    		}else{
-					    			$a7 = $("<a>").html("고객").attr("href", "#");
+					    			$a7 = $("<a>").html("일반").attr("href", "#");
 					    		}
 				    			   
 					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
@@ -188,7 +188,6 @@
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
-					    		$td3.append($a3);
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
@@ -196,7 +195,6 @@
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
-					    		$tr2.append($td3);
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
@@ -232,7 +230,6 @@
 				    		
 				    		var $th1 = $("<th>").html("고객 코드");
 				    		var $th2 = $("<th>").html("고객명");
-				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
 				    		var $th5 = $("<th>").html("고객 주소");
 				    		var $th6 = $("<th>").html("연락처");
@@ -240,7 +237,6 @@
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);
-				    		$tr1.append($th3);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
@@ -252,15 +248,18 @@
 				    			
 								var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
-				    			var $a7 = $("<a>").html(obj.custDiv).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
+					    		var $a7;
+					    		if(obj.custDiv==true){
+					    			$a7 = $("<a>").html("기업").attr("href", "#");
+					    		}else{
+					    			$a7 = $("<a>").html("일반").attr("href", "#");
+					    		}
 					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
@@ -268,7 +267,6 @@
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
-					    		$td3.append($a3);
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
@@ -276,7 +274,6 @@
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
-					    		$tr2.append($td3);
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
@@ -300,26 +297,25 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		//console.log(res);
+				    		console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
 				    		}
 				    	else {
-				    		$(".tableList").remove();
+							$(".tableList").remove();
 				    		
 				    		var $table = $("<table>").addClass("tableList");
 				    		var $tr1 = $("<tr>");
 				    		
 				    		var $th1 = $("<th>").html("고객 코드");
 				    		var $th2 = $("<th>").html("고객명");
-				    		var $th3 = $("<th>").html("고객 등급명");
 				    		var $th4 = $("<th>").html("고객 신용등급");
 				    		var $th5 = $("<th>").html("고객 주소");
 				    		var $th6 = $("<th>").html("연락처");
+				    		var $th7 = $("<th>").html("분류");
 				    		
 				    		$tr1.append($th1);
-				    		$tr1.append($th2);  
-				    		$tr1.append($th3);
+				    		$tr1.append($th2);
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
@@ -331,15 +327,18 @@
 				    			
 								var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
-					    		var $a3 = $("<a>").html(obj.custRank).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a5 = $("<a>").html(obj.custAddr).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
 					    		var $a6 = $("<a>").html(obj.custTel).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
-				    			var $a7 = $("<a>").html(obj.custDiv).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
+					    		var $a7;
+					    		if(obj.custDiv==true){
+					    			$a7 = $("<a>").html("기업").attr("href", "#");
+					    		}else{
+					    			$a7 = $("<a>").html("일반").attr("href", "#");
+					    		}
 					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
 					    		var $td6 = $("<td>");
@@ -347,7 +346,6 @@
 					    		
 					    		$td1.append($a1);
 					    		$td2.append($a2);
-					    		$td3.append($a3);
 					    		$td4.append($a4);
 					    		$td5.append($a5);
 					    		$td6.append($a6);
@@ -355,7 +353,6 @@
 					    		
 					    		$tr2.append($td1);
 					    		$tr2.append($td2);
-					    		$tr2.append($td3);
 					    		$tr2.append($td4);
 					    		$tr2.append($td5);
 					    		$tr2.append($td6);
@@ -368,7 +365,7 @@
 				    		$("#table").append($table);
 				    	 }    
 				    }
-				})
+				})   
 				break;
 				
 			}
@@ -381,7 +378,9 @@
 <body>
 	<section>
 	<%@include file="../include/sectionBar.jsp"%>
-		<div id="search">
+		<h2 id="menuLocation">고객 조회</h2>   
+		<div id="search">   
+
 				<select id="searchMenu">
 					<option>검색 구분</option>
 					<option>고객 코드</option>
@@ -400,11 +399,11 @@
 		<div id="table">
 			<p><i class="fas fa-user"></i> VIP 고객 : ${vipNum } 명</p>
 			<p><i class="far fa-user"></i> 일반 고객 : ${norNum } 명</p>
+			<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">고객 상세정보를 보려면 고객을 클릭하세요.</span>
 			<table class="tableList">
 				<tr>
 					<th>고객 코드</th>
 					<th>고객명</th>
-					<th>고객 등급명</th>    
 					<th>고객 신용등급</th>
 					<th>고객 주소</th>
 					<th>연락처</th>
@@ -416,7 +415,6 @@
 					<tr>
 							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custCode }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custName }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custRank }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custCredit }</a></td>
 							<td class="long"><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custAddr }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/custDetail.do?custName=${custList.custName}">${custList.custTel }</a></td>

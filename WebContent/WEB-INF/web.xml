@@ -52,6 +52,17 @@
   	<url-pattern>/emp/empProfileUpdate.do</url-pattern>
   	<url-pattern>/cust/custSearch.do</url-pattern>
   	<url-pattern>/cust/addCust.do</url-pattern>
+  	<url-pattern>/cust/addBusCust.do</url-pattern>
+  	<url-pattern>/cust/selectCust.do</url-pattern>
+  	<url-pattern>/cust/custDetail.do</url-pattern>
+  	<url-pattern>/cust/custUpdate.do</url-pattern>
+  	<url-pattern>/cust/custDelete.do</url-pattern>
+  	<url-pattern>/cust/custDeposit.do</url-pattern>
+  	<url-pattern>/cust/custDWSearch.do</url-pattern>
+  	<url-pattern>/cust/dwSelect.do</url-pattern>
+  	<url-pattern>/cust/custDWFunction.do</url-pattern>
+  	<url-pattern>/cust/custDWRecord.do</url-pattern>
+  	<url-pattern>/cust/custDWRecordDate.do</url-pattern>
   	<url-pattern>/cust/custTransfer.do</url-pattern>
   	<url-pattern>/cust/custTSelect.do</url-pattern>
   	<url-pattern>/cust/custTtoSame.do</url-pattern>

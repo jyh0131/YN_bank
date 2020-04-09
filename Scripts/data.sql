@@ -268,7 +268,7 @@ drop trigger if exists tri_update_bankbook;
 delimiter $
 create trigger tri_update_bankbook
 after update on bankbook
-for each row 
+for each row   
 begin 
 	insert into bankbookInfo values((select custname from customer where custcode = new.custcode),new.accountnum,now());
 end $

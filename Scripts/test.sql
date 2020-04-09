@@ -184,6 +184,7 @@ select * from cust_dw_audit cda ;
 
 desc plan;
 select * from plan;
+select * from card;
 select * from bankbook;
 select c.custCode, c.custName, c.custRank, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = "11" or "12" or "13";
 
@@ -347,9 +348,23 @@ select
 (select sum(loanBalance) from loan where loanAccountNum like '%-11-%' and month(loandate) = 4) as 'normalloan',
 (select sum(loanBalance) from loan where loanAccountNum like '%-12-%' and month(loandate) = 4) as 'creditloan',
 (select sum(loanBalance) from loan where loanAccountNum like '%-13-%' and month(loandate) = 4) as 'cardloan';
+<<<<<<< HEAD
 desc loan;
 select * from loan;
 delete from loan;
 select * from performance;
 delete from performance where plancode in ('C007','C008');
 select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode;
+=======
+
+
+select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode;
+
+
+-- 송금 구현 위한테스트
+select * from bankbook b ;
+
+select b.accountNum, b.accountBalance, c.custCode,c.custName,p.planCode,p.planName from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountNum ='293133-11-000001';
+select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = 11;
+update bankbook set accountBalance = accountBalance+100 where accountNum ='293133-11-000001';
+>>>>>>> branch 'master' of https://github.com/jyh0131/YN_bank.git

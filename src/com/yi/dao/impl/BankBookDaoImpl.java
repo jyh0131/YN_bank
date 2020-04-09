@@ -651,4 +651,94 @@ public class BankBookDaoImpl implements BankBookDao {
 		}
 		
 	}
+
+	//송금을 위함 
+	@Override
+	public BankBook findBankBook(String accountNum) throws SQLException {
+		String sql="select b.accountNum, b.accountBalance, c.custCode,c.custName,p.planCode,p.planName from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountNum =?";
+		BankBook bankBook = new BankBook();
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, accountNum);
+			
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					bankBook = getOneBankBook(rs);
+				}
+			}
+			
+		}
+		return bankBook;
+	}
+
+	private BankBook getOneBankBook(ResultSet rs) throws SQLException {
+		String accountNum = rs.getString("b.accountNum");
+		Customer cust= new Customer(rs.getString("c.custCode"));
+		cust.setCustName(rs.getString("c.custName"));
+		Plan plan = new Plan(rs.getString("p.planCode"));
+		plan.setPlanName(rs.getString("p.planName"));
+		long accountBalance = rs.getLong("b.accountBalance");
+		return new BankBook(accountNum, cust, plan, accountBalance);
+	}
+
+	//계좌에서 인출한 뒤 입금시키기  //앞이 출금계좌 뒤가 입금계좌
+	@Override
+	public int changeBankBookBalance(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException {
+		int res = -1;
+		String sql ="update bankbook set accountBalance = accountBalance-? where accountNum =?";
+			try(Connection con = DriverManager.getConnection(jdbcDriver)) {
+			con.setAutoCommit(false);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, fromto);
+			pstmt.setString(2, bankBook.getAccountNum());
+			res = pstmt.executeUpdate();
+			sql = "update bankbook set accountBalance = accountBalance+? where accountNum =?"; 
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, fromto);
+			pstmt.setString(2, bankBook2.getAccountNum());
+			
+			res += pstmt.executeUpdate();
+			if(res==2) {
+				con.commit();
+			}
+			else {
+				con.rollback();
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public String selectCodeByAccNum(String accountNum) throws SQLException {
+		String sql = "select custCode from bankbook where accountNum = ?";
+		String custCode = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, accountNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				custCode = rs.getString("custCode");
+				return custCode;
+			}
+			
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

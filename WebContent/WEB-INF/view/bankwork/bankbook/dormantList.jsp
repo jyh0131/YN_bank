@@ -360,7 +360,7 @@
 		})
 	})
 </script>
-</head>
+</head>   
 <body>
 	<section>
 	<jsp:include page="../../include/menu.jsp"/>

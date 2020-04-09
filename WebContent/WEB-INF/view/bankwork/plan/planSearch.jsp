@@ -9,14 +9,20 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 500px;      
+						  border-bottom: 2px solid #e9ebec;}       
+		       
 		/* 검색 구분 부분 */
-		div#search {
+		div#search {   
 			width: 900px;
-			margin: 50px auto;  
+			margin: 20px auto;     
 			text-align: center;
 		}
 		
@@ -68,9 +74,13 @@
 		/* 테이블 영역  */
 		div#table {
 			width: 1000px;
-			margin: 100px auto 100px auto;
+			margin: 50px auto 50px auto;
 			padding-left:100px;
 		}  
+		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }
 		
 		div#table table {
 			border-collapse: collapse; 
@@ -128,7 +138,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		//console.log(res);
+//				    		console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 상품 입니다.");
 				    		}
@@ -151,13 +161,20 @@
 				    		
 				    		$(res).each(function(i, obj) {
 				    			var $tr2 = $("<tr>");
-				    			
+				    			console.log(obj.planDiv);
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
-					    		
-				    			   
+					    		var $a4;
+					    		if(obj.planDiv=="CV"){  
+					    			$a4 = $("<a>").html("일반고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="CN"){
+					    			$a4 = $("<a>").html("일반고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="BV"){
+					    			$a4 = $("<a>").html("기업고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else {
+					    			$a4 = $("<a>").html("기업고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}
 					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
@@ -219,7 +236,16 @@
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a4;
+					    		if(obj.planDiv=="CV"){  
+					    			$a4 = $("<a>").html("일반고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="CN"){
+					    			$a4 = $("<a>").html("일반고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="BV"){
+					    			$a4 = $("<a>").html("기업고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else {
+					    			$a4 = $("<a>").html("기업고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}
 					    		
 				    			   
 					    		
@@ -283,7 +309,16 @@
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
-					    		var $a4 = $("<a>").html(obj.planDiv).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		var $a4;
+					    		if(obj.planDiv=="CV"){  
+					    			$a4 = $("<a>").html("일반고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="CN"){
+					    			$a4 = $("<a>").html("일반고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else if(obj.planDiv=="BV"){
+					    			$a4 = $("<a>").html("기업고객(VIP 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}else {
+					    			$a4 = $("<a>").html("기업고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
+					    		}
 					    		
 				    			   
 					    		
@@ -322,8 +357,10 @@
 <body>
 	<section>
 	<%@include file="../../include/sectionBar.jsp"%>
+		<h2 id="menuLocation">상품 조회</h2>
+	
 		<div id="search">
-				<select id="searchMenu">
+				<select id="searchMenu">   
 					<option>검색 구분</option>
 					<option>상품 코드(A)</option>
 					<option>상품 세부코드(AB)</option>
@@ -339,6 +376,7 @@
 				
 		</div>
 		<div id="table">
+		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">상품 세부정보를 보려면 상품을 클릭하세요.</span>
 			<table class="tableList">
 				<tr>
 					<th>상품 코드</th>
@@ -353,7 +391,20 @@
 							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planCode }</a></td>
 							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planDetail }</a></td>
 							<td><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planName }</a></td>
-							<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">${planList.planDiv }</a></td>
+							
+							<c:if test="${planList.planDiv=='CV' }">
+								<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">일반고객(VIP 등급)</a></td>
+							</c:if>
+							<c:if test="${planList.planDiv=='CN' }">
+								<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">일반고객(일반 등급)</a></td>
+							</c:if>
+							<c:if test="${planList.planDiv=='BV' }">
+								<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">기업고객(VIP 등급)</a></td>
+							</c:if>
+							<c:if test="${planList.planDiv=='BN' }">
+								<td class="long"><a href="${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode=${planList.planCode}">기업고객(일반 등급)</a></td>
+							</c:if>
+							
 		
 							
 					</tr>

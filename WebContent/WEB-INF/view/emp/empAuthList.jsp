@@ -9,14 +9,20 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
+		
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 500px;      
+						  border-bottom: 2px solid #e9ebec;}
 		div#search {
 			width: 900px;
 			margin: 50px auto;
 			text-align: center;
-		}
+		}   
 		
 		div#search select {
 			width: 200px; height : 30px;
@@ -60,10 +66,13 @@
 					 z-index: 3;  
 					 top: 25%;  }
 		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }
 		
 		div#table {
 			width: 900px;
-			margin: 100px auto;
+			margin: 50px auto;
 		}
 		
 		div#table table {
@@ -306,6 +315,7 @@
 </script>
 <body>
 	<section>
+	<h2 id="menuLocation">사원 권한 수정</h2>
 		<div id="search">
 				<select id="searchMenu">
 				    <option>검색구분</option>
@@ -314,9 +324,9 @@
 					<option>부서(인사 or 고객)</option>
 					<option>직급</option>
 					
-				</select>
+				</select>    
 			
-					<fieldset><input type="search" name="search" id="searchForEmp" />
+					<fieldset><input type="search" name="search" id="searchForEmp" placeholder="검색어를 입력하세요."/>
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>	
@@ -324,6 +334,7 @@
 				
 		</div>
 		<div id="table">
+		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">권한을 수정하려면 사원을 클릭하세요.</span>
 			<table class="tableList">
 				<tr>
 					<th>사원코드</th>

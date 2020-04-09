@@ -10,9 +10,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 500px;      
+						  border-bottom: 2px solid #e9ebec;}  
 		div#search {
 			width: 900px;
 			margin: 50px auto;
@@ -60,7 +65,9 @@
 					 color: #29abe2;  
 					 z-index: 3;  
 					 top: 25%;  }
-		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }
 		
 		div#table {
 			width: 900px;
@@ -374,6 +381,7 @@
 <body>
 	<section>
 	<jsp:include page="../../include/menu.jsp"/>
+	<h2 id="menuLocation">일반 고객 통장 조회</h2>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색구분</option>
@@ -382,16 +390,17 @@
 					<option>상품명</option>
 					<option>통장상품</option>
 				</select>
-					<fieldset><input type="search" name="search"/>
+					<fieldset><input type="search" name="search"  placeholder="검색어를 입력하세요."/>
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>	
 					</fieldset>
-				
+				   
 		</div>
 		<button id="btnMenu1">휴면 계좌 조회</button>
 		<button id="btnMenu2">해지 계좌 조회</button>
 		<div id="table">
+		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">통장 세부정보를 보려면 통장을 클릭하세요.</span>
 			<table>
 				<tr>
 					<th>계좌번호</th>

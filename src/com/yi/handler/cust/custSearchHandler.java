@@ -77,6 +77,7 @@ public class custSearchHandler implements CommandHandler {
 			case "연락처":
 				List<Customer> list3 = new ArrayList<>();
 				Customer customer2 = service.showCustomerByTel(search);
+				
 				if(customer2 == null) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");

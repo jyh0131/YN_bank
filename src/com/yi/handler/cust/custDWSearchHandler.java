@@ -35,7 +35,7 @@ public class custDWSearchHandler implements CommandHandler {
 			switch(div) {
 			case "고객 코드":   
 				List<Customer> list = service.showCustomerWHasAccByCode(search);
-				if(list.size()==0) {  
+				if(list==null) {  
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om = new ObjectMapper();
@@ -58,7 +58,7 @@ public class custDWSearchHandler implements CommandHandler {
 				List<Customer> list2 = new ArrayList<>();
 				list2 = service.showCustomerWHasAccByName(search);
 				 
-				if(list2.size()==0) {
+				if(list2==null) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om2 = new ObjectMapper();
@@ -79,7 +79,7 @@ public class custDWSearchHandler implements CommandHandler {
 			case "연락처":
 				List<Customer> list3 = new ArrayList<>();
 				list3 = service.showCustomerWHasAccByTel(search);
-				if(list3.size() == 0) {
+				if(list3==null) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om3 = new ObjectMapper();
@@ -89,7 +89,7 @@ public class custDWSearchHandler implements CommandHandler {
 					out3.write(json3);
 					out3.flush();
 					break;
-				}  
+				}     
 				ObjectMapper om3 = new ObjectMapper();
 				String json3 = om3.writeValueAsString(list3);
 				res.setContentType("application/json;charset=UTF-8");

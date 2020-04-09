@@ -19,6 +19,11 @@
 		* { font-family: 'Noto Sans KR', sans-serif; }
 		div#dummy { height: 75px; background: #292929;}
 		
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 450px;      
+						  border-bottom: 2px solid #e9ebec;}  
+		        
 		/* 검색 구분 부분 */
 		div#search {
 			width: 900px; 
@@ -366,6 +371,7 @@
 <body>
 	<section>
 	<%@include file="../include/sectionBar.jsp"%>
+		<h2 id="menuLocation">입/출금 내역 조회</h2>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색 구분</option>

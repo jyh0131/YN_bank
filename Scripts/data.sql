@@ -129,7 +129,11 @@ insert into performance values
 #통장 테이블 
 #statistic table 생성
 drop view if exists vipTable;  
+<<<<<<< HEAD
 create view vipTable as select custCode as vip from customer c where `custCredit`=1;
+=======
+create view vipTable as select custCode as vip from customer c where `custCredit`="1";
+>>>>>>> refs/heads/HS0409
 
 #우수사원 패널
 create view ranking as select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, if(p.`planCode`='A001',vip,null) as vip

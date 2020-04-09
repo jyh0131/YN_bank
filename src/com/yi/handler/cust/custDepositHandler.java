@@ -22,6 +22,7 @@ public class custDepositHandler implements CommandHandler {
 			String accountNum = req.getParameter("accountNum");
 			List<Customer> listBal = service.showCustomerBankInfoByAcc(accountNum);
 			Customer custBal = listBal.get(0);
+			System.out.println(custBal.getBankbook().getAccountBalance());
 			req.setAttribute("accountNum", accountNum);
 			req.setAttribute("custBal", custBal);
 			req.setAttribute("dw", dw);

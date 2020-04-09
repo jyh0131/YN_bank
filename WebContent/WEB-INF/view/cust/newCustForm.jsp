@@ -67,7 +67,8 @@
 		$("#custList").show();
 		
 		//등록 버튼 클릭 시
-		$("input[type='submit']").click(function(){
+		$("form").submit(function(){
+
 			var name = $("input[name='name']").val();
 			var addr = $("input[name='addr']").val();
 			var contact1 = $("input[name='contact1']").val();
@@ -88,6 +89,11 @@
 				}
 					
 			}
+			var add = confirm("신규 고객을 등록하시겠습니까?");
+			if(add==false){
+				return false;
+			}
+			
 			
 		})
 		  

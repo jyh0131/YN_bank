@@ -19,7 +19,6 @@ public class PlanDetailHandler implements CommandHandler {
 		List<Plan> list = service.showPlansByCode(planCode); 
 		
 		Plan plan = null; 
-		
 		for(int i=0; i<list.size();i++) {  
 			plan = list.get(i);
 		}

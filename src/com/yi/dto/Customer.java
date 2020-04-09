@@ -24,6 +24,20 @@ public class Customer {
 		this.custCode = custCode;
 		this.custName = custName;
 	}
+	
+	
+	
+
+
+	public Customer(String custCode, String custName, int custCredit, String custAddr, String custTel, Boolean custDiv) {
+		super();
+		this.custCode = custCode;
+		this.custName = custName;
+		this.custCredit = custCredit;
+		this.custAddr = custAddr;
+		this.custTel = custTel;
+		this.custDiv = custDiv;
+	}
 
 
 

@@ -224,10 +224,11 @@ COMMENT '상환';
 
 -- 타행송금정보
 CREATE TABLE bank.transferringBankBook (
-	accoutnum char(16)    NULL COMMENT '계좌번호', -- 계좌번호
+	accountnum char(16)    NULL COMMENT '계좌번호', -- 계좌번호
 	bankcode  char(3)     NULL COMMENT '은행코드', -- 은행코드
 	bankname  varchar(20) NULL COMMENT '은행명', -- 은행명
-	custname  VARCHAR(20) NULL COMMENT '고객명' -- 고객명
+	custname  VARCHAR(20) NULL COMMENT '고객명', -- 고객명
+	balance   BIGINT      NULL COMMENT '잔액'
 )
 COMMENT '타행송금정보';
 

@@ -367,4 +367,17 @@ select * from bankbook b ;
 select b.accountNum, b.accountBalance, c.custCode,c.custName,p.planCode,p.planName from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountNum ='293133-11-000001';
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = 11;
 update bankbook set accountBalance = accountBalance+100 where accountNum ='293133-11-000001';
->>>>>>> branch 'master' of https://github.com/jyh0131/YN_bank.git
+desc transferringBankBook;
+select * from transferringbankbook ;
+
+insert into transferringbankbook values
+('265-13-021846','031','대구은행','연미주(그릇계모임)',100000),
+('265-13-021846','011','농협','도연우',1000),
+('265-13-021846','004','국민은행','정수진',2000000),
+('265-13-021846','020','우리은행','마동성',100000000),
+('265-13-021846','071','우체국','도하성',45000),
+('010-4334-4321','090','카카오뱅크','성진우',1900000);
+
+update transferringBankBook set balance = (balance+2) where accountnum ='265-13-021846' and bankcode='031';
+
+select accountnum, bankcode, bankname, custname, balance from transferringbankbook where accountnum ='265-13-021846' and bankcode='031';

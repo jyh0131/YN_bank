@@ -23,14 +23,14 @@ public class custTFunctionHandler2 implements CommandHandler {
 		//송금
 		String toAccountNum = req.getParameter("findAccNum");
 	    String transferAmount =req.getParameter("transferAmount");
-	    String selectBank = req.getParameter("selectBank"); //숫자로 변경하기
+	    String selectBank = req.getParameter("selectBank"); 
 	    
 		try {
 			BankBook bankBook = service.showOneBankBook(accountNum);
-			BankBook bankBook2 = service.showOneBankBook(toAccountNum);
+			BankBook bankBook2 = service.showOneTransferringBankBook(toAccountNum, selectBank);
 			
-			service.changeBankBookBalance(bankBook, bankBook2, Integer.parseInt(transferAmount));
-			
+			service.transferring(bankBook, bankBook2, Integer.parseInt(transferAmount));
+			System.out.println("완료됐지롱 ");
 			
 		
 		}catch(RuntimeException e) {          

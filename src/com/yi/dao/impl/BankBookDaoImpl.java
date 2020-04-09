@@ -725,6 +725,63 @@ public class BankBookDaoImpl implements BankBookDao {
 		}
 		return null;
 	}
+
+	@Override
+	public int transferring(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException {
+		int res = -1;
+		String sql ="update bankbook set accountBalance = accountBalance-? where accountNum =?";
+			try(Connection con = DriverManager.getConnection(jdbcDriver)) {
+			con.setAutoCommit(false);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, fromto);
+			pstmt.setString(2, bankBook.getAccountNum());
+			res = pstmt.executeUpdate();
+			sql = "update transferringBankBook set balance = balance+? where accountnum =? and bankcode=? "; 
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, fromto);
+			pstmt.setString(2, bankBook2.getAccountNum());
+			pstmt.setString(3, bankBook2.getCustCode().getCustCode()); //고객은 아니지만 고객코드 에 뱅크코드 넣고 고객네임에 고객이름 넣을 예정  
+			
+			res += pstmt.executeUpdate();
+			if(res==2) {
+				con.commit();
+			}
+			else {
+				con.rollback();
+			}
+		}
+		return res;
+	}
+
+	
+	//간단한 타행 이체 확인용 
+	@Override
+	public BankBook findTransferringBankBook(String accountNum, String bankCode) throws SQLException {
+		String sql="select accountnum, bankcode, bankname, custname, balance from transferringbankbook where accountnum =? and bankcode=?";
+		BankBook bankBook = new BankBook();
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, accountNum);
+			pstmt.setString(2, bankCode);
+			
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					bankBook = getOneTransferringBankBook(rs);
+				}
+			}
+			
+		}
+		return bankBook;
+	}
+
+	private BankBook getOneTransferringBankBook(ResultSet rs) throws SQLException {
+		String accountNum = rs.getString("accountnum");
+		Customer cust= new Customer(rs.getString("bankcode"));
+		cust.setCustName(rs.getString("custname"));
+		Plan plan = new Plan(rs.getString("bankname"));//플랜을 뱅크 네임으로..
+		long accountBalance = rs.getLong("balance");
+		return new BankBook(accountNum, cust, plan, accountBalance);
+	}
 	
 	
 	

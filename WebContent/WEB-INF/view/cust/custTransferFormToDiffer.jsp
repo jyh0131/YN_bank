@@ -84,12 +84,13 @@
 			$(".errorMSG").css("display", "none");
 			$(".errorCust").html("");
 			var targetAccNum = $("#findAccNum").val();
+			var bankCode = $("#selectBank").val();
 			//alert(targetAccNum);
 			
 			$.ajax({
 				url: "${pageContext.request.contextPath}/cust/custTtoDifferent.do",
 			    type: "post", 
-			    data: {"targetAccNum":targetAccNum},
+			    data: {"targetAccNum":targetAccNum,"bankCode":bankCode},
 			    dataType: "json",
 			    success : function(res){
 			         console.log(res)
@@ -130,13 +131,13 @@
     		if(deposit){
 
         		var accountNum = $("input[name='accNum']").val();
-        		var amount=$("input[name='amount']").val();
+        		//var amount=$("input[name='amount']").val();
         		var code = $("input[name='code']").val();
         		var transferAmount = $("input[name='transferAmount']").val();
         		var findAccNum = $("input[name='findAccNum']").val();
         		var selectBank = $("#selectBank").val();
         		
-        		location.href= "${pageContext.request.contextPath}/cust/custTFunction2.do?accountNum="+accountNum+"&amount="+amount+"&text=송금&code="+code+"&transferAmount="+transferAmount+"&findAccNum="+findAccNum+"&selectBank"+selectBank;
+        		location.href= "${pageContext.request.contextPath}/cust/custTFunction2.do?accountNum="+accountNum+"&text=송금&code="+code+"&transferAmount="+transferAmount+"&findAccNum="+findAccNum+"&selectBank="+selectBank;
         	}
     		
     	})  

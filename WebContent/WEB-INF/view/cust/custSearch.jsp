@@ -15,13 +15,18 @@
 <style>  
 		* { font-family: 'Noto Sans KR', sans-serif; }
 	
-		div#dummy { height: 75px; background: #292929;}	
+	
 		
-		/* 검색 구분 부분 */	
+		div#dummy { height: 75px; background: #292929;}	
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 450px;      
+						  border-bottom: 2px solid #e9ebec;} 
+		/* 검색 구분 부분 */	      
 		div#search {
 			width: 900px;
-			margin: 50px auto;  
-			text-align: center;
+			margin: 20px auto;      
+			text-align: center;   
 		}
 		
 		
@@ -71,7 +76,7 @@
 		/* 테이블 영역 */
 		div#table {
 			width: 1000px;
-			margin: 100px auto;
+			margin: 50px auto;
 		}
 		div#table p { font-family: 'Noto Sans KR', sans-serif; 
 					  font-weight: bold;
@@ -374,7 +379,9 @@
 <body>
 	<section>
 	<%@include file="../include/sectionBar.jsp"%>
-		<div id="search">
+		<h2 id="menuLocation">고객 조회</h2>   
+		<div id="search">   
+
 				<select id="searchMenu">
 					<option>검색 구분</option>
 					<option>고객 코드</option>

@@ -153,14 +153,6 @@
 							<th>상품 가입 대상</th>
 							<td><select name="planFor" id="div">
 									<option>가입 대상 선택</option>
-									<option>기업용</option>
-									<option>일반 고객용</option>
-								</select></td>
-						</tr>
-						<tr class="long">
-							<th>상품 가입 대상</th>
-							<td><select name="planFor" id="div">
-									<option>가입 대상 선택</option>
 									<option>기업 고객용</option>
 									<option>일반 고객용</option>
 								</select></td>

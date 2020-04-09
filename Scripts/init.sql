@@ -216,6 +216,8 @@ CREATE TABLE bank.Repayment (
 	loanBalance    BIGINT   NULL     COMMENT '대출잔액', -- 대출잔액
 	loanRepayment  INTEGER  NULL     COMMENT '상환금액' -- 상환금액
 )
+
+
 COMMENT '상환';
 
 -- 통장

@@ -149,65 +149,6 @@
 							</td>
 						</tr>
 						<tr>
-							<th>고객 등급</th>
-							<td>
-								<c:if test="${customer.custRank=='D' }">
-									<select name="custRank" disabled="disabled">
-										<option>등급 선택</option>
-										<option selected>Diamond</option>
-										<option>Platinum</option>
-										<option>Gold</option>
-										<option>Silver</option>
-										<option>Bronze</option>
-									</select>
-								</c:if>
-								<c:if test="${customer.custRank=='P' }">
-									<select name="custRank">
-										<option>등급 선택</option>
-										<option>Diamond</option>
-										<option selected>Platinum</option>
-										<option>Gold</option>
-										<option>Silver</option>
-										<option>Bronze</option>
-									</select>
-								</c:if>
-								<c:if test="${customer.custRank=='G' }">
-									<select name="custRank">
-										<option>등급 선택</option>
-										<option>Diamond</option>
-										<option>Platinum</option>
-										<option selected>Gold</option>
-										<option>Silver</option>
-										<option>Bronze</option>
-									</select>
-								</c:if>
-								<c:if test="${customer.custRank=='S' }">
-									<select name="custRank">
-										<option>등급 선택</option>
-										<option>Diamond</option>
-										<option>Platinum</option>
-										<option>Gold</option>
-										<option selected>Silver</option>
-										<option>Bronze</option>
-									</select>
-								</c:if>
-								<c:if test="${customer.custRank=='B' }">
-									<select name="custRank">
-										<option>등급 선택</option>
-										<option>Diamond</option>
-										<option>Platinum</option>
-										<option>Gold</option>
-										<option>Silver</option>
-										<option selected>Bronze</option>
-									</select>
-								</c:if>
-								
-								
-								
-							</td>
-								
-						</tr>
-						<tr>
 							<th>고객 신용등급</th>
 							<td>
 								<c:if test="${customer.custCredit==1 }">

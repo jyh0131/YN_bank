@@ -14,7 +14,8 @@ CREATE TABLE bank.BankBook (
 	accountBalance     BIGINT   NOT NULL COMMENT '잔액', -- 잔액
 	accountDormant     TINYINT  NULL     COMMENT '휴면여부', -- 휴면여부
 	accountTermination TINYINT  NULL     COMMENT '해지여부', -- 해지여부
-	empCode            char(4)  NOT NULL COMMENT '사원코드' -- 사원코드
+	empCode            char(4)  NOT NULL COMMENT '사원코드', -- 사원코드
+	connectChk		   tinyint  null     comment '연결여부' -- 연결여부
 )
 COMMENT '통장';
 
@@ -65,7 +66,7 @@ ALTER TABLE bank.Department
 -- 고객
 CREATE TABLE bank.Customer (
 	custCode   char(4)     NOT NULL COMMENT '고객코드', -- 고객코드
-	custName   VARCHAR(5)  NULL     COMMENT '고객이름', -- 고객이름
+	custName   VARCHAR(20)  NULL     COMMENT '고객이름', -- 고객이름
 	custCredit INTEGER(1)  NULL     COMMENT '고객신용등급', -- 고객신용등급
 	custAddr   varchar(50) NULL     COMMENT '고객주소', -- 고객주소
 	custTel    char(13)    NULL     COMMENT '고객연락처', -- 고객연락처
@@ -201,6 +202,7 @@ ALTER TABLE bank.notice
 		PRIMARY KEY (
 			no -- 번호
 		);
+ALTER TABLE bank.notice modify column no int auto_increment; -- 공지사항 기본키
 
 -- 상환
 CREATE TABLE bank.Repayment (

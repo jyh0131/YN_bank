@@ -168,6 +168,11 @@
 							<li id="dwList" class="side2"><a href="${pageContext.request.contextPath}/cust/custDWRecord.do">입/출금 조회</a></li>
 						</ul>
 					</li>
+					<li id="tMgn" class="side1"><a href="#">송금 업무</a>
+						<ul>
+							<li id="transfer" class="side2"><a href="${pageContext.request.contextPath}/cust/custTransfer.do">계좌이체</a></li>
+						</ul>
+					</li>
 					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a>
 						<ul>
 							<li id="bankbookAdd" class="side2"><a href="${pageContext.request.contextPath}/bankwork/bankbook/select.do?div=add">통장 추가</a></li>
@@ -219,6 +224,11 @@
 						<ul>
 							<li id="deposit" class="side2"><a href="${pageContext.request.contextPath}/cust/custDWSearch.do">입/출금</a></li>
 							<li id="dwList" class="side2"><a href="${pageContext.request.contextPath}/cust/custDWRecord.do">입/출금 조회</a></li>
+						</ul>
+					</li>
+					<li id="tMgn" class="side1"><a href="#">송금 업무</a>
+						<ul>
+							<li id="transfer" class="side2"><a href="${pageContext.request.contextPath}/cust/custTransfer.do">계좌이체</a></li>
 						</ul>
 					</li>
 					<li id="bankbookMgn" class="side1"><a href="#">통장 관리</a>

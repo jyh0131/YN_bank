@@ -52,6 +52,11 @@
   	<url-pattern>/emp/empProfileUpdate.do</url-pattern>
   	<url-pattern>/cust/custSearch.do</url-pattern>
   	<url-pattern>/cust/addCust.do</url-pattern>
+  	<url-pattern>/cust/custTransfer.do</url-pattern>
+  	<url-pattern>/cust/custTSelect.do</url-pattern>
+  	<url-pattern>/cust/custTtoSame.do</url-pattern>
+  	<url-pattern>/cust/custTtoDifferent.do</url-pattern>
+  	<url-pattern>/cust/custTFunction.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/mgn.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/select.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/detail.do</url-pattern>

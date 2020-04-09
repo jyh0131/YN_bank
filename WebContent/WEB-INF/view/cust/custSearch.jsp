@@ -9,8 +9,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/6f2f0f2d95.js">
-</script>
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>  
 		* { font-family: 'Noto Sans KR', sans-serif; }

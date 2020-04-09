@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 </head>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
@@ -18,6 +19,11 @@
 			margin: 50px auto;
 			text-align: center;
 		}
+		
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 500px;      
+						  border-bottom: 2px solid #e9ebec;}  
 		
 		div#search select {
 			width: 200px; height : 30px;
@@ -60,7 +66,9 @@
 					 color: #29abe2;  
 					 z-index: 3;  
 					 top: 25%;  }
-		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }
 		
 		div#table {
 			width: 900px;
@@ -365,9 +373,10 @@
    })
 
 
-</script>
-<body>
+</script>   
+<body>   
 	<section>
+	<h2 id="menuLocation">사원 목록</h2>
 		<div id="search">
 				<select id="searchMenu">
 				    <option>검색구분</option>
@@ -389,6 +398,7 @@
 		<div id="coutOfEmp">인사팀  : ${HR }명 ,  고객팀 : ${CS }명</div>
 		
 		<div id="table">
+			<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">사원 세부 정보를 보려면 사원을 클릭하세요.</span>
 			<table class="tableList">
 				<tr>
 					<th>사원코드</th>

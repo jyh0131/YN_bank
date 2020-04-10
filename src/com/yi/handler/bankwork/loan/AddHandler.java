@@ -65,7 +65,7 @@ public class AddHandler implements CommandHandler {
 			int year = cal.get(cal.YEAR);
 			int month = cal.get(cal.MONTH);
 			int date = cal.get(cal.DATE);
-			String loanDelayTerm = req.getParameter("loanDelayTerm").replaceAll("년", "");
+			String loanDelayTerm = req.getParameter("loanDelayTerm")==null?"0":req.getParameter("loanDelayTerm").replaceAll("년", "");
 			String loanExpireTerm = req.getParameter("loanExpireTerm").replaceAll("년", "");
 			int loanDelayYear = year + Integer.parseInt(loanDelayTerm);
 			cal.set(loanDelayYear,month,date);

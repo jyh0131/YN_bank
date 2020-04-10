@@ -93,9 +93,14 @@ public class EmployeeUIService {
     
     
     
-    
+    //보너스 
     public Employee showEmpPerformPicked(String empCode) throws SQLException {
     	return empDao.selectOneEmployeeByPerform(empCode);
+    }
+    
+    //보너스 페이징 
+    public Employee showEmpPerformPickedLimit(String empCode, int startRow, int endRow) throws SQLException {
+    	return empDao.selectOneEmployeeByPerformLimit(empCode, startRow, endRow);
     }
     
     //퍼포먼스 테이블 리스트 불러오기
@@ -103,14 +108,31 @@ public class EmployeeUIService {
     public List<Employee> showPickedEmpListForPerform(String empItem) throws SQLException{
     	return empDao.selectEmpByNameListForPerform(empItem);
     }
+    
+    //퍼포먼스 테이블 리스트 불러오기 페이징 (이름으로 검색)
+    
+    public List<Employee> showPickedEmpListForPerformLimit(String empItem, int startRow, int endRow) throws SQLException{
+    	return empDao.selectEmpByNameListForPerformLimit(empItem, startRow, endRow);
+    }
+    
     public List<Employee> showPickedEmpByDeptForPerform(String empItem) throws SQLException{
     	return empDao.selectEmpByDeptForPerform(empItem);
     }
+    //퍼포먼스 테이블 리스트 불러오기 페이징 (부서로 검색)
+    public List<Employee> showPickedEmpByDeptForPerformLimit(String empItem, int startRow, int endRow) throws SQLException{
+    	return empDao.selectEmpByDeptForPerformLimit(empItem, startRow, endRow);
+    }
+    
+    
     public List<Employee> showPickedEmpByEmpNoForPerform(String empItem) throws SQLException{
     	return empDao.selectEmpByNoForPerform(empItem);
     }
     public List<Employee> showPickedEmpByTitleForPerform(String empItem) throws SQLException{
     	return empDao.selectEmpByTitleForPerform(empItem);
+    }
+    //퍼포먼스 테이블 리스트 불러오기 페이징 (직급으로 검색)
+    public List<Employee> showPickedEmpByTitleForPerformLimit(String empItem, int startRow, int endRow) throws SQLException{
+    	return empDao.selectEmpByTitleForPerformLimit(empItem, startRow, endRow);
     }
     
     //퍼포먼스 디테일페이지에서 해당 사원의 실적 상세 정보를 불러오기 위함
@@ -165,6 +187,11 @@ public class EmployeeUIService {
     //사원 실적까지 포함
     public List<Employee> showEmpPerformance(){
     	return empDao.selectEmployeeByPerform();
+    }
+    
+  //페이징 목록 (사원 실적까지 포함 limit)
+    public List<Employee> showEmployeeByPerformLimit(int startRow, int endRow){
+    	return empDao.selectEmployeeByPerformLimit(startRow, endRow);
     }
     
     //타겟 상품으로 실적 조회

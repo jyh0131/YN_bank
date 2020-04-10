@@ -25,9 +25,19 @@ public interface EmployeeDao {
 	
 	//퍼포먼스 부분 리스트 조인테이블 불러오기
 	List<Employee> selectEmpByNameListForPerform(String empItem)throws SQLException;
+	
+	//퍼포먼스 부분 리스트 조인테이블 불러오기 페이징
+	List<Employee> selectEmpByNameListForPerformLimit(String empItem, int startRow, int endRow)throws SQLException;
+	
 	List<Employee> selectEmpByDeptForPerform(String empItem)throws SQLException;
+	List<Employee> selectEmpByDeptForPerformLimit(String empItem, int startRow, int endRow)throws SQLException;
+	
 	List<Employee> selectEmpByNoForPerform(String empItem)throws SQLException;
+	
 	List<Employee> selectEmpByTitleForPerform(String empItem)throws SQLException;
+	//전체 실적 조회 페이징 타이틀로 검색
+	List<Employee> selectEmpByTitleForPerformLimit(String empItem, int startRow, int endRow)throws SQLException;
+	
 	//디테일한 실적 내역 리스트로 부르기 
 	List<Employee> selectEmpPerformanceDetail(String empItem)throws SQLException;
 	
@@ -49,8 +59,15 @@ public interface EmployeeDao {
 	//실적관련 사원 리스트
 	List<Employee> selectEmployeeByPerform();
 	List<Employee> selectEmployeeByPerformByTarget(String pCode);
+	
+	//실적관련 사원 페이징 리스트
+	List<Employee> selectEmployeeByPerformLimit(int startRow, int endRow);
+	
 	//그중 한명의 실적만
 	Employee selectOneEmployeeByPerform(String empCode) throws SQLException; 
+	
+	//그중 한명의 실적만 페이징
+	Employee selectOneEmployeeByPerformLimit(String empCode, int startRow, int endRow) throws SQLException; 
 	
 	//실적 랭킹
 	List<Employee> selectRank();

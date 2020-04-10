@@ -110,14 +110,19 @@
   div#table th.thTel{
       width: 300px;
    }
-  div#coutOfEmp{
+  span#coutOfEmp{
       width:300px;
       margin-left:500px;
+      font-weight: bold; 
+	  font-size: 15px;
   }
-  div#avgSalary{
+  span#avgSalary{
       width:300px;
-      margin-left:790px; 
-      margin-bottom:50px;
+      height:30px;
+      margin-left:100px; 
+      margin-bottom:0;
+      font-weight: bold; 
+	  font-size: 15px;
   }
 </style>
 <script>
@@ -395,8 +400,8 @@
 				
 		</div>
 		<a href="empSearchRetired.do"><button id="btnNone">퇴사사원 조회</button></a><br><br>
-		<div id="coutOfEmp">인사팀  : ${HR }명 ,  고객팀 : ${CS }명</div>
-		
+		<span id="coutOfEmp">인사팀  : ${HR }명 ,  고객팀 : ${CS }명</span>
+		<span id="avgSalary"> 평균급여 : <fmt:formatNumber value="${avgSal}" pattern="###,###,###"/> 원</span>
 		<div id="table">
 			<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">사원 세부 정보를 보려면 사원을 클릭하세요.</span>
 			<table class="tableList">
@@ -432,7 +437,7 @@
 		</table>
 		
 		</div>
-		<div id="avgSalary"> 평균급여 : <fmt:formatNumber value="${avgSal}" pattern="###,###,###"/> 원</div>
+		
 		</section>
 </body>
 </html>

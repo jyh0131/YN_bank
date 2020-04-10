@@ -104,12 +104,13 @@
        width: 60px;
        height: 30px;
        position: relative;
+       right:20px;
      }
 
 	img.rankingImg{
 	   width:25px;
 	   height:20px;
-	   margin-right:10px;
+	   margin-right:30px;
 	   display: block;
 	   position: absolute;
 	   top:2;
@@ -122,6 +123,7 @@
    $(function(){
 	   //메뉴보이기
 	   $("#empBonusList").show();
+	   $("#empRealBonusList").show();
 	  //랭크 탑3의 코드를 불러옴  
 	  var rankMemCode = ["${mem1}","${mem2}","${mem3}"];
 	  //alert(rankMemCode[0]);
@@ -165,18 +167,18 @@
         var $menutd2 = $("<td>").html("사원이름");
         var $menutd3 = $("<td>").html("직책");
         var $menutd4 = $("<td>").html("실적");
-        var $menutd5 = $("<td>").html("인센티브");
+   /*      var $menutd5 = $("<td>").html("인센티브");
         var $menutd6 = $("<td>").html("상품종류");
-        var $menutd7 = $("<td class='thPlanName'>").html("상품이름");
+        var $menutd7 = $("<td class='thPlanName'>").html("상품이름"); */
     
        
         $menutr.append($menutd1);
         $menutr.append($menutd2);
         $menutr.append($menutd3);
         $menutr.append($menutd4);
-        $menutr.append($menutd5);
+/*         $menutr.append($menutd5);
         $menutr.append($menutd6);
-        $menutr.append($menutd7);
+        $menutr.append($menutd7); */
   
         
         
@@ -207,17 +209,17 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.perf);
-				    			var $td5 = $("<td>").html(obj.bonus.toLocaleString());
+				    	/* 		var $td5 = $("<td>").html(obj.bonus.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.pCode);
-				    			var $td7 = $("<td>").html(obj.pName);
+				    			var $td7 = $("<td>").html(obj.pName); */
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
-				    			$tr.append($td5);
+				    		/* 	$tr.append($td5);
 				    			$tr.append($td6);
-				    			$tr.append($td7);
+				    			$tr.append($td7); */
 				    			
 				    			$table.append($menutr);
 				    			$table.append($tr);
@@ -252,17 +254,17 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.perf);
-				    			var $td5 = $("<td>").html(obj.bonus.toLocaleString());
+				    	/* 		var $td5 = $("<td>").html(obj.bonus.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.pCode);
-				    			var $td7 = $("<td>").html(obj.pName);
+				    			var $td7 = $("<td>").html(obj.pName); */
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
-				    			$tr.append($td5);
+				/*     			$tr.append($td5);
 				    			$tr.append($td6);
-				    			$tr.append($td7);
+				    			$tr.append($td7); */
 				    			
 				    			
 				    			$table.append($tr);
@@ -296,17 +298,17 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.perf);
-				    			var $td5 = $("<td>").html(obj.bonus.toLocaleString());
+				    	/* 		var $td5 = $("<td>").html(obj.bonus.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.pCode);
-				    			var $td7 = $("<td>").html(obj.pName);
+				    			var $td7 = $("<td>").html(obj.pName); */
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
-				    			$tr.append($td5);
+				    /* 			$tr.append($td5);
 				    			$tr.append($td6);
-				    			$tr.append($td7);
+				    			$tr.append($td7); */
 				    			
 				    			
 				    			$table.append($tr);
@@ -342,17 +344,17 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.perf);
-				    			var $td5 = $("<td>").html(obj.bonus.toLocaleString());
+				    	/* 		var $td5 = $("<td>").html(obj.bonus.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.pCode);
-				    			var $td7 = $("<td>").html(obj.pName);
+				    			var $td7 = $("<td>").html(obj.pName); */
 	                         
 				    			$tr.append($td1);
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
-				    			$tr.append($td5);
+				/*     			$tr.append($td5);
 				    			$tr.append($td6);
-				    			$tr.append($td7);
+				    			$tr.append($td7); */
 				    			
 				    			
 				    			
@@ -391,7 +393,7 @@
 </script>
 <body>
 	<section>
-	<h2 id="menuLocation">인센티브 조회</h2>
+	<h2 id="menuLocation">전체 실적 조회</h2>
 		<div id="search">
 				<select id="searchMenu">
 				    <option>검색구분</option>
@@ -417,9 +419,9 @@
 					<th>사원이름</th>
 					<th>직책</th>
 					<th>실적</th>
-					<th>인센티브</th>
+<!-- 					<th>인센티브</th>
 					<th>상품 종류</th>
-					<th class="thPlanName">상품 이름</th>
+					<th class="thPlanName">상품 이름</th> -->
 				
 
 				</tr>
@@ -432,9 +434,9 @@
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
 					<td>${empList.perf}</td>
-					<td><fmt:formatNumber value='${empList.bonus }' pattern='###,###,###'/></td>
+<%-- 					<td><fmt:formatNumber value='${empList.bonus }' pattern='###,###,###'/></td>
 					<td>${empList.pCode}</td>
-					<td>${empList.pName }</td>	
+					<td>${empList.pName }</td>	 --%>
 				</tr>
 	            </a>
 				</c:forEach>

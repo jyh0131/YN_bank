@@ -291,8 +291,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public List<Employee> selectEmployeeByPerform() {
-		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus,if(pl.`planDiv` ='V',vip,null) as vip, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
-				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
 				"group by e.`empCode`order by bonus desc, perf desc";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -317,10 +317,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		String empTitle = rs.getString("e.empTitle");
 		int perf = rs.getInt("perf");
 		int bonus = rs.getInt("bonus");
-		String vip = rs.getString("vip");
+	//	String vip = rs.getString("vip");
 		String pCode= rs.getString("pCode");
 		String pName = rs.getString("pName");
-		return new Employee(empCode, empName, empTitle, perf, bonus, vip, pCode, pName);
+		return new Employee(empCode, empName, empTitle, perf, bonus, pCode, pName);
 	}
 
 	@Override
@@ -352,8 +352,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public Employee selectOneEmployeeByPerform(String empCode) throws SQLException {
-		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, if(pl.`planDiv` ='V',vip,null) as vip, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
-				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
 				"where e.empCode=? and empRetire =0 group by e.`empCode`";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -612,8 +612,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<Employee> selectEmpByNameListForPerform(String empItem) throws SQLException {
 		List<Employee> list = new ArrayList<Employee>();
-		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, if(pl.`planDiv` ='V',vip,null) as vip, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
-				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
 				"where e.empName like ? and empRetire =0 group by e.`empCode`";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -639,8 +639,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<Employee> selectEmpByDeptForPerform(String empItem) throws SQLException {
 		List<Employee> list = new ArrayList<Employee>();
-		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, if(pl.`planDiv` ='V',vip,null) as vip, d.deptName, pl.`planDetail` as pCode, pl.`planName` as pName \r\n" + 
-				"		from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join department d on e.`deptNo` = d.`deptNo` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, d.deptName, pl.`planDetail` as pCode, pl.`planName` as pName \r\n" + 
+				"		from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join department d on e.`deptNo` = d.`deptNo` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
 				"				where d.deptName =? and empRetire =0 group by e.`empCode`";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -666,8 +666,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<Employee> selectEmpByNoForPerform(String empItem) throws SQLException {
 		List<Employee> list = new ArrayList<Employee>();
-		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, if(pl.`planDiv` ='V',vip,null) as vip, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
-				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus,pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
 				"where e.empCode = ? and empRetire =0 group by e.`empCode`";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -693,8 +693,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<Employee> selectEmpByTitleForPerform(String empItem) throws SQLException {
 		List<Employee> list = new ArrayList<Employee>();
-		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, if(pl.`planDiv` ='V',vip,null) as vip, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
-				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
 				"where e.empTitle = ? and empRetire =0 group by e.`empCode`";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
@@ -980,9 +980,33 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return null;
 	}
 
-	
-	
-	
-	
+
+   //타겟상품
+	@Override
+	public List<Employee> selectEmployeeByPerformByTarget(String pCode) {
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` \r\n" + 
+				"where p.planCode =?\r\n" + 
+				"group by e.`empCode`order by bonus desc, perf desc";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			
+			pstmt.setString(1, pCode);
+			List<Employee> list = new ArrayList<Employee>();
+			try(ResultSet rs = pstmt.executeQuery();){
+				while(rs.next()) {
+			
+				list.add(getEmpPerform(rs));
+
+		     	}
+			  return list;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+   
 	
 }

@@ -150,6 +150,7 @@ div#submit input {
 <script>
 	$(function() {
 		$("#empBonusList").show();
+		 $("#empRealBonusList").show();
 		//목록으로 버튼 누르면 
 		$("#returnToList").click(function(){
 			location.href="${pageContext.request.contextPath}/emp/empBonus.do";

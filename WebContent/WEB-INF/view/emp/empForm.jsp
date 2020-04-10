@@ -183,6 +183,7 @@ div#profileEdit table td #inputCode {
 			}
 		})
 		
+		//서버에 존재하는 아이디 인지 확인 
 		$("#empId").on("change",function(){
 			$(".errorMSG").css("display", "none");
 			var checkEmpId = $("#empId").val();
@@ -207,7 +208,7 @@ div#profileEdit table td #inputCode {
 		
 			
 
-		//아이디와 비밀번호 정규표현식으로 걸러내기 
+		//아이디와 비밀번호 등등 정규표현식으로 걸러내기 
 		$("form").submit(
 				function() {
 					$(".errorMSG").css("display", "none");
@@ -307,23 +308,10 @@ div#profileEdit table td #inputCode {
 
 				}) //서밋 끝나는거 
 				
-	//파일 선택시 이미지 변경 
+	        //파일 선택시 미리보기 이미지 변경 
 				$("#empFile").change(function(){
-					
 					setImgFromFile(this,"#empPicture");
-					/* var full = $(this).val().split("\\");
-					//alert(full);
-				    
-					if(full ==""){
-						$("#empPicture").attr("src","${pageContext.request.contextPath}/images/no-img.jpg");	
-					}else{
-					f_name = full[full.length-1]; //마지막 화일명
-			        s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
-                    alert(f_name);
-		
-				  $("#empPicture").attr("src","${pageContext.request.contextPath}/empPic/"+f_name);
-				}	 */
-			});
+			    });
 		    function setImgFromFile(input, expression){
 		    	if(input.files && input.files[0]){
 		    		var reader = new FileReader();
@@ -334,24 +322,13 @@ div#profileEdit table td #inputCode {
 		    		 reader.readAsDataURL(input.files[0])
 		    	}
 		    }
-		
-/* 			function imagePath(input){
-			 if (input.files && input.files[0]) {
-			        var reader = new FileReader();
-
-			        reader.onload = function(e) {
-			            $("#empPicture").attr('src', e.target.result)
-			        }
-			        reader.readAsDataURL(input.files[0]);
-			    } 
-		}
-			 */
+            //사원이름 입력값이 변경 될 때 마다 프로필 사진 옆의 이름이 바뀜
 			$("#empName").change(function(){
 				var empNameForProfile = $("#empName").val(); 
 				//alert(empNameForProfile);
 				$("#proName").html(empNameForProfile);
 			})
-			
+			//부서 선택에 따라 프로필 옆의 부서 이름이 바뀜 
 			$("#selectForDept").change(function(){
 				var empDeptNo = $("#selectForDept").val(); 
 				
@@ -363,7 +340,18 @@ div#profileEdit table td #inputCode {
 
 			})
 			
-			
+			/* var full = $(this).val().split("\\");
+			//alert(full);
+		    
+			if(full ==""){
+				$("#empPicture").attr("src","${pageContext.request.contextPath}/images/no-img.jpg");	
+			}else{
+			f_name = full[full.length-1]; //마지막 화일명
+	        s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
+            alert(f_name);
+
+		  $("#empPicture").attr("src","${pageContext.request.contextPath}/empPic/"+f_name);
+		  }	 */
 			
 			
 	})
@@ -374,7 +362,7 @@ div#profileEdit table td #inputCode {
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>사용자 프로필</h1>
+			<h1>신규 사용자 등록</h1>
 		</div>
 		<form action="empAdd.do" method="post" enctype="multipart/form-data">
 

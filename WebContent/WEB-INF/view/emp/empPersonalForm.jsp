@@ -284,7 +284,7 @@ div#profileEdit table td #inputTitle {
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>사원 정보</h1>
+			<h1>내정보</h1>
 		</div>
 		<form action="empProfileUpdate.do" method="post" enctype="multipart/form-data">
 

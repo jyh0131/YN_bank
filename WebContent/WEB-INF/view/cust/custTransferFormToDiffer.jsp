@@ -108,6 +108,12 @@
 			
 		})
 		
+		$("#selectBank").change(function(){
+			$(".errorMSG").css("display", "none");
+			$(".errorCust").html("");
+			$("#findAccNum").val("");
+		})
+		
 		
 		
 		
@@ -137,8 +143,11 @@
         		var findAccNum = $("input[name='findAccNum']").val();
         		var selectBank = $("#selectBank").val();
         		
-        		location.href= "${pageContext.request.contextPath}/cust/custTFunction2.do?accountNum="+accountNum+"&text=송금&code="+code+"&transferAmount="+transferAmount+"&findAccNum="+findAccNum+"&selectBank="+selectBank;
+        		location.href= "${pageContext.request.contextPath}/cust/custTFunctionToOther.do?accountNum="+accountNum+"&text=송금&code="+code+"&transferAmount="+transferAmount+"&findAccNum="+findAccNum+"&selectBank="+selectBank;
         	}
+    		
+    		
+    		
     		
     	})  
     	

@@ -39,7 +39,7 @@ public class custTtoDifferHandler implements CommandHandler {
 			
 			try {
 				BankBook bankBook = bankService.showOneTransferringBankBook(targetAccNum, bankCode);
-				System.out.println("통장정보임마 디퍼핸들러"+bankBook);
+				//System.out.println("통장정보임마 디퍼핸들러"+bankBook);
 				if(bankBook !=null) {
 					String custName = bankBook.getCustCode().getCustName();
 					 HashMap<String,String> map = new HashMap<>();

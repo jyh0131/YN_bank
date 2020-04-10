@@ -60,6 +60,17 @@ public class CustomerService {
 		return dao.selectCustomerWHasAccByTel(custTel);
 	}
 	
+	//예금계좌만
+	public List<Customer> showCustomerWHas11AccByCode(String custCode) throws SQLException{
+		return dao.selectCustomerWHas11AccByCode(custCode);
+	}
+	public List<Customer> showCustomerWHas11AccByName(String custName) throws SQLException{
+		return dao.selectCustomerWHas11AccByName(custName);
+	}
+	
+	public List<Customer> showCustomerWHas11AccByTel(String custTel) throws SQLException{
+		return dao.selectCustomerWHas11AccByTel(custTel);
+	}
 	
 	public Customer showCustomerByTel(String custTel) throws SQLException{
 		return dao.selectCustomerByTel(custTel);

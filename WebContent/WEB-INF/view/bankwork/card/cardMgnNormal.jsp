@@ -93,7 +93,14 @@
 		
 		div#table tr:hover td { background: goldenrod;}
 		div#dummy { height: 75px; background: #292929;}
-		
+		/*금액 오른쪽 정렬*/
+		div#table td.alright{
+		  text-align: right;
+		  padding-right:10px;
+		}
+		div#table td.pName{
+		  width: 280px;
+		}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
@@ -130,7 +137,7 @@
 				    		var tr = $("<tr>");
 				    		var th1 = $("<th>").html("카드번호");
 				    		var th2 = $("<th>").html("고객이름");
-				    		var th3 = $("<th>").html("상품명");
+				    		var th3 = $("<th class='pName'>").html("상품명");
 				    		var th4 = $("<th>").html("카드구분");
 				    		var th5 = $("<th>").html("카드보안코드");
 				    		var th6 = $("<th>").html("카드발급일");
@@ -154,12 +161,17 @@
 								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								$(a).each(function(i, obj) {
+								
 									var td = $("<td>").append(a[i]);
 									tr.append(td);
 								})
 								table.append(tr);
 							})
 							$("#table").append(table);
+							$("#table tr.pickedOne").each(function(i, obj) {
+								$(this).find("td").eq(6).addClass("alright");
+								$(this).find("td").eq(7).addClass("alright");
+							})
 				    	}
 				    }
 				})
@@ -188,7 +200,7 @@
 				    		var tr = $("<tr>");
 				    		var th1 = $("<th>").html("카드번호");
 				    		var th2 = $("<th>").html("고객이름");
-				    		var th3 = $("<th>").html("상품명");
+				    		var th3 = $("<th class='pName'>").html("상품명");
 				    		var th4 = $("<th>").html("카드구분");
 				    		var th5 = $("<th>").html("카드보안코드");
 				    		var th6 = $("<th>").html("카드발급일");
@@ -212,12 +224,17 @@
 								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								$(a).each(function(i, obj) {
+									
 									var td = $("<td>").append(a[i]);
 									tr.append(td);
 								})
 								table.append(tr);
 							})
 							$("#table").append(table);
+							$("#table tr.pickedOne").each(function(i, obj) {
+								$(this).find("td").eq(6).addClass("alright");
+								$(this).find("td").eq(7).addClass("alright");
+							})
 				    	}
 				    }
 				})
@@ -251,7 +268,7 @@
 				    		var tr = $("<tr>");
 				    		var th1 = $("<th>").html("카드번호");
 				    		var th2 = $("<th>").html("고객이름");
-				    		var th3 = $("<th>").html("상품명");
+				    		var th3 = $("<th class='pName'>").html("상품명");
 				    		var th4 = $("<th>").html("카드구분");
 				    		var th5 = $("<th>").html("카드보안코드");
 				    		var th6 = $("<th>").html("카드발급일");
@@ -275,12 +292,19 @@
 								a[6] = $("<a>").html(obj.cardLimit.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								a[7] = $("<a>").html(obj.cardBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/card/detail.do?cardnum="+obj.cardNum+"&custname="+obj.custCode.custName);
 								$(a).each(function(i, obj) {
+									/* if(i==6 || i==7) {
+										var td = $("<td>").append(a[i]).addClass("alright");
+									} */
 									var td = $("<td>").append(a[i]);
 									tr.append(td);
 								})
 								table.append(tr);
 							})
 							$("#table").append(table);
+							$("#table tr.pickedOne").each(function(i, obj) {
+								$(this).find("td").eq(6).addClass("alright");
+								$(this).find("td").eq(7).addClass("alright");
+							})
 				    	}
 				    }
 				})
@@ -331,7 +355,7 @@
 				<tr>
 					<th>카드번호</th>
 					<th>고객이름</th>
-					<th>상품명</th>
+					<th class="pName">상품명</th>
 					<th>카드구분</th>
 					<th>카드보안코드</th>
 					<th>카드발급일</th>
@@ -346,8 +370,8 @@
 					<td>${fn:substring(card.cardNum,6,7) eq '1'?'체크카드':'신용카드'}</td>
 					<td>${card.cardSecuCode}</td>
 					<td><fmt:formatDate value="${card.cardIssueDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-					<td><fmt:formatNumber value="${card.cardLimit}" type="number" maxFractionDigits="3"/></td>
-					<td><fmt:formatNumber value="${card.cardBalance}" type="number" maxFractionDigits="3"/></td>
+					<td class='alright'><fmt:formatNumber value="${card.cardLimit}" type="number" maxFractionDigits="3"/></td>
+					<td class='alright'><fmt:formatNumber value="${card.cardBalance}" type="number" maxFractionDigits="3"/></td>
 				</tr>
 				</c:forEach>
 			</table>

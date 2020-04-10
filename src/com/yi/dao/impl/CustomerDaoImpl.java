@@ -695,7 +695,69 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	
-	
+	//예금계좌만
+	@Override
+	public List<Customer> selectCustomerWHas11AccByCode(String custCode) throws SQLException {
+		String sql ="select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custCode like ? and substr(accountNum, 8,2) = \"11\"";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){   
+			pstmt.setString(1, "%"+custCode+"%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {    
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}  
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWHas11AccByName(String custName) throws SQLException {
+		String sql ="select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName like ? and substr(accountNum, 8,2) = \"11\"";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){   
+			pstmt.setString(1, "%"+custName+"%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {    
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWHas11AccByTel(String custTel) throws SQLException {
+		String sql ="select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custTel like ? and substr(accountNum, 8,2) = \"11\"";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){   
+			pstmt.setString(1, "%"+custTel+"%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {    
+				list = new ArrayList<>();   
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 
 }

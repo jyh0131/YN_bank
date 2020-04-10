@@ -2,11 +2,11 @@ use bank;
 #사원 - 장현서
 -- 송금 구현 위한테스트
 select * from bankbook b ;
-
+select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName like '%김%' and substr(accountNum, 8,2) = '11';
 select b.accountNum, b.accountBalance, c.custCode,c.custName,p.planCode,p.planName from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountNum ='293133-11-000001';
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = 11;
 update bankbook set accountBalance = accountBalance+100 where accountNum ='293133-11-000001';
-
+select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custCode like '%C%';
 desc transferringBankBook;
 select * from transferringbankbook ;
 

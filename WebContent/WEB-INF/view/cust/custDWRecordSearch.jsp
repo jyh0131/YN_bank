@@ -117,7 +117,8 @@
 		
 	
 		div#table td.long {
-			width: 250px; 
+			width: 200px; 
+			text-align: right;
 		}
 		
 		div#table tr:nth-child(odd) {  
@@ -129,7 +130,10 @@
 		}
 		
 		div#table tr:hover td { background: goldenrod;}
-		
+		/*금액 오른쪽 정렬*/
+		div#table td.alright{
+		  text-align: right;
+		}
 </style>
 <script>
 	$(function(){
@@ -200,8 +204,8 @@
 					    		var $td1 = $("<td>").html(obj.dw);
 					    		var $td2 = $("<td>").html(obj.custName);
 					    		var $td3 = $("<td>").html(obj.accountNum);
-					    		var $td4 = $("<td>").html(obj.amount);
-					    		var $td5 = $("<td>").html(obj.accountBalance); 
+					    		var $td4 = $("<td class='alright'>").html(obj.amount+"원");
+					    		var $td5 = $("<td class='alright'>").html(obj.accountBalance+"원"); 
 					    		var $td6 = $("<td>").html(dateFormat);
 					    		
 					    		$tr2.append($td1);
@@ -263,8 +267,8 @@
 					    		var $td1 = $("<td>").html(obj.dw);
 					    		var $td2 = $("<td>").html(obj.custName);
 					    		var $td3 = $("<td>").html(obj.accountNum);
-					    		var $td4 = $("<td>").html(obj.amount);
-					    		var $td5 = $("<td>").html(obj.accountBalance); 
+					    		var $td4 = $("<td class='alright'>").html(obj.amount+"원");
+					    		var $td5 = $("<td class='alright'>").html(obj.accountBalance+"원"); 
 					    		var $td6 = $("<td>").html(dateFormat);
 					    		
 					    		$tr2.append($td1);
@@ -333,8 +337,8 @@
 				    		var $td1 = $("<td>").html(obj.dw);
 				    		var $td2 = $("<td>").html(obj.custName);  
 				    		var $td3 = $("<td>").html(obj.accountNum);
-				    		var $td4 = $("<td>").html(obj.amount.toLocaleString()+"원");
-				    		var $td5 = $("<td>").html(obj.accountBalance.toLocaleString()+"원"); 
+				    		var $td4 = $("<td class='alright'>").html(obj.amount.toLocaleString()+"원");
+				    		var $td5 = $("<td class='alright'>").html(obj.accountBalance.toLocaleString()+"원"); 
 				    		var $td6 = $("<td>").html(dateFormat);
 				    		
 				    		$tr2.append($td1);
@@ -409,7 +413,7 @@
 							<td>${audit.dw }</td>
 							<td>${audit.custName }</td>
 							<td>${audit.accountNum }</td>
-							<td><fmt:formatNumber value="${audit.amount}" groupingUsed="true"/>원</td>
+							<td class='alright'><fmt:formatNumber value="${audit.amount}" groupingUsed="true"/>원</td>
 							<td class="long"><fmt:formatNumber value="${audit.accountBalance}" groupingUsed="true"/>원</td>
 							<td class="long"><fmt:formatDate value="${audit.accountTransDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							

@@ -34,7 +34,7 @@ public class custTSearchHandler implements CommandHandler {
 			
 			switch(div) {
 			case "고객 코드":   
-				List<Customer> list = service.showCustomerWHasAccByCode(search);
+				List<Customer> list = service.showCustomerWHas11AccByCode(search);
 				if(list.size()==0) {  
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
@@ -56,7 +56,7 @@ public class custTSearchHandler implements CommandHandler {
 				break;
 			case "고객명":
 				List<Customer> list2 = new ArrayList<>();
-				list2 = service.showCustomerWHasAccByName(search);
+				list2 = service.showCustomerWHas11AccByName(search);
 				 
 				if(list2.size()==0) {
 					HashMap<String,String> map = new HashMap<>();
@@ -78,7 +78,7 @@ public class custTSearchHandler implements CommandHandler {
 				break;
 			case "연락처":
 				List<Customer> list3 = new ArrayList<>();
-				list3 = service.showCustomerWHasAccByTel(search);
+				list3 = service.showCustomerWHas11AccByTel(search);
 				if(list3.size() == 0) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");

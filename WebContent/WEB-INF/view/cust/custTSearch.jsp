@@ -103,7 +103,10 @@
 		}
 		
 		div#table tr:hover td { background: goldenrod;}
-		
+		/*금액 오른쪽 정렬*/
+		div#table td.alright{
+		  text-align: right;
+		}
 </style>
 <script>
 	$(function(){
@@ -153,7 +156,7 @@
 				    		
 				    		$tr1.append($th1);    
 				    		$tr1.append($th2);
-				    		$tr1.append($th3);
+				    	
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
@@ -167,12 +170,12 @@
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
-					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance+"원").attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a7;
 					    		if(obj.custDiv==true){    
 					    			$a7 = $("<a>").html("기업").attr("href", "#");
 					    		}else{
-					    			$a7 = $("<a>").html("고객").attr("href", "#");
+					    			$a7 = $("<a>").html("일반").attr("href", "#");
 					    		}
 				    			   
 					    		var $td1 = $("<td>");
@@ -180,7 +183,7 @@
 					
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
-					    		var $td6 = $("<td>");
+					    		var $td6 = $("<td class='alright'>");
 					    		var $td7 = $("<td>");
 					    		
 					    		$td1.append($a1);
@@ -251,7 +254,7 @@
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
-					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance+"원").attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 				    			var $a7;
 				    			if(obj.custDiv==true){    
 					    			$a7 = $("<a>").html("기업").attr("href", "#");
@@ -265,7 +268,7 @@
 					    		var $td2 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
-					    		var $td6 = $("<td>");
+					    		var $td6 = $("<td class='alright'>");
 					    		var $td7 = $("<td>");
 					    		
 					    		$td1.append($a1);
@@ -319,7 +322,7 @@
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);  
-				    		$tr1.append($th3);
+				    	
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
@@ -333,7 +336,7 @@
 					    		var $a2 = $("<a>").html(obj.custName).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);  
 					    		var $a4 = $("<a>").html(obj.custCredit).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 					    		var $a5 = $("<a>").html(obj.bankbook.accountNum).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
-					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance).attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
+					    		var $a6 = $("<a>").html(obj.bankbook.accountBalance+"원").attr("href", "${pageContext.request.contextPath}/cust/custTSelect.do?custCode="+obj.custCode+"&accountNum="+obj.bankbook.accountNum);
 				    			var $a7;
 					    		
 				    			if(obj.custDiv==true){      
@@ -346,7 +349,7 @@
 					    		var $td2 = $("<td>");
 					    		var $td4 = $("<td>");
 					    		var $td5 = $("<td>"); 
-					    		var $td6 = $("<td>");
+					    		var $td6 = $("<td class='alright'>");
 					    		var $td7 = $("<td>");
 					    		
 					    		$td1.append($a1);
@@ -421,7 +424,7 @@
 							<td><a href="${pageContext.request.contextPath}/cust/custTSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custName }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/custTSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.custCredit }</a></td>
 							<td><a href="${pageContext.request.contextPath}/cust/custTSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}">${listForBal.bankbook.accountNum }</a></td>
-							<td><a href="${pageContext.request.contextPath}/cust/custTSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}"><fmt:formatNumber value="${listForBal.bankbook.accountBalance}" groupingUsed="true"/> 원</a></td>
+							<td class='alright'><a href="${pageContext.request.contextPath}/cust/custTSelect.do?custCode=${listForBal.custCode}&dw=dw&accountNum=${listForBal.bankbook.accountNum}"><fmt:formatNumber value="${listForBal.bankbook.accountBalance}" groupingUsed="true"/> 원</a></td>
 							
 			
 							<c:if test="${listForBal.custDiv==true}">

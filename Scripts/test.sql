@@ -23,8 +23,8 @@ update transferringBankBook set balance = (balance+2) where accountnum ='265-13-
 select accountnum, bankcode, bankname, custname, balance from transferringbankbook where accountnum ='265-13-021846' and bankcode='031';
 select * from employee e ;
 select  * from performance p ;
-
-
+select * from notice order by no desc;
+select * from notice n2 ;
 delete from employee where empCode ="B022";
 select * from customer;
 delete from customer where custCode ="C030";

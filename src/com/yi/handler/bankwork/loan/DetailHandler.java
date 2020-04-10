@@ -56,7 +56,7 @@ public class DetailHandler implements CommandHandler {
 				}
 			}
 			else {
-				
+				loan.setLoanBalance(Math.round((loan.getLoanBalance()/(totalCount-(list.size()+1))) + (loan.getLoanBalance() * loan.getLoanInterest())));
 			}
 			req.setAttribute("loan", loan);
 			if(loan.getCustCode().getCustDiv()) {
@@ -140,6 +140,32 @@ public class DetailHandler implements CommandHandler {
 					}		
 				}
 				else {
+					List<Repayment> list = loanService.searchRepaymentsByAccountNum(loan.getLoanAccountNum());
+					Calendar calStart = GregorianCalendar.getInstance();
+					Calendar calExpire = GregorianCalendar.getInstance();
+					calStart.setTime(loan.getLoanStartDate());
+					calExpire.setTime(loan.getLoanExpireDate());
+					int expireYear = calExpire.get(Calendar.YEAR);
+					int nowYear = calStart.get(Calendar.YEAR);
+					int totalCount = (expireYear - nowYear) * 12;
+					if(totalCount-1 == list.size()) {
+						loanService.insertAndDeleteProcedure(repayment);
+						Contribution contribution = loginService.bankTotalAmount();
+						HttpSession session = req.getSession();
+						session.removeAttribute("contribution");
+						session.setAttribute("contribution", contribution);
+						session.setAttribute("finishrepayment", "success");
+						res.sendRedirect(req.getContextPath() + "/bankwork/loan/mgn.do?div="+custdiv);
+					}
+					else {
+						loanService.insertRepaymentByEquityPaymentProcedure(repayment);
+						Contribution contribution = loginService.bankTotalAmount();
+						HttpSession session = req.getSession();
+						session.removeAttribute("contribution");
+						session.setAttribute("contribution", contribution);
+						session.setAttribute("successrepayment", "success");
+						res.sendRedirect(req.getContextPath() + "/bankwork/loan/mgn.do?div="+custdiv);
+					}
 					
 				}
 			}

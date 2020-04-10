@@ -341,4 +341,39 @@ public class LoanDaoImpl implements LoanDao {
 		}
 	}
 
+	@Override
+	public int insertRepaymentByEquityPaymentProcedure(Repayment repayment) throws SQLException {
+		int res = -1;
+		String sql = "insert into repayment values(?,(select custcode from customer where custname = ?),(select plancode from plan where planname = ?),?,?,?,?,?,?,?,?)";
+		try(Connection con = DriverManager.getConnection(jdbcDriver)) {
+			con.setAutoCommit(false);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,repayment.getLoanAccountNum());
+			pstmt.setString(2, repayment.getCust().getCustName());
+			pstmt.setString(3, repayment.getPlan().getPlanName());
+			pstmt.setTimestamp(4, new Timestamp(repayment.getLoanStartDate().getTime()));
+			pstmt.setTimestamp(5, new Timestamp(repayment.getLoanDelayDate().getTime()));
+			pstmt.setTimestamp(6, new Timestamp(repayment.getLoanExpireDate().getTime()));
+			pstmt.setString(7, repayment.getLoanMethod());
+			pstmt.setInt(8, repayment.getLoanRound());
+			pstmt.setFloat(9, repayment.getLoanInterest());
+			pstmt.setLong(10, repayment.getLoanBalance());
+			pstmt.setInt(11, repayment.getLoanRepayment());
+			res = pstmt.executeUpdate();
+			sql = "update loan set loanBalance = ? where custcode = (select custcode from customer where custname = ?) and loanaccountnum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, repayment.getLoanRepayment() - Math.round(repayment.getLoanBalance() * repayment.getLoanInterest()));
+			pstmt.setString(2, repayment.getCust().getCustName());
+			pstmt.setString(3, repayment.getLoanAccountNum());
+			res += pstmt.executeUpdate();
+			if(res==2) {
+				con.commit();
+				return res;
+			}
+			else {
+				con.rollback();
+				return res;
+			}
+		}
+	}
 }

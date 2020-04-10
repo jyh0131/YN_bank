@@ -21,5 +21,6 @@ public interface LoanDao {
 	public List<Repayment> searchRepaymentsByAccountNum(String accountnum) throws SQLException;
 	public List<Repayment> searchRepaymentsByAccountNumAndCustDiv(Repayment repayment) throws SQLException;
 	public int insertRepayment(Repayment repayment) throws SQLException;
+	public int insertRepaymentByEquityPaymentProcedure(Repayment repayment) throws SQLException;
 	public int insertAndDeleteProcedure(Repayment repayment) throws SQLException;
 }

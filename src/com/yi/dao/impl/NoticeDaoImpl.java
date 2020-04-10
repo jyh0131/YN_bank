@@ -24,7 +24,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	@Override
 	public List<Notice> selectNoticeByAll() throws SQLException {
 		List<Notice> list = new ArrayList<>();
-		String sql = "select * from notice";
+		String sql = "select * from notice order by no desc";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {

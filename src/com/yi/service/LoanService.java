@@ -83,4 +83,7 @@ public class LoanService {
 	public int insertAndDeleteProcedure(Repayment repayment) throws SQLException {
 		return loanDao.insertAndDeleteProcedure(repayment);
 	}
+	public int insertRepaymentByEquityPaymentProcedure(Repayment repayment) throws SQLException {
+		return loanDao.insertRepaymentByEquityPaymentProcedure(repayment);
+	}
 }

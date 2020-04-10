@@ -227,7 +227,7 @@
 			  return false
 		  }
 		  //alert(OneCode);
-		  location.href="${pageContext.request.contextPath}/emp/empBonusDetail.do?empCode="+OneCode;
+		  location.href="${pageContext.request.contextPath}/emp/empBonusDetail.do?empCode="+OneCode+"&bonus=realBonus";
 	  })
 	  
 	  $(".tdForRank").mouseover();

@@ -23,6 +23,19 @@ public class PlanService {
 	public List<Plan> showPlansLimit(int startRow, int endRow) throws SQLException{
 		return dao.selectPlansLimit(startRow, endRow);
 	}
+	//상품 리스트 페이징 limit SQL문 (코드로 검색)
+	public List<Plan> showPlansLimitByCode(String planCode, int startRow, int endRow) throws SQLException{
+		return dao.selectPlansLimitByCode(planCode, startRow, endRow);
+	}
+	//상품 리스트 페이징 limit SQL문 (세부 코드로 검색)
+	public List<Plan> showPlansLimitByDetail(String planDetail, int startRow, int endRow) throws SQLException{
+		return dao.selectPlansLimitByDetail(planDetail, startRow, endRow);
+	}
+	
+	//상품 리스트 페이징 limit SQL문 (세부 코드로 검색)
+		public List<Plan> showPlansLimitByName(String planName, int startRow, int endRow) throws SQLException{
+			return dao.selectPlansLimitByName(planName, startRow, endRow);
+		}
 	
 	public List<Plan> showPlansByName(String planName) throws SQLException{
 		return dao.selectPlanByName(planName);   

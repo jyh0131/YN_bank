@@ -216,6 +216,9 @@ select cardBalance from card where custCode="C001" and accountNum ="293133-11-00
 select * from loan;
 
 desc bankbook;
+select planCode, planDetail, planName, planDesc, planDiv from plan limit 0, 10;
+
+
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';
 select * from plan where planCode like 'B%';

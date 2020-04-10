@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.yi.dao.PlanDao;
 import com.yi.dto.Plan;
+import com.yi.handler.paging.Paging;
 
 public class PlanDaoImpl implements PlanDao {
 	private static final PlanDaoImpl instance = new PlanDaoImpl();
@@ -47,7 +48,7 @@ public class PlanDaoImpl implements PlanDao {
 		return new Plan(planCode, planDetail, planName, planDesc, planDiv);
 	}
 	
-	//!!!!!!!!!! 한글 깨짐 문제로 고객명으로 검색이 안돼서 상 코드 검색으로 임시변경함
+	
 	@Override
 	public List<Plan> selectPlanByName(String planName) throws SQLException {
 		List<Plan> list = null;
@@ -521,6 +522,26 @@ public class PlanDaoImpl implements PlanDao {
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
+		return list;
+	}
+
+	@Override
+	public List<Plan> selectPlansLimit(int startRow, int endRow) throws SQLException {
+		String sql = "select planCode, planDetail, planName, planDesc, planDiv from plan limit ?, ?";
+		List<Plan> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getPlan(rs));
+				}while(rs.next());
+			}
+		}
 		return list;
 	}
 

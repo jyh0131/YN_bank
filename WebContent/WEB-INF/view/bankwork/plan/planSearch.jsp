@@ -107,9 +107,25 @@
 			font-size: 15px;
 		}
 		
+		div.sorter ul.pagination { 
+			width: 500px; height: 100px; 
+			margin: 50px auto 0 400px;  
+		}
+		div.sorter ul.pagination li { 
+			width: 50px; float:left;
+		}
+		div.sorter ul.pagination li a { 
+			display: block;
+			width: 30px; 
+			height: 30px;
+			border-radius: 10px;
+			line-height: 30px;  
+			text-align: center;     
+		}          
+		    
 		div#table tr:hover td { background: goldenrod;}
 		
-</style>
+</style>  
 <script>
 	$(function(){
 		
@@ -352,7 +368,21 @@
 		$("button").eq(1).click(function() {
 			$("input[name='search']").val("");
 		})
-	})
+		   
+		$(document).on("click", ".page",function() {
+			var page = $(this).html();
+	        location.href = "${pageContext.request.contextPath}/bankwork/plan/planSearch.do?page="+page;
+		})      
+		
+		$(document).on("mouseover", ".page", function(){
+			$(this).css("background", "goldenrod");
+		})
+		$(document).on("mouseout", ".page", function(){  
+			$(this).css("background", "#fff");
+		})
+		
+
+			})
 </script>
 <body>
 	<section>
@@ -410,8 +440,31 @@
 					</tr>
 				
 				</c:forEach>
+				
 		</table>
-		</div>  
+		
+				<div class="toolbar-bottom">
+		  <div class="toolbar mt-lg">    
+		    <div class="sorter">   
+		      <ul class="pagination">
+		        <li><a href="#" class="pn">Prev</a></li>
+		              <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+		                  <c:choose>
+		                      <c:when test="${i eq paging.pageNo}">
+		                <li class="active"><a href="#" class="page">${i}</a></li>
+		                      </c:when>
+		                      <c:otherwise>
+		                        <li><a href="#" class="page">${i}</a></li>
+		                      </c:otherwise>
+		                  </c:choose>
+		              </c:forEach>
+		        <li><a href="#" class="pn">Next</a></li>
+		      </ul>
+		    </div>
+		  </div>
+		</div>
+	
+		</div>
 		</section>
 </body>
 </html>

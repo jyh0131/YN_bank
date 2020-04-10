@@ -93,7 +93,24 @@
 			background: gainsboro;
 			font-size: 15px;
 		}
-		
+		/* 페이징 중앙 위치 처리 */	
+		div.sorter { height: 50px; margin-top: 20px;}
+		div.sorter ul.pagination {           
+			float:right; position:relative; left:-45%;     
+		}                
+		div.sorter ul.pagination li {     
+		float:left; position:relative; margin-right:20px; left:40%;        
+		}         
+		div.sorter ul.pagination li a {         
+			display: block;
+			width: 30px; 
+			height: 30px;              
+			border-radius: 10px;        
+			line-height: 30px;  
+			text-align: center;     
+			font-weight: bold;
+		}          
+		    
 		div#table tr:hover td { background: goldenrod;}
 		
 </style>
@@ -104,12 +121,13 @@
 	  $("select").on("change",function(){
 		  $("table").load(location.href+" table");
 		  $("#searchForEmp").val("");
+	      $(".pagination").load(location.href+" .pagination li");   
 	  })
 	  $("button").eq(0).click(function(){
 		  var div = $("#searchMenu option:selected").val();
 	      var search = $("input[name='search']").val();
     //			alert(search);
-    
+      
     
         var $table = $("<table>").addClass("tableList");
 
@@ -148,9 +166,9 @@
 				    		alert("존재하지 않는 사원입니다. 사원번호를 확인해주세요");
 				    	}else{
 				    		
-				    		$(".tableList").remove();
-		
-				    		$(res).each(function(i,obj){
+				    		$(".tableList").remove();   
+		    
+				    		$(res.employee).each(function(i,obj){
 				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
@@ -169,6 +187,37 @@
 				    		})
 				    		//테이블 div
 				    		$("#table").append($table);
+				    		      
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	}
 				    }
 				  
@@ -191,7 +240,7 @@
 				    		
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
+				    		$(res.list).each(function(i,obj){
 				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
@@ -210,6 +259,37 @@
 				    		})
 				    		//테이블 div
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	}
 				    }
 				  
@@ -231,7 +311,7 @@
 				    		
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
+				    		$(res.list3).each(function(i,obj){
 				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
@@ -250,6 +330,35 @@
 				    		})
 				    		//테이블 div
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);  
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	}
 				    }
 				  
@@ -272,7 +381,7 @@
 				    		
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
+				    		$(res.list4).each(function(i,obj){
 				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
@@ -291,6 +400,35 @@
 				    		})
 				    		//테이블 div
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	}
 				    }
 				  
@@ -307,7 +445,53 @@
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empAuthDetail.do?empCode="+OneCode;
 	  })
-	   
+	   //페이지 각 번호 클릭 시  
+		$(document).on("click", ".page",function() {
+			var page = $(this).html();
+	        location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+		})   
+		
+		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
+		$(document).on("click", ".prev" , function(){
+			var page = ${paging.pageNo}-1;
+			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+			if($(".page").size()==1){
+				return false;       
+			}
+			location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+		})  
+		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)
+		$(document).on("click", ".next" , function(){
+			var page = ${paging.pageNo}+1;
+			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+			if($(".page").size()==1){         
+				return false;     
+			}       
+			location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+		})
+		
+		$(document).on("mouseover", ".page", function(){
+			$(this).css("background", "goldenrod");
+		})
+		$(document).on("mouseout", ".page", function(){  
+			$(this).css("background", "#fff");
+		})
+		
+		$(document).on("mouseover", ".prev", function(){
+			$(this).css("background", "goldenrod");
+		})
+		
+		$(document).on("mouseover", ".next", function(){
+			$(this).css("background", "goldenrod");
+		})
+		
+		$(document).on("mouseout", ".prev", function(){  
+			$(this).css("background", "#fff");
+		})
+		
+		$(document).on("mouseout", ".next", function(){  
+			$(this).css("background", "#fff");        
+		})
 	   
    })
 
@@ -358,7 +542,22 @@
 				</c:forEach>
 				</span>
 		</table>
-		
+		<div class="sorter">   
+		      <ul class="pagination">
+		        <li><a href="#" class="prev">Prev</a></li>
+		              <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+		                  <c:choose>
+		                      <c:when test="${i eq paging.pageNo}">
+		                <li class="active"><a href="#" class="page">${i}</a></li>
+		                      </c:when>
+		                      <c:otherwise>
+		                        <li><a href="#" class="page">${i}</a></li>
+		                      </c:otherwise>
+		                  </c:choose>
+		              </c:forEach>
+		        <li><a href="#" class="next">Next</a></li>
+		      </ul>
+		    </div>  
 		</div>
 		</section>
 </body>

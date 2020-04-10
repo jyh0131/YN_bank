@@ -28,7 +28,7 @@ public class custTFunctionHandler2 implements CommandHandler {
 			service.transferring(bankBook, bankBook2, Integer.parseInt(transferAmount));
 			String tCustomer = bankBook2.getCustCode().getCustName();
 			req.setAttribute("otherBanks", tCustomer);
-			System.out.println(tCustomer);
+			//System.out.println(tCustomer);
 			//System.out.println("완료됐지롱 ");
 			
 	

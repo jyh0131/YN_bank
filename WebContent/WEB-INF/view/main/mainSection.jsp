@@ -33,10 +33,10 @@
 	section div#notice ul { margin-top: 10px; }
 	section div#notice ul li { height: 30px; }
 	section div#notice span { display: block; float: left;}
-	section div#notice span#no { width: 20px;  text-align: center; }
-	section div#notice span#content { width: 340px;}
-	section div#notice span#content a { display: block;}
-	section div#notice span#writer { width: 100px; text-align: right;}
+	section div#notice span#no { width: 30px;  text-align: center; }
+	section div#notice span#subject { width: 340px;}
+	section div#notice span#subject a { display: block;}
+	section div#notice span#writer { width: 100px; text-align: center;}
 	section div#notice span#date { width: 100px; text-align: right;}
 	
 	/* 우수사원 */  

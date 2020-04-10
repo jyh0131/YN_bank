@@ -142,7 +142,7 @@
 	 })
 	 
 	 $("select#searchMenu").on("change",function(){
-		 // $("table").load(location.href+" table");
+		$("table").load(location.href+" table");
 		 var planName = $("select#searchMenu").val();
 		// alert(planName);
 		  $("#searchForEmp").val(planName);
@@ -227,7 +227,7 @@
 			  return false
 		  }
 		  //alert(OneCode);
-		  location.href="${pageContext.request.contextPath}/emp/empBonusDetail.do?empCode="+OneCode;
+		  location.href="${pageContext.request.contextPath}/emp/empBonusDetail.do?empCode="+OneCode+"&bonus=realBonus";
 	  })
 	  
 	  $(".tdForRank").mouseover();
@@ -269,7 +269,7 @@
 
 				</tr>
 				<span id="renew">
-				<%-- <c:forEach var='empList' items="${list }">
+				<c:forEach var='empList' items="${list }">
 				<tr class="oneEmp" data-empCode="${empList.empCode }" data-perf="${empList.perf }">
 
 					<td class="tdForRank"><span class="imgSpan"></span><span class="codeSpan">${empList.empCode }</span></td>
@@ -278,11 +278,11 @@
 					<td>${empList.empTitle }</td>
 					<td>${empList.perf}</td>
 					<td><fmt:formatNumber value='${empList.bonus }' pattern='###,###,###'/></td>
-	 				<td>${empList.pCode}</td>
-					<td>${empList.pName }</td>	 
+	 				<%-- <td>${empList.pCode}</td>
+					<td>${empList.pName }</td>	  --%>
 				</tr>
 	          
-				</c:forEach> --%>
+				</c:forEach> 
 				</span>
 		</table>
 		

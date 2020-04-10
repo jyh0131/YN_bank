@@ -18,7 +18,8 @@ public class empBonusDetailHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String empCode = req.getParameter("empCode");
-		
+		String bonus = req.getParameter("bonus");
+		//System.out.println(bonus);
 		
 		try{Employee emp = service.showPickedEmp2(empCode);
 		
@@ -28,6 +29,7 @@ public class empBonusDetailHandler implements CommandHandler {
 		//System.out.println("보너스디테일"+list);
 				req.setAttribute("list", list);
 				req.setAttribute("emp", emp);
+				req.setAttribute("bonus", bonus);
 		
 		
 	}catch (Exception e) {

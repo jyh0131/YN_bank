@@ -153,7 +153,12 @@ div#submit input {
 		 $("#empRealBonusList").show();
 		//목록으로 버튼 누르면 
 		$("#returnToList").click(function(){
+			var whichBounus = "${bonus}";
+			if(whichBounus =="bonus"){
 			location.href="${pageContext.request.contextPath}/emp/empBonus.do";
+			}else{
+			location.href="${pageContext.request.contextPath}/emp/empRealBonus.do";
+			}
 		})
 		
 	

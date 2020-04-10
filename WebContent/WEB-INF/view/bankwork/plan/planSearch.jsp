@@ -105,20 +105,22 @@
 			text-align: center;
 			background: gainsboro;
 			font-size: 15px;
-		}
+		}   
 		
-		div.sorter ul.pagination { 
-			width: 500px; height: 100px; 
-			margin: 50px auto 0 400px;  
-		}
-		div.sorter ul.pagination li { 
-			width: 50px; float:left;
-		}
-		div.sorter ul.pagination li a { 
+		
+		/* 페이징 중앙 위치 처리 */	
+		div.sorter { height: 50px; margin-top: 20px;}
+		div.sorter ul.pagination {           
+			float:right; position:relative; left:-45%;     
+		}                
+		div.sorter ul.pagination li {     
+		float:left; position:relative; margin-right:20px; left:40%;        
+		}         
+		div.sorter ul.pagination li a {         
 			display: block;
 			width: 30px; 
-			height: 30px;   
-			border-radius: 10px;   
+			height: 30px;              
+			border-radius: 10px;        
 			line-height: 30px;  
 			text-align: center;     
 			font-weight: bold;
@@ -136,14 +138,15 @@
 		//검색 구분 조건 바뀔 때 테이블 reload
 		$("select").on("change", function(){
 			
-				$("table").load(location.href+" table");
+				$(".tableList").load(location.href+" .tableList tr");
 				$("input[name='search']").val("");   
-		})
+				$(".pagination").load(location.href+" .pagination li");
+		})    
 		
-		$("button").click(function() {  
-			switch($("#searchMenu option:selected").val()) {
+		$("button").click(function() {         
+			switch($("#searchMenu option:selected").val()) {    
 			case "검색 구분":
-				alert("검색 조건을 선택해주세요.");
+				alert("검색 조건을 선택해주세요.");   
 				$("input[name='search']").val("");
 				break;
 			case "상품 코드(A)":
@@ -155,7 +158,7 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-//				    		console.log(res);
+				    		//console.log(res.paging);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 상품 입니다.");
 				    		}
@@ -172,13 +175,12 @@
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);
-				    		$tr1.append($th3);
+				    		$tr1.append($th3);   
 				    		$tr1.append($th4);
-				    		$table.append($tr1);
+				    		$table.append($tr1);   
 				    		
-				    		$(res).each(function(i, obj) {
+				    		$(res.list).each(function(i, obj) {  
 				    			var $tr2 = $("<tr>");
-				    			console.log(obj.planDiv);
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
@@ -195,7 +197,7 @@
 					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
+					    		var $td3 = $("<td>");   
 					    		var $td4 = $("<td>");
 					    		
 					    		$td1.append($a1);
@@ -211,11 +213,44 @@
 					    		
 					    		$table.append($tr2);
 					    		
-				    		})      
+				    		})          
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		   
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	 }    
 				    }
-				})   
+				})
+				
+				
 				break;
 			case "상품 세부코드(AB)":
 				var div = $("#searchMenu option:selected").val();
@@ -226,7 +261,6 @@
 				    type: "POST", 
 				    dataType: "json", 
 				    success : function(res) {
-				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 상품 입니다.");
 				    		}
@@ -243,13 +277,12 @@
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);
-				    		$tr1.append($th3);
+				    		$tr1.append($th3);   
 				    		$tr1.append($th4);
-				    		$table.append($tr1);
+				    		$table.append($tr1);   
 				    		
-				    		$(res).each(function(i, obj) {
+				    		$(res.list2).each(function(i, obj) {  
 				    			var $tr2 = $("<tr>");
-				    			
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
@@ -264,11 +297,9 @@
 					    			$a4 = $("<a>").html("기업고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		}
 					    		
-				    			   
-					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
+					    		var $td3 = $("<td>");   
 					    		var $td4 = $("<td>");
 					    		
 					    		$td1.append($a1);
@@ -284,8 +315,39 @@
 					    		
 					    		$table.append($tr2);
 					    		
-				    		})      
+				    		})          
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging2.startPageNo; i<=res.paging2.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	 }    
 				    }
 				})
@@ -306,7 +368,7 @@
 				    	else {
 							$(".tableList").remove();
 				    		
-				    		var $table = $("<table>").addClass("tableList");  
+				    		var $table = $("<table>").addClass("tableList");
 				    		var $tr1 = $("<tr>");
 				    		
 				    		var $th1 = $("<th>").html("상품 코드");
@@ -316,13 +378,12 @@
 				    		
 				    		$tr1.append($th1);
 				    		$tr1.append($th2);
-				    		$tr1.append($th3);
+				    		$tr1.append($th3);   
 				    		$tr1.append($th4);
-				    		$table.append($tr1);
+				    		$table.append($tr1);   
 				    		
-				    		$(res).each(function(i, obj) {
+				    		$(res.list3).each(function(i, obj) {  
 				    			var $tr2 = $("<tr>");
-				    			
 				    			var $a1 = $("<a>").html(obj.planCode).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a2 = $("<a>").html(obj.planDetail).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		var $a3 = $("<a>").html(obj.planName).attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
@@ -337,11 +398,9 @@
 					    			$a4 = $("<a>").html("기업고객(일반 등급)").attr("href", "${pageContext.request.contextPath}/bankwork/plan/planDetail.do?planCode="+obj.planCode);
 					    		}
 					    		
-				    			   
-					    		
 					    		var $td1 = $("<td>");
 					    		var $td2 = $("<td>");
-					    		var $td3 = $("<td>");
+					    		var $td3 = $("<td>");   
 					    		var $td4 = $("<td>");
 					    		
 					    		$td1.append($a1);
@@ -357,8 +416,39 @@
 					    		
 					    		$table.append($tr2);
 					    		
-				    		})      
+				    		})          
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging3.startPageNo; i<=res.paging3.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	 }    
 				    }
 				})
@@ -378,11 +468,19 @@
 		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
 		$(document).on("click", ".prev" , function(){
 			var page = ${paging.pageNo}-1;
+			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+			if($(".page").size()==1){
+				return false;       
+			}
 			location.href = "${pageContext.request.contextPath}/bankwork/plan/planSearch.do?page="+page;
-		})
+		})  
 		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)
 		$(document).on("click", ".next" , function(){
 			var page = ${paging.pageNo}+1;
+			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+			if($(".page").size()==1){         
+				return false;   
+			}       
 			location.href = "${pageContext.request.contextPath}/bankwork/plan/planSearch.do?page="+page;
 		})
 		
@@ -470,10 +568,7 @@
 				</c:forEach>
 				
 		</table>
-		
-				<div class="toolbar-bottom">
-		  <div class="toolbar mt-lg">    
-		    <div class="sorter">   
+			  <div class="sorter">   
 		      <ul class="pagination">
 		        <li><a href="#" class="prev">Prev</a></li>
 		              <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
@@ -488,11 +583,9 @@
 		              </c:forEach>
 		        <li><a href="#" class="next">Next</a></li>
 		      </ul>
-		    </div>
-		  </div>
+		    </div>  
 		</div>
-	
-		</div>
+		
 		</section>
 </body>
 </html>

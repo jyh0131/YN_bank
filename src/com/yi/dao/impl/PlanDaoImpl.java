@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.yi.dao.PlanDao;
 import com.yi.dto.Plan;
-import com.yi.handler.paging.Paging;
 
 public class PlanDaoImpl implements PlanDao {
 	private static final PlanDaoImpl instance = new PlanDaoImpl();
@@ -318,7 +317,7 @@ public class PlanDaoImpl implements PlanDao {
 		List<Plan> list = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql);){
-			pstmt.setString(1, planDetail+'%');
+			pstmt.setString(1, "%"+planDetail+"%");
 			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -534,6 +533,69 @@ public class PlanDaoImpl implements PlanDao {
 			PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getPlan(rs));
+				}while(rs.next());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Plan> selectPlansLimitByCode(String planCode, int startRow, int endRow) throws SQLException {
+		String sql = "select planCode, planDetail, planName, planDesc, planDiv from plan where planCode like ? limit ?, ?";
+		List<Plan> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, "%"+planCode+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getPlan(rs));
+				}while(rs.next());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Plan> selectPlansLimitByDetail(String planDetail, int startRow, int endRow) throws SQLException {
+		String sql = "select planCode, planDetail, planName, planDesc, planDiv from plan where planDetail like ? limit ?, ?";
+		List<Plan> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, "%"+planDetail+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getPlan(rs));
+				}while(rs.next());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Plan> selectPlansLimitByName(String planName, int startRow, int endRow) throws SQLException {
+		String sql = "select planCode, planDetail, planName, planDesc, planDiv from plan where planName like ? limit ?, ?";
+		List<Plan> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, "%"+planName+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				list = new ArrayList<>();

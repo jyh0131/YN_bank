@@ -8,7 +8,10 @@ import com.yi.handler.paging.Paging;
 
 public interface PlanDao {
 	abstract List<Plan> selectPlanAll() throws SQLException;
-	abstract List<Plan> selectPlansLimit(int startRow, int endRow) throws SQLException; //페이징을 위한 목록
+	abstract List<Plan> selectPlansLimit(int startRow, int endRow) throws SQLException; //페이징을 위한 목록 (전체)
+	abstract List<Plan> selectPlansLimitByCode(String planCode, int startRow, int endRow) throws SQLException; //페이징을 위한 목록 (코드로 검색)
+	abstract List<Plan> selectPlansLimitByDetail(String planDetail, int startRow, int endRow) throws SQLException; //페이징을 위한 목록 (세부코드 로 검색)
+	abstract List<Plan> selectPlansLimitByName(String planName, int startRow, int endRow) throws SQLException; //페이징을 위한 목록 (세부코드 로 검색)
 	abstract int insertPlan(Plan plan) throws SQLException;
 	abstract int updatePlan(Plan plan) throws SQLException;
 	abstract int deletePlan(Plan plan) throws SQLException;

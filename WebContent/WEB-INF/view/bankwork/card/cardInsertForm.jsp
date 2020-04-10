@@ -118,7 +118,7 @@
     			$(".vip").show();
     			$(".vip").eq(0).prop("selected", true)
     		}
-    	}
+    	});
     	$("input[type='submit']").click(function() {
     		var custname = $("#cust option:selected").val();
     		var str = $("#plan option:selected").attr("data-planDetail");
@@ -220,7 +220,7 @@
 							<td>
 								<select name="custname" id="cust">
 									<c:forEach var="cust" items="${custList}">
-										<option data-rank="${cust.custRank}">${cust}</option>
+										<option data-rank="${cust.custCredit}">${cust}</option>
 									</c:forEach>
 								</select>
 							</td>

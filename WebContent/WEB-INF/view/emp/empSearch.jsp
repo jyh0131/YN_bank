@@ -144,7 +144,11 @@
 		}          
 		    
 		div#table tr:hover td { background: goldenrod;}
-      
+       /*금액 오른쪽 정렬*/
+		div#table td.alright{
+		  text-align: right;
+		  padding-right:10px;
+		}
   
 </style>
 <script>
@@ -214,7 +218,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary.toLocaleString());
+				    			var $td5 = $("<td class='alright'>").html(obj.empSalary.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
 				    			var $td8 = $("<td>").html("**********");
@@ -294,7 +298,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary.toLocaleString());
+				    			var $td5 = $("<td class='alright'>").html(obj.empSalary.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
 				    			var $td8 = $("<td>").html("**********");
@@ -374,7 +378,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary.toLocaleString());
+				    			var $td5 = $("<td class='alright'>").html(obj.empSalary.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
 				    			var $td8 = $("<td>").html("**********");
@@ -452,7 +456,7 @@
 				    			var $td2 = $("<td>").html(obj.empName);
 				    			var $td3 = $("<td>").html(obj.empTitle);
 				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary.toLocaleString());
+				    			var $td5 = $("<td class='alright'>").html(obj.empSalary.toLocaleString());
 				    			var $td6 = $("<td>").html(obj.empTel);
 				    			var $td7 = $("<td>").html(obj.empId);
 				    			var $td8 = $("<td>").html("**********");
@@ -619,7 +623,7 @@
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
 					<td>${empList.empAuth }</td>
-					<td><fmt:formatNumber value='${empList.empSalary }' pattern='###,###,###'/></td>
+					<td class='alright'><fmt:formatNumber value='${empList.empSalary }' pattern='###,###,###'/></td>
 					<td>${empList.empTel }</td>
 					<td>${empList.empId }</td>
 					<td>**********</td>

@@ -15,7 +15,6 @@ import com.yi.dao.impl.CustomerDaoImpl;
 import com.yi.dao.impl.PlanDaoImpl;
 import com.yi.dto.BankBook;
 import com.yi.dto.Card;
-import com.yi.dto.CardInfo;
 import com.yi.dto.Customer;
 import com.yi.dto.Plan;
 
@@ -63,21 +62,6 @@ public class CardService {
 	}
 	public List<Customer> showCusts() throws SQLException {
 		return custDao.selectCustomerAll();
-	}
-	public List<CardInfo> cardInfoDaily() throws SQLException {
-		return cardDao.showCardInfoDaily();
-	}
-	public List<CardInfo> cardInfoWeekly() throws SQLException {
-		return cardDao.showCardInfoWeekly();
-	}
-	public List<CardInfo> cardInfoMonthly() throws SQLException {
-		return cardDao.showCardInfoMonthly();
-	}
-	public List<CardInfo> cardInfoYearly() throws SQLException {
-		return cardDao.showCardInfoYearly();
-	}
-	public List<CardInfo> showCardInfo() throws SQLException {
-		return cardDao.showCardInfo();
 	}
 	public int updateAccountBalance(Card card) throws SQLException {
 		return cardDao.updateAccountBalance(card);

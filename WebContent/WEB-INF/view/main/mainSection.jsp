@@ -107,7 +107,7 @@
 	      function drawVisualization() {
 	        // Some raw data (not necessarily accurate)
 	        var data = google.visualization.arrayToDataTable([
-	          [' ','예적금 총금액','대출 총금액','현재 은행 출자금'],
+	          [' ','예적금 및 이자 총액','대출 총금액','현재 은행 출자금'],
 	          [' ',${contribution.totalDepositWithdrawAmount},${contribution.totalLoanAmount},${contribution.totalContribution}]
 	        ]);
 	

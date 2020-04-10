@@ -144,6 +144,9 @@
     	for(var i=1;i<6;i++) {
     		$("select[name='loanDelayTerm']").append("<option>" + i + "년" + "</option>");
     	}
+    	for(var i=1;i<10;i++) {
+    		$("select[name='loanExpireTerm']").append("<option>" + i + "년" + "</option>");
+    	} 
     	$("select[name='loanDelayTerm']").change(function() {
     		var limitYear = 10;
     		var str = $("select[name='loanDelayTerm']").val();
@@ -153,12 +156,7 @@
     		for(var i=1;i<expireYear+1;i++) {
     			$("select[name='loanExpireTerm']").append("<option>" + i + "년" + "</option>");
     		}
-    	});
-    	$("select[name='loanExpireTerm']").click(function() {
-    		if($("select[name='loanExpireTerm'] option:selected").length==0) {
-    			alert("거치 기간을 먼저 선택해주세요");
-    		}
-    	})
+    	}); 
     })
 	</script>
 	<div id="container">

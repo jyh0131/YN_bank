@@ -109,6 +109,8 @@ CREATE TABLE bank.Loan (
 	loanMethod     char(1)  NULL     COMMENT '대출상환방식', -- 대출상환방식
 	loanInterest   FLOAT    NULL     COMMENT '대출이자율', -- 대출이자율
 	loanBalance    BIGINT   NULL     COMMENT '대출잔액', -- 대출잔액
+	loanExtended   TINYINT  NULL     COMMENT '대출연장여부', -- 대출연장여부
+	loanExpired    TINYINT  NULL     COMMENT '대출완료여부', -- 대출완료여부
 	empCode        char(4)  NULL     COMMENT '사원코드' -- 사원코드
 )
 COMMENT '대출';
@@ -160,29 +162,29 @@ ALTER TABLE bank.Performance
 
 -- 입출금
 CREATE TABLE bank.cust_DW_audit (
-	dw               varchar(5) NULL COMMENT '입출금', -- 입출금
+	dw               varchar(5)  NULL COMMENT '입출금', -- 입출금
 	custname         VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
-	accountnum       char(16)   NULL COMMENT '계좌번호', -- 계좌번호
-	amount           int(20)    NULL COMMENT '거래금액', -- 거래금액
-	accountbalance   BIGINT     NULL COMMENT '계좌잔액', -- 계좌잔액
-	accountTransDate DATETIME   NULL COMMENT '거래일자' -- 거래일자
+	accountnum       char(16)    NULL COMMENT '계좌번호', -- 계좌번호
+	amount           int(20)     NULL COMMENT '거래금액', -- 거래금액
+	accountbalance   BIGINT      NULL COMMENT '계좌잔액', -- 계좌잔액
+	accountTransDate DATETIME    NULL COMMENT '거래일자' -- 거래일자
 )
 COMMENT '입출금';
 
 -- 카드 정보
 CREATE TABLE bank.cardInfo (
 	custname    VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
-	cardnum     char(16)   NULL COMMENT '카드번호', -- 카드번호
-	transDate   DATETIME   NULL COMMENT '거래일자', -- 거래일자
-	cardBalance BIGINT     NULL COMMENT '카드잔액' -- 카드잔액
+	cardnum     char(16)    NULL COMMENT '카드번호', -- 카드번호
+	transDate   DATETIME    NULL COMMENT '거래일자', -- 거래일자
+	cardBalance BIGINT      NULL COMMENT '카드잔액' -- 카드잔액
 )
 COMMENT '카드 정보';
 
 -- 통장정보
 CREATE TABLE bank.bankbookinfo (
 	custname   VARCHAR(20) NULL COMMENT '고객이름', -- 고객이름
-	accountnum char(16)   NULL COMMENT '계좌번호', -- 계좌번호
-	transdate  DATETIME   NULL COMMENT '거래일자' -- 거래일자
+	accountnum char(16)    NULL COMMENT '계좌번호', -- 계좌번호
+	transdate  DATETIME    NULL COMMENT '거래일자' -- 거래일자
 )
 COMMENT '통장정보';
 
@@ -208,26 +210,27 @@ ALTER TABLE bank.notice
 
 -- 상환
 CREATE TABLE bank.Repayment (
-	loanAccountNum char(16) NOT NULL COMMENT '대출계좌번호', -- 대출계좌번호
-	custCode       char(4)  NOT NULL COMMENT '고객코드', -- 고객코드
-	loanPlanCode   char(4)  NOT NULL COMMENT '대출상품코드', -- 대출상품코드
-	loanStartDate  DATETIME NULL     COMMENT '대출시작날짜', -- 대출시작날짜
-	loanDelayDate  DATETIME NULL     COMMENT '대출거치일자', -- 대출거치일자
-	loanExpireDate DATETIME NULL     COMMENT '대출만료일자', -- 대출만료일자
-	loanMethod     char(1)  NULL     COMMENT '대출상환방식', -- 대출상환방식
-	loanRound      INTEGER  NULL     COMMENT '대출상환회차', -- 대출상환회차
-	loanInterest   FLOAT    NULL     COMMENT '대출이자율', -- 대출이자율
-	loanBalance    BIGINT   NULL     COMMENT '대출잔액', -- 대출잔액
-	loanRepayment  INTEGER  NULL     COMMENT '상환금액' -- 상환금액
+	loanAccountNum char(16) NULL COMMENT '대출계좌번호', -- 대출계좌번호
+	custCode       char(4)  NULL COMMENT '고객코드', -- 고객코드
+	loanPlanCode   char(4)  NULL COMMENT '대출상품코드', -- 대출상품코드
+	loanStartDate  DATETIME NULL COMMENT '대출시작날짜', -- 대출시작날짜
+	loanDelayDate  DATETIME NULL COMMENT '대출거치일자', -- 대출거치일자
+	loanExpireDate DATETIME NULL COMMENT '대출만료일자', -- 대출만료일자
+	loanMethod     char(1)  NULL COMMENT '대출상환방식', -- 대출상환방식
+	loanRound      INTEGER  NULL COMMENT '대출상환회차', -- 대출상환회차
+	loanInterest   FLOAT    NULL COMMENT '대출이자율', -- 대출이자율
+	loanBalance    BIGINT   NULL COMMENT '대출잔액', -- 대출잔액
+	loanRepayment  INTEGER  NULL COMMENT '상환금액' -- 상환금액
 )
 COMMENT '상환';
 
 -- 타행송금정보
 CREATE TABLE bank.transferringBankBook (
-	accoutnum char(16)    NULL COMMENT '계좌번호', -- 계좌번호
-	bankcode  char(3)     NULL COMMENT '은행코드', -- 은행코드
-	bankname  varchar(20) NULL COMMENT '은행명', -- 은행명
-	custname  VARCHAR(20) NULL COMMENT '고객명' -- 고객명
+	accountnum char(16)    NULL COMMENT '계좌번호', -- 계좌번호
+	bankcode   char(3)     NULL COMMENT '은행코드', -- 은행코드
+	bankname   varchar(20) NULL COMMENT '은행명', -- 은행명
+	custname   VARCHAR(20) NULL COMMENT '고객명', -- 고객명
+	balance    BIGINT      NULL COMMENT '잔액' -- 잔액
 )
 COMMENT '타행송금정보';
 

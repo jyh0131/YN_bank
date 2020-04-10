@@ -13,7 +13,6 @@ import java.util.List;
 import com.yi.dao.CardDao;
 import com.yi.dto.BankBook;
 import com.yi.dto.Card;
-import com.yi.dto.CardInfo;
 import com.yi.dto.Customer;
 import com.yi.dto.Employee;
 import com.yi.dto.Plan;
@@ -173,84 +172,6 @@ public class CardDaoImpl implements CardDao {
 			res = pstmt.executeUpdate();
 		}
 		return res;
-	}
-	private CardInfo getCard(ResultSet rs) throws SQLException {
-		return null; //추후 구현 필요
-	}
-	@Override
-	public List<CardInfo> showCardInfoDaily() throws SQLException {
-		List<CardInfo> list = new ArrayList<>();
-		String sql = "select custname,if(substring(cardnum,7,1)=1,'체크카드','신용카드') as 'div',count(transDate) as 'count' from cardinfo where date(transdate) = date(now()) group by cardnum";
-		try(Connection con = DriverManager.getConnection(jdbcDriver); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getCard(rs));
-				}
-			}
-		}
-		return list;
-	}
-	@Override
-	public List<CardInfo> showCardInfoWeekly() throws SQLException {
-		List<CardInfo> list = new ArrayList<>();
-		String sql = "select custname,if(substring(cardnum,7,1)=1,'체크카드','신용카드') as 'div',count(transDate) as 'count' from cardinfo where week(transdate,1) = week(now(),1) group by cardnum";
-		try(Connection con = DriverManager.getConnection(jdbcDriver); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getCard(rs));
-				}
-			}
-		}
-		return list;
-	}
-	@Override
-	public List<CardInfo> showCardInfoMonthly() throws SQLException {
-		List<CardInfo> list = new ArrayList<>();
-		String sql = "select custname,if(substring(cardnum,7,1)=1,'체크카드','신용카드') as 'div',count(transDate) as 'count' from cardinfo where month(transdate) = month(now()) group by cardnum";
-		try(Connection con = DriverManager.getConnection(jdbcDriver); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getCard(rs));
-				}
-			}
-		}
-		return list;
-	}
-	@Override
-	public List<CardInfo> showCardInfoYearly() throws SQLException {
-		List<CardInfo> list = new ArrayList<>();
-		String sql = "select custname,if(substring(cardnum,7,1)=1,'체크카드','신용카드') as 'div',count(transDate) as 'count' from cardinfo where year(transdate) = year(now()) group by cardnum";
-		try(Connection con = DriverManager.getConnection(jdbcDriver); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getCard(rs));
-				}
-			}
-		}
-		return list;
-	}
-	@Override
-	public List<CardInfo> showCardInfo() throws SQLException {
-		List<CardInfo> list = new ArrayList<>();
-		String sql = "select cs.custname,\r\n" + 
-				"(select count(plancode) from card where plancode = 'B001' and custcode = c.custcode) as 'check',\r\n" + 
-				"(select count(plancode) from card where plancode = 'B002' and custcode = c.custcode) as 'credit' \r\n" + 
-				"from card c join customer cs on c.custcode = cs.custcode group by c.custcode";
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			while(rs.next()) {
-				list.add(getCardDivInfo(rs));
-			}
-		}
-		return list;
-	}
-	private CardInfo getCardDivInfo(ResultSet rs) throws SQLException {
-		return null;//추후 구현 필요
 	}
 	@Override
 	public List<Card> showCardByPlanName(Card card) throws SQLException {

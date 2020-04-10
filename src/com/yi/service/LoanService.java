@@ -11,7 +11,6 @@ import com.yi.dao.impl.LoanDaoImpl;
 import com.yi.dao.impl.PlanDaoImpl;
 import com.yi.dto.Customer;
 import com.yi.dto.Loan;
-import com.yi.dto.LoanInfo;
 import com.yi.dto.Plan;
 import com.yi.dto.Repayment;
 
@@ -39,17 +38,14 @@ public class LoanService {
 	public int insertLoan(Loan loan) throws SQLException {
 		return loanDao.insertLoan(loan);
 	}
-	public int updateLoan(Loan loan) throws SQLException {
-		return loanDao.updateLoan(loan);
+	public int updateLoanExpireDate(Loan loan) throws SQLException {
+		return loanDao.updateLoanExpireDate(loan);
 	}
 	public int deleteLoan(Loan loan) throws SQLException {
 		return loanDao.deleteLoan(loan);
 	}
 	public List<Customer> showCust() throws SQLException {
 		return custDao.selectCustomerAll();
-	}
-	public List<LoanInfo> showLoanInfo() throws SQLException {
-		return loanDao.showLoanInfo();
 	}
 	public List<Loan> searchLoanAccountNum(Loan loan) throws SQLException {
 		return loanDao.searchLoanAccountNums(loan);
@@ -77,5 +73,14 @@ public class LoanService {
 	}
 	public List<Repayment> searchRepaymentsByAccountNum(String accountnum) throws SQLException {
 		return loanDao.searchRepaymentsByAccountNum(accountnum);
+	}
+	public List<Repayment> searchRepaymentsByAccountNumAndCustDiv(Repayment repayment) throws SQLException {
+		return loanDao.searchRepaymentsByAccountNumAndCustDiv(repayment);
+	}
+	public int insertRepayment(Repayment repayment) throws SQLException {
+		return loanDao.insertRepayment(repayment);
+	}
+	public int insertAndDeleteProcedure(Repayment repayment) throws SQLException {
+		return loanDao.insertAndDeleteProcedure(repayment);
 	}
 }

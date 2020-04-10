@@ -9,7 +9,6 @@ import com.yi.dao.PlanDao;
 import com.yi.dao.impl.BankBookDaoImpl;
 import com.yi.dao.impl.CustomerDaoImpl;
 import com.yi.dao.impl.PlanDaoImpl;
-import com.yi.dto.AccountInfo;
 import com.yi.dto.BankBook;
 import com.yi.dto.Customer;
 import com.yi.dto.Plan;

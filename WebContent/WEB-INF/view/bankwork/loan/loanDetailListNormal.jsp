@@ -98,23 +98,23 @@
 		div#table tr:hover td { background: goldenrod;}
 		div#dummy { height: 75px; background: #292929;}
 		
+		#btnMenu1 {
+		   margin-left: 20px;
+		   width:150px;
+		   border:2px solid goldenrod;
+		   border-radius: 10px;
+		   background: none;
+		   margin-left : 400px;
+		}
+		#btnMenu1:hover {
+		   background: goldenrod;
+		   font-weight: bold;
+		}
+		
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
-		$("tr").each(function(i, obj) {
-			if(i!=0) {
-				var str1 = $(obj).find("td").eq(4).html();
-				var str2 = $(obj).find("td").eq(5).html();
-				var str3 = $(obj).find("td").eq(6).html();
-				var loanStartDate = new Date(str1);
-				var loanDelayDate = new Date(str2);
-				var loanExpireDate = new Date(str3);
-				var yearDiff = loanExpireDate.getFullYear() - loanStartDate.getFullYear();
-				var calCount = yearDiff * 12;
-				$("#count").html(calCount + "회차");
-			}
-		})
 		$("#loanAdd").show();
 		$("#loanList").show();
 		$("button").eq(0).click(function() {
@@ -300,26 +300,18 @@
 			$("table").load(location.href + " table");
 			$("input[name='search']").val("");
 		})
-		
-		$(".pickedOne").click(function(){
-		  var accountNumForPick = $(this).attr("data-accountNum");
-		  var custNameForPick = $(this).attr("data-custName");
-		  
-		  location.href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum="+accountNumForPick+"&custname="+custNameForPick;
-	  	})
-	  	$(document).on("click",'.pickedOne',function() {
-	  		var accountNumForPick = $(this).attr("data-accountNum");
-			var custNameForPick = $(this).attr("data-custName");
-			  
-			location.href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum="+accountNumForPick+"&custname="+custNameForPick;
-	  	});
+		$("#btnMenu1").click(function() {
+			var accountnum = $("#accountnum").attr("data-accountnum");
+			var custname = $("#custname").attr("data-custname");
+			location.href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum="+accountnum+"&custname="+custname;
+		})
 	})
 </script>
 </head>
 <body>
 	<section>
 	<jsp:include page="../../include/menu.jsp"/>
-	<h2 id="menuLocation">기업 대출 정보 조회</h2>
+	<h2 id="menuLocation">대출 상환 세부 내역</h2>
 		<div id="search">
 				<select id="searchMenu">
 					<option>검색구분</option>
@@ -334,8 +326,8 @@
 					</button>	
 				</fieldset>
 		</div>
+		<button id="btnMenu1">돌아가기</button>
 		<div id="table">
-		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">대출 세부 정보를 보려면 대출을 클릭하세요.</span>
 			<table>
 				<tr>
 					<th>계좌번호</th>
@@ -345,38 +337,30 @@
 					<th>대출시작일</th>
 					<th>거치일</th>
 					<th>대출만기일</th>
-					<th>대출총납입회차</th>
+					<th>대출납입회차</th>
 					<th>대출방식</th>
 					<th>대출이자</th>
-					<th>대출금액</th>
-					<th>대출연장여부</th>
+					<th>상환액</th>
+					<th>잔여대출금액</th>
 				</tr>
 				<c:forEach var="loan" items="${list}">
-				<tr class="pickedOne" data-accountNum="${loan.loanAccountNum }" data-custName="${loan.custCode.custName}">
-					<td>${loan.loanAccountNum}</td>
-					<td>${loan.custCode.custName}</td>
-					<td>${loan.planCode.planName}</td>
+				<tr>
+					<td data-accountnum="${loan.loanAccountNum}" id="accountnum">${loan.loanAccountNum}</td>
+					<td data-custname="${loan.cust.custName}" id="custname">${loan.cust.custName}</td>
+					<td>${loan.plan.planName}</td>
 					<td>${fn:substring(loan.loanAccountNum,8,9) eq '1'?'일반대출':fn:substring(loan.loanAccountNum,8,9) eq '2'?'신용대출':'카드론'}</td>
 					<td><fmt:formatDate value="${loan.loanStartDate}" pattern="yyyy-MM-dd"/></td>
 					<td><fmt:formatDate value="${loan.loanDelayDate}" pattern="yyyy-MM-dd"/></td>
 					<td><fmt:formatDate value="${loan.loanExpireDate}" pattern="yyyy-MM-dd"/></td>
-					<td id="count"></td>
+					<td>${loan.loanRound}회차</td>
 					<td>${loan.loanMethod eq 'A'?'만기일시상환':'원금균등상환'}</td>
 					<td><fmt:formatNumber value="${loan.loanInterest}" type="percent"/></td>
+					<td><fmt:formatNumber value="${loan.loanRepayment}" type="number" maxFractionDigits="3"/></td>
 					<td><fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/></td>
-					<td>${loan.loanExtended eq true?'연장불가':'연장가능'}</td>
 				</tr>
 				</c:forEach>
 			</table>
 		</div>
-		<c:if test="${successrepayment!=null}">
-			<script>
-				alert("상환되었습니다");
-			</script>
-			<%
-				session.removeAttribute("successrepayment");
-			%>
-		</c:if>
 	</section>
 </body>
 </html>

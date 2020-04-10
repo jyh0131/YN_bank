@@ -12,6 +12,7 @@ public class Loan {
 	private float loanInterest;
 	private long loanBalance;
 	private String loanMethod;
+	private boolean loanExtended;
 	private Employee employee;
 	public Loan() {
 		
@@ -22,7 +23,7 @@ public class Loan {
 	
 	
 	public Loan(String loanAccountNum, Customer custCode, Plan planCode, Date loanStartDate, Date loanDelayDate,
-			Date loanExpireDate, float loanInterest, long loanBalance, String loanMethod) {
+			Date loanExpireDate, float loanInterest, long loanBalance, String loanMethod ) {
 		this.loanAccountNum = loanAccountNum;
 		this.custCode = custCode;
 		this.planCode = planCode;
@@ -32,6 +33,20 @@ public class Loan {
 		this.loanInterest = loanInterest;
 		this.loanBalance = loanBalance;
 		this.loanMethod = loanMethod;
+	}
+	
+	public Loan(String loanAccountNum, Customer custCode, Plan planCode, Date loanStartDate, Date loanDelayDate,
+			Date loanExpireDate, float loanInterest, long loanBalance, String loanMethod, boolean loanExtended) {
+		this.loanAccountNum = loanAccountNum;
+		this.custCode = custCode;
+		this.planCode = planCode;
+		this.loanStartDate = loanStartDate;
+		this.loanDelayDate = loanDelayDate;
+		this.loanExpireDate = loanExpireDate;
+		this.loanInterest = loanInterest;
+		this.loanBalance = loanBalance;
+		this.loanMethod = loanMethod;
+		this.loanExtended = loanExtended;
 	}
 	public Loan(String loanAccountNum, Customer custCode, Plan planCode, Date loanStartDate, Date loanDelayDate,
 			Date loanExpireDate, float loanInterest, long loanBalance, String loanMethod, Employee employee) {
@@ -106,5 +121,10 @@ public class Loan {
 	public void setLoanMethod(String loanMethod) {
 		this.loanMethod = loanMethod;
 	}
-	
+	public boolean isLoanExtended() {
+		return loanExtended;
+	}
+	public void setLoanExtended(boolean loanExtended) {
+		this.loanExtended = loanExtended;
+	}
 }

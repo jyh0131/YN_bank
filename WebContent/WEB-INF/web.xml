@@ -84,6 +84,7 @@
   	<url-pattern>/bankwork/loan/mgn.do</url-pattern>
   	<url-pattern>/bankwork/loan/select.do</url-pattern>
   	<url-pattern>/bankwork/loan/detail.do</url-pattern>
+  	<url-pattern>/bankwork/loan/detailList.do</url-pattern>
   </filter-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

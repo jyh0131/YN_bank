@@ -28,11 +28,36 @@
 				return false;
 			}
 			else {
-				if(${loan.custCode.custCredit>2}) {
-					alert("만기일이 연장되었습니다.");
+				if(${loan.custCode.custCredit>=2}) {
+					var expireDate = $("#expireDate").val();
+					if(${loan.loanExtended =='0'}) {
+						$.ajax({
+							url : "${pageContext.request.contextPath}/bankwork/loan/detail.do",
+							type : "post",
+							data : {cmd:"extend",expireDate:expireDate, custname : "${loan.custCode.custName}", loanaccountnum : "${loan.loanAccountNum}"},
+							dataType : "json",
+							success : function(res) {
+								if(res!=null) {
+									$("#expireDate").val(res.expireDate);
+									alert("만기일이 연장되었습니다.");
+									expire = true;
+								}
+							}
+						})
+					}
+					else {
+						alert("이미 한번 연장되었습니다");
+						return false;
+					}
+				}
+				else {
+					alert("연장을 할 수 없습니다.(신용등급 2등급 이상만 가능)");
 					return false;
 				}
 			}
+		});
+		$("#cancel").click(function() {
+			location.href = "${pageContext.request.contextPath}/bankwork/loan/mgn.do?div=${custdiv}";
 		})
     });
 </script>
@@ -120,7 +145,7 @@
 						<tr>
 							<th>대출만기일</th>
 							<td>
-								<input type="text" name="loanExpireDate"  value="<fmt:formatDate value="${loan.loanExpireDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly">
+								<input type="text" name="loanExpireDate"  value="<fmt:formatDate value="${loan.loanExpireDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly" id="expireDate">
 							</td>
 						</tr>
 						<tr>
@@ -145,10 +170,19 @@
 				</div>
 				<div id="submit">
 					<input type="submit" value="상환" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=repayment&custdiv=${custdiv}" formmethod="post" id="repayment">
-					<input type="submit" value="내역보기" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=list&custdiv=${custdiv}" formmethod="post" id="list">
+					<input type="submit" value="내역보기" formaction="${pageContext.request.contextPath}/bankwork/loan/detailList.do?custdiv=${custdiv}&loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}" formmethod="post" id="list">
+					<input type="reset" value="취소" id="cancel">
 				</div>
-				<input type="submit" value="만기일 연장" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=extend&custdiv=${custdiv}" formmethod="post" id="extend">
+				<input type="button" value="만기일 연장" id="extend">
 			</div>
+			<c:if test="${nonlist!=null}">
+				<script>
+					alert("상환 내역을 찾을 수 없습니다.");
+				</script>
+				<% 
+					session.removeAttribute("nonlist");
+				%>
+			</c:if>
 		</form>
 	</div>
 </body>

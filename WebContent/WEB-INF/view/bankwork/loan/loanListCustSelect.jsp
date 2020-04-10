@@ -51,7 +51,7 @@
 	<jsp:include page="../../include/menu.jsp"/>
 	<div id="container">
 		<div id="header">
-			<h1>대출 조회</h1>
+			<h1>대출 상환</h1>
 		</div>
 			<div id="profile">
 				<h2>프로필</h2>
@@ -63,14 +63,14 @@
 				</div>
 			</div>
 	</div>
-	<c:if test="${successdel!=null}">
+	<c:if test="${finishrepayment!=null}">
 		<script>
-			alert("삭제되었습니다");
+			alert("모든 상환이 완료되었습니다");
 			<%
-				session.removeAttribute("successdel");
+				session.removeAttribute("finishrepayment");
 			%>
 		</script>
-	</c:if>
+		</c:if>
 	<c:if test="${errornonbusiness!=null}">
 		<script>
 			alert("기업 고객의 대출 정보가 존재하지 않습니다. 추가부터 해주세요");

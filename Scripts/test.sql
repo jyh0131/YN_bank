@@ -348,7 +348,6 @@ select
 (select sum(loanBalance) from loan where loanAccountNum like '%-11-%' and month(loandate) = 4) as 'normalloan',
 (select sum(loanBalance) from loan where loanAccountNum like '%-12-%' and month(loandate) = 4) as 'creditloan',
 (select sum(loanBalance) from loan where loanAccountNum like '%-13-%' and month(loandate) = 4) as 'cardloan';
-<<<<<<< HEAD
 desc loan;
 select * from loan;
 delete from loan;
@@ -362,8 +361,15 @@ select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDat
 
 -- 송금 구현 위한테스트
 select * from bankbook b ;
-
 select b.accountNum, b.accountBalance, c.custCode,c.custName,p.planCode,p.planName from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where b.accountNum ='293133-11-000001';
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = 11;
 update bankbook set accountBalance = accountBalance+100 where accountNum ='293133-11-000001';
 select loanaccountnum,custname,planname,loanstartdate,loandelaydate,loanexpiredate,loanmethod,loanround,loaninterest,loanbalance,loanrepayment from repayment r join customer c on r.custcode = c.custcode join plan p on r.loanplancode = p.plancode where loanaccountnum = '293133-11-000001';
+desc repayment;
+
+create view bank_totalBalance as select ((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') + ifnull((select sum(loanBalance * loaninterest) from repayment),0)) as 'totalBankBookAmount', 
+((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan where loanExpired = 0),0)) as 'totalLoanAmount',
+((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') - ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan where loanExpired = 0),0))) as 'totalBankAmount';
+select * from bank_totalbalance;
+delete from repayment;
+select * from repayment;

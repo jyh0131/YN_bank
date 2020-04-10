@@ -144,9 +144,11 @@ create view bankbook_deposit_connect_to_card_info as select accountnum,custcode,
 insert into notice(subject,writer,write_date,content) 
 values("코로나19 다 함께 이겨냅시다!","작성자",now(),"YN BANK 직원 어려분 코로나 19 때문에 은행이 부도 위기에 처했지만, 여러분의 노고만이 회사를 살리는 유일한 길입니다. 저희 은행은 절대 직원 여러분을 버리지 않습니다. 다들 심기일전하여 코로나 19를 극복하고, YN BANK를 전세계 1위 은행으로 발돋움하게 노력합시다");
 
-create view bank_totalBalance as select (select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') as 'totalBankBookAmount', 
-((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan),0)) as 'totalLoanAmount',
-((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') - ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan),0))) as 'totalBankAmount'; 
+drop view if exists bank_totalbalance;
+
+create view bank_totalBalance as select ((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') + ifnull((select sum(loanBalance * loaninterest) from repayment),0)) as 'totalBankBookAmount', 
+((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan where loanExpired = 0),0)) as 'totalLoanAmount',
+((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') - ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan where loanExpired = 0),0))) as 'totalBankAmount';
 
 -- 입금/출금 기능 
 drop trigger if exists tri_after_update_BankBook;
@@ -250,28 +252,6 @@ create procedure change_cardbalance(
 begin
 	update card set cardbalance = in_accountbalance where custcode = (select custcode from customer where custname = in_custname) and accountnum = in_accountnum;
 end!
-delimiter ;
-
-##카드 수정이되면 카드 거래실적 (통계)
-drop trigger if exists tri_update_card;
-delimiter $
-create trigger tri_update_card
-after update on card
-for each row 
-begin 
-	insert into cardinfo values((select custname from customer where custcode = new.custcode),new.cardnum,now(),new.cardbalance);
-end $
-delimiter ;
-
-## 통장이 수정되면  통장 정보 테이블로  통장 거래실적 (통계)
-drop trigger if exists tri_update_bankbook;
-delimiter $
-create trigger tri_update_bankbook
-after update on bankbook
-for each row   
-begin 
-	insert into bankbookInfo values((select custname from customer where custcode = new.custcode),new.accountnum,now());
-end $
 delimiter ;
 
 ## 통장 추가했을 때 실적 테이블

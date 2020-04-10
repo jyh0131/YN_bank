@@ -8,13 +8,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.mysql.jdbc.Driver;
 import com.yi.dao.BankBookDao;
-import com.yi.dto.AccountInfo;
 import com.yi.dto.BankBook;
 import com.yi.dto.Card;
 import com.yi.dto.Customer;
@@ -724,21 +720,5 @@ public class BankBookDaoImpl implements BankBookDao {
 			
 		}
 		return null;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }

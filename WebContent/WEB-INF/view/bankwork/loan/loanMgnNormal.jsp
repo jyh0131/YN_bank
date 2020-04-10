@@ -12,7 +12,8 @@
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 <style>
 		* { font-family: 'Noto Sans KR', sans-serif; }
-		h2#menuLocation { width: 200px; height: 60px;  
+		h2#menuLocation { width : 250px;
+						  height: 60px;  
 						  line-height: 60px; 
 						  margin: 0 500px;      
 						  border-bottom: 2px solid #e9ebec;} 
@@ -347,6 +348,7 @@
 					<th>대출총납입회차</th>
 					<th>대출이자</th>
 					<th>대출금액</th>
+					<th>대출연장여부</th>
 				</tr>
 				<c:forEach var="loan" items="${list}">
 				<tr class="pickedOne" data-accountNum="${loan.loanAccountNum}" data-custName="${loan.custCode.custName}">
@@ -361,24 +363,25 @@
 					<td id="count"></td>
 					<td><fmt:formatNumber value="${loan.loanInterest}" type="percent"/></td>
 					<td><fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/></td>
+					<td>${loan.loanExtended eq true?'연장불가':'연장가능'}</td>
 				</tr>
 				</c:forEach>
 			</table>
 		</div>
-		<c:if test="${successmod!=null}">
-			<script>
-				alert("수정되었습니다");
-			</script>
+		<c:if test="${finishrepayment!=null}">
+		<script>
+			alert("모든 상환이 완료되었습니다");
 			<%
-				session.removeAttribute("successmod");
+				session.removeAttribute("finishrepayment");
 			%>
+		</script>
 		</c:if>
-		<c:if test="${successdel!=null}">
+		<c:if test="${successrepayment!=null}">
 			<script>
-				alert("삭제되었습니다");
+				alert("상환되었습니다");
 			</script>
 			<%
-				session.removeAttribute("successdel");
+				session.removeAttribute("successrepayment");
 			%>
 		</c:if>
 	</section>

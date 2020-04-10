@@ -146,5 +146,13 @@ public class BankBookService {
 	public int changeBankBookBalance(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException {
 		return bankBookDao.changeBankBookBalance(bankBook, bankBook2, fromto);
 	}
+	//타행송금
+	public int transferring(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException {
+		return bankBookDao.transferring(bankBook, bankBook2, fromto);
+	}
+	//타행송금을 위해 타행테이블에서 계좌 찾기
+	public BankBook showOneTransferringBankBook(String accountNum,String bankCode) throws SQLException{
+		return bankBookDao.findTransferringBankBook(accountNum, bankCode);
+	}
 
 }

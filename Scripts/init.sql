@@ -227,10 +227,17 @@ COMMENT '상환';
 -- 타행송금정보
 CREATE TABLE bank.transferringBankBook (
 	accountnum char(16)    NULL COMMENT '계좌번호', -- 계좌번호
+<<<<<<< HEAD
 	bankcode   char(3)     NULL COMMENT '은행코드', -- 은행코드
 	bankname   varchar(20) NULL COMMENT '은행명', -- 은행명
 	custname   VARCHAR(20) NULL COMMENT '고객명', -- 고객명
 	balance    BIGINT      NULL COMMENT '잔액' -- 잔액
+=======
+	bankcode  char(3)     NULL COMMENT '은행코드', -- 은행코드
+	bankname  varchar(20) NULL COMMENT '은행명', -- 은행명
+	custname  VARCHAR(20) NULL COMMENT '고객명', -- 고객명
+	balance   BIGINT      NULL COMMENT '잔액'
+>>>>>>> branch 'master' of https://github.com/jyh0131/YN_bank.git
 )
 COMMENT '타행송금정보';
 

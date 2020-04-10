@@ -45,4 +45,6 @@ public interface BankBookDao {
 	
 	public BankBook findBankBook(String accountNum) throws SQLException;
 	public int changeBankBookBalance(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException;
+	public int transferring(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException;
+	public BankBook findTransferringBankBook(String accountNum, String bankCode) throws SQLException;
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.yi.dao.PlanDao;
 import com.yi.dao.impl.PlanDaoImpl;
 import com.yi.dto.Plan;
+import com.yi.handler.paging.Paging;
 
 public class PlanService {
 	private PlanDao dao;
@@ -16,10 +17,15 @@ public class PlanService {
 	
 	public List<Plan> showPlans() throws SQLException{
 		return dao.selectPlanAll();
+	}   
+	
+	//상품 리스트 페이징 limit SQL문
+	public List<Plan> showPlansLimit(int startRow, int endRow) throws SQLException{
+		return dao.selectPlansLimit(startRow, endRow);
 	}
 	
 	public List<Plan> showPlansByName(String planName) throws SQLException{
-		return dao.selectPlanByName(planName);
+		return dao.selectPlanByName(planName);   
 	}
 	
 	public List<Plan> showPlansByCode(String planCode) throws SQLException{

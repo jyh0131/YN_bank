@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.yi.dto.Plan;
+import com.yi.handler.paging.Paging;
 
 public interface PlanDao {
 	abstract List<Plan> selectPlanAll() throws SQLException;
+	abstract List<Plan> selectPlansLimit(int startRow, int endRow) throws SQLException; //페이징을 위한 목록
 	abstract int insertPlan(Plan plan) throws SQLException;
 	abstract int updatePlan(Plan plan) throws SQLException;
 	abstract int deletePlan(Plan plan) throws SQLException;

@@ -148,7 +148,8 @@ group by e.`empCode`;
 create view bankbook_deposit_connect_to_card_info as select accountnum,custcode,connectchk from bankbook where substring(accountnum,8,2)='11' and connectchk = 0;
 
 insert into notice(subject,writer,write_date,content) 
-values("코로나19 다 함께 이겨냅시다!","작성자",now(),"YN BANK 직원 어려분 코로나 19 때문에 은행이 부도 위기에 처했지만, 여러분의 노고만이 회사를 살리는 유일한 길입니다. 저희 은행은 절대 직원 여러분을 버리지 않습니다. 다들 심기일전하여 코로나 19를 극복하고, YN BANK를 전세계 1위 은행으로 발돋움하게 노력합시다");
+values("코로나19 다 함께 이겨냅시다!","작성자",now(),"YN BANK 직원 어려분 코로나 19 때문에 은행이 부도 위기에 처했지만, 여러분의 노고만이 회사를 살리는 유일한 길입니다. 저희 은행은 절대 직원 여러분을 버리지 않습니다. 다들 심기일전하여 코로나 19를 극복하고, YN BANK를 전세계 1위 은행으로 발돋움하게 노력합시다"),
+("이번달 목표 상품은 헬스케어신용카드입니다.","작성자",now(),"코로나 이슈로 인해 국민 건강에 관한 관심이 높아지는 환경에 부응하듯 의료 혜택이 추가된 신용카드가 출시되었습니다. 고객들에게 상품을 소개하고 적극적인 가입유도 부탁드립니다. 상품 코드는 000입니다.");
 
 drop view if exists bank_totalbalance;
 

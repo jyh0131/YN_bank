@@ -113,12 +113,16 @@
   span#coutOfEmp{
       width:300px;
       margin-left:500px;
+      font-weight: bold; 
+	  font-size: 15px;
   }
   span#avgSalary{
       width:300px;
       height:30px;
       margin-left:100px; 
       margin-bottom:0;
+      font-weight: bold; 
+	  font-size: 15px;
   }
 </style>
 <script>

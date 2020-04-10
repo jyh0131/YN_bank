@@ -66,11 +66,20 @@ select concat(count(*),'명(',`empTitle`,')') as '직급별사원수(직책)' fr
   from performance p
   group by `empCode`;
  
+select * from viptable v ;
+select * from ranking r ;
+ 
 -- 사원업무 조회에서 사용 //건수는 10건 이상 되어야 보너스 발생 
 select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName
 from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join plan pl on pl.`planCode` = p.`planCode` 
+where p.planCode ='A007'
 group by e.`empCode`;
 
+
+select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName
+from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` 
+where p.planCode ='A007'
+group by e.`empCode`;
 
 -- 1인 평균 급여액
 select sum(empSalary) 
@@ -83,6 +92,7 @@ create view ranking as select e.empCode, e.empName, e.empTitle, count(if(p.custC
 from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join viptable v on p.`custCode`= v.vip left join plan pl on pl.`planCode` = p.`planCode` 
 group by e.`empCode`;
 
+select * from performance p ;
 
 select * from ranking ;
 select e.empCode, e.empName, e.empTitle, e.pic, r.perf, r.bonus  from employee e left join ranking r on e.`empCode` =r.empCode where e.`deptNo` =2 order by bonus desc, perf desc;

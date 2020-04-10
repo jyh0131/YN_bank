@@ -38,6 +38,7 @@ public interface EmployeeDao {
 	
 	//실적관련 사원 리스트
 	List<Employee> selectEmployeeByPerform();
+	List<Employee> selectEmployeeByPerformByTarget(String pCode);
 	//그중 한명의 실적만
 	Employee selectOneEmployeeByPerform(String empCode) throws SQLException; 
 	

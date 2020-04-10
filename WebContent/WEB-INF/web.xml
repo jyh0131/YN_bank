@@ -41,6 +41,7 @@
   	<url-pattern>/emp/empAuth.do</url-pattern>
   	<url-pattern>/emp/empBonus.do</url-pattern>
   	<url-pattern>/emp/empBonusDetail.do</url-pattern>
+  	<url-pattern>/emp/empRealBonus.do</url-pattern>
   	<url-pattern>/emp/empDetail.do</url-pattern>
   	<url-pattern>/emp/empDetailForRetired.do</url-pattern>
   	<url-pattern>/emp/empUpdate.do</url-pattern>

@@ -115,8 +115,9 @@
 <%-- 						<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a>
 						    <ul><li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li></ul>
 						</li> --%>
-						<li id="empBonus" class="side1"><a href="#">인센티브</a>
-						    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
+						<li id="empBonus" class="side1"><a href="#">사원 실적</a>
+						    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">전체 실적 조회</a></li></ul>
+						    <ul><li id="empRealBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empRealBonus.do">인센티브 조회</a></li></ul>
 						</li>
 						<li id="statistic" class="side1"><a href="${pageContext.request.contextPath}/bankwork/bankbook/statistic.do">통계</a></li>
 					</c:when>
@@ -211,8 +212,9 @@
 					<li id="empAuth" class="side1"><a href="#">사원 권한 관리</a>
 					    <ul><li id="empAuthAdd" class="side2"><a href="${pageContext.request.contextPath}/emp/empAuth.do">사원 권한 수정</a></li></ul>
 					</li>
-					<li id="empBonus" class="side1"><a href="#">인센티브</a>
-					    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">인센티브 조회</a></li></ul>
+					<li id="empBonus" class="side1"><a href="#">사원 실적</a>
+						    <ul><li id="empBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empBonus.do">전체 실적 조회</a></li></ul>
+						    <ul><li id="empRealBonusList" class="side2"><a href="${pageContext.request.contextPath}/emp/empRealBonus.do">인센티브 조회</a></li></ul>
 					</li>
 					<li id="custMgn" class="side1"><a href="#">고객 관리</a>
 					    <ul>

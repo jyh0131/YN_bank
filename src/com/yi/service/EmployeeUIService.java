@@ -145,7 +145,10 @@ public class EmployeeUIService {
     	return empDao.selectEmployeeByPerform();
     }
     
-   
+    //타겟 상품으로 실적 조회
+    public List<Employee> showEmpPerformanceByTarget(String pCode){
+    	return empDao.selectEmployeeByPerformByTarget(pCode);
+    }
     
     //전체 사원 수 구하기
     public int countAllEmpNum() {

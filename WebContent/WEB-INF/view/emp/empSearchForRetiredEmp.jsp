@@ -100,6 +100,8 @@
   div#coutOfEmp{
       width:300px;
       margin-left:500px;
+      font-weight: bold; 
+	  font-size: 15px;
   }
 </style>
 <script>

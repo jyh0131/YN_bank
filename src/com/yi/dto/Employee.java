@@ -98,14 +98,14 @@ public class Employee {
 
 
 	//실적테이블을 위한 생성자
-	public Employee(String empCode, String empName, String empTitle, int perf, int bonus, String vip, String pCode, String pName) {
+	public Employee(String empCode, String empName, String empTitle, int perf, int bonus, String pCode, String pName) {
 		super();
 		this.empCode = empCode;
 		this.empName = empName;
 		this.empTitle = empTitle;
 		this.perf = perf;
 		this.bonus = bonus;
-		this.vip = vip;
+	
 		this.pCode = pCode;
 		this.pName = pName;
 	}

@@ -35,6 +35,16 @@ public interface EmployeeDao {
 	List<Employee> selectEmployeeByAll();
 	//근무직원만
 	List<Employee> selectExistEmployee();
+	//페이징을 위한 목록 (전체)
+	List<Employee> selectExistEmployeeLimit(int startRow, int endRow);
+	//페이징을 위한 목록 (코드로 검색)
+	Employee selectExistEmployeeLimitByCode(String empCode, int startRow, int endRow);
+	//페이징을 위한 목록 (이름으로 검색)
+	List<Employee> selectExistEmployeeLimitByName(String empName, int startRow, int endRow);
+	//페이징을 위한 목록 (부서로 검색)
+	List<Employee> selectExistEmployeeLimitByDept(String deptName, int startRow, int endRow);
+	//페이징을 위한 목록 (직급으로 검색)
+	List<Employee> selectExistEmployeeLimitByTitle(String title, int startRow, int endRow);
 	
 	//실적관련 사원 리스트
 	List<Employee> selectEmployeeByPerform();

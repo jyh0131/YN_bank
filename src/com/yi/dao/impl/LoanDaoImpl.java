@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.yi.dao.LoanDao;
@@ -360,9 +362,11 @@ public class LoanDaoImpl implements LoanDao {
 			pstmt.setLong(10, repayment.getLoanBalance());
 			pstmt.setInt(11, repayment.getLoanRepayment());
 			res = pstmt.executeUpdate();
+			Calendar calDelay = GregorianCalendar.getInstance();
+			Calendar calExpire = GregorianCalendar.getInstance();
 			sql = "update loan set loanBalance = ? where custcode = (select custcode from customer where custname = ?) and loanaccountnum = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setLong(1, repayment.getLoanRepayment() - Math.round(repayment.getLoanBalance() * repayment.getLoanInterest()));
+			pstmt.setLong(1, repayment.getLoanBalance() - (repayment.getLoanBalance() / 12) - Math.round(repayment.getLoanBalance() * repayment.getLoanInterest()));
 			pstmt.setString(2, repayment.getCust().getCustName());
 			pstmt.setString(3, repayment.getLoanAccountNum());
 			res += pstmt.executeUpdate();

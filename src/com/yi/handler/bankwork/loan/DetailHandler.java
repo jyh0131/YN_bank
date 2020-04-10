@@ -40,23 +40,32 @@ public class DetailHandler implements CommandHandler {
 			loan = loanService.showLoanByLoanAccountNumAndCustName(loan);
 			List<Repayment> list = loanService.searchRepaymentsByAccountNum(loan.getLoanAccountNum());
 			Calendar calStart = GregorianCalendar.getInstance();
+			Calendar calDelay = GregorianCalendar.getInstance();
 			Calendar calExpire = GregorianCalendar.getInstance();
+			calDelay.setTime(loan.getLoanDelayDate());
 			calStart.setTime(loan.getLoanStartDate());
 			calExpire.setTime(loan.getLoanExpireDate());
 			int expireYear = calExpire.get(Calendar.YEAR);
+			int delayYear = calDelay.get(Calendar.YEAR);
 			int nowYear = calStart.get(Calendar.YEAR);
+			int delayCount = (delayYear - nowYear) * 12;
 			int totalCount = (expireYear - nowYear) * 12;
 			req.setAttribute("count", list.size());
 			if(loan.getLoanMethod().equals("A")) {
 				if(totalCount-1 == list.size()) {
-					loan.setLoanBalance(Math.round(loan.getLoanBalance() + (loan.getLoanBalance() * loan.getLoanInterest())));
+					loan.setLoanBalance((long)(loan.getLoanBalance() + (loan.getLoanBalance() * loan.getLoanInterest() / 12)));
 				}
 				else {
-					loan.setLoanBalance(Math.round(loan.getLoanBalance() * loan.getLoanInterest()));
+					loan.setLoanBalance((long)(loan.getLoanBalance() * loan.getLoanInterest() / 12));
 				}
 			}
 			else {
-				loan.setLoanBalance(Math.round((loan.getLoanBalance()/(totalCount-(list.size()+1))) + (loan.getLoanBalance() * loan.getLoanInterest())));
+				if(delayCount != list.size()) {
+					loan.setLoanBalance((long)((loan.getLoanBalance() * loan.getLoanInterest() / 12)));
+				}
+				else {
+					loan.setLoanBalance((long)((list.get(0).getLoanBalance()/(totalCount-delayCount)) + ((list.get(0).getLoanBalance() * loan.getLoanInterest() / 12))));
+				}		
 			}
 			req.setAttribute("loan", loan);
 			if(loan.getCustCode().getCustDiv()) {
@@ -118,8 +127,20 @@ public class DetailHandler implements CommandHandler {
 				loan.setLoanAccountNum(loanAccountNum);
 				loan = loanService.showLoanByLoanAccountNumAndCustName(loan);
 				Repayment repayment = new Repayment(loanAccountNum, cust, plan, loanStartDate, loanDelayDate, loanExpireDate, loanMethod, loanRound, loanInterest, loan.getLoanBalance(), loanRepayment);
+				List<Repayment> list = loanService.searchRepaymentsByAccountNum(loan.getLoanAccountNum());
+				Calendar calStart = GregorianCalendar.getInstance();
+				Calendar calDelay = GregorianCalendar.getInstance();
+				Calendar calExpire = GregorianCalendar.getInstance();
+				calStart.setTime(loan.getLoanStartDate());
+				calDelay.setTime(loan.getLoanDelayDate());
+				calExpire.setTime(loan.getLoanExpireDate());
+				int delayYear = calDelay.get(Calendar.YEAR);
+				int expireYear = calExpire.get(Calendar.YEAR);
+				int nowYear = calStart.get(Calendar.YEAR);
+				int delayCount = (delayYear - nowYear) * 12;
+				int totalCount = (expireYear - nowYear) * 12;
 				if(loan.getLoanMethod().equals("A")) {
-					if(loanRepayment != loan.getLoanBalance() * loan.getLoanInterest()) {
+					if(totalCount-1 == list.size()) {
 						loanService.insertAndDeleteProcedure(repayment);
 						Contribution contribution = loginService.bankTotalAmount();
 						HttpSession session = req.getSession();
@@ -140,31 +161,35 @@ public class DetailHandler implements CommandHandler {
 					}		
 				}
 				else {
-					List<Repayment> list = loanService.searchRepaymentsByAccountNum(loan.getLoanAccountNum());
-					Calendar calStart = GregorianCalendar.getInstance();
-					Calendar calExpire = GregorianCalendar.getInstance();
-					calStart.setTime(loan.getLoanStartDate());
-					calExpire.setTime(loan.getLoanExpireDate());
-					int expireYear = calExpire.get(Calendar.YEAR);
-					int nowYear = calStart.get(Calendar.YEAR);
-					int totalCount = (expireYear - nowYear) * 12;
-					if(totalCount-1 == list.size()) {
-						loanService.insertAndDeleteProcedure(repayment);
-						Contribution contribution = loginService.bankTotalAmount();
-						HttpSession session = req.getSession();
-						session.removeAttribute("contribution");
-						session.setAttribute("contribution", contribution);
-						session.setAttribute("finishrepayment", "success");
-						res.sendRedirect(req.getContextPath() + "/bankwork/loan/mgn.do?div="+custdiv);
-					}
-					else {
-						loanService.insertRepaymentByEquityPaymentProcedure(repayment);
+					if(delayCount > list.size()) {
+						loanService.insertRepayment(repayment);
 						Contribution contribution = loginService.bankTotalAmount();
 						HttpSession session = req.getSession();
 						session.removeAttribute("contribution");
 						session.setAttribute("contribution", contribution);
 						session.setAttribute("successrepayment", "success");
 						res.sendRedirect(req.getContextPath() + "/bankwork/loan/mgn.do?div="+custdiv);
+					}
+					else {
+						if(totalCount-1 == list.size()) {
+							loanService.insertAndDeleteProcedure(repayment);
+							Contribution contribution = loginService.bankTotalAmount();
+							HttpSession session = req.getSession();
+							session.removeAttribute("contribution");
+							session.setAttribute("contribution", contribution);
+							session.setAttribute("finishrepayment", "success");
+							session.removeAttribute("loan");
+							res.sendRedirect(req.getContextPath() + "/bankwork/loan/mgn.do?div="+custdiv);
+						}
+						else {
+							loanService.insertRepaymentByEquityPaymentProcedure(repayment);
+							Contribution contribution = loginService.bankTotalAmount();
+							HttpSession session = req.getSession();
+							session.removeAttribute("contribution");
+							session.setAttribute("contribution", contribution);
+							session.setAttribute("successrepayment", "success");
+							res.sendRedirect(req.getContextPath() + "/bankwork/loan/mgn.do?div="+custdiv);
+						}
 					}
 					
 				}

@@ -102,18 +102,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
-		$("tr").each(function(i, obj) {
-			if(i!=0) {
-				var str1 = $(obj).find("td").eq(4).html();
-				var str2 = $(obj).find("td").eq(5).html();
-				var str3 = $(obj).find("td").eq(6).html();
-				var loanStartDate = new Date(str1);
-				var loanDelayDate = new Date(str2);
-				var loanExpireDate = new Date(str3);
-				var yearDiff = loanExpireDate.getFullYear() - loanStartDate.getFullYear();
-				var calCount = yearDiff * 12;
-				$("#count").html(calCount + "회차");
-			}
+		$(".pickedOne").each(function(i, obj) {
+			var str1 = $(obj).find("td").eq(4).html();
+			var str2 = $(obj).find("td").eq(5).html();
+			var str3 = $(obj).find("td").eq(6).html();
+			var loanStartDate = new Date(str1);
+			var loanDelayDate = new Date(str2);
+			var loanExpireDate = new Date(str3);
+			var yearDiff = loanExpireDate.getFullYear() - loanStartDate.getFullYear();
+			var calCount = yearDiff * 12;
+			$(".count").eq(i).html(calCount + "회차");
 		})
 		$("#loanAdd").show();
 		$("#loanList").show();
@@ -352,15 +350,20 @@
 					<th>대출연장여부</th>
 				</tr>
 				<c:forEach var="loan" items="${list}">
-				<tr class="pickedOne" data-accountNum="${loan.loanAccountNum }" data-custName="${loan.custCode.custName}">
+				<tr class="pickedOne" data-accountNum="${loan.loanAccountNum}" data-custName="${loan.custCode.custName}">
 					<td>${loan.loanAccountNum}</td>
 					<td>${loan.custCode.custName}</td>
 					<td>${loan.planCode.planName}</td>
 					<td>${fn:substring(loan.loanAccountNum,8,9) eq '1'?'일반대출':fn:substring(loan.loanAccountNum,8,9) eq '2'?'신용대출':'카드론'}</td>
 					<td><fmt:formatDate value="${loan.loanStartDate}" pattern="yyyy-MM-dd"/></td>
-					<td><fmt:formatDate value="${loan.loanDelayDate}" pattern="yyyy-MM-dd"/></td>
+					<c:if test="${loan.loanDelayDate eq loan.loanStartDate}">
+						<td>없음</td>
+					</c:if>
+					<c:if test="${loan.loanDelayDate != loan.loanStartDate}">
+						<td><fmt:formatDate value="${loan.loanDelayDate}" pattern="yyyy-MM-dd"/></td>
+					</c:if>
 					<td><fmt:formatDate value="${loan.loanExpireDate}" pattern="yyyy-MM-dd"/></td>
-					<td id="count"></td>
+					<td class="count"></td>
 					<td>${loan.loanMethod eq 'A'?'만기일시상환':'원금균등상환'}</td>
 					<td><fmt:formatNumber value="${loan.loanInterest}" type="percent"/></td>
 					<td><fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/></td>

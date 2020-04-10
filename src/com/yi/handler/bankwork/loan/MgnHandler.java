@@ -10,12 +10,10 @@ import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import com.yi.dto.BankBook;
 import com.yi.dto.Customer;
 import com.yi.dto.Loan;
 import com.yi.dto.Plan;
 import com.yi.mvc.CommandHandler;
-import com.yi.service.BankBookService;
 import com.yi.service.LoanService;
 
 public class MgnHandler implements CommandHandler {

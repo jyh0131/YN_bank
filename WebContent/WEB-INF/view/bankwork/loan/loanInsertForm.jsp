@@ -98,8 +98,7 @@
     		}
     	})
     	$("form").submit(function() {
-    		if($("input[name='accountnum']").val()==""||$("input[name='loanDate']")==""||$("input[name='loanInterest']").val()==""||$("input[name='loanBalance']").val()=="" ||
-    				$("select[name='loanDelayTerm'] option:selected").val()==""||$("select[name='loanExpireTerm'] option:selected").val()=="") {
+    		if($("input[name='loanStartDate']")==""||$("input[name='loanInterest']").val()==""||$("input[name='loanBalance']").val()=="") {
     			alert("입력란을 모두 입력해주세요");
     			return false;
     		}
@@ -140,13 +139,7 @@
     	$("input[type='reset']").click(function() {
     		location.href = "${pageContext.request.contextPath}/main/main.do";
     	});
-    	$("input[name='accountnum']").val('293133-11-'+pad((${number}+1),6));
-    	for(var i=1;i<6;i++) {
-    		$("select[name='loanDelayTerm']").append("<option>" + i + "년" + "</option>");
-    	}
-    	for(var i=1;i<10;i++) {
-    		$("select[name='loanExpireTerm']").append("<option>" + i + "년" + "</option>");
-    	} 
+    	$("input[name='accountnum']").val('293133-11-'+pad((${number}+1),6)); 
     	$("select[name='loanDelayTerm']").change(function() {
     		var limitYear = 10;
     		var str = $("select[name='loanDelayTerm']").val();
@@ -156,7 +149,38 @@
     		for(var i=1;i<expireYear+1;i++) {
     			$("select[name='loanExpireTerm']").append("<option>" + i + "년" + "</option>");
     		}
-    	}); 
+    	});
+    	for(var i=1;i<10;i++) {
+    		$("select[name='loanExpireTerm']").append("<option>" + i + "년" + "</option>");
+    	}
+    	$("select[name='loanDelayTerm']").parent().parent().hide();
+    	$("select[name='loanMethod']").change(function() {
+    		if($("select[name='loanMethod'] option:selected").val()!="만기일시상환") {
+    			$("select[name='loanDelayTerm']").parent().parent().show();
+    			$("select[name='loanDelayTerm']").find("option").remove();
+    			$("select[name='loanExpireTerm']").find("option").remove();
+    			for(var i=1;i<6;i++) {
+            		$("select[name='loanDelayTerm']").append("<option>" + i + "년" + "</option>");
+            	}
+        		for(var i=1;i<10;i++) {
+            		$("select[name='loanExpireTerm']").append("<option>" + i + "년" + "</option>");
+            	}
+    		}
+    		else {
+    			$("select[name='loanDelayTerm']").parent().parent().hide();
+    			for(var i=1;i<10;i++) {
+            		$("select[name='loanExpireTerm']").append("<option>" + i + "년" + "</option>");
+            	}
+    		}
+    	}); 	
+    	$("select[name='loanExpireTerm']").change(function() {
+    		if($("select[name='loanMethod'] option:selected").val()!="만기일시상환") {
+    			if($("select[name='loanDelayTerm'] option").prop("selected")) {
+    				alert("거치 기간을 먼저 클릭해주세요");
+        			$("select[name='loanExpireTerm'] option").eq(0).prop("selected",true);
+    			}
+    		}
+    	});
     })
 	</script>
 	<div id="container">

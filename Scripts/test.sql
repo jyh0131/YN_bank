@@ -407,9 +407,6 @@ create view bank_totalBalance as select ((select sum(accountBalance) from bankbo
 select * from bank_totalbalance;
 delete from repayment;
 select * from repayment;
-=======
-
+delete from loan;
 
 select loanaccountnum,custname,planname,loanstartdate,loandelaydate,loanexpiredate,loanmethod,loanround,loaninterest,loanbalance,loanrepayment from repayment r join customer c on r.custcode = c.custcode join plan p on r.loanplancode = p.plancode where loanaccountnum = '293133-11-000001';
-
->>>>>>> branch 'master' of https://github.com/jyh0131/YN_bank.git

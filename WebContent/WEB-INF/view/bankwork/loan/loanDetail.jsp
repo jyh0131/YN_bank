@@ -138,10 +138,18 @@
 							<th>대출시작일</th>
 							<td><input type="text" name="loanStartDate"  value="<fmt:formatDate value="${loan.loanStartDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"></td>
 						</tr>
+						<c:if test="${loan.loanDelayDate eq loan.loanStartDate}">
 						<tr>
-							<th>대출거치일</th>
+							<th>거치일</th>
+							<td><input type="text" name="loanDelayDateNone"  value="없음" readonly="readonly"><input type="hidden" value="<fmt:formatDate value="${loan.loanDelayDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" name="loanDelayDate"></td>
+						</tr>
+						</c:if>
+						<c:if test="${loan.loanDelayDate != loan.loanStartDate}">
+						<tr>
+							<th>거치일</th>
 							<td><input type="text" name="loanDelayDate"  value="<fmt:formatDate value="${loan.loanDelayDate}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"></td>
 						</tr>
+						</c:if>
 						<tr>
 							<th>대출만기일</th>
 							<td>

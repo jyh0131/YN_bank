@@ -233,7 +233,7 @@
 					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
 					    		
 					    		$liPagingRepeat1.append($aPagingRepeat1);
-					    		
+					    		   
 					    		$ulPaging.append($liPagingRepeat1);
 				    		}
 				    		
@@ -586,11 +586,6 @@
 		    </div>  
 		</div>
 		
-		<!-- <div class="toolbar-bottom"> -->
-		<!--   <div class="toolbar mt-lg">     -->
-		   
-		  <!-- </div> -->  
-	<!-- 	</div> -->
 		</section>
 </body>
 </html>

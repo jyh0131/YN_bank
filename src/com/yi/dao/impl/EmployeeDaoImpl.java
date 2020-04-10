@@ -1137,6 +1137,142 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		
 		return null;
 	}
+
+	@Override
+	public List<Employee> selectEmployeeByPerformLimit(int startRow, int endRow) {
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
+				"group by e.`empCode`order by bonus desc, perf desc limit ?,? ";
+		ResultSet rs = null;
+		List<Employee> list = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();  
+			if(rs.next()) {
+				list = new ArrayList<Employee>();
+				while(rs.next()) {
+					list.add(getEmpPerform(rs));
+				}
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Employee selectOneEmployeeByPerformLimit(String empCode, int startRow, int endRow) throws SQLException {
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+				"where e.empCode=? and empRetire =0 group by e.`empCode` limit ?, ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, empCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			//List<Employee> list = new ArrayList<Employee>();
+			try(ResultSet rs = pstmt.executeQuery();){
+			if(rs.next()) {
+			   return getEmpPerform(rs);
+			  }
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectEmpByNameListForPerformLimit(String empItem, int startRow, int endRow) throws SQLException {
+		List<Employee> list = new ArrayList<Employee>();
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+				"where e.empName like ? and empRetire =0 group by e.`empCode` limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, "%"+empItem+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			//List<Employee> list = new ArrayList<Employee>();
+			try(ResultSet rs = pstmt.executeQuery();){
+			
+			while(rs.next()) {
+				list.add(getEmpPerform(rs));
+			   //return getEmpPerform(rs);
+				
+			  }
+			 return list;
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectEmpByDeptForPerformLimit(String empItem, int startRow, int endRow) throws SQLException {
+		List<Employee> list = new ArrayList<Employee>();
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, d.deptName, pl.`planDetail` as pCode, pl.`planName` as pName \r\n" + 
+				"		from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join department d on e.`deptNo` = d.`deptNo` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+				"				where d.deptName like ? and empRetire =0 group by e.`empCode` limit ?,? ";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, "%"+empItem+"%");       
+			pstmt.setInt(2, startRow);      
+			pstmt.setInt(3, endRow);        
+			//List<Employee> list = new ArrayList<Employee>();   
+			try(ResultSet rs = pstmt.executeQuery();){
+			
+			while(rs.next()) {
+				list.add(getEmpPerform(rs));
+			   //return getEmpPerform(rs);
+				
+			  }
+			 return list;
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectEmpByTitleForPerformLimit(String empItem, int startRow, int endRow)throws SQLException {
+		List<Employee> list = new ArrayList<Employee>();
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+				"where e.empTitle = ? and empRetire =0 group by e.`empCode` limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				){
+			pstmt.setString(1, empItem);   
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			//List<Employee> list = new ArrayList<Employee>();
+			try(ResultSet rs = pstmt.executeQuery();){
+			
+			while(rs.next()) {
+				list.add(getEmpPerform(rs));
+			   //return getEmpPerform(rs);
+				
+			  }
+			 return list;
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
    
 	
 }

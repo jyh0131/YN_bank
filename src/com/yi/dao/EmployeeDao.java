@@ -35,6 +35,8 @@ public interface EmployeeDao {
 	List<Employee> selectEmployeeByAll();
 	//근무직원만
 	List<Employee> selectExistEmployee();
+	//페이징을 위한 목록 (전체)
+	List<Employee> selectExistEmployeeLimit(int startRow, int endRow);
 	
 	//실적관련 사원 리스트
 	List<Employee> selectEmployeeByPerform();

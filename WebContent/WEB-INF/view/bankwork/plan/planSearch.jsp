@@ -586,11 +586,6 @@
 		    </div>  
 		</div>
 		
-		<!-- <div class="toolbar-bottom"> -->
-		<!--   <div class="toolbar mt-lg">     -->
-		   
-		  <!-- </div> -->  
-	<!-- 	</div> -->
 		</section>
 </body>
 </html>

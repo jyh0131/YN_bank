@@ -25,6 +25,11 @@ public class EmployeeUIService {
     	return empDao.selectExistEmployee();
     }
     
+    //페이징을 위한 목록(전체)
+    public List<Employee> showExistEmployeeLimit(int startRow, int endRow){
+    	return empDao.selectExistEmployeeLimit(startRow, endRow);
+    }
+    
     public Employee showPickedEmp2(String empCode) throws SQLException{
     	return empDao.selectEmpByEmpCode(empCode);
     }

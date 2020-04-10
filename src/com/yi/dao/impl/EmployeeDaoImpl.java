@@ -997,7 +997,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				while(rs.next()) {
 			
 				list.add(getEmpPerform(rs));
-
+    
 		     	}
 			  return list;
 			}
@@ -1005,6 +1005,29 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectExistEmployeeLimit(int startRow, int endRow) {
+		String sql="select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 order by empCode limit ?, ?";
+		ResultSet rs = null;
+		List<Employee> list = null;
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<Employee>();
+				do {
+					list.add(getEmployee(rs));    
+				}while(rs.next());
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
 		return null;
 	}
    

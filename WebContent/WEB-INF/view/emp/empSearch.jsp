@@ -144,7 +144,7 @@
 		}          
 		    
 		div#table tr:hover td { background: goldenrod;}
-  
+      
   
 </style>
 <script>
@@ -156,6 +156,7 @@
 	  $("select").on("change",function(){
 		  $("table").load(location.href+" table");
 		  $("#searchForEmp").val("");
+		  $(".pagination").load(location.href+" .pagination li");
 	  })
 	  $("button").eq(0).click(function(){
 		  var div = $("#searchMenu option:selected").val();
@@ -207,7 +208,7 @@
 				    		
 				    		$(".tableList").remove();
 		
-				    		$(res).each(function(i,obj){
+				    		$(res.employee).each(function(i,obj){
 				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
@@ -234,6 +235,37 @@
 				    		})
 				    		//테이블 div
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	}
 				    }
 				  
@@ -256,7 +288,7 @@
 				    		
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
+				    		$(res.list).each(function(i,obj){
 				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
@@ -283,6 +315,38 @@
 				    		})
 				    		//테이블 div
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
+				    		
 				    	}
 				    }
 				  
@@ -297,14 +361,14 @@
 				    data: {"search":search,"div":div},
 				    dataType: "json",
 				    success : function(res){
-				    	console.log(res);
+				    	//console.log(res);
 				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 부서입니다.");
+				    		alert("존재하지 않는 부서입니다.");   
 				    	}else{
-				    		
+				    		    
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
+				    		$(res.list3).each(function(i,obj){
 				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
@@ -320,7 +384,7 @@
 				    			$tr.append($td2);
 				    			$tr.append($td3);
 				    			$tr.append($td4);
-				    			$tr.append($td5);
+				    			$tr.append($td5);  
 				    			$tr.append($td6);
 				    			$tr.append($td7);
 				    			$tr.append($td8);
@@ -331,6 +395,35 @@
 				    		})
 				    		//테이블 div
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	}
 				    }
 				  
@@ -346,14 +439,14 @@
 				    data: {"search":search,"div":div},
 				    dataType: "json",
 				    success : function(res){
-				    	console.log(res);
+				    	//console.log(res);
 				    	if(res.error == "notExist"){
 				    		alert("존재하지 않는 직급입니다");
 				    	}else{
 				    		
 				    		$(".tableList").remove();
 				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
+				    		$(res.list4).each(function(i,obj){
 				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
 				    			var $td1 = $("<td>").html(obj.empCode);
 				    			var $td2 = $("<td>").html(obj.empName);
@@ -376,10 +469,39 @@
 				    			$tr.append($td9);
 				    			
 				    			
-				    			$table.append($tr);
+				    			$table.append($tr);   
 				    		})
 				    		//테이블 div
 				    		$("#table").append($table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
 				    	}
 				    }
 				  
@@ -412,7 +534,7 @@
 			}
 			location.href = "${pageContext.request.contextPath}/emp/empSearch.do?page="+page;
 		})  
-		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)
+		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)    
 		$(document).on("click", ".next" , function(){
 			var page = ${paging.pageNo}+1;
 			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한

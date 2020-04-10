@@ -1030,6 +1030,113 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}		
 		return null;
 	}
+
+	@Override
+	public Employee selectExistEmployeeLimitByCode(String empCode, int startRow, int endRow) {
+		String sql ="select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 and empCode= ? order by empCode limit ?,?";
+		ResultSet rs = null;
+		
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, empCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Employee employee = new Employee();
+				employee = getEmployee(rs);
+				
+				return employee;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectExistEmployeeLimitByName(String empName, int startRow, int endRow) {
+		String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 and empName like ? order by empCode limit ?,?";
+		ResultSet rs = null;
+		List<Employee> list = null;
+		
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){     
+			pstmt.setString(1, "%"+empName+"%");
+			pstmt.setInt(2, startRow);    
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getEmployee(rs));
+				}while(rs.next());
+				return list;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectExistEmployeeLimitByDept(String deptName, int startRow, int endRow) {
+		String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 and d.deptName like ? order by empCode limit ?, ?";
+		ResultSet rs = null;
+		List<Employee> list = null;
+		
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){     
+			pstmt.setString(1, "%"+deptName+"%");
+			pstmt.setInt(2, startRow);    
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getEmployee(rs));
+				}while(rs.next());
+				return list;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectExistEmployeeLimitByTitle(String title, int startRow, int endRow) {
+		String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 and e.empTitle like ? order by empCode limit ?, ?";
+		ResultSet rs = null;
+		List<Employee> list = null;
+		
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){     
+			pstmt.setString(1, "%"+title+"%");
+			pstmt.setInt(2, startRow);    
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getEmployee(rs));
+				}while(rs.next());
+				return list;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
    
 	
 }

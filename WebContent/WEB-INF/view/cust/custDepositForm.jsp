@@ -57,7 +57,14 @@
 					   background: gray; 
 					   margin-left:20px; 
 					   font-size: 15px;
-					   color: whitesmoke;}						    
+					   color: whitesmoke;}	
+	  /* 에러 메세지 */
+  .errorMSG {
+	color: tomato;
+	display: none;
+	font-size: 12px;
+}
+						    
 </style>
 <script>
 	$(function(){
@@ -75,6 +82,14 @@
     	
     	//입금 클릭 시
     	$("input[value='입금']").click(function(){
+    		$(".errorMSG").css("display", "none");
+    		var amount=$("input[name='amount']").val();
+    		var amountReg=/[0-9]/;
+    		if(amount == "" || amountReg.test(amount) == false){
+    			$("input[name='amount']").next().css("display","inline");
+    			return false;
+    		}
+    		
     		
     		var deposit = confirm("입금하시겠습니까?");
     		if(deposit){
@@ -90,7 +105,13 @@
     	
     	//출금 클릭 시
     	$("input[value='출금']").click(function(){
-    		
+    		$(".errorMSG").css("display", "none");
+    		var amount=$("input[name='amount']").val();
+    		var amountReg=/[0-9]/;
+    		if(amount == "" || amountReg.test(amount) == false){
+    			$("input[name='amount']").next().css("display","inline");
+    			return false;
+    		}
     		var deposit = confirm("출금하시겠습니까?");
     		if(deposit){
 
@@ -147,11 +168,11 @@
 						<tr>
 							<c:if test="${dw=='입금' }">
 							<th>입금 금액</th>
-							<td><input type="text" name="amount"></td>
+							<td><input type="text" name="amount"><span class="errorMSG">숫자를 입력해주세요</span></td>
 							</c:if>
 							<c:if test="${dw=='출금' }">
 							<th>출금 금액</th>
-							<td><input type="text" name="amount"></td>
+							<td><input type="text" name="amount"><span class="errorMSG">숫자를 입력해주세요</span></td>
 							</c:if>    
 						</tr>
 						

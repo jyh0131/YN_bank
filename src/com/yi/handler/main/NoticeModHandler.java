@@ -1,5 +1,7 @@
 package com.yi.handler.main;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,8 +27,15 @@ public class NoticeModHandler implements CommandHandler {
 			String content = req.getParameter("content");
 			Notice notice = new Notice(no, subject, writer, content);
 			//System.out.println("새로운"+notice);
+			
+			try{service.modifyNotice(notice);
 			HttpSession session = req.getSession();
 			session.setAttribute("successmod", "success");
+			session.setAttribute("updated", "updated");
+		
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			res.sendRedirect(req.getContextPath()+"/main/main.do");
 		}
 		return null;

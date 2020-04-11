@@ -22,11 +22,19 @@ public class MainHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		List<Notice> list = noticeService.showNoticeByAll();
 		Contribution contribution = loginService.bankTotalAmount();
-		req.setAttribute("list", list);
+		
 		HttpSession session = req.getSession();
 		session.removeAttribute("contribution");
 		session.setAttribute("contribution", contribution);
 		
+		
+		//System.out.println(session.getAttribute("updated"));
+		if(session.getAttribute("updated") !=null) {
+			list = noticeService.showNoticeByAll();
+			
+			session.removeAttribute("updated");
+		}
+		req.setAttribute("list", list);
 		
 		//우수사원 정보 불러오기
 		List<Employee> empList = empService.showRank();

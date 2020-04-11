@@ -1,5 +1,10 @@
 use bank;
 #사원 - 장현서
+
+-- 페이징 테스트
+select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit order by accountTransDate desc limit 0,10;
+
+
 -- 송금 구현 위한테스트
 select * from bankbook b ;
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName like '%김%' and substr(accountNum, 8,2) = '11';
@@ -10,7 +15,7 @@ select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custD
 desc transferringBankBook;
 select * from transferringbankbook ;
 select * from plan p ;
-
+select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit order by accountTransDate desc;
 insert into transferringbankbook values
 ('265-13-021846','031','대구은행','연미주(그릇계모임)',100000),
 ('265-13-021846','011','농협','도연우',1000),

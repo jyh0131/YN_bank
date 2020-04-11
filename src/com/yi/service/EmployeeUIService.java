@@ -25,27 +25,7 @@ public class EmployeeUIService {
     	return empDao.selectExistEmployee();
     }
     
-    //페이징을 위한 목록(전체)
-    public List<Employee> showExistEmployeeLimit(int startRow, int endRow){
-    	return empDao.selectExistEmployeeLimit(startRow, endRow);
-    }
-    //페이징을 위한 목록(코드로 검색)
-    public Employee showExistEmployeeLimitByCode(String empCode, int startRow, int endRow) {
-    	return empDao.selectExistEmployeeLimitByCode(empCode, startRow, endRow);
-    }
-    
-    //페이징을 위한 목록(이름으로 검색)
-    public List<Employee> showExistEmployeeLimitByName(String empName, int startRow, int endRow) {
-    	return empDao.selectExistEmployeeLimitByName(empName, startRow, endRow);
-    }
-    //페이징을 위한 목록(부서로 검색)
-    public List<Employee> showExistEmployeeLimitByDept(String deptName, int startRow, int endRow) {
-    	return empDao.selectExistEmployeeLimitByDept(deptName, startRow, endRow);
-    }
-    //페이징을 위한 목록(직급으로 검색)
-    public List<Employee> showExistEmployeeLimitByTitle(String title, int startRow, int endRow) {
-    	return empDao.selectExistEmployeeLimitByTitle(title, startRow, endRow);
-    }
+  
     
     public Employee showPickedEmp2(String empCode) throws SQLException{
     	return empDao.selectEmpByEmpCode(empCode);
@@ -225,6 +205,28 @@ public class EmployeeUIService {
     }
     
     
- 
+ //페이징 처리
+    
+    //페이징을 위한 목록(전체)
+    public List<Employee> showExistEmployeeLimit(int startRow, int endRow){
+    	return empDao.selectExistEmployeeLimit(startRow, endRow);
+    }
+    //페이징을 위한 목록(코드로 검색)
+    public Employee showExistEmployeeLimitByCode(String empCode, int startRow, int endRow) {
+    	return empDao.selectExistEmployeeLimitByCode(empCode, startRow, endRow);
+    }
+    
+    //페이징을 위한 목록(이름으로 검색)
+    public List<Employee> showExistEmployeeLimitByName(String empName, int startRow, int endRow) {
+    	return empDao.selectExistEmployeeLimitByName(empName, startRow, endRow);
+    }
+    //페이징을 위한 목록(부서로 검색)
+    public List<Employee> showExistEmployeeLimitByDept(String deptName, int startRow, int endRow) {
+    	return empDao.selectExistEmployeeLimitByDept(deptName, startRow, endRow);
+    }
+    //페이징을 위한 목록(직급으로 검색)
+    public List<Employee> showExistEmployeeLimitByTitle(String title, int startRow, int endRow) {
+    	return empDao.selectExistEmployeeLimitByTitle(title, startRow, endRow);
+    }
     
 }

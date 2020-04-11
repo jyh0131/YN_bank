@@ -146,4 +146,11 @@ public class CustomerService {
 		return dao.deleteCustomer(customer);
 	}
 	
+	
+	//페이징 위한 서비스구문들
+	//전체 목록
+	public List<Cust_dw_audit> showCust_dw_audit(int startRow, int endRow) throws SQLException{
+		return dao.selectCust_dw_audit(startRow, endRow);
+	}
+	
 }

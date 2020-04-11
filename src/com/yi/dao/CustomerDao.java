@@ -43,4 +43,7 @@ public interface CustomerDao {
 	abstract void insertCustomer(Customer customer) throws SQLException;
 	abstract int updateCustomer (Customer customer) throws SQLException;
 	abstract int deleteCustomer (Customer customer) throws SQLException;
+	
+	//페이징
+	abstract List<Cust_dw_audit> selectCust_dw_audit(int startRow, int endRow) throws SQLException;
 }

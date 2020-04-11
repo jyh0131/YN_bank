@@ -604,7 +604,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Cust_dw_audit> selectCust_dw_audit() throws SQLException {
-		String sql = "select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit";
+		String sql = "select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit order by accountTransDate desc";
 		List<Cust_dw_audit> list = null;
 		ResultSet rs = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
@@ -756,6 +756,31 @@ public class CustomerDaoImpl implements CustomerDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return list;
+	}
+
+	
+	//페이징 처리
+	@Override
+	public List<Cust_dw_audit> selectCust_dw_audit(int startRow, int endRow) throws SQLException {
+		String sql = "select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit order by accountTransDate desc limit ?,?";
+		List<Cust_dw_audit> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCust_dw_audit(rs));
+				}while(rs.next());
+			}
+			
+		}
+				  
 		return list;
 	}
 	

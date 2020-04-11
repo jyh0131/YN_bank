@@ -651,7 +651,24 @@
 		      </ul>
 		    </div> 
 		</div>
-		
+		<c:if test="${successed !=null}">
+	    	<script>
+	    		alert("${deletedEmp}님 퇴사처리 되었습니다.");
+	    		<%
+	    			session.removeAttribute("successed");
+	    		    session.removeAttribute("deletedEmp");
+	    		%>
+	    	</script>
+        </c:if>
+        <c:if test="${successedForAdd !=null}">
+	    	<script>
+	    		alert("${addedEmp}님의 정보가 등록되었습니다.");
+	    		<%
+	    			session.removeAttribute("successedForAdd");
+	    		    session.removeAttribute("addedEmp");
+	    		%>
+	    	</script>
+        </c:if>
 		</section>
 </body>
 </html>

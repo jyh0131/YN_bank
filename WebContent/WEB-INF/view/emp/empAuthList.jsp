@@ -559,6 +559,16 @@
 		      </ul>
 		    </div>  
 		</div>
+		
+		<c:if test="${successed !=null }">
+		   <script>
+		       alert("${authEmpName}님의 권한이 수정되었습니다.");
+		          <%
+		             session.removeAttribute("successed");
+		             session.removeAttribute("authEmpName");
+		          %>
+		   </script>
+		</c:if>
 		</section>
 </body>
 </html>

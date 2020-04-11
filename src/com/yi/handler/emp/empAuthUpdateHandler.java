@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -49,6 +50,9 @@ public class empAuthUpdateHandler implements CommandHandler {
 
 			
 				service.modifyEmpAuth(dbEmp);
+				HttpSession session = req.getSession();
+				session.setAttribute("successed", "success");
+				session.setAttribute("authEmpName",dbEmp.getEmpName());
 				
 	//			System.out.println("권한 수정되고 dbEmp"+dbEmp);
 			}catch (Exception e) {

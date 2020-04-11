@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -34,7 +35,9 @@ public class empDeleteHandler implements CommandHandler {
 		        
 			
 				service.changeStatus(emp);
-				
+				HttpSession session = req.getSession();
+				session.setAttribute("successed", "success");
+				session.setAttribute("deletedEmp", emp.getEmpName());
 	
 			}catch (Exception e) {
 			   e.printStackTrace();

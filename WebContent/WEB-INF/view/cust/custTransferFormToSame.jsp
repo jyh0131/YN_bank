@@ -134,7 +134,8 @@
         		var code = $("input[name='code']").val();
         		var transferAmount = $("input[name='transferAmount']").val();
         		var findAccNum = $("input[name='findAccNum']").val();
-        		
+        		/* //송금 대상 고객 이름 
+        		var targetCust = $("input[name='findAccNum']").next().next().html(); */
         		location.href= "${pageContext.request.contextPath}/cust/custTFunction.do?accountNum="+accountNum+"&amount="+amount+"&text=송금&code="+code+"&transferAmount="+transferAmount+"&findAccNum="+findAccNum;
     		}
     		

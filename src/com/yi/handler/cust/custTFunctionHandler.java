@@ -2,6 +2,7 @@ package com.yi.handler.cust;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yi.dto.BankBook;
 import com.yi.dto.Customer;
@@ -34,6 +35,10 @@ public class custTFunctionHandler implements CommandHandler {
 			String toCustCode = service.showCodeByAccNum(toAccountNum);
 			toCust.setCustCode(toCustCode);
 			
+			HttpSession session = req.getSession();
+			session.setAttribute("successedTransfer", "success");
+			session.setAttribute("targetCust", bankBook2.getCustCode().getCustName());
+			session.setAttribute("transferredAmount", transferAmount);
 			
 			//보내는 사람
 			Customer fromCust = new Customer();

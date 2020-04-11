@@ -24,6 +24,7 @@ public class NoticeModHandler implements CommandHandler {
 			String writer = req.getParameter("writer");
 			String content = req.getParameter("content");
 			Notice notice = new Notice(no, subject, writer, content);
+			//System.out.println("새로운"+notice);
 			HttpSession session = req.getSession();
 			session.setAttribute("successmod", "success");
 			res.sendRedirect(req.getContextPath()+"/main/main.do");

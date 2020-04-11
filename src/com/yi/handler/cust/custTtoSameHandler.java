@@ -36,6 +36,7 @@ public class custTtoSameHandler implements CommandHandler {
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String findAccNum = req.getParameter("targetAccNum");
 			
+			
 			try {
 				BankBook bankBook = bankService.showOneBankBook(findAccNum);
 				//System.out.println("통장정보임마"+bankBook);

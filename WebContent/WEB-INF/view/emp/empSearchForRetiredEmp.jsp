@@ -18,6 +18,10 @@
 			text-align: center;
 		}
 		
+		h2#menuLocation { width: 200px; height: 60px;  
+						  line-height: 60px; 
+						  margin: 0 500px;      
+						  border-bottom: 2px solid #e9ebec;}  
 		div#search select {
 			width: 200px; height : 30px;
 			border: none;
@@ -355,6 +359,7 @@
 </script>
 <body>
 	<section>
+	<h2 id="menuLocation">퇴사사원 목록</h2>
 		<div id="search">
 				<select id="searchMenu">
 				    <option>검색구분</option>
@@ -365,7 +370,7 @@
 					
 				</select>
 			
-					<fieldset><input type="search" name="search" id="searchForEmp" />
+					<fieldset><input type="search" name="search" id="searchForEmp" placeholder="검색어를 입력하세요.">
 						<button type="submit">
 							<i class="fa fa-search"></i>
 						</button>	

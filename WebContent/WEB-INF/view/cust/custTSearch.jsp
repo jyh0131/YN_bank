@@ -438,6 +438,16 @@
 				
 		</table>
 		</div>  
+		<c:if test="${successedTransfer!=null}">
+	    	<script>
+	    		alert("${targetCust} 님께 ${transferredAmount} 원 송금 되었습니다");
+	    		<%
+	    			session.removeAttribute("successedTransfer");
+	    		    session.removeAttribute("targetCust");
+	    		    session.removeAttribute("transferredAmount");
+	    		%>
+	    	</script>
+        </c:if>
 		</section>
 </body>
 </html>

@@ -352,7 +352,15 @@ div#submit input#delRed{
 		    	}
 		    }
 			
+			//삭제버튼 누를 때 
+			$("#delRed").click(function(){
+				var con = confirm("해당 사원을 삭제하시겠습니까?");
+			    if(con){
+			    	
+			    	location.href="empDelete.do?no=${emp.empCode }";
+			    }
 			
+			})
 	})
 </script>
 
@@ -450,7 +458,7 @@ div#submit input#delRed{
 				<div id="submit">
 					<input type="submit" value="수정"> 
 					<input type="reset" value="취소" id="returnToList">
-					<a href="empDelete.do?no=${emp.empCode }"><input type="button" value="삭제" id="delRed"></a>
+					<input type="button" value="삭제" id="delRed">
 				</div>
 
 			</div>

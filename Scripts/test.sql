@@ -9,6 +9,7 @@ update bankbook set accountBalance = accountBalance+100 where accountNum ='29313
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custCode like '%C%';
 desc transferringBankBook;
 select * from transferringbankbook ;
+select * from plan p ;
 
 insert into transferringbankbook values
 ('265-13-021846','031','대구은행','연미주(그릇계모임)',100000),

@@ -827,6 +827,27 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		return list;
 	}
+
+	@Override
+	public List<Customer> selectCustomerAll(int startRow, int endRow) throws SQLException {
+		List<Customer> list = null;
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 
 }

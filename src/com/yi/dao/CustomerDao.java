@@ -48,4 +48,6 @@ public interface CustomerDao {
 	abstract List<Cust_dw_audit> selectCust_dw_audit(int startRow, int endRow) throws SQLException;
 	abstract List<Customer> selectCustomerWhoHasAcc(int startRow, int endRow) throws SQLException;
 	abstract List<Customer> selectCustomerWhoHas11Acc(int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomerAll(int startRow, int endRow) throws SQLException;
+	
 }

@@ -159,5 +159,8 @@ public class CustomerService {
 	public List<Customer> showCustomerWhoHas11Acc(int startRow, int endRow) throws SQLException{
 		return dao.selectCustomerWhoHas11Acc(startRow, endRow);
 	}
+	public List<Customer> showCustomers(int startRow, int endRow) throws SQLException{
+		return dao.selectCustomerAll(startRow, endRow);
+	}
 	
 }

@@ -12,6 +12,7 @@ import javax.swing.plaf.synth.SynthSeparatorUI;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.yi.dto.Customer;
+import com.yi.handler.paging.Paging;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.CustomerService;
 
@@ -22,10 +23,34 @@ public class custDWSearchHandler implements CommandHandler {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			String dw = req.getParameter("dw");
 			req.setAttribute("dw", dw);
-			List<Customer> list = service.showCustomers();
-			List<Customer> listForBal = service.showCustomerWhoHasAcc();
-			req.setAttribute("list", list);
+			//List<Customer> list = service.showCustomers(); -- 이 리스트는 뭘 위한 리스트인지 ?? 0411HS
+			int size = service.showCustomerWhoHasAcc().size();
+			req.setAttribute("size", size);
+			
+			
+			 int page = req.getParameter("page") == null ? 1 : Integer.parseInt(req.getParameter("page"));
+			 Paging paging = new Paging();   
+			    paging.makePaging();      
+			    paging.setPageNo(page); //get방식의 parameter값으로 반은 page변수, 현재 페이지 번호
+			    paging.setPageSize(10); // 한페이지에 불러낼 게시물의 개수 지정
+			    paging.setTotalCount(size);
+			
+			  //첫번째 row 계산  
+			    int startRow = 0;
+			    if(paging.getPageNo()==1) {   
+			    	//현재 페이지가 1이면 0부터 10개 리스트 불러옴
+			    	startRow = 0;
+			    }else {   
+			    	//현재 페이지가 1이 아니면 첫 페이지를 계산해서 불러옴 (10, 20, 30...) 부터 10개 리스트 불러옴
+			    	startRow = (paging.getPageNo()-1)*10;
+			    } 
+	
+			
+			List<Customer> listForBal = service.showCustomerWhoHasAcc(startRow, paging.getPageSize());
+			req.setAttribute("list", listForBal);
+			req.setAttribute("paging", paging);    
 			req.setAttribute("listForBal", listForBal);
+	
 			return "/WEB-INF/view/cust/custDWSearch.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search"); //검색어

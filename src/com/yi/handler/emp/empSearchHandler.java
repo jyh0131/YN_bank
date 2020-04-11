@@ -1,7 +1,6 @@
 package com.yi.handler.emp;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.yi.dto.Employee;
-import com.yi.dto.Plan;
 import com.yi.handler.paging.Paging;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.EmployeeUIService;

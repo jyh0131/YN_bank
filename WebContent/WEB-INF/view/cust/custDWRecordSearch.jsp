@@ -236,6 +236,7 @@
 					    		
 				    		})      
 				    		$("#table").append($table);
+				    		$(".sorter").remove();
 				    		
 				    		/* $(".sorter").remove();
 				    		$divSorter = $("<div>").addClass("sorter");
@@ -330,6 +331,7 @@
 					    		
 				    		})
 				    		$("#table").append($table);
+				    		$(".sorter").remove();
 				    		/* $(".sorter").remove();
 				    		$divSorter = $("<div>").addClass("sorter");
 				    		$ulPaging = $("<ul>").addClass("pagination");
@@ -430,6 +432,7 @@
 				    		
 			    		})      
 			    		$("#table").append($table);
+			    		$(".sorter").remove();
 			    		/* $(".sorter").remove();
 			    		$divSorter = $("<div>").addClass("sorter");
 			    		$ulPaging = $("<ul>").addClass("pagination");
@@ -482,7 +485,7 @@
 		 //페이지 각 번호 클릭 시  
 		$(document).on("click", ".page",function() {
 			var page = $(this).html();
-	        location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?page="+page;
+	        location.href = "${pageContext.request.contextPath}/cust/custDWRecord.do?page="+page;
 		})   
 		
 		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
@@ -492,7 +495,7 @@
 			if($(".page").size()==1){
 				return false;       
 			}
-			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?page="+page;
+			location.href = "${pageContext.request.contextPath}/cust/custDWRecord.do?page="+page;
 		})  
 		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)    
 		$(document).on("click", ".next" , function(){
@@ -501,7 +504,7 @@
 			if($(".page").size()==1){         
 				return false;   
 			}       
-			location.href = "${pageContext.request.contextPath}/cust/custDWSearch.do?page="+page;
+			location.href = "${pageContext.request.contextPath}/cust/custDWRecord.do?page="+page;
 		})
 		$(document).on("mouseover", ".page", function(){
 			$(this).css("background", "goldenrod");

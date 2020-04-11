@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.yi.dto.Cust_dw_audit;
-import com.yi.dto.Customer;
-import com.yi.dto.Employee;
 import com.yi.handler.paging.Paging;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.CustomerService;

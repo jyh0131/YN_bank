@@ -3,7 +3,7 @@ use bank;
 
 -- 페이징 테스트
 select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit order by accountTransDate desc limit 0,10;
-
+select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = "11" or "12" or "13" limit 0,8;
 
 -- 송금 구현 위한테스트
 select * from bankbook b ;

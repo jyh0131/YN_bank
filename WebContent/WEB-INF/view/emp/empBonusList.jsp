@@ -136,7 +136,7 @@
 		}          
 		    
 		div#table tr:hover td { background: goldenrod;}
-
+     
 		
 </style>
 <script>
@@ -150,7 +150,8 @@
 	  //alert($(".tdForRank").children().eq(1).html());
 	  
 	 $(document).on("mouseover",".tdForRank",function(){
-
+		 var page = ${paging.pageNo};
+         if(page == 1){
 		 if($(this).children().eq(1).html() == rankMemCode[0]){
 			 $(this).children().eq(0).html("<img src='YN_bank../../../images/ranking1.png' class='rankingImg'>");
 		 }else if($(this).children().eq(1).html() == rankMemCode[1]){
@@ -158,7 +159,7 @@
 		 }else if($(this).children().eq(1).html() == rankMemCode[2]){
 			 $(this).children().eq(0).html("<img src='YN_bank../../../images/ranking3.png' class='rankingImg'>");
 		 }
-	 
+         }
 	 })
 	 
 	 

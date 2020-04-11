@@ -153,4 +153,11 @@ public class CustomerService {
 		return dao.selectCust_dw_audit(startRow, endRow);
 	}
 	
+	public List<Customer> showCustomerWhoHasAcc(int startRow, int endRow) throws SQLException{
+		return dao.selectCustomerWhoHasAcc(startRow, endRow);
+	}
+	public List<Customer> showCustomerWhoHas11Acc(int startRow, int endRow) throws SQLException{
+		return dao.selectCustomerWhoHas11Acc(startRow, endRow);
+	}
+	
 }

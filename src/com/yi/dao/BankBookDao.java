@@ -50,4 +50,8 @@ public interface BankBookDao {
 	public int transferring(BankBook bankBook, BankBook bankBook2, int fromto) throws SQLException;
 	public BankBook findTransferringBankBook(String accountNum, String bankCode) throws SQLException;
 	public BankBook checkRedunduncyBankBookPlan(BankBook bankbook) throws SQLException;
+	
+	//페이징
+	public abstract List<BankBook> showBankBooksByNormal(int startRow, int endRow) throws SQLException;
+	public abstract List<BankBook> showBankBooksByBusiness(int startRow, int endRow) throws SQLException;
 }

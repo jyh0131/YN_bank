@@ -168,5 +168,13 @@ public class BankBookService {
 		return bankBookDao.selectLonaDoneCheckByCustCode(custCode);
 
 	}
+	
+	//페이징
+	public List<BankBook> showBankBooksByNormal(int startRow, int endRow) throws SQLException {
+		return bankBookDao.showBankBooksByNormal(startRow, endRow);
+	}
+	public List<BankBook> showBankBooksByBusiness(int startRow, int endRow) throws SQLException {
+		return bankBookDao.showBankBooksByBusiness(startRow, endRow);
+	}
 
 }

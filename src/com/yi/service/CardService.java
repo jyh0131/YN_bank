@@ -132,5 +132,12 @@ public class CardService {
 	public Card checkRedunduncyCardPlan(Card card) throws SQLException {
 		return cardDao.checkRedunduncyCardPlan(card);
 	}
+	//페이징 처리 
+	public List<Card> showCardsByNormal(int startRow, int endRow) throws SQLException {
+		return cardDao.showCardsByNormal(startRow, endRow);
+	}
+	public List<Card> showCardsByBusiness(int startRow, int endRow) throws SQLException {
+		return cardDao.showCardsByBusiness(startRow, endRow);
+	}
 }
 

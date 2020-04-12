@@ -799,7 +799,7 @@ public class BankBookDaoImpl implements BankBookDao {
 			}
 			
 		}
-		return bankBook;
+		return bankBook;  
 	}
 
 	private BankBook getOneTransferringBankBook(ResultSet rs) throws SQLException {
@@ -828,5 +828,47 @@ public class BankBookDaoImpl implements BankBookDao {
 			}
 		}
 		return null;
+	}
+	public List<Integer> selectTerminationByCustCode(String custCode) throws SQLException {
+		String sql = "select accountTermination from bankbook where custCode=?";
+		List<Integer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+				pstmt.setString(1, custCode); 
+				rs = pstmt.executeQuery();
+				if(rs.next()) {   
+					list = new ArrayList<>();
+					do {   
+						list.add(rs.getInt(1)); 
+					}while(rs.next());
+				}
+				    
+			}catch(SQLException e) {  
+				e.printStackTrace();      
+			}
+			return list;          
+	}
+
+	@Override
+	public List<Integer> selectLonaDoneCheckByCustCode(String custCode) throws SQLException {
+		String sql = "select loanExpired from loan where custCode=?";
+		List<Integer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+				pstmt.setString(1, custCode); 
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					list = new ArrayList<>();
+					do {   
+						list.add(rs.getInt(1)); 
+					}while(rs.next());
+				}
+				    
+			}catch(SQLException e) {  
+				e.printStackTrace();      
+			}
+			return list;    
 	}
 }

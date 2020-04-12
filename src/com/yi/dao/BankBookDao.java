@@ -29,6 +29,8 @@ public interface BankBookDao {
 	public abstract void update_balance_locking(int amount, String accountNum, String text) throws SQLException; //입출금 처리 - 해당 계좌번호 row에만 locking
 	public abstract Long showAccBalanceByCodeAccNum(Customer customer) throws SQLException; // 고객 코드, 계좌번호로 잔액 검색
 	public abstract String selectCodeByAccNum(String accountNum) throws SQLException; //계좌번호로 고객 코드 검색 (송금 시 카드 잔액 자동변경 시 사용)
+	public abstract List<Integer> selectTerminationByCustCode(String custCode) throws SQLException; //고객 코드로 해지 계좌인지 체크하기
+	public abstract List<Integer> selectLonaDoneCheckByCustCode(String custCode) throws SQLException; //고객 코드로 모든 대출이 상환되었는지 체크하기
 	public abstract int insertBankBook(BankBook bankbook) throws SQLException;
 	public abstract int updateBankBook(BankBook bankbook) throws SQLException;
 	public abstract int deleteBankBook(BankBook bankbook) throws SQLException;

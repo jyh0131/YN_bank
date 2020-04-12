@@ -76,6 +76,7 @@
   	<url-pattern>/bankwork/bankbook/add.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/dormantList.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/terminationList.do</url-pattern>
+  	<url-pattern>/bankwork/bankbook/terminatedDetail.do</url-pattern>
   	<url-pattern>/bankwork/bankbook/statistic.do</url-pattern>
   	<url-pattern>/bankwork/card/mgn.do</url-pattern>
   	<url-pattern>/bankwork/card/select.do</url-pattern>

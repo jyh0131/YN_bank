@@ -29,6 +29,10 @@ public class CustomerService {
 		return dao.selectCustomerByName(custName);
 	}
 	
+	public Customer showCustomerByNameNoLike(String custName) throws SQLException{
+		return dao.selectCustomerByNameNoLike(custName);
+	}
+	
 	public List<Customer> showBusinessCustomer() throws SQLException{
 		return dao.selectBusinessCust();
 	}
@@ -161,6 +165,15 @@ public class CustomerService {
 	}
 	public List<Customer> showCustomers(int startRow, int endRow) throws SQLException{
 		return dao.selectCustomerAll(startRow, endRow);
+	}
+	
+	//고객 삭제 시 해당 고객이 1. 해지 계좌 리스트에 등록된 계좌를 가지고 있는지, 2. 모든 대출이 상환되었는지 확인 후 모든 테이블에서 완전 삭제하기 위한 외래키 구분 무시 코드
+	public void setForeignKeyCheckFalse() throws SQLException{
+		dao.setForeignKeyCheckFalse();
+	}
+	
+	public void setForeignKeyCheckTrue() throws SQLException{
+		dao.setForeignKeyCheckTrue();
 	}
 	
 	

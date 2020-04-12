@@ -513,7 +513,15 @@
 		        <li><a href="#" class="next">Next</a></li>
 		      </ul>
 		    </div> 
-		</div>  
+		</div>     
 		</section>
+		<c:if test="${delSuccess!=null}">
+			<script>
+				alert("삭제되었습니다.");
+			</script>
+			<%
+				session.removeAttribute("delSuccess");
+			%>
+		</c:if>
 </body>
 </html>

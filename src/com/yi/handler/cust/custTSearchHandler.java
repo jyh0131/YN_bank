@@ -52,11 +52,7 @@ public class custTSearchHandler implements CommandHandler {
 			req.setAttribute("listForBal", listForBal);
 			req.setAttribute("paging", paging);   
 			
-			
-			
-			
-			
-			
+
 			return "/WEB-INF/view/cust/custTSearch.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search"); //검색어

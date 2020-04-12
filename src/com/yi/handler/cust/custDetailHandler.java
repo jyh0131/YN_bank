@@ -17,14 +17,9 @@ public class custDetailHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String custName = req.getParameter("custName");
-		List<Customer> custList = custService.showCustomerByName(custName);
-		
-		Customer customer = null; 
-		
-		for(int i=0; i<custList.size();i++) {  
-			customer = custList.get(i);
-		}
-		req.setAttribute("customer", customer);
+		Customer customer = custService.showCustomerByNameNoLike(custName);
+	  
+		req.setAttribute("customer", customer);  
 		
 		return "/WEB-INF/view/cust/custDetail.jsp";
 	}

@@ -7,7 +7,7 @@ select * from notice n ;
 -- 페이징 테스트
 select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit order by accountTransDate desc limit 0,10;
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = "11" or "12" or "13" limit 0,8;
-
+select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where cs.custDiv = 0;
 -- 송금 구현 위한테스트
 select * from bankbook b ;
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName like '%김%' and substr(accountNum, 8,2) = '11';
@@ -239,6 +239,18 @@ select planCode, planDetail, planName, planDesc, planDiv from plan limit 0, 10;
 select * from customer c join bankbook b on c.custCode = b.custCode;
 select * from customer;
 select * from bankbook;
+select * from loan;
+
+select accountTermination from bankbook where custCode="C031";
+select loanExpired from loan where custCode="C031";
+update loan set loanExpired = 1 where custCode="C031";
+select accountTermination from bankbook where custCode="C031";
+update bankbook set accountTermination = 0 where custCode="C032";
+update bankbook set accountNum = "293133-11-000009" where custCode="C032";
+
+delete from bankbook where accountNum = "293133-31-000009" and custCode="C032";
+
+select * from card;
 
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';

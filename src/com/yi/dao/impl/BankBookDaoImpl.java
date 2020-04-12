@@ -871,4 +871,40 @@ public class BankBookDaoImpl implements BankBookDao {
 			}
 			return list;    
 	}
+
+	@Override
+	public List<BankBook> showBankBooksByNormal(int startRow, int endRow) throws SQLException {
+		List<BankBook> list = new ArrayList<>();
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 0 and accountTermination = 0 and c.custDiv = 0 limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			ResultSet rs = pstmt.executeQuery(); {
+				while(rs.next()) {
+					list.add(getBankBook(rs));
+				}
+			}
+		}
+				
+		return list;
+	}
+
+	@Override
+	public List<BankBook> showBankBooksByBusiness(int startRow, int endRow) throws SQLException {
+		List<BankBook> list = new ArrayList<>();
+		String sql = "select b.accountNum,c.custCode,c.custName,p.planCode,p.planName,b.accountOpenDate,b.accountInterest from bankbook b left join customer c on b.custCode = c.custCode left join plan p on b.accountPlanCode = p.planCode where accountDormant = 0 and accountTermination = 0 and c.custDiv = 1 limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			ResultSet rs = pstmt.executeQuery(); {
+				while(rs.next()) {
+					list.add(getBankBook(rs));
+				}
+			}
+		}
+				
+		return list;
+	}
 }

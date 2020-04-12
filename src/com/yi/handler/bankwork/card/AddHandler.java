@@ -41,11 +41,12 @@ public class AddHandler implements CommandHandler {
 				employee.setEmpName(empname);
 				BankBook bankbook = new BankBook();
 				bankbook.setAccountNum(accountnum);
+				String div = req.getParameter("custdiv");
 				Card card = new Card(cardnum, custCode, planCode, cardSecuCode, cardIssueDate, 0, 0, employee, bankbook);
 				cardService.insertCheckCardProcedure(card);
 				HttpSession session = req.getSession();
 				session.setAttribute("successadd", "success");
-				res.sendRedirect(req.getContextPath()+"/main/main.do");
+				res.sendRedirect(req.getContextPath()+"/bankwork/card/mgn.do?div="+ div);
 				return null;
 			}
 			String div = req.getParameter("div");
@@ -57,6 +58,7 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", list.size());
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/card/cardInsertForm.jsp";
 			}
 			else {
@@ -67,6 +69,7 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", list.size());
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/card/cardInsertForm.jsp";
 			}
 			
@@ -88,10 +91,21 @@ public class AddHandler implements CommandHandler {
 			Employee employee = new Employee();
 			employee.setEmpName(empName);
 			Card card = new Card(cardNum, custCode, planCode, cardSecuCode, cardIssueDate, cardLimit, cardBalance, employee, null);
-			cardService.insertCardCredit(card);
-			HttpSession session = req.getSession();
-			session.setAttribute("successadd", "success");
-			res.sendRedirect(req.getContextPath()+"/main/main.do");
+			Card chkRedunduncy = cardService.checkRedunduncyCardPlan(card);
+			if(chkRedunduncy==null) {
+				cardService.insertCardCredit(card);
+				HttpSession session = req.getSession();
+				session.setAttribute("successadd", "success");
+				String div = req.getParameter("custdiv");
+				res.sendRedirect(req.getContextPath()+"/bankwork/card/mgn.do?div="+ div);
+			}
+			else {
+				HttpSession session = req.getSession();
+				session.setAttribute("duplicate", "error");
+				String div = req.getParameter("custdiv");
+				res.sendRedirect(req.getContextPath()+"/bankwork/card/add.do?div="+ div);
+			}
+			
 		}
 		return null;
 	}

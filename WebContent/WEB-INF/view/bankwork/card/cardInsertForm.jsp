@@ -68,7 +68,7 @@
     	function pad(n, width) {
     		n = n + '';
     		return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
-    	}
+    	};
     	$("#cardAdd").show();
 		$("#cardList").show();
     	var open;
@@ -82,7 +82,7 @@
         			var cardIssueDate = $("input[name='cardIssueDate']").val();
         			var empname = $("input[name='empname']").val();
         			var accountnum = $("#accountnum").val();
-        			location.href = "${pageContext.request.contextPath}/bankwork/card/add.do?"+"custname="+custname+"&"+"cardnum="+cardnum+"&"+"planname="+planname+"&"+"cardSecuCode="+cardSecuCode+"&"+"cardIssueDate="+cardIssueDate+"&"+"empname="+empname+"&"+"accountnum="+accountnum;
+        			location.href = "${pageContext.request.contextPath}/bankwork/card/add.do?"+"custname="+custname+"&"+"cardnum="+cardnum+"&"+"planname="+planname+"&"+"cardSecuCode="+cardSecuCode+"&"+"cardIssueDate="+cardIssueDate+"&"+"empname="+empname+"&"+"accountnum="+accountnum+"&"+"custdiv=${custdiv}";
         		}
     		}
     	}, 100);
@@ -197,10 +197,10 @@
     				return false;
     			}
     		}
-    	})
+    	});
     	$("input[type='reset']").click(function() {
     		location.href = "${pageContext.request.contextPath}/main/main.do";
-    	})
+    	});
     	$("input[name='cardnum']").val('29313310'+pad((${number}+1),7) + "0");
     });
 	</script>
@@ -208,7 +208,7 @@
 		<div id="header">
 			<h1>카드 추가</h1>
 		</div>
-		<form action="${pageContext.request.contextPath}/bankwork/card/add.do" method="post">
+		<form action="${pageContext.request.contextPath}/bankwork/card/add.do?custdiv=${custdiv}" method="post">
 			<input type="hidden" name="accoutnum" id="accountnum">
 			<input type="hidden" value=${Auth.empName} name="empname">
 			<div id="profile">
@@ -267,5 +267,13 @@
 			</div>
 		</form>
 	</div>
+	<c:if test="${duplicate!=null}">
+    	<script>
+    		alert("상품이 중복되었습니다. 다시 확인하고 추가하세요");
+    		<%
+    			session.removeAttribute("duplicate");
+    		%>
+    	</script>
+    </c:if>
 </body>
 </html>

@@ -236,7 +236,9 @@ select * from loan;
 
 desc bankbook;
 select planCode, planDetail, planName, planDesc, planDiv from plan limit 0, 10;
-
+select * from customer c join bankbook b on c.custCode = b.custCode;
+select * from customer;
+select * from bankbook;
 
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';

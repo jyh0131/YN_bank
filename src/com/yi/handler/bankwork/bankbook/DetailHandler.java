@@ -56,7 +56,6 @@ public class DetailHandler implements CommandHandler {
 				break;
 			case "del":
 				accountNum = req.getParameter("accountnum");
-				System.out.println(accountNum);
 				custName = req.getParameter("custname");
 				custCode = new Customer();
 				custCode.setCustName(custName);

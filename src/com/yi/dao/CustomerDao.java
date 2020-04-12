@@ -50,4 +50,5 @@ public interface CustomerDao {
 	abstract List<Customer> selectCustomerWhoHas11Acc(int startRow, int endRow) throws SQLException;
 	abstract List<Customer> selectCustomerAll(int startRow, int endRow) throws SQLException;
 	
+	
 }

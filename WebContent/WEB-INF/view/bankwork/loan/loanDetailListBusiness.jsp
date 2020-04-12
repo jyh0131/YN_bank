@@ -81,6 +81,23 @@
 			background: gainsboro;
 			font-size: 15px;
 		}
+		 /* 페이징 중앙 위치 처리 */	
+		div.sorter { height: 50px; margin-top: 20px;}
+		div.sorter ul.pagination {           
+			float:right; position:relative; left:-45%;     
+		}                
+		div.sorter ul.pagination li {     
+		float:left; position:relative; margin-right:20px; left:40%;        
+		}         
+		div.sorter ul.pagination li a {         
+			display: block;
+			width: 30px; 
+			height: 30px;              
+			border-radius: 10px;        
+			line-height: 30px;  
+			text-align: center;     
+			font-weight: bold;
+		}
 		
 		div#table tr:hover td { background: goldenrod;}
 		div#dummy { height: 75px; background: #292929;}
@@ -108,6 +125,59 @@
 			var accountnum = $("#accountnum").attr("data-accountnum");
 			var custname = $("#custname").attr("data-custname");
 			location.href="${pageContext.request.contextPath}/bankwork/loan/detail.do?loanaccountnum="+accountnum+"&custname="+custname;
+		})
+		//페이지 각 번호 클릭 시  
+		$(document).on("click", ".page",function() {
+			var accountnum = $("#accountnum").attr("data-accountnum");
+			var custname = $("#custname").attr("data-custname");
+			var page = $(this).html();
+	        location.href = "${pageContext.request.contextPath}/bankwork/loan/detailList.do?custdiv=1&page="+page+"&"+"loanaccountnum="+accountnum+"&custname="+custname;
+		})   
+		
+		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
+		$(document).on("click", ".prev" , function(){
+			var accountnum = $("#accountnum").attr("data-accountnum");
+			var custname = $("#custname").attr("data-custname");
+			var page = ${paging.pageNo}-1;
+			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+			if($(".page").size()==1){
+				return false;       
+			}
+			location.href = "${pageContext.request.contextPath}/bankwork/loan/detailList.do?custdiv=1&page="+page+"&"+"loanaccountnum="+accountnum+"&custname="+custname;
+		})  
+		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)    
+		$(document).on("click", ".next" , function(){
+			var accountnum = $("#accountnum").attr("data-accountnum");
+			var custname = $("#custname").attr("data-custname");
+			var page = ${paging.pageNo}+1;
+			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+			if($(".page").size()==1){         
+				return false;   
+			}       
+			location.href = "${pageContext.request.contextPath}/bankwork/loan/detailList.do?custdiv=1&page="+page+"&"+"loanaccountnum="+accountnum+"&custname="+custname;
+		})
+		   
+		$(document).on("mouseover", ".page", function(){
+			$(this).css("background", "goldenrod");
+		})
+		$(document).on("mouseout", ".page", function(){  
+			$(this).css("background", "#fff");
+		})
+		
+		$(document).on("mouseover", ".prev", function(){
+			$(this).css("background", "goldenrod");
+		})
+		
+		$(document).on("mouseover", ".next", function(){
+			$(this).css("background", "goldenrod");
+		})
+		
+		$(document).on("mouseout", ".prev", function(){  
+			$(this).css("background", "#fff");
+		})
+		
+		$(document).on("mouseout", ".next", function(){  
+			$(this).css("background", "#fff");        
 		})
 	})
 </script>
@@ -150,6 +220,22 @@
 				</tr>
 				</c:forEach>
 			</table>
+			<div class="sorter">   
+		      <ul class="pagination">
+		        <li><a href="#" class="prev">Prev</a></li>
+		              <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+		                  <c:choose>
+		                      <c:when test="${i eq paging.pageNo}">
+		                <li class="active"><a href="#" class="page">${i}</a></li>
+		                      </c:when>
+		                      <c:otherwise>
+		                        <li><a href="#" class="page">${i}</a></li>
+		                      </c:otherwise>
+		                  </c:choose>
+		              </c:forEach>
+		        <li><a href="#" class="next">Next</a></li>
+		      </ul>
+		    </div> 
 		</div>
 	</section>
 </body>

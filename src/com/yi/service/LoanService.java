@@ -89,4 +89,13 @@ public class LoanService {
 	public Loan checkRedunduncyLoanPlan(Loan loan) throws SQLException {
 		return loanDao.checkRedunduncyLoanPlan(loan);
 	}
+	public List<Loan> showLoansByNormal(int startRow, int endRow) throws SQLException {
+		return loanDao.showLoansByNormal(startRow, endRow);
+	}
+	public List<Loan> showLoansByBusiness(int startRow, int endRow) throws SQLException {
+		return loanDao.showLoansByBusiness(startRow, endRow);
+	}
+	public List<Repayment> searchRepaymentsByAccountNumAndCustDiv(Repayment repayment, int startRow, int endRow) throws SQLException {
+		return loanDao.searchRepaymentsByAccountNumAndCustDiv(repayment, startRow, endRow);
+	}
 }

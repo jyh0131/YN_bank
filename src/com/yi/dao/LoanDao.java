@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.yi.dto.BankBook;
+import com.yi.dto.Card;
 import com.yi.dto.Loan;
 import com.yi.dto.Repayment;
 
@@ -25,4 +26,7 @@ public interface LoanDao {
 	public int insertRepaymentByEquityPaymentProcedure(Repayment repayment) throws SQLException;
 	public int insertAndDeleteProcedure(Repayment repayment) throws SQLException;
 	public Loan checkRedunduncyLoanPlan(Loan loan) throws SQLException;
+	public abstract List<Loan> showLoansByNormal(int startRow, int endRow) throws SQLException;
+	public abstract List<Loan> showLoansByBusiness(int startRow, int endRow) throws SQLException;
+	public List<Repayment> searchRepaymentsByAccountNumAndCustDiv(Repayment repayment, int startRow, int endRow) throws SQLException;
 }

@@ -407,4 +407,57 @@ public class LoanDaoImpl implements LoanDao {
 		}
 		return null;
 	}
+
+	@Override
+	public List<Loan> showLoansByNormal(int startRow, int endRow) throws SQLException {
+		List<Loan> list = new ArrayList<>();
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod,l.loanExtended from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custdiv = 0 and l.loanExpired = 0 limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getLoan(rs));
+				}
+			}
+			return list;
+		}		
+	}
+
+	@Override
+	public List<Loan> showLoansByBusiness(int startRow, int endRow) throws SQLException {
+		List<Loan> list = new ArrayList<>();
+		String sql = "select l.loanAccountNum,c.custName,p.planName,l.loanStartDate,l.loanDelayDate,l.loanExpireDate,l.loanInterest,l.loanBalance,l.loanMethod,l.loanExtended from loan l left join customer c on l.custCode = c.custCode left join plan p on l.loanPlanCode = p.planCode where c.custdiv = 1 and l.loanExpired = 0 limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getLoan(rs));
+				}
+			}
+			return list;
+		}
+	}
+
+	@Override
+	public List<Repayment> searchRepaymentsByAccountNumAndCustDiv(Repayment repayment, int startRow, int endRow) throws SQLException {
+		List<Repayment> list = new ArrayList<>();
+		String sql = "select loanaccountnum,custname,planname,loanstartdate,loandelaydate,loanexpiredate,loanmethod,loanround,loaninterest,loanbalance,loanrepayment from repayment r join customer c on r.custcode = c.custcode join plan p on r.loanplancode = p.plancode where loanaccountnum = ? and c.custdiv = ? limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, repayment.getLoanAccountNum());
+			pstmt.setBoolean(2, repayment.getCust().getCustDiv());
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getRepayment(rs));
+				}	
+			}
+		}
+		return list;
+	}
 }

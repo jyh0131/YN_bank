@@ -44,7 +44,6 @@ public class empBonusHandler implements CommandHandler {
 		    }                   
 		    
 		    List<Employee> list = service.showEmployeeByPerformLimit(startRow, paging.getPageSize());
-		         
 		    req.setAttribute("list", list);     
 		    req.setAttribute("paging", paging); 
 			

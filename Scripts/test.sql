@@ -84,8 +84,8 @@ from employee e left join performance p on e.`empCode` = p.`empCode`  left join 
 where p.planCode ='A007'
 group by e.`empCode`;
 
-select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName
-				from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0
+select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(pl.planCode=null,0,pl.planCode='b007'))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName
+				from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0 
 				group by e.`empCode`order by bonus desc, perf desc;
 select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName
 							from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0

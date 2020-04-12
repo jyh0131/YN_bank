@@ -58,14 +58,7 @@ public class empRealBonusHandler implements CommandHandler {
 			
 			List<Plan> planList = planService.showPlans();
 			req.setAttribute("planList", planList);
-			
-			
-			
-			
-			
-			
-			
-			
+
 			
 			return "/WEB-INF/view/emp/empRealBonusList.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {

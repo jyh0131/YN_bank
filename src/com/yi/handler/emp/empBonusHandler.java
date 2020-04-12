@@ -48,14 +48,14 @@ public class empBonusHandler implements CommandHandler {
 		    req.setAttribute("paging", paging); 
 			
 			
-			String mem1 = list.get(0).getEmpCode();
+		    String mem1 = list.get(0).getEmpCode();
 			String mem2 = list.get(1).getEmpCode();
 			String mem3 = list.get(2).getEmpCode();
 			
 			req.setAttribute("mem1", mem1);
 			req.setAttribute("mem2", mem2);
 			req.setAttribute("mem3", mem3);
-			
+		
 			
 			
 			return "/WEB-INF/view/emp/empBonusList.jsp";

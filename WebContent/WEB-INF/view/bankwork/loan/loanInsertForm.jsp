@@ -187,7 +187,7 @@
 		<div id="header">
 			<h1>대출 추가</h1>
 		</div>
-		<form action="${pageContext.request.contextPath}/bankwork/loan/add.do" method="post">
+		<form action="${pageContext.request.contextPath}/bankwork/loan/add.do?div=${custdiv}" method="post">
 			<input type="hidden" value=${Auth.empName} name="empname">
 			<input type="hidden" value=${contribution.totalContribution} name="contribution">
 			<div id="profile">
@@ -265,5 +265,13 @@
 			</div>
 		</form>
 	</div>
+	<c:if test="${duplicate!=null}">
+		<script>
+			alert("상품이 중복되었습니다. 확인하고 다시 추가하세요");
+			<%
+				session.removeAttribute("duplicate");
+			%>
+		</script>
+	</c:if>
 </body>
 </html>

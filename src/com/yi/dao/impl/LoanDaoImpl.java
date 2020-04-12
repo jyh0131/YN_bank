@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.yi.dao.LoanDao;
+import com.yi.dto.Card;
 import com.yi.dto.Customer;
 import com.yi.dto.Loan;
 import com.yi.dto.Plan;
@@ -386,5 +387,24 @@ public class LoanDaoImpl implements LoanDao {
 				return res;
 			}
 		}
+	}
+
+	@Override
+	public Loan checkRedunduncyLoanPlan(Loan loan) throws SQLException {
+		String sql = "select plancode from performance where custcode = (select custcode from customer where custname = ?) and plancode = (select plancode from plan where planname = ?)";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, loan.getCustCode().getCustName());
+			pstmt.setString(2, loan.getPlanCode().getPlanName());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					loan = new Loan();
+					Plan planCode = new Plan(rs.getString("plancode"));
+					loan.setPlanCode(planCode);
+					return loan;
+				}
+			}
+		}
+		return null;
 	}
 }

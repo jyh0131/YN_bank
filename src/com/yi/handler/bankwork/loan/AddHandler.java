@@ -36,6 +36,7 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", list.size());
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/loan/loanInsertForm.jsp";
 			}
 			else {
@@ -46,11 +47,13 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", list.size());
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/loan/loanInsertForm.jsp";
 			}
 			
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
+			String div = req.getParameter("div");
 			String loanAccountNum = req.getParameter("accountnum");
 			String custName = req.getParameter("custname");
 			Customer custCode = new Customer();
@@ -91,10 +94,19 @@ public class AddHandler implements CommandHandler {
 				Employee employee = new Employee();
 				employee.setEmpName(empName);
 				Loan loan = new Loan(loanAccountNum, custCode, planCode, loanStartDate, loanDelayDate, loanExpireDate, loanInterest, loanBalance, loanMethod, employee);
-				loanService.insertLoan(loan);
-				HttpSession session = req.getSession();
-				session.setAttribute("successadd", "success");
-				res.sendRedirect(req.getContextPath() + "/main/main.do");
+				Loan chkRedunduncy = loanService.checkRedunduncyLoanPlan(loan);
+				if(chkRedunduncy==null) {
+					loanService.insertLoan(loan);
+					HttpSession session = req.getSession();
+					session.setAttribute("successadd", "success");
+					res.sendRedirect(req.getContextPath() + "/bankwork/loan/mgn.do?div="+div);
+				}
+				else {
+					HttpSession session = req.getSession();
+					session.setAttribute("duplicate", "error");
+					res.sendRedirect(req.getContextPath() + "/bankwork/loan/add.do?div="+div);
+				}
+				
 			}
 		}
 		return null;

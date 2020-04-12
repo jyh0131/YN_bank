@@ -86,4 +86,7 @@ public class LoanService {
 	public int insertRepaymentByEquityPaymentProcedure(Repayment repayment) throws SQLException {
 		return loanDao.insertRepaymentByEquityPaymentProcedure(repayment);
 	}
+	public Loan checkRedunduncyLoanPlan(Loan loan) throws SQLException {
+		return loanDao.checkRedunduncyLoanPlan(loan);
+	}
 }

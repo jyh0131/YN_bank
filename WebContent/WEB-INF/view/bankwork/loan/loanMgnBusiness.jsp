@@ -372,6 +372,22 @@
 				</c:forEach>
 			</table>
 		</div>
+		<c:if test="${successadd!=null}">
+    	<script>
+    		alert("추가되었습니다");
+    		<%
+    			session.removeAttribute("successadd");
+    		%>
+    	</script>
+    	</c:if>
+    	<c:if test="${finishrepayment!=null}">
+		<script>
+			alert("모든 상환이 완료되었습니다");
+			<%
+				session.removeAttribute("finishrepayment");
+			%>
+		</script>
+		</c:if>
 		<c:if test="${successrepayment!=null}">
 			<script>
 				alert("상환되었습니다");

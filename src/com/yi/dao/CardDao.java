@@ -22,4 +22,8 @@ public interface CardDao {
 	public abstract int updateCard(Card card) throws SQLException;
 	public abstract int deleteCard(Card card) throws SQLException;
 	public abstract int updateAccountBalance(Card card) throws SQLException;
+	
+	//페이징
+	public abstract List<Card> showCardsByNormal(int startRow, int endRow) throws SQLException;
+	public abstract List<Card> showCardsByBusiness(int startRow, int endRow) throws SQLException;
 }

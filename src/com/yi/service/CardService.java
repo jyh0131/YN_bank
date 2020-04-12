@@ -129,5 +129,13 @@ public class CardService {
 	public List<Plan> selectPlanByCardBusinessVip() throws SQLException {
 		return planDao.selectPlanByCardBusinessVip();
 	}
+	
+	//페이징 처리 
+	public List<Card> showCardsByNormal(int startRow, int endRow) throws SQLException {
+		return cardDao.showCardsByNormal(startRow, endRow);
+	}
+	public List<Card> showCardsByBusiness(int startRow, int endRow) throws SQLException {
+		return cardDao.showCardsByBusiness(startRow, endRow);
+	}
 }
 

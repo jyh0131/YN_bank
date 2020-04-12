@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -47,6 +48,9 @@ public class empUpdateHandler implements CommandHandler {
 			
 			//--파일 업로드 완료된 것 
 			
+			String empCode11 = multi.getParameter("empCode");   
+			String empName11 = multi.getParameter("empName");
+			//System.out.println("먼저"+empCode11);
           try { 
         	    String empCode = multi.getParameter("empCode");   
 		        String empName = multi.getParameter("empName");
@@ -67,7 +71,7 @@ public class empUpdateHandler implements CommandHandler {
 				String dbPic = dbEmp.getPic();
 				String dbEmpPwd = dbEmp.getEmpPwd();
 				//System.out.println("dbPic은"+dbPic);
-
+ 
 				
 			//비번을 수정했는지 여부 
 			if(empPwd.contentEquals("**********")) {
@@ -85,11 +89,20 @@ public class empUpdateHandler implements CommandHandler {
 			   e.printStackTrace();
 			}
 			
+            HttpSession session = req.getSession();
+			Employee emp11 = (Employee) session.getAttribute("Auth");
+		//	System.out.println(emp11.getEmpCode());
+			if(emp11.getEmpCode().equals(empCode11)) {
+				emp11.setEmpName(empName11);
+			//	System.out.println("일로들어오니??");
+				session.setAttribute("empPerson", "empPerson");
+				return "/WEB-INF/view/main/mainSection.jsp";
+			}
 			
-			res.sendRedirect(req.getContextPath()+"/emp/empSearch.do");
+			res.sendRedirect(req.getContextPath()+"/emp/empSearch.do"); 
 			return null;
 		}
-
+		
 		return null;
 	}
 

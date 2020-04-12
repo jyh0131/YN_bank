@@ -25,6 +25,7 @@ public class MainHandler implements CommandHandler {
 		
 		HttpSession session = req.getSession();
 		session.removeAttribute("contribution");
+	    
 		session.setAttribute("contribution", contribution);
 		
 		
@@ -41,6 +42,7 @@ public class MainHandler implements CommandHandler {
 		Employee emp = empList.get(0);
         //System.out.println("넘버원"+emp);
 		req.setAttribute("empNo1", emp);
+		
 		
 		return "/WEB-INF/view/main/mainSection.jsp";
 	}

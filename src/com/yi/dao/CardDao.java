@@ -3,6 +3,7 @@ package com.yi.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.yi.dto.BankBook;
 import com.yi.dto.Card;
 import com.yi.dto.Customer;
 
@@ -22,4 +23,5 @@ public interface CardDao {
 	public abstract int updateCard(Card card) throws SQLException;
 	public abstract int deleteCard(Card card) throws SQLException;
 	public abstract int updateAccountBalance(Card card) throws SQLException;
+	public Card checkRedunduncyCardPlan(Card card) throws SQLException;
 }

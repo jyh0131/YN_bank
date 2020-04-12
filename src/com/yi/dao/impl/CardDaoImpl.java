@@ -311,5 +311,23 @@ public class CardDaoImpl implements CardDao {
 		}
 		return list;
 	}
+	@Override
+	public Card checkRedunduncyCardPlan(Card card) throws SQLException {
+		String sql = "select plancode from performance where custcode = (select custcode from customer where custname = ?) and plancode = (select plancode from plan where planname = ?)";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, card.getCustCode().getCustName());
+			pstmt.setString(2, card.getPlanCode().getPlanName());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					card = new Card();
+					Plan planCode = new Plan(rs.getString("plancode"));
+					card.setPlanCode(planCode);
+					return card;
+				}
+			}
+		}
+		return null;
+	}
 
 }

@@ -129,5 +129,8 @@ public class CardService {
 	public List<Plan> selectPlanByCardBusinessVip() throws SQLException {
 		return planDao.selectPlanByCardBusinessVip();
 	}
+	public Card checkRedunduncyCardPlan(Card card) throws SQLException {
+		return cardDao.checkRedunduncyCardPlan(card);
+	}
 }
 

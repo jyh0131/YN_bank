@@ -91,7 +91,7 @@
 		<div id="staff">
 			<ul>
 				<c:if test="${Auth.empAuth!='AD'}">
-				<li><img src="${pageContext.request.contextPath}/images/${Auth.pic == null?'no-img.jpg':Auth.pic}" id="staffImg"></li>
+				<li><img src="${pageContext.request.contextPath}/empPic/${Auth.pic == null?'no-img.jpg':Auth.pic}" id="staffImg"></li>
 				</c:if>
 				<li id="greeting"><span id="name">${Auth.empName} </span>님 환영합니다.</li>
 				<li id="btns">

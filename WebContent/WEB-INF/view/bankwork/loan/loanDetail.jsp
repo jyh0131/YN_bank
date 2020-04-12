@@ -59,6 +59,9 @@
 		$("#cancel").click(function() {
 			location.href = "${pageContext.request.contextPath}/bankwork/loan/mgn.do?div=${custdiv}";
 		})
+		$("#list").click(function() {
+			location.href= "${pageContext.request.contextPath}/bankwork/loan/detailList.do?custdiv=${custdiv}&loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}";
+		})
     });
 </script>
 </head>
@@ -178,7 +181,7 @@
 				</div>
 				<div id="submit">
 					<input type="submit" value="상환" formaction="${pageContext.request.contextPath}/bankwork/loan/detail.do?cmd=repayment&custdiv=${custdiv}" formmethod="post" id="repayment">
-					<input type="submit" value="내역보기" formaction="${pageContext.request.contextPath}/bankwork/loan/detailList.do?custdiv=${custdiv}&loanaccountnum=${loan.loanAccountNum}&custname=${loan.custCode.custName}" formmethod="post" id="list">
+					<input type="button" value="내역보기" id="list">
 					<input type="reset" value="취소" id="cancel">
 				</div>
 				<input type="button" value="만기일 연장" id="extend">

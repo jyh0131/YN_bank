@@ -102,18 +102,16 @@
 <script>
 	$(function(){
 		var insertTotalCount = function() {
-			$("table tr").each(function(i, obj) {
-				if(i!=0) {
-					var str1 = $(obj).find("td").eq(4).html();
-					var str2 = $(obj).find("td").eq(5).html();
-					var str3 = $(obj).find("td").eq(6).html();
-					var loanStartDate = new Date(str1);
-					var loanDelayDate = new Date(str2);
-					var loanExpireDate = new Date(str3);
-					var yearDiff = loanExpireDate.getFullYear() - loanStartDate.getFullYear();
-					var calCount = yearDiff * 12;
-					$("#count").html(calCount + "회차");
-				}
+			$(".pickedOne").each(function(i, obj) {
+				var str1 = $(obj).find("td").eq(4).html();
+				var str2 = $(obj).find("td").eq(5).html();
+				var str3 = $(obj).find("td").eq(6).html();
+				var loanStartDate = new Date(str1);
+				var loanDelayDate = new Date(str2);
+				var loanExpireDate = new Date(str3);
+				var yearDiff = loanExpireDate.getFullYear() - loanStartDate.getFullYear();
+				var calCount = yearDiff * 12;
+				$(".count").eq(i).html(calCount + "회차");
 			})
 		};
 		insertTotalCount();
@@ -173,21 +171,20 @@
 								var date = new Date(obj.loanStartDate);
 								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2);
 								a[4] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
-								date.setTime(obj.loanDelayDate);
-								dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2);
+								var delayDate = new Date(obj.loanDelayDate);
+								dateFormat = delayDate.getFullYear() + '-' +('0' + (delayDate.getMonth()+1)).slice(-2)+ '-' +  ('0' + delayDate.getDate()).slice(-2);
 								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
-								date.setTime(obj.loanExpireDate);
-								dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2);
-								a[6] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
-								div = obj.loanMethod=='A'?"만기일시상환":"원금균등분할상환";
-								a[7] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
 								var expireDate = new Date(obj.loanExpireDate);
-								var totalCount = (date.getFullYear() - expireDate.getFullYear()) * 12;
+								dateFormat = expireDate.getFullYear() + '-' +('0' + (expireDate.getMonth()+1)).slice(-2)+ '-' +  ('0' + expireDate.getDate()).slice(-2);
+								a[6] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								div = obj.loanMethod=='A'?"만기일시상환":"원금균등상환";
+								a[7] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								var totalCount = (expireDate.getFullYear() - date.getFullYear()) * 12;
 								a[8] = $("<a>").html(totalCount + "회차").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
 								var interestToPercent = Math.floor(obj.loanInterest * 100);
 								a[9] = $("<a>").html(interestToPercent + "%").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
 								a[10] = $("<a>").html(obj.loanBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
-								a[11] = $("<a>").html(obj.loanExpired=="0"?"연장가능":"연장불가").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								a[11] = $("<a>").html(obj.loanExtended=="0"?"연장가능":"연장불가").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
 								$(a).each(function(i, obj) {
 									var td = $("<td>").append(a[i]);
 									tr.append(td);
@@ -225,10 +222,15 @@
 				    		var th2 = $("<th>").html("고객이름");
 				    		var th3 = $("<th>").html("상품명");
 				    		var th4 = $("<th>").html("대출구분");
-				    		var th5 = $("<th>").html("대출날짜");
-				    		var th6 = $("<th>").html("대출이자");
-				    		var th7 = $("<th>").html("대출금액");
-				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7);
+				    		var th5 = $("<th>").html("대출시작일");
+				    		var th6 = $("<th>").html("거치일");
+				    		var th7 = $("<th>").html("대출만기일");
+				    		var th8 = $("<th>").html("대출방식");
+				    		var th9 = $("<th>").html("대출총납입회차");
+				    		var th10 = $("<th>").html("대출이자");
+				    		var th11 = $("<th>").html("대출금액");
+				    		var th12 = $("<th>").html("대출연장여부");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7).append(th8).append(th9).append(th10).append(th11).append(th12);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>").attr("data-accountNum",obj.loanAccountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
@@ -239,12 +241,23 @@
 								var str = obj.loanAccountNum;
 								var div = str.substring(8, 9)=='1'?"일반대출": str.substring(8, 9)=='2'?"신용대출":"카드론";
 								a[3] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
-								var date = new Date(obj.loanDate);
-								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var date = new Date(obj.loanStartDate);
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2);
 								a[4] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								var delayDate = new Date(obj.loanDelayDate);
+								dateFormat = delayDate.getFullYear() + '-' +('0' + (delayDate.getMonth()+1)).slice(-2)+ '-' +  ('0' + delayDate.getDate()).slice(-2);
+								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								var expireDate = new Date(obj.loanExpireDate);
+								dateFormat = expireDate.getFullYear() + '-' +('0' + (expireDate.getMonth()+1)).slice(-2)+ '-' +  ('0' + expireDate.getDate()).slice(-2);
+								a[6] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								div = obj.loanMethod=='A'?"만기일시상환":"원금균등상환";
+								a[7] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								var totalCount = (expireDate.getFullYear() - date.getFullYear()) * 12;
+								a[8] = $("<a>").html(totalCount + "회차").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
 								var interestToPercent = Math.floor(obj.loanInterest * 100);
-								a[5] = $("<a>").html(interestToPercent + "%").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
-								a[6] = $("<a>").html(obj.loanBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								a[9] = $("<a>").html(interestToPercent + "%").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								a[10] = $("<a>").html(obj.loanBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								a[11] = $("<a>").html(obj.loanExtended=="0"?"연장가능":"연장불가").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
 								$(a).each(function(i, obj) {
 									var td = $("<td>").append(a[i]);
 									tr.append(td);
@@ -282,10 +295,15 @@
 				    		var th2 = $("<th>").html("고객이름");
 				    		var th3 = $("<th>").html("상품명");
 				    		var th4 = $("<th>").html("대출구분");
-				    		var th5 = $("<th>").html("대출날짜");
-				    		var th6 = $("<th>").html("대출이자");
-				    		var th7 = $("<th>").html("대출금액");
-				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7);
+				    		var th5 = $("<th>").html("대출시작일");
+				    		var th6 = $("<th>").html("거치일");
+				    		var th7 = $("<th>").html("대출만기일");
+				    		var th8 = $("<th>").html("대출방식");
+				    		var th9 = $("<th>").html("대출총납입회차");
+				    		var th10 = $("<th>").html("대출이자");
+				    		var th11 = $("<th>").html("대출금액");
+				    		var th12 = $("<th>").html("대출연장여부");
+				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6).append(th7).append(th8).append(th9).append(th10).append(th11).append(th12);
 				    		table.append(tr);
 							$(res).each(function(i, obj) {
 								var tr = $("<tr>").attr("data-accountNum",obj.loanAccountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
@@ -296,12 +314,23 @@
 								var str = obj.loanAccountNum;
 								var div = str.substring(8, 9)=='1'?"일반대출": str.substring(8, 9)=='2'?"신용대출":"카드론";
 								a[3] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
-								var date = new Date(obj.loanDate);
-								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2) + ' '+('0' + (date.getHours())).slice(-2)+ ':'+('0' + (date.getMinutes())).slice(-2)+ ':'+date.getSeconds();
+								var date = new Date(obj.loanStartDate);
+								var dateFormat = date.getFullYear() + '-' +('0' + (date.getMonth()+1)).slice(-2)+ '-' +  ('0' + date.getDate()).slice(-2);
 								a[4] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								var delayDate = new Date(obj.loanDelayDate);
+								dateFormat = delayDate.getFullYear() + '-' +('0' + (delayDate.getMonth()+1)).slice(-2)+ '-' +  ('0' + delayDate.getDate()).slice(-2);
+								a[5] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								var expireDate = new Date(obj.loanExpireDate);
+								dateFormat = expireDate.getFullYear() + '-' +('0' + (expireDate.getMonth()+1)).slice(-2)+ '-' +  ('0' + expireDate.getDate()).slice(-2);
+								a[6] = $("<a>").html(dateFormat).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								div = obj.loanMethod=='A'?"만기일시상환":"원금균등상환";
+								a[7] = $("<a>").html(div).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								var totalCount = (expireDate.getFullYear() - date.getFullYear()) * 12;
+								a[8] = $("<a>").html(totalCount + "회차").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
 								var interestToPercent = Math.floor(obj.loanInterest * 100);
-								a[5] = $("<a>").html(interestToPercent + "%").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
-								a[6] = $("<a>").html(obj.loanBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								a[9] = $("<a>").html(interestToPercent + "%").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								a[10] = $("<a>").html(obj.loanBalance.toLocaleString()).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
+								a[11] = $("<a>").html(obj.loanExtended=="0"?"연장가능":"연장불가").attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.loanAccountNum+"&custname="+obj.custCode.custName);
 								$(a).each(function(i, obj) {
 									var td = $("<td>").append(a[i]);
 									tr.append(td);
@@ -383,7 +412,7 @@
 					<td><fmt:formatDate value="${loan.loanDelayDate}" pattern="yyyy-MM-dd"/></td>
 					<td><fmt:formatDate value="${loan.loanExpireDate}" pattern="yyyy-MM-dd"/></td>
 					<td>${loan.loanMethod eq 'A'?'만기일시상환':'원금균등상환'}</td>
-					<td id="count"></td>
+					<td class="count"></td>
 					<td><fmt:formatNumber value="${loan.loanInterest}" type="percent"/></td>
 					<td><fmt:formatNumber value="${loan.loanBalance}" type="number" maxFractionDigits="3"/></td>
 					<td>${loan.loanExtended eq true?'연장불가':'연장가능'}</td>

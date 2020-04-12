@@ -239,6 +239,18 @@ select planCode, planDetail, planName, planDesc, planDiv from plan limit 0, 10;
 select * from customer c join bankbook b on c.custCode = b.custCode;
 select * from customer;
 select * from bankbook;
+select * from loan;
+
+select accountTermination from bankbook where custCode="C031";
+select loanExpired from loan where custCode="C031";
+update loan set loanExpired = 1 where custCode="C032";
+select accountTermination from bankbook where custCode="C031";
+update bankbook set accountTermination = 0 where custCode="C032";
+update bankbook set accountNum = "293133-11-000009" where custCode="C032";
+
+delete from bankbook where accountNum = "293133-31-000009" and custCode="C032";
+
+select * from card;
 
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';

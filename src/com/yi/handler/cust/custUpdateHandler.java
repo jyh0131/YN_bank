@@ -15,6 +15,7 @@ public class custUpdateHandler implements CommandHandler {
 		//고객 = 0 , false
 		if(req.getMethod().equalsIgnoreCase("post")) {
 			String custCode = req.getParameter("custCode");
+			
 			String custName = req.getParameter("custName");
 			int custCredit = Integer.parseInt(req.getParameter("custCredit"));
 			String addr = req.getParameter("addr");

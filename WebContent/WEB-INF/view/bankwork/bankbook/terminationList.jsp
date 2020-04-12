@@ -347,13 +347,13 @@
 		  var accountNumForPick = $(this).attr("data-accountNum");
 		  var custNameForPick = $(this).attr("data-custName");
 		  
-		  location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
+		  location.href="${pageContext.request.contextPath}/bankwork/bankbook/terminatedDetail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
 	  	})
 	  	$(document).on("click",'.pickedOne',function() {
 	  		var accountNumForPick = $(this).attr("data-accountNum");
 			var custNameForPick = $(this).attr("data-custName");
 			  
-			location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
+			location.href="${pageContext.request.contextPath}/bankwork/bankbook/terminatedDetail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
 	  	});
 		$("#btnMenu1").click(function() {
 			location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}";
@@ -418,6 +418,7 @@
 				%>
 			</script>
 		</c:if>
+		
 	</section>
 </body>
 </html>

@@ -154,7 +154,7 @@ values("코로나19 다 함께 이겨냅시다!","작성자",now(),"YN BANK 직�
 
 drop view if exists bank_totalbalance;
 
-create view bank_totalBalance as select ((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') + ifnull((select sum(loanBalance * loaninterest) from repayment),0)) as 'totalBankBookAmount', 
+create view bank_totalBalance as select ((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') + ifnull((select sum((loanBalance * loaninterest) / 12) from repayment),0)) as 'totalBankBookAmount', 
 ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan where loanExpired = 0),0)) as 'totalLoanAmount',
 ((select sum(accountBalance) from bankbook where accountnum like '%-11-%' or accountnum like '%-12-%') - ((select sum(accountBalance) from bankbook where accountnum like '%-13-%') + ifnull((select sum(loanBalance) from loan where loanExpired = 0),0))) as 'totalBankAmount';
 

@@ -17,6 +17,7 @@ import com.yi.dto.Customer;
 import com.yi.dto.Loan;
 import com.yi.dto.Plan;
 import com.yi.dto.Repayment;
+import com.yi.service.LoanService;
 
 public class LoanDaoImpl implements LoanDao {
 	private static final LoanDaoImpl instance = new LoanDaoImpl();
@@ -349,6 +350,12 @@ public class LoanDaoImpl implements LoanDao {
 		String sql = "insert into repayment values(?,(select custcode from customer where custname = ?),(select plancode from plan where planname = ?),?,?,?,?,?,?,?,?)";
 		try(Connection con = DriverManager.getConnection(jdbcDriver)) {
 			con.setAutoCommit(false);
+			Calendar calDelay = GregorianCalendar.getInstance();
+			Calendar calExpire = GregorianCalendar.getInstance();
+			calDelay.setTime(repayment.getLoanDelayDate());
+			calExpire.setTime(repayment.getLoanExpireDate());
+			LoanService service = new LoanService();
+			List<Repayment> list = service.searchRepaymentsByAccountNum(repayment.getLoanAccountNum());
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,repayment.getLoanAccountNum());
 			pstmt.setString(2, repayment.getCust().getCustName());
@@ -362,11 +369,11 @@ public class LoanDaoImpl implements LoanDao {
 			pstmt.setLong(10, repayment.getLoanBalance());
 			pstmt.setInt(11, repayment.getLoanRepayment());
 			res = pstmt.executeUpdate();
-			Calendar calDelay = GregorianCalendar.getInstance();
-			Calendar calExpire = GregorianCalendar.getInstance();
+			int monthGap = (calExpire.get(Calendar.YEAR) - calDelay.get(Calendar.YEAR)) * 12;
 			sql = "update loan set loanBalance = ? where custcode = (select custcode from customer where custname = ?) and loanaccountnum = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setLong(1, repayment.getLoanBalance() - (repayment.getLoanBalance() / 12) - Math.round(repayment.getLoanBalance() * repayment.getLoanInterest()));
+			long principlePayment = repayment.getLoanBalance() - (list.get(0).getLoanBalance() / monthGap);
+			pstmt.setLong(1, principlePayment);
 			pstmt.setString(2, repayment.getCust().getCustName());
 			pstmt.setString(3, repayment.getLoanAccountNum());
 			res += pstmt.executeUpdate();

@@ -60,12 +60,17 @@ public class DetailHandler implements CommandHandler {
 				}
 			}
 			else {
-				if(delayCount != list.size()) {
+				if(delayCount > list.size()) {
 					loan.setLoanBalance((long)((loan.getLoanBalance() * loan.getLoanInterest() / 12)));
 				}
+				else if(list.size() < totalCount - 1) {
+					long principal  = list.get(0).getLoanBalance()/(totalCount-delayCount);
+					long interest = (long)((loan.getLoanBalance() * loan.getLoanInterest()) / 12);
+					loan.setLoanBalance(principal + interest);
+				}
 				else {
-					loan.setLoanBalance((long)((list.get(0).getLoanBalance()/(totalCount-delayCount)) + ((list.get(0).getLoanBalance() * loan.getLoanInterest() / 12))));
-				}		
+					loan.setLoanBalance(loan.getLoanBalance());
+				}
 			}
 			req.setAttribute("loan", loan);
 			if(loan.getCustCode().getCustDiv()) {
@@ -126,7 +131,6 @@ public class DetailHandler implements CommandHandler {
 				loan.setCustCode(cust);
 				loan.setLoanAccountNum(loanAccountNum);
 				loan = loanService.showLoanByLoanAccountNumAndCustName(loan);
-				Repayment repayment = new Repayment(loanAccountNum, cust, plan, loanStartDate, loanDelayDate, loanExpireDate, loanMethod, loanRound, loanInterest, loan.getLoanBalance(), loanRepayment);
 				List<Repayment> list = loanService.searchRepaymentsByAccountNum(loan.getLoanAccountNum());
 				Calendar calStart = GregorianCalendar.getInstance();
 				Calendar calDelay = GregorianCalendar.getInstance();
@@ -141,6 +145,7 @@ public class DetailHandler implements CommandHandler {
 				int totalCount = (expireYear - nowYear) * 12;
 				if(loan.getLoanMethod().equals("A")) {
 					if(totalCount-1 == list.size()) {
+						Repayment repayment = new Repayment(loanAccountNum, cust, plan, loanStartDate, loanDelayDate, loanExpireDate, loanMethod, loanRound, loanInterest, loan.getLoanBalance(), loanRepayment);
 						loanService.insertAndDeleteProcedure(repayment);
 						Contribution contribution = loginService.bankTotalAmount();
 						HttpSession session = req.getSession();
@@ -151,6 +156,7 @@ public class DetailHandler implements CommandHandler {
 						
 					}
 					else {
+						Repayment repayment = new Repayment(loanAccountNum, cust, plan, loanStartDate, loanDelayDate, loanExpireDate, loanMethod, loanRound, loanInterest, loan.getLoanBalance(), loanRepayment);
 						loanService.insertRepayment(repayment);
 						Contribution contribution = loginService.bankTotalAmount();
 						HttpSession session = req.getSession();
@@ -162,6 +168,7 @@ public class DetailHandler implements CommandHandler {
 				}
 				else {
 					if(delayCount > list.size()) {
+						Repayment repayment = new Repayment(loanAccountNum, cust, plan, loanStartDate, loanDelayDate, loanExpireDate, loanMethod, loanRound, loanInterest, loan.getLoanBalance(), loanRepayment);
 						loanService.insertRepayment(repayment);
 						Contribution contribution = loginService.bankTotalAmount();
 						HttpSession session = req.getSession();
@@ -172,6 +179,7 @@ public class DetailHandler implements CommandHandler {
 					}
 					else {
 						if(totalCount-1 == list.size()) {
+							Repayment repayment = new Repayment(loanAccountNum, cust, plan, loanStartDate, loanDelayDate, loanExpireDate, loanMethod, loanRound, loanInterest, loan.getLoanBalance(), loanRepayment);
 							loanService.insertAndDeleteProcedure(repayment);
 							Contribution contribution = loginService.bankTotalAmount();
 							HttpSession session = req.getSession();
@@ -182,6 +190,7 @@ public class DetailHandler implements CommandHandler {
 							res.sendRedirect(req.getContextPath() + "/bankwork/loan/mgn.do?div="+custdiv);
 						}
 						else {
+							Repayment repayment = new Repayment(loanAccountNum, cust, plan, loanStartDate, loanDelayDate, loanExpireDate, loanMethod, loanRound, loanInterest, loan.getLoanBalance(), loanRepayment);
 							loanService.insertRepaymentByEquityPaymentProcedure(repayment);
 							Contribution contribution = loginService.bankTotalAmount();
 							HttpSession session = req.getSession();

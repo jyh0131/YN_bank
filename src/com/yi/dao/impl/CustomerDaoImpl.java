@@ -80,6 +80,27 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 		return list;
 	}
+	
+	@Override
+	public Customer selectCustomerByNameNoLike(String custName) throws SQLException {
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custName = ?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			pstmt.setString(1, custName);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) {
+					Customer customer = getCustomer(rs);
+					return customer;
+				}
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
 	@Override
 	public void insertCustomer(Customer customer) throws SQLException {
@@ -849,6 +870,27 @@ public class CustomerDaoImpl implements CustomerDao {
 		return list;
 	}
 
+	@Override
+	public void setForeignKeyCheckFalse() throws SQLException {
+		String sql = "set FOREIGN_KEY_CHECKS=0";
+		try(Connection con =  DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.executeQuery();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void setForeignKeyCheckTrue() throws SQLException {
+		String sql = "set FOREIGN_KEY_CHECKS=1";
+		try(Connection con =  DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.executeQuery();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 

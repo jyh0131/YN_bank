@@ -154,8 +154,19 @@ public class BankBookService {
 	public BankBook showOneTransferringBankBook(String accountNum,String bankCode) throws SQLException{
 		return bankBookDao.findTransferringBankBook(accountNum, bankCode);
 	}
+
 	public BankBook checkRedunduncyBankBookPlan(BankBook bankbook) throws SQLException {
 		return bankBookDao.checkRedunduncyBankBookPlan(bankbook);
+	}
+	
+	//고객 코드로 해지 계좌인지 체크하기
+	public List<Integer> showTerminationByCustCode(String custCode) throws SQLException{
+		return bankBookDao.selectTerminationByCustCode(custCode);
+	}
+	//고객 코드로 모든 대출 상환 되었는지 체크하기
+	public List<Integer> showLoanDoneCheckByCustCode(String custCode) throws SQLException{
+		return bankBookDao.selectLonaDoneCheckByCustCode(custCode);
+
 	}
 
 }

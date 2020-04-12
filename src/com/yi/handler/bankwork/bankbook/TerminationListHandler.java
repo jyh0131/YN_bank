@@ -17,10 +17,10 @@ public class TerminationListHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String custDiv = req.getParameter("custdiv");
 		Customer custCode = new Customer();
-		custCode.setCustDiv(custDiv.equals("0")?false:true);
+		custCode.setCustDiv(custDiv.equals("0")?false:true);    
 		BankBook bankbook = new BankBook();
 		bankbook.setCustCode(custCode);
-		bankbook.setAccountTermination(true);
+		bankbook.setAccountTermination(true);    
 		List<BankBook> list = service.showBankBookByTermination(bankbook);
 		if(list.size()==0) {
 			HttpSession session = req.getSession();
@@ -30,7 +30,8 @@ public class TerminationListHandler implements CommandHandler {
 		else {
 			req.setAttribute("custdiv", custDiv);
 			req.setAttribute("list", list);
-			return "/WEB-INF/view/bankwork/bankbook/terminationList.jsp";
+			   
+			return "/WEB-INF/view/bankwork/bankbook/terminationList.jsp";   
 		}
 		return null;
 	}

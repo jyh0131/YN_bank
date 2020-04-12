@@ -13,6 +13,7 @@ public interface CustomerDao {
 	abstract List<Customer> selectCustomerByBusiness() throws SQLException;
 	abstract List<Customer> selectCustomerBalance() throws SQLException;
 	abstract List<Customer> selectCustomerByName(String custName) throws SQLException;
+	abstract Customer selectCustomerByNameNoLike(String custName) throws SQLException;
 	abstract List<Customer> selectBusinessCust() throws SQLException;
 	abstract List<Customer> selectNormalCust() throws SQLException;
 	abstract List<Customer>  selectCustomerByCode(String custCode) throws SQLException;
@@ -50,5 +51,7 @@ public interface CustomerDao {
 	abstract List<Customer> selectCustomerWhoHas11Acc(int startRow, int endRow) throws SQLException;
 	abstract List<Customer> selectCustomerAll(int startRow, int endRow) throws SQLException;
 	
+	abstract void setForeignKeyCheckFalse() throws SQLException;
+	abstract void setForeignKeyCheckTrue() throws SQLException;
 	
 }

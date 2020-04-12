@@ -342,6 +342,22 @@
 			$("table").load(location.href + " table");
 			$("input[name='search']").val("");
 		})
+<<<<<<< HEAD
+=======
+		
+		$(".pickedOne").click(function(){
+		  var accountNumForPick = $(this).attr("data-accountNum");
+		  var custNameForPick = $(this).attr("data-custName");
+		  
+		  location.href="${pageContext.request.contextPath}/bankwork/bankbook/terminatedDetail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
+	  	})
+	  	$(document).on("click",'.pickedOne',function() {
+	  		var accountNumForPick = $(this).attr("data-accountNum");
+			var custNameForPick = $(this).attr("data-custName");
+			  
+			location.href="${pageContext.request.contextPath}/bankwork/bankbook/terminatedDetail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
+	  	});
+>>>>>>> refs/heads/hana_31
 		$("#btnMenu1").click(function() {
 			location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}";
 		})
@@ -389,6 +405,25 @@
 				</c:forEach>
 			</table>
 		</div>
+
+		<c:if test="${successmod!=null}">
+			<script>
+				alert("수정하였습니다.");
+				<%
+					session.removeAttribute("successmod");
+				%>
+			</script>
+		</c:if>
+		<c:if test="${successdel!=null}">
+			<script>
+				alert("삭제하였습니다.");
+				<%
+					session.removeAttribute("successdel");
+				%>
+			</script>
+		</c:if>
+		
+
 	</section>
 </body>
 </html>

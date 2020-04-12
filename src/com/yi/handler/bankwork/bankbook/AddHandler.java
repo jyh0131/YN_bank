@@ -40,6 +40,7 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", number);
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/bankbook/bankbookInsertForm.jsp";
 			}
 			else {
@@ -50,11 +51,13 @@ public class AddHandler implements CommandHandler {
 				req.setAttribute("planList", planList);
 				req.setAttribute("planListNormal", planListNormal);
 				req.setAttribute("number", number);
+				req.setAttribute("custdiv", div);
 				return "/WEB-INF/view/bankwork/bankbook/bankbookInsertForm.jsp";
 			}
 			
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {
+			String custdiv = req.getParameter("custdiv");
 			String accountNum = req.getParameter("accountnum");
 			String custName = req.getParameter("custname");
 			Customer custCode = new Customer();
@@ -73,17 +76,26 @@ public class AddHandler implements CommandHandler {
 			if(contribution - accountBalance < 0) {
 				HttpSession session = req.getSession();
 				session.setAttribute("Insufficient", "Insufficient");
-				res.sendRedirect(req.getContextPath() + "/main/main.do");
+				res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/add.do?div="+custdiv);
 			}
 			else {
 				String empName = req.getParameter("empname");
 				Employee emp = new Employee(empName);
 				bankbook.setEmployee(emp);
 				bankbook.setAccountBalance(accountBalance);
-				bankbookService.insertBankBook(bankbook);
-				HttpSession session = req.getSession();
-				session.setAttribute("successadd", "success");
-				res.sendRedirect(req.getContextPath()+"/main/main.do");
+				BankBook chkRedendency = bankbookService.checkRedunduncyBankBookPlan(bankbook);
+				if(chkRedendency==null) {
+					bankbookService.insertBankBook(bankbook);
+					HttpSession session = req.getSession();
+					session.setAttribute("successadd", "success");
+					res.sendRedirect(req.getContextPath()+"/bankwork/bankbook/mgn.do?div="+custdiv);
+				}
+				else {
+					HttpSession session = req.getSession();
+					session.setAttribute("duplicate", "error");
+					res.sendRedirect(req.getContextPath() + "/bankwork/bankbook/add.do?div="+custdiv);
+				}
+				
 			}
 			
 		}

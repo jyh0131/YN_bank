@@ -506,30 +506,62 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public int changeBankBookTermination(BankBook bankbook) throws SQLException {
 		int res = -1;
-		String sql = "update bankbook set accountTermination = ? where custcode = (select custcode from customer where custname = ?) and accountplancode = (select plancode from plan where planname = ?)";
+		BankBook isConnect = new BankBook();
+		String sql = "select connectchk from bankbook where accountnum = ?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver)) {
 			con.setAutoCommit(false);
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setBoolean(1, bankbook.isAccountTermination());
-			pstmt.setString(2, bankbook.getCustCode().getCustName());
-			pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
-			res = pstmt.executeUpdate();
-			sql = "update bankbook set accountnum = ? where custcode = (select custcode from customer where custname = ?) and accountplancode = (select plancode from plan where planname = ?)";
-			pstmt = con.prepareStatement(sql);
-			String accountNum = bankbook.getAccountNum();
-			accountNum = accountNum.replace("-1", "-3");
-			bankbook.setAccountNum(accountNum);
 			pstmt.setString(1, bankbook.getAccountNum());
-			pstmt.setString(2, bankbook.getCustCode().getCustName());
-			pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
-			res += pstmt.executeUpdate();
-			if(res==2) {
-				con.commit();
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					isConnect.setConnectChk(rs.getBoolean("connectchk"));
+				}
+			}
+			if(isConnect.isConnectChk()) {
+				sql = "delete from card where accountnum = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, bankbook.getAccountNum());
+				res = pstmt.executeUpdate();
+				res += makeTermination(bankbook, con);
+				if(res==3) {
+					con.commit();
+				}
+				else {
+					con.rollback();
+				}
 			}
 			else {
-				con.rollback();
+				res = makeTermination(bankbook, con);
+				if(res==2) {
+					con.commit();
+				}
+				else {
+					con.rollback();
+				}
 			}
 		}
+		return res;
+	}
+
+	private int makeTermination(BankBook bankbook, Connection con) throws SQLException {
+		int res;
+		String sql;
+		PreparedStatement pstmt;
+		sql = "update bankbook set accountTermination = ? where custcode = (select custcode from customer where custname = ?) and accountplancode = (select plancode from plan where planname = ?)";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setBoolean(1, bankbook.isAccountTermination());
+		pstmt.setString(2, bankbook.getCustCode().getCustName());
+		pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
+		res = pstmt.executeUpdate();
+		sql = "update bankbook set accountnum = ? where custcode = (select custcode from customer where custname = ?) and accountplancode = (select plancode from plan where planname = ?)";
+		pstmt = con.prepareStatement(sql);
+		String accountNum = bankbook.getAccountNum();
+		accountNum = accountNum.replace("-1", "-3");
+		bankbook.setAccountNum(accountNum);
+		pstmt.setString(1, bankbook.getAccountNum());
+		pstmt.setString(2, bankbook.getCustCode().getCustName());
+		pstmt.setString(3, bankbook.getAccountPlanCode().getPlanName());
+		res += pstmt.executeUpdate();
 		return res;
 	}
 
@@ -777,5 +809,24 @@ public class BankBookDaoImpl implements BankBookDao {
 		Plan plan = new Plan(rs.getString("bankname"));//플랜을 뱅크 네임으로..
 		long accountBalance = rs.getLong("balance");
 		return new BankBook(accountNum, cust, plan, accountBalance);
+	}
+
+	@Override
+	public BankBook checkRedunduncyBankBookPlan(BankBook bankbook) throws SQLException {
+		String sql = "select plancode from performance where custcode = (select custcode from customer where custname = ?) and plancode = (select plancode from plan where planname = ?)";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, bankbook.getCustCode().getCustName());
+			pstmt.setString(2, bankbook.getAccountPlanCode().getPlanName());
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					bankbook = new BankBook();
+					Plan planCode = new Plan(rs.getString("plancode"));
+					bankbook.setAccountPlanCode(planCode);
+					return bankbook;
+				}
+			}
+		}
+		return null;
 	}
 }

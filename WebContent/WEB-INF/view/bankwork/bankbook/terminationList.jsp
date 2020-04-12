@@ -342,19 +342,6 @@
 			$("table").load(location.href + " table");
 			$("input[name='search']").val("");
 		})
-		
-		$(".pickedOne").click(function(){
-		  var accountNumForPick = $(this).attr("data-accountNum");
-		  var custNameForPick = $(this).attr("data-custName");
-		  
-		  location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
-	  	})
-	  	$(document).on("click",'.pickedOne',function() {
-	  		var accountNumForPick = $(this).attr("data-accountNum");
-			var custNameForPick = $(this).attr("data-custName");
-			  
-			location.href="${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
-	  	});
 		$("#btnMenu1").click(function() {
 			location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}";
 		})
@@ -391,7 +378,7 @@
 					<th>이자율</th>
 				</tr>
 				<c:forEach var="bankbook" items="${list}">
-				<tr class="pickedOne" data-accountNum="${bankbook.accountNum }" data-custName="${bankbook.custCode.custName }">
+				<tr>
 					<td>${bankbook.accountNum}</td>
 					<td>${bankbook.custCode.custName}</td>
 					<td>${bankbook.accountPlanCode.planName}</td>
@@ -402,22 +389,6 @@
 				</c:forEach>
 			</table>
 		</div>
-		<c:if test="${successmod!=null}">
-			<script>
-				alert("수정하였습니다.");
-				<%
-					session.removeAttribute("successmod");
-				%>
-			</script>
-		</c:if>
-		<c:if test="${successdel!=null}">
-			<script>
-				alert("삭제하였습니다.");
-				<%
-					session.removeAttribute("successdel");
-				%>
-			</script>
-		</c:if>
 	</section>
 </body>
 </html>

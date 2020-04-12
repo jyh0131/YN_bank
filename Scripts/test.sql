@@ -420,3 +420,6 @@ select * from repayment;
 delete from loan;
 
 select loanaccountnum,custname,planname,loanstartdate,loandelaydate,loanexpiredate,loanmethod,loanround,loaninterest,loanbalance,loanrepayment from repayment r join customer c on r.custcode = c.custcode join plan p on r.loanplancode = p.plancode where loanaccountnum = '293133-11-000001';
+
+select * from performance;
+select plancode from performance where custcode = (select custcode from customer where custname = '(주)에이스 테크놀로지') and plancode = (select plancode from plan where planname = '늘푸른 하늘 통장');

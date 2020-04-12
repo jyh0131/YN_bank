@@ -154,5 +154,8 @@ public class BankBookService {
 	public BankBook showOneTransferringBankBook(String accountNum,String bankCode) throws SQLException{
 		return bankBookDao.findTransferringBankBook(accountNum, bankCode);
 	}
+	public BankBook checkRedunduncyBankBookPlan(BankBook bankbook) throws SQLException {
+		return bankBookDao.checkRedunduncyBankBookPlan(bankbook);
+	}
 
 }

@@ -121,10 +121,13 @@ insert into card values
 ('2931332000000060','C004','B002',666,now(),10000000,null,'B001',null),
 ('2931332000000070','C005','B002',777,now(),10000000,null,'B002',null);
 
-insert into performance values
+
+insert into performance(plancode,empcode,custcode) values
 ('A001','B007','C001'),('A002','B007','C001'),('A003','B007','C001'),('A001','B007','C002'),('A002','B007','C002'),
-('A003','B008','C002'),('B001','B008','C001'),('B002','B008','C001'),('B001','B007','C002'),('B002','B007','C002'),
-('B002','B001','C003'),('B002','B001','C004');
+('A003','B008','C002'),('A007','B002','B001'),('B001','B008','C001'),('B002','B008','C001'),('B001','B007','C002'),
+('B002','B007','C002'),('B002','B001','C003'),('B002','B001','C004'),('B002','B002','C005');
+
+
 
 insert into transferringbankbook values
 ('265-13-021846','031','대구은행','연미주(그릇계모임)',100000),
@@ -273,14 +276,16 @@ begin
 end $
 delimiter ;
 
-##통장 삭제될 때 실적 테이블에도 삭제
+##통장이 해지계좌로 전환될 때 실적 테이블에도 삭제
 drop trigger if exists tri_delete_bankbook_performance;
 delimiter $
 create trigger tri_delete_bankbook_performance
-before delete on bankbook
+after update on bankbook
 for each row 
-begin 
-	delete from performance where plancode = old.accountplancode and empcode = old.empcode and custcode = old.custcode;
+begin
+	if(new.accountTermination=1) then 
+		delete from performance where plancode = old.accountplancode and empcode = old.empcode and custcode = old.custcode;
+	end if;
 end $
 delimiter ;
 
@@ -317,13 +322,15 @@ begin
 end $
 delimiter ;
 
-##대출 삭제할 때 실적 테이블에서 삭제 
+##대출이 상환 완료로 전환될 때 실적 테이블에도 삭제
 drop trigger if exists tri_delete_loan_performance;
 delimiter $
 create trigger tri_delete_loan_performance
-before delete on loan
+after update on loan
 for each row 
-begin 
-	delete from performance where plancode = old.loanplancode and empcode = old.empcode and custcode = old.custcode;
+begin
+	if (new.loanExpired = 1) then
+		delete from performance where plancode = old.loanplancode and empcode = old.empcode and custcode = old.custcode;
+	end if;
 end $
 delimiter ;

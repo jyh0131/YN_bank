@@ -430,6 +430,14 @@
 				%>
 			</script>
 		</c:if>
+		<c:if test="${successadd!=null}">
+    	<script>
+    		alert("추가되었습니다");
+    		<%
+    			session.removeAttribute("successadd");
+    		%>
+    	</script>
+    	</c:if>
 		<c:if test="${nonTermination!=null}">
 			<script>
 				alert("해지계좌가 존재하지 않습니다");

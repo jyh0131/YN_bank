@@ -166,7 +166,7 @@
 		<div id="header">
 			<h1>통장 추가</h1>
 		</div>
-		<form action="${pageContext.request.contextPath}/bankwork/bankbook/add.do" method="post">
+		<form action="${pageContext.request.contextPath}/bankwork/bankbook/add.do?custdiv=${custdiv}" method="post">
 			<input type="hidden" value=${Auth.empName} name="empname">
 			<input type="hidden" value=${contribution.totalContribution} name="contribution">
 			<div id="profile">
@@ -223,5 +223,21 @@
 			</div>
 		</form>
 	</div>
+	<c:if test="${duplicate!=null}">
+    	<script>
+    		alert("중복된 상품입니다. 다시 확인하고 추가하세요");
+    		<%
+    			session.removeAttribute("duplicate");
+    		%>
+    	</script>
+    </c:if>
+	<c:if test="${Insufficient!=null}">
+    	<script>
+    		alert("통장 출자금보다 마이너스 통장 대출 금액이 더 많습니다. 다시 확인하고 대출을 진행해주세요");
+    		<%
+    			session.removeAttribute("Insufficient");
+    		%>
+    	</script>
+    </c:if>
 </body>
 </html>

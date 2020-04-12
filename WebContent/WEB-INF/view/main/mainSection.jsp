@@ -165,14 +165,6 @@
     		</li>
     	</ul>
     </div>
-    <c:if test="${Insufficient!=null}">
-    	<script>
-    		alert("통장 출자금보다 대출 금액이 더 많습니다. 다시 확인하고 대출을 진행해주세요");
-    		<%
-    			session.removeAttribute("Insufficient");
-    		%>
-    	</script>
-    </c:if>
     <c:if test="${successadd!=null}">
     	<script>
     		alert("추가되었습니다");

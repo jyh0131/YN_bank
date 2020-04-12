@@ -441,6 +441,14 @@
 				%>
 			</script>
 		</c:if>
+		<c:if test="${successadd!=null}">
+    	<script>
+    		alert("추가되었습니다");
+    		<%
+    			session.removeAttribute("successadd");
+    		%>
+    	</script>
+    	</c:if>
 		<c:if test="${successmod!=null}">
 			<script>
 				alert("수정하였습니다.");

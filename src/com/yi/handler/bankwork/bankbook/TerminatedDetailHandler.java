@@ -23,11 +23,11 @@ public class TerminatedDetailHandler implements CommandHandler {
 			bankbook.setAccountNum(accountNum);
 			Customer customer = new Customer();
 			customer.setCustName(custName);
-			bankbook.setCustCode(customer);
+			bankbook.setCustCode(customer);   
 			bankbook = service.showBankBookByCustNameAndAccountNum(bankbook);
 			String div = bankbook.getCustCode().getCustDiv()?"1":"0";
 			req.setAttribute("custdiv", div);
-			req.setAttribute("bankbook", bankbook);
+			req.setAttribute("bankbook", bankbook);      
 			return "/WEB-INF/view/bankwork/bankbook/bankbookTerminatedDetail.jsp";
 		}
 		else if(req.getMethod().equalsIgnoreCase("post")) {

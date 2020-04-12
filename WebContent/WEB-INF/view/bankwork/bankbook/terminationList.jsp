@@ -342,11 +342,10 @@
 			$("table").load(location.href + " table");
 			$("input[name='search']").val("");
 		})
-<<<<<<< HEAD
-=======
+
 		
 		$(".pickedOne").click(function(){
-		  var accountNumForPick = $(this).attr("data-accountNum");
+		  var accountNumForPick = $(this).attr("data-accountNum");  
 		  var custNameForPick = $(this).attr("data-custName");
 		  
 		  location.href="${pageContext.request.contextPath}/bankwork/bankbook/terminatedDetail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
@@ -357,7 +356,7 @@
 			  
 			location.href="${pageContext.request.contextPath}/bankwork/bankbook/terminatedDetail.do?accountnum="+accountNumForPick+"&custname="+custNameForPick;
 	  	});
->>>>>>> refs/heads/hana_31
+
 		$("#btnMenu1").click(function() {
 			location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}";
 		})
@@ -391,10 +390,10 @@
 					<th>상품명</th>
 					<th>통장구분</th>
 					<th>계좌개설일</th>
-					<th>이자율</th>
+					<th>이자율</th>  
 				</tr>
-				<c:forEach var="bankbook" items="${list}">
-				<tr>
+				<c:forEach var="bankbook" items="${list}">  
+				<tr class="pickedOne" data-accountNum="${bankbook.accountNum}" data-custName="${bankbook.custCode.custName}">
 					<td>${bankbook.accountNum}</td>
 					<td>${bankbook.custCode.custName}</td>
 					<td>${bankbook.accountPlanCode.planName}</td>

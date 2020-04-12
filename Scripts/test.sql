@@ -243,7 +243,7 @@ select * from loan;
 
 select accountTermination from bankbook where custCode="C031";
 select loanExpired from loan where custCode="C031";
-update loan set loanExpired = 1 where custCode="C032";
+update loan set loanExpired = 1 where custCode="C031";
 select accountTermination from bankbook where custCode="C031";
 update bankbook set accountTermination = 0 where custCode="C032";
 update bankbook set accountNum = "293133-11-000009" where custCode="C032";

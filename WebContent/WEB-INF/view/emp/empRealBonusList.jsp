@@ -336,7 +336,7 @@
 					<th>사원이름</th>
 					<th>직책</th>
 					<th>전체 실적</th>
-					<th>인센티브</th>
+					<!-- <th>인센티브</th> -->
 <!-- 					<th>상품 종류</th>
 					<th class="thPlanName">상품 이름</th> -->
 				
@@ -351,7 +351,7 @@
 					<td>${empList.empName }</td>
 					<td>${empList.empTitle }</td>
 					<td>${empList.perf}</td>
-					<td><fmt:formatNumber value='${empList.bonus }' pattern='###,###,###'/></td>
+					<%-- <td><fmt:formatNumber value='${empList.bonus }' pattern='###,###,###'/></td> --%>
 	 				<%-- <td>${empList.pCode}</td>
 					<td>${empList.pName }</td>	  --%>
 				</tr>

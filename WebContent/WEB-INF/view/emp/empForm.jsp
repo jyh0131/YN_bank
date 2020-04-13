@@ -353,6 +353,9 @@ div#profileEdit table td #inputCode {
 		  $("#empPicture").attr("src","${pageContext.request.contextPath}/empPic/"+f_name);
 		  }	 */
 			
+		  $("#rerere").click(function(){
+			  location.href="${pageContext.request.contextPath}/emp/empForm.do";
+		  })
 			
 	})
 </script>
@@ -451,7 +454,7 @@ div#profileEdit table td #inputCode {
 
 				<div id="submit">
 					<input type="submit" value="등록"> <input type="reset"
-						value="취소">
+						value="취소" id="rerere">
 				</div>
 
 			</div>

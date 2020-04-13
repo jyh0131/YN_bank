@@ -76,7 +76,7 @@ public class CustomerService {
 		return dao.selectCustomerWHas11AccByTel(custTel);
 	}
 	
-	public Customer showCustomerByTel(String custTel) throws SQLException{
+	public List<Customer> showCustomerByTel(String custTel) throws SQLException{
 		return dao.selectCustomerByTel(custTel);
 	}
 	
@@ -167,9 +167,41 @@ public class CustomerService {
 		return dao.selectCustomerAll(startRow, endRow);
 	}
 	
+	public List<Customer> showCustomersLimit(int startRow, int endRow) throws SQLException{
+		return dao.selectCustomersLimit(startRow, endRow);
+	}
+	
+	public List<Customer> showCustomersLimitByCode(String search, int startRow, int endRow) throws SQLException{
+		return dao.selectCustomersLimitByCode(search, startRow, endRow);
+	}
+	
+	public List<Customer> showCustomersLimitByName(String search, int startRow, int endRow) throws SQLException{
+		return dao.selectCustomersLimitByName(search, startRow, endRow);
+	}
+	public List<Customer> showCustomersLimitByTel(String search, int startRow, int endRow) throws SQLException{
+		return dao.selectCustomersLimitByTel(search, startRow, endRow);
+	}
+	
+	public List<Customer> showCustomerWhoHasAccLimit(int startRow, int endRow) throws SQLException{
+		return dao.selectCustomerWhoHasAccLimit (startRow, endRow);
+	}
+	
+	public List<Customer> showCustomerWhoHasAccLimitByCode(String search, int startRow, int endRow) throws SQLException{
+		return dao.selectCustomerWhoHasAccLimitByCode (search, startRow, endRow);
+	}
+	
+	public List<Customer> showCustomerWhoHasAccLimitByName(String search, int startRow, int endRow) throws SQLException{
+		return dao.selectCustomerWhoHasAccLimitByName (search, startRow, endRow);
+	}
+	
+	public List<Customer> showCustomerWhoHasAccLimitByTel(String search, int startRow, int endRow) throws SQLException{
+		return dao.selectCustomerWhoHasAccLimitByTel (search, startRow, endRow);
+	}
+	
+	
 	//고객 삭제 시 해당 고객이 1. 해지 계좌 리스트에 등록된 계좌를 가지고 있는지, 2. 모든 대출이 상환되었는지 확인 후 모든 테이블에서 완전 삭제하기 위한 외래키 구분 무시 코드
 	public void setForeignKeyCheckFalse() throws SQLException{
-		dao.setForeignKeyCheckFalse();
+		dao.setForeignKeyCheckFalse();  
 	}
 	
 	public void setForeignKeyCheckTrue() throws SQLException{

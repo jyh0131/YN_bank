@@ -27,7 +27,7 @@ public interface CustomerDao {
 	abstract List<Customer> selectCustomerWHasAccByCode(String custCode) throws SQLException;
 	abstract List<Customer> selectCustomerWHasAccByName(String custName) throws SQLException;
 	abstract List<Customer> selectCustomerWHasAccByTel(String custTel) throws SQLException;
-	abstract Customer selectCustomerByTel(String custTel) throws SQLException;
+	abstract List<Customer> selectCustomerByTel(String custTel) throws SQLException;
 	abstract List<Customer> selectCustomerBankInfoByName (String custName) throws SQLException;
 	abstract List<Customer> selectCustomerBankInfoByAcc (String accountNum) throws SQLException;
 	abstract List<Cust_dw_audit> selectCust_dw_audit() throws SQLException;
@@ -50,6 +50,14 @@ public interface CustomerDao {
 	abstract List<Customer> selectCustomerWhoHasAcc(int startRow, int endRow) throws SQLException;
 	abstract List<Customer> selectCustomerWhoHas11Acc(int startRow, int endRow) throws SQLException;
 	abstract List<Customer> selectCustomerAll(int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomersLimit(int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomersLimitByCode(String search, int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomersLimitByName(String search, int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomersLimitByTel(String search, int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomerWhoHasAccLimit(int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomerWhoHasAccLimitByCode(String search, int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomerWhoHasAccLimitByName(String search, int startRow, int endRow) throws SQLException;
+	abstract List<Customer> selectCustomerWhoHasAccLimitByTel(String search, int startRow, int endRow) throws SQLException;
 	
 	abstract void setForeignKeyCheckFalse() throws SQLException;
 	abstract void setForeignKeyCheckTrue() throws SQLException;

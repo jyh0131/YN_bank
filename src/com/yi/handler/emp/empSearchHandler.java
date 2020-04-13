@@ -241,7 +241,7 @@ public class empSearchHandler implements CommandHandler {
 
 				// 첫번째 row 계산
 				int startRow;
-				if (paging.getPageNo() == 1) {
+				if (paging.getPageNo() == 1) {       
 					// 현재 페이지가 1이면 0부터 10개 리스트 불러옴
 					startRow = 0;
 				} else {

@@ -163,7 +163,7 @@
 		  $("table").load(location.href+" table");
 		  $("#searchForEmp").val("");
 		  $(".pagination").load(location.href+" .pagination li");
-	  })
+	  })   
 	  $("button").eq(0).click(function(){
 		div = $("#searchMenu option:selected").val();
 		search = $("input[name='search']").val();
@@ -506,7 +506,7 @@
 		  }
 		  
 	  }) //버튼 이벤트 끝나는 것 
-	  $("select").on("change", function() {
+	 /*  $("select").on("change", function() {
 		  	var href = location.href;
 		  	href = href.substring(0, href.indexOf("?"));
 		  	if(href==null) {
@@ -517,7 +517,7 @@
 		  		$("table").load(href + " table");
 				$("input[name='search']").val("");
 		  	}
-	  })
+	  }) */
 	  
 	  //각 줄을 클릭할 때마다 내가 부여한 data-empCode를 받아오기 
 	  $(document).on("click",".oneEmp",function(){

@@ -203,7 +203,7 @@
 				    dataType: "json",
 				    success : function(res){
 				    	//console.log(res);
-				    	if(res.error == "notExist"){
+				    	if(res.error == "notExist"){   
 				    		alert("존재하지 않는 사원입니다. 사원번호를 확인해주세요");
 				    	}else{
 				    		

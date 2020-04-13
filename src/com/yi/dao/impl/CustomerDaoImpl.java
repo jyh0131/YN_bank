@@ -356,23 +356,28 @@ public class CustomerDaoImpl implements CustomerDao {
 	}  
      
 	@Override
-	public Customer selectCustomerByTel(String custTel) throws SQLException {
+	public List<Customer> selectCustomerByTel(String custTel) throws SQLException {
 		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custTel like ?";
+		ResultSet rs = null;
+		List<Customer> list = null;
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 			PreparedStatement pstmt = con.prepareStatement(sql)){
 			
 			pstmt.setString(1, "%"+custTel+"%");
-			try(ResultSet rs = pstmt.executeQuery();){
-				if(rs.next()) {
-					return getCustomer(rs);
-				}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+				
 			}
 			  
 		}catch(SQLException e) {
 			e.printStackTrace();  
 		}
 		
-		return null;
+		return list;
 	}
 
 	@Override
@@ -890,6 +895,182 @@ public class CustomerDaoImpl implements CustomerDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<Customer> selectCustomersLimit(int startRow, int endRow) throws SQLException {
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer limit ?,?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomersLimitByCode(String search, int startRow, int endRow) throws SQLException {
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custCode like ? limit ?, ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "%"+search+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomersLimitByName(String search, int startRow, int endRow) throws SQLException {
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custName like ? limit ?, ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "%"+search+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomersLimitByTel(String search, int startRow, int endRow) throws SQLException {
+		String sql = "select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custTel like ? limit ?, ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "%"+search+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomer(rs));
+				}while(rs.next());
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWhoHasAccLimit(int startRow, int endRow) throws SQLException {
+		List<Customer> list = null;
+		String sql = "select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = \"11\" or \"12\" or \"13\" limit ?,?";
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWhoHasAccLimitByCode(String search, int startRow, int endRow) throws SQLException {
+		String sql = "select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custCode like ? and (substr(b.accountNum, 8,2) = \"11\" or \"12\" or \"13\") limit ?, ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "%"+search+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWhoHasAccLimitByName(String search, int startRow, int endRow)
+			throws SQLException {
+		String sql = "select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName like ? and (substr(b.accountNum, 8,2) = \"11\" or \"12\" or \"13\") limit ?, ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "%"+search+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Customer> selectCustomerWhoHasAccLimitByTel(String search, int startRow, int endRow)
+			throws SQLException {
+		String sql = "select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custTel like ? and (substr(b.accountNum, 8,2) = \"11\" or \"12\" or \"13\") limit ?, ?";
+		List<Customer> list = null;
+		ResultSet rs = null;
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "%"+search+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				list = new ArrayList<>();
+				do {
+					list.add(getCustomerForAccBalance(rs));
+				}while(rs.next());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	

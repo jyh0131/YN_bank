@@ -260,6 +260,12 @@ delete from bankbook where accountNum = "293133-31-000009" and custCode="C032";
 
 select * from card;
 
+select * from customer;
+select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custCode like "%C%" limit 0, 10;
+select custCode, custName, custCredit, custAddr, custTel, custDiv from customer where custTel like "%010-7598%" limit 0, 10;
+select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custTel like "%010%" and (substr(b.accountNum, 8,2) = "11" or "12" or "13") limit 0, 10;
+
+
 #은행업무 - 박인선
 select * from plan where planCode like 'A%';
 select * from plan where planCode like 'B%';

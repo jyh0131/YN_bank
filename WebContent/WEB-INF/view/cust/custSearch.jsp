@@ -129,26 +129,31 @@
 </style>
 <script>
 	$(function(){
+		//전역변수
+		 var ajax;
+		 var div;
+		 var search;
 		//클릭한 메뉴만 보이게 하기
 		$("#custAdd").show();
-		$("#custList").show();
+		$("#custList").show();      
 		
 		/* 검색 구분 조건 변경할 때 테이블 reload */
 		$("select").on("change", function(){
 				$(".tableList").load(location.href+" .tableList tr");
-				$("input[name='search']").val("");   
-		})
+				$("input[name='search']").val("");
+				$(".pagination").load(location.href+" .pagination li");  
+		})       
 		
-		/* 검색 버튼 클릭 시 */
+		/* 검색 버튼 클릭 시 */         
 		$("button").click(function() {  
 			switch($("#searchMenu option:selected").val()) {
-			case "검색 구분":
-				alert("검색 조건을 선택해주세요.");
-				$("input[name='search']").val("");
+			case "검색 구분":   
+				alert("검색 조건을 선택해주세요.");     
+			//	$("input[name='search']").val("");
 				break;
 			case "고객 코드":
-				var div = $("#searchMenu option:selected").val();
-				var search = $("input[name='search']").val();
+				div = $("#searchMenu option:selected").val();
+				search = $("input[name='search']").val();
 				$.ajax({
 					url: "${pageContext.request.contextPath}/cust/custSearch.do",
 				    data: {search:search,div:div},  
@@ -177,10 +182,10 @@
 				    		$tr1.append($th4);
 				    		$tr1.append($th5);
 				    		$tr1.append($th6);
-				    		$tr1.append($th7);
+				    		$tr1.append($th7);  
 				    		$table.append($tr1);
 				    		
-				    		$(res).each(function(i, obj) {
+				    		$(res.list).each(function(i, obj) {
 				    			var $tr2 = $("<tr>");
 				    			
 				    			var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
@@ -223,13 +228,41 @@
 				    		})      
 				    		$("#table").append($table);
 				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	 }    
 				    }
 				})   
 				break;
 			case "고객명":
-				var div = $("#searchMenu option:selected").val();
-				var search = $("input[name='search']").val();
+				div = $("#searchMenu option:selected").val();
+				search = $("input[name='search']").val();
 				$.ajax({
 					url: "${pageContext.request.contextPath}/cust/custSearch.do",
 				    data: {search:search,div:div},  
@@ -239,7 +272,7 @@
 				    		//console.log(res);
 				    		if(res.error=="notExist") {
 				    			alert("존재하지 않는 고객 입니다.");
-				    		}
+				    		}     
 				    	else {
 				    		$(".tableList").remove();
 				    		
@@ -261,7 +294,7 @@
 				    		$tr1.append($th7);
 				    		$table.append($tr1);
 				    		
-				    		$(res).each(function(i, obj) {
+				    		$(res.list).each(function(i, obj) {
 								var $tr2 = $("<tr>");
 				    			
 								var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
@@ -303,13 +336,41 @@
 				    		})
 				    		$("#table").append($table);
 				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	 }    
 				    }
 				})
 				break;
 			case "연락처":
-				var div = $("#searchMenu option:selected").val();
-				var search = $("input[name='search']").val();
+				div = $("#searchMenu option:selected").val();
+				search = $("input[name='search']").val();
 				$.ajax({
 					url: "${pageContext.request.contextPath}/cust/custSearch.do",
 				    data: {search:search,div:div},  
@@ -341,7 +402,7 @@
 				    		$tr1.append($th7);
 				    		$table.append($tr1);
 				    		
-				    		$(res).each(function(i, obj) {
+				    		$(res.list).each(function(i, obj) {
 								var $tr2 = $("<tr>");
 				    			
 								var $a1 = $("<a>").html(obj.custCode).attr("href", "${pageContext.request.contextPath}/cust/custDetail.do?custName="+obj.custName);
@@ -383,6 +444,34 @@
 				    		})
 				    		$("#table").append($table);
 				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	 }    
 				    }
 				})   
@@ -390,35 +479,143 @@
 				
 			}
 		})
-		$("button").eq(1).click(function() {
-			$("input[name='search']").val("");
+		$("button").eq(1).click(function() {    
+		//	$("input[name='search']").val("");   
 		})
 		
+		//페이징 시작
 		//페이지 각 번호 클릭 시  
+		
 		$(document).on("click", ".page",function() {
+			if(ajax) {
+				var page = $(this).html();
+				ajax = false;
+		        location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = $(this).html();
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = $(this).html();
+			        location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page;
+				}
+			}
+			
+		}) 
+		
+		
+		/* 	$(document).on("click", ".page",function() {
 			var page = $(this).html();
 	        location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page;
-		})   
+		})    */
 		
 		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
+		
+		
 		$(document).on("click", ".prev" , function(){
+			if(ajax) {
+				var page = ${paging.pageNo}-1;
+				//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+				if($(".page").size()==1){
+					return false;       
+				}
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}-1;
+					if($(".page").size()==1){
+						return false;       
+					}
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = ${paging.pageNo}-1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){
+						return false;       
+					}
+					location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page;
+				}
+			}
+			
+		})
+		
+		
+		
+		/* $(document).on("click", ".prev" , function(){
 			var page = ${paging.pageNo}-1;
 			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
 			if($(".page").size()==1){
 				return false;       
 			}
 			location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page;
-		})  
+		})  */
+		
+		
+		
+		
+		
+		
 		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)    
+		
+		   
 		$(document).on("click", ".next" , function(){
+			if(ajax) {
+				var page = ${paging.pageNo}+1;
+				if($(".page").size()==1){         
+					return false;   
+				} 
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}+1;
+					if($(".page").size()==1){         
+						return false;   
+					} 
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					if($(".page").size()==1){         
+						return false;   
+					}
+					location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = ${paging.pageNo}+1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){         
+						return false;   
+					}       
+					location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page;
+				}
+			}
+			
+		})
+		
+		
+		
+		/* $(document).on("click", ".next" , function(){
 			var page = ${paging.pageNo}+1;
 			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
 			if($(".page").size()==1){         
 				return false;   
 			}       
 			location.href = "${pageContext.request.contextPath}/cust/custSearch.do?page="+page;
-		})
+		}) */
 		   
+		//페이징 끝
+		
+		
 		$(document).on("mouseover", ".page", function(){
 			$(this).css("background", "goldenrod");
 		})
@@ -441,11 +638,28 @@
 		$(document).on("mouseout", ".next", function(){  
 			$(this).css("background", "#fff");        
 		})
+		
+		var isPagingAjax = "${pagingAjax}"=="true"?true:false;
 	})
 </script>
 <body>
 	<section>
 	<%@include file="../include/sectionBar.jsp"%>
+	<!-- paging c:if -->
+	<c:if test="${pagingAjax=='true'}">
+		<script>
+			$(function(){
+				var search = "${search}";
+				var div = "${searchdiv}";
+				$("#searchMenu option").each(function(i, obj) {
+					if($(obj).val()==div) {
+						$(obj).prop("selected",true);
+					}
+				})
+				$("input[name='search']").val(search);
+			})
+		</script>
+	</c:if>
 		<h2 id="menuLocation">고객 조회</h2>   
 		<div id="search">   
 

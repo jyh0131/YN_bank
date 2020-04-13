@@ -509,18 +509,8 @@
 		  }
 		  
 	  }) //버튼 이벤트 끝나는 것 
-	 /*  $("select").on("change", function() {
-		  	var href = location.href;
-		  	href = href.substring(0, href.indexOf("?"));
-		  	if(href==null) {
-		  		$("table").load(location.href + " table");
-				$("input[name='search']").val("");
-		  	}
-		  	else {
-		  		$("table").load(href + " table");
-				$("input[name='search']").val("");
-		  	}
-	  }) */
+
+	  
 	  
 	  //각 줄을 클릭할 때마다 내가 부여한 data-empCode를 받아오기 
 	  $(document).on("click",".oneEmp",function(){
@@ -528,6 +518,8 @@
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empDetail.do?empCode="+OneCode;
 	  })
+	  
+
 	  
 	  //페이징 시작
 	  //페이지 각 번호 클릭 시  

@@ -986,7 +986,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> selectEmployeeByPerformByTarget(String pCode) {
 		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
 				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` \r\n" + 
-				"where p.planCode =?\r\n" + 
+				"where pl.planCode =?\r\n" + 
 				"group by e.`empCode`order by bonus desc, perf desc";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);){
@@ -1264,6 +1264,34 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			  }
 			 return list;
 			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectEmployeeByPerformByTarget(String pCode, int startRow, int endRow) {
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+				"where p.planCode =?\r\n" + 
+				"group by e.`empCode`order by bonus desc, perf desc limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			
+			pstmt.setString(1, pCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			List<Employee> list = new ArrayList<Employee>();
+			try(ResultSet rs = pstmt.executeQuery();){
+				while(rs.next()) {
+			
+				list.add(getEmpPerform(rs));
+    
+		     	}
+			  return list;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -118,16 +118,21 @@
    $(function(){
 	   //목록보이기
 	  $("#empAuthAdd").show();
+	   
+	   
+	  var ajax;
+	   var div;
+	   var search;
 	  $("select").on("change",function(){
-		  $("table").load(location.href+" table");
+		  $(".tableList").load(location.href+" .tableList");
 		  $("#searchForEmp").val("");
 	      $(".pagination").load(location.href+" .pagination li");   
 	  })
 	  $("button").eq(0).click(function(){
-		  var div = $("#searchMenu option:selected").val();
-	      var search = $("input[name='search']").val();
+		  div = $("#searchMenu option:selected").val();
+	      search = $("input[name='search']").val();
     //			alert(search);
-      
+       // console.log(div+":"+search);
     
         var $table = $("<table>").addClass("tableList");
 
@@ -218,6 +223,7 @@
 				    		$divSorter.append($ulPaging);
 				    		
 				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	}
 				    }
 				  
@@ -290,6 +296,7 @@
 				    		$divSorter.append($ulPaging);
 				    		
 				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	}
 				    }
 				  
@@ -359,6 +366,7 @@
 				    		$divSorter.append($ulPaging);
 				    		
 				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	}
 				    }
 				  
@@ -429,6 +437,7 @@
 				    		$divSorter.append($ulPaging);
 				    		
 				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	}
 				    }
 				  
@@ -445,29 +454,109 @@
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empAuthDetail.do?empCode="+OneCode;
 	  })
+	  
+	  
+	   $("select").on("change", function() {
+		  	var href = location.href;
+		  	href = href.substring(0, href.indexOf("?"));
+		  	if(href==null) {
+		  		$("table").load(location.href + " table");
+				$("input[name='search']").val("");
+		  	}
+		  	else {
+		  		$("table").load(href + " table");
+				$("input[name='search']").val("");
+		  	}
+	  })
+	  
+	  
 	   //페이지 각 번호 클릭 시  
 		$(document).on("click", ".page",function() {
-			var page = $(this).html();
-	        location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+			if(ajax) {
+				var page = $(this).html();
+				ajax = false;
+		        location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = $(this).html();
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = $(this).html();
+			        location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+				}
+			}
 		})   
 		
 		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
 		$(document).on("click", ".prev" , function(){
-			var page = ${paging.pageNo}-1;
-			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
-			if($(".page").size()==1){
-				return false;       
+			if(ajax) {
+				var page = ${paging.pageNo}-1;
+				//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+				if($(".page").size()==1){
+					return false;       
+				}
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page+"&search="+search+"&div="+div;
 			}
-			location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}-1;
+					if($(".page").size()==1){
+						return false;       
+					}
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = ${paging.pageNo}-1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){
+						return false;       
+					}
+					location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+				}
+			}
 		})  
 		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)
 		$(document).on("click", ".next" , function(){
-			var page = ${paging.pageNo}+1;
-			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
-			if($(".page").size()==1){         
-				return false;     
-			}       
-			location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+			if(ajax) {
+				var page = ${paging.pageNo}+1;
+				if($(".page").size()==1){         
+					return false;   
+				} 
+				div = $("#searchMenu option:selected").val();
+				search = $("input[name='search']").val();
+				ajax = false;
+				    location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}+1;
+					if($(".page").size()==1){         
+						return false;   
+					} 
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					if($(".page").size()==1){         
+						return false;   
+					}
+					location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = ${paging.pageNo}+1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){         
+						return false;   
+					}       
+					location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
+				}
+			}
 		})
 		
 		$(document).on("mouseover", ".page", function(){
@@ -492,13 +581,28 @@
 		$(document).on("mouseout", ".next", function(){  
 			$(this).css("background", "#fff");        
 		})
-	   
+		var isPagingAjax = "${pagingAjax}"=="true"?true:false;
    })
 
 
 </script>
 <body>
 	<section>
+	<!-- paging c:if -->
+	<c:if test="${pagingAjax=='true'}">
+		<script>
+			$(function(){
+				var search = "${search}";
+				var div = "${searchdiv}";
+				$("#searchMenu option").each(function(i, obj) {
+					if($(obj).val()==div) {
+						$(obj).prop("selected",true);
+					}
+				})
+				$("#searchForEmp").val(search);
+			})
+		</script>
+	</c:if>
 	<h2 id="menuLocation">사원 권한 수정</h2>
 		<div id="search">
 				<select id="searchMenu">

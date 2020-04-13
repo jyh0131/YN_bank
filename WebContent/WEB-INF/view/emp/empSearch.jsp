@@ -153,14 +153,16 @@
 </style>
 <script>
    $(function(){
+	   //전역변수
 	   var ajax;
 	   var div;
 	   var search;
 	   //선택한 메뉴 보이도록 설정 
 	   $("#empAdd").show();
 	   $("#empList").show();
+	   //새로고침 수정
 	  $("select").on("change",function(){
-		  $("table").load(location.href+" table");
+		  $(".tableList").load(location.href+" .tableList tr");
 		  $("#searchForEmp").val("");
 		  $(".pagination").load(location.href+" .pagination li");
 	  })
@@ -497,6 +499,7 @@
 				    		$divSorter.append($ulPaging);
 				    		
 				    		$("#table").append($divSorter);
+				    		//달라진부분
 				    		ajax = true;
 				    	}
 				    }
@@ -526,6 +529,7 @@
 		  location.href="${pageContext.request.contextPath}/emp/empDetail.do?empCode="+OneCode;
 	  })
 	  
+	  //페이징 시작
 	  //페이지 각 번호 클릭 시  
 		$(document).on("click", ".page",function() {
 			if(ajax) {
@@ -615,7 +619,7 @@
 			}
 			
 		})
-		
+		//페이징 끝
 		$(document).on("mouseover", ".page", function(){
 			$(this).css("background", "goldenrod");
 		})
@@ -643,6 +647,7 @@
 </script>   
 <body>   
 	<section>
+	<!-- paging c:if -->
 	<c:if test="${pagingAjax=='true'}">
 		<script>
 			$(function(){

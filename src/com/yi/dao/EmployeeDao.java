@@ -59,6 +59,7 @@ public interface EmployeeDao {
 	//실적관련 사원 리스트
 	List<Employee> selectEmployeeByPerform();
 	List<Employee> selectEmployeeByPerformByTarget(String pCode);
+	List<Employee> selectEmployeeByPerformByTarget(String pCode , int startRow, int endRow );
 	
 	//실적관련 사원 페이징 리스트
 	List<Employee> selectEmployeeByPerformLimit(int startRow, int endRow);

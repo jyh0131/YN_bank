@@ -140,10 +140,19 @@
 	   //메뉴보이기
 	   $("#empBonusList").show();
 	   $("#empRealBonusList").show();
+	   var ajax;
+	   var div;
+	   var search;
 	  //랭크 탑3의 코드를 불러옴  
 	  var rankMemCode = ["${mem1}","${mem2}","${mem3}"];
 	  //alert(rankMemCode[0]);
 	  //alert($(".tdForRank").children().eq(1).html());
+	  
+	   $("select").on("change",function(){
+		  $(".tableList").load(location.href+" .tableList tr");
+		  $("#searchForEmp").val("");
+		  $(".pagination").load(location.href+" .pagination li");
+	  })
 	  
 	 $(document).on("mouseover",".tdForRank",function(){
 		 var page = ${paging.pageNo};
@@ -158,18 +167,11 @@
         }
 	 })
 	 
-	 $("select#searchMenu").on("change",function(){
-		$("table").load(location.href+" table");
-		 var planName = $("select#searchMenu").val();
-		// alert(planName);
-		  $("#searchForEmp").val(planName);
-	  })
-	
-	  
+
 	  
 	  $("button").eq(0).click(function(){
-		  var div = $("#searchMenu option:selected").val();
-	      var search = $("input[name='search']").val();
+		 div = $("#searchMenu option:selected").val();
+	     search = $("input[name='search']").val();
 
          if(div =="상품조회"){
         	 alert("상품을 선택하세요");
@@ -207,7 +209,7 @@
 		    		$(".tableList").remove();
 		    		$table.append($menutr);
 
-		    		$(res).each(function(i,obj){
+		    		$(res.list).each(function(i,obj){
 		    			var $tr = $("<tr class='oneEmp'>").attr('data-empCode',obj.empCode).attr('data-perf',obj.perf);
 		    			var $td1 = $("<td>").html(obj.empCode);
 		    			var $td2 = $("<td>").html(obj.empName);
@@ -228,6 +230,36 @@
 		    		//테이블 div
 		    		$("#table").append($table);
 		    		$(".sorter").remove();
+		    		$divSorter = $("<div>").addClass("sorter");
+		    		$ulPaging = $("<ul>").addClass("pagination");
+		    		$liPaging1 = $("<li>");
+		    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+		    		
+		    		$liPaging1.append($aPaging1);
+		    		$ulPaging.append($liPaging1);
+		    		
+		    		
+		    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+		    			$liPagingRepeat1 = $("<li>").addClass("active");
+			    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+			    		$liPagingRepeat2 = $("<li>");
+			    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+			    		
+			    		$liPagingRepeat1.append($aPagingRepeat1);
+			    		
+			    		$ulPaging.append($liPagingRepeat1);
+		    		}
+		    		
+		    		$liPaging2 = $("<li>");
+		    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+		    		
+		    		$liPaging2.append($aPaging2);
+		    		$ulPaging.append($liPaging2);
+		    		
+		    		$divSorter.append($ulPaging);
+		    		
+		    		$("#table").append($divSorter);
+		    		ajax = true;
 		    	}
 		    }
 		  
@@ -256,30 +288,116 @@
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empBonusDetail.do?empCode="+OneCode;
 	  })
+	  /* 	 $("select#searchMenu").on("change",function(){
+		$("table").load(location.href+" table");
+		 var planName = $("select#searchMenu").val();
+		// alert(planName);
+		  $("#searchForEmp").val(planName);
+	  }) */
+	
+	  
+	   $("select").on("change", function() {
+		   var pCode = $("select#searchMenu").val();
+		  // alert(pCode);
+		  //alert($("#searchForEmp").val(pCode));
+		   $("#searchForEmp").val(pCode);
+		  	var href = location.href;
+		  	href = href.substring(0, href.indexOf("?"));
+		  	if(href==null) {
+		  		$("table").load(location.href + " table");
+				//$("input[name='search']").val("");
+		  	}
+		  	else {
+		  		$("table").load(href + " table");
+				//$("input[name='search']").val("");
+		  	}
+	  })
 	  
 	  //페이지 각 번호 클릭 시  
 		$(document).on("click", ".page",function() {
-			var page = $(this).html();
-	        location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+			if(ajax) {
+				var page = $(this).html();
+				ajax = false;
+		        location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = $(this).html();
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = $(this).html();
+			        location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+				}
+			}
 		})   
 		
 		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
 		$(document).on("click", ".prev" , function(){
-			var page = ${paging.pageNo}-1;
-			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
-			if($(".page").size()==1){
-				return false;       
+			if(ajax) {
+				var page = ${paging.pageNo}-1;
+				//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+				if($(".page").size()==1){
+					return false;       
+				}
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
 			}
-			location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}-1;
+					if($(".page").size()==1){
+						return false;       
+					}
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = ${paging.pageNo}-1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){
+						return false;       
+					}
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+				}
+			}
 		})  
 		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)    
 		$(document).on("click", ".next" , function(){
-			var page = ${paging.pageNo}+1;
-			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
-			if($(".page").size()==1){         
-				return false;   
-			}       
-			location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+			if(ajax) {
+				var page = ${paging.pageNo}+1;
+				if($(".page").size()==1){         
+					return false;   
+				} 
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}+1;
+					if($(".page").size()==1){         
+						return false;   
+					} 
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					if($(".page").size()==1){         
+						return false;   
+					}
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = ${paging.pageNo}+1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){         
+						return false;   
+					}       
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+				}
+			}
 		})
 		
 		$(document).on("mouseover", ".page", function(){
@@ -305,12 +423,28 @@
 			$(this).css("background", "#fff");        
 		})
 	  
+		var isPagingAjax = "${pagingAjax}"=="true"?true:false;
    })
 
 
 </script>
 <body>
 	<section>
+	<!-- paging c:if -->
+	<c:if test="${pagingAjax=='true'}">
+		<script>
+			$(function(){
+				var search = "${search}";
+				var div = "${searchdiv}";
+				$("#searchMenu option").each(function(i, obj) {
+					if($(obj).val()==div) {
+						$(obj).prop("selected",true);
+					}
+				})
+				$("#searchForEmp").val(search);
+			})
+		</script>
+	</c:if>
 	<h2 id="menuLocation">인센티브 조회</h2>
 		<div id="search">
 				<select id="searchMenu">

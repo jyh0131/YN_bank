@@ -633,14 +633,14 @@ public class BankBookDaoImpl implements BankBookDao {
 	public long[] TotalPlanTransAmountYearly() throws SQLException {
 		long[] TotalPlanAmount = null;
 		String sql = "select\r\n" + 
-				"(select sum(accountbalance) from bankbook where accountnum like '%-11-%' and month(accountopendate) = 4) as 'deposit',\r\n" + 
-				"(select sum(accountbalance) from bankbook where accountnum like '%-12-%' and month(accountopendate) = 4) as 'saving', \r\n" + 
-				"(select sum(accountbalance) from bankbook where accountnum like '%-13-%' and month(accountopendate) = 4) as 'minus', \r\n" + 
-				"(select sum(cardBalance) from card where cardnum like '%331%' and month(cardissuedate) = 4) as 'checkcard', \r\n" + 
-				"(select sum(cardLimit) from card where cardnum like '%332%' and month(cardissuedate) = 4) as 'creditcard', \r\n" + 
-				"(select sum(loanBalance) from loan where loanAccountNum like '%-11-%' and month(loandate) = 4) as 'normalloan',\r\n" + 
-				"(select sum(loanBalance) from loan where loanAccountNum like '%-12-%' and month(loandate) = 4) as 'creditloan',\r\n" + 
-				"(select sum(loanBalance) from loan where loanAccountNum like '%-13-%' and month(loandate) = 4) as 'cardloan'";
+				"(select ifnull(sum(accountbalance),0) from bankbook where accountnum like '%-11-%' and month(accountopendate) = 4) as 'deposit',\r\n" + 
+				"(select ifnull(sum(accountbalance),0) from bankbook where accountnum like '%-12-%' and month(accountopendate) = 4) as 'saving', \r\n" + 
+				"(select ifnull(sum(accountbalance),0) from bankbook where accountnum like '%-13-%' and month(accountopendate) = 4) as 'minus', \r\n" + 
+				"(select ifnull(sum(cardBalance),0) from card where cardnum like '%331%' and month(cardissuedate) = 4) as 'checkcard', \r\n" + 
+				"(select ifnull(sum(cardLimit),0) from card where cardnum like '%332%' and month(cardissuedate) = 4) as 'creditcard', \r\n" + 
+				"(select ifnull(sum(loanBalance),0) from loan where loanAccountNum like '%-11-%' and month(loanstartdate) = 4) as 'normalloan',\r\n" + 
+				"(select ifnull(sum(loanBalance),0) from loan where loanAccountNum like '%-12-%' and month(loanstartdate) = 4) as 'creditloan',\r\n" + 
+				"(select ifnull(sum(loanBalance),0) from loan where loanAccountNum like '%-13-%' and month(loanstartdate) = 4) as 'cardloan'";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {

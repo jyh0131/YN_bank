@@ -229,4 +229,8 @@ public class EmployeeUIService {
     	return empDao.selectExistEmployeeLimitByTitle(title, startRow, endRow);
     }
     
+    public List<Employee> showEmpPerformanceByTarget(String pCode, int startRow, int endRow){
+    	return empDao.selectEmployeeByPerformByTarget(pCode, startRow, endRow);
+    }
+    
 }

@@ -211,7 +211,7 @@ public class empSearchHandler implements CommandHandler {
 					req.setAttribute("searchdiv", div);
 					return "/WEB-INF/view/emp/empSearch.jsp";
 				}
-			}
+			} // -----------------------------------------------------------------------------------------------------------------
 		} else if (req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");
 			String div = req.getParameter("div");
@@ -248,15 +248,8 @@ public class empSearchHandler implements CommandHandler {
 					// 현재 페이지가 1이 아니면 첫 페이지를 계산해서 불러옴 (10, 20, 30...) 부터 10개 리스트 불러옴
 					startRow = (paging.getPageNo() - 1) * 10;
 				}
-				Employee employee = service.showExistEmployeeLimitByCode(search, startRow, paging.getPageSize());// 'A001'
-																													// 로
-																													// 찾은
-																													// 직원
-																													// 리스트에서
-																													// limit가
-																													// 있는
-																													// 리스트
-
+				Employee employee = service.showExistEmployeeLimitByCode(search, startRow, paging.getPageSize());
+				
 				// String json = om.writeValueAsString(list);
 				// 리스트, 페이징을 같이 가져가기
 				HashMap<String, Object> listPageMap = new HashMap<>();
@@ -302,13 +295,8 @@ public class empSearchHandler implements CommandHandler {
 					startRow2 = (paging2.getPageNo() - 1) * 10;
 				}
 
-				List<Employee> list = service.showExistEmployeeLimitByName(search, startRow2, paging2.getPageSize());// (search)로
-																														// 찾은
-																														// 사원
-																														// 리스트에서
-																														// limit가
-																														// 있는
-																														// 리스트
+				List<Employee> list = service.showExistEmployeeLimitByName(search, startRow2, paging2.getPageSize());
+				
 				// String json = om.writeValueAsString(list);
 
 				// 리스트, 페이징을 같이 가져가기
@@ -357,14 +345,8 @@ public class empSearchHandler implements CommandHandler {
 					startRow3 = (paging3.getPageNo() - 1) * 10;
 				}
 
-				List<Employee> list3 = service.showExistEmployeeLimitByDept(search, startRow3, paging3.getPageSize());// (search)로
-																														// 찾은
-																														// 사원
-																														// 리스트에서
-																														// limit가
-																														// 있는
-																														// 리스트
-
+				List<Employee> list3 = service.showExistEmployeeLimitByDept(search, startRow3, paging3.getPageSize());
+				
 				// 리스트, 페이징을 같이 가져가기
 				HashMap<String, Object> listPageMap3 = new HashMap<>();
 				listPageMap3.put("paging", paging3);
@@ -411,14 +393,8 @@ public class empSearchHandler implements CommandHandler {
 					startRow4 = (paging4.getPageNo() - 1) * 10;
 				}
 
-				List<Employee> list4 = service.showExistEmployeeLimitByTitle(search, startRow4, paging4.getPageSize());// (search)로
-																														// 찾은
-																														// 사원
-																														// 리스트에서
-																														// limit가
-																														// 있는
-																														// 리스트
-
+				List<Employee> list4 = service.showExistEmployeeLimitByTitle(search, startRow4, paging4.getPageSize());
+				
 				// 리스트, 페이징을 같이 가져가기
 				HashMap<String, Object> listPageMap4 = new HashMap<>();
 				listPageMap4.put("paging", paging4);

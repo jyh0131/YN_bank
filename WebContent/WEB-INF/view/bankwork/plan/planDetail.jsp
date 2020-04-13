@@ -149,7 +149,7 @@
 							<tr class="long">
 							<th>상품 가입 대상</th>
 								<td>
-									<select name="planFor" id="div" disabled="disabled">
+									<select name="planFor" id="div">
 										<option>가입 대상 선택</option>
 										<option>기업 고객용</option>
 										<option selected="selected">일반 고객용</option>
@@ -160,7 +160,7 @@
 							<tr>    
 								<th>상품 가입 대상 등급</th>
 								<td>
-									<select name="planForDetail" id="div" disabled="disabled">
+									<select name="planForDetail" id="div">
 										<option>세부 선택</option>  
 										<option selected="selected">VIP 등급용</option>
 										<option>일반 등급용</option>
@@ -174,7 +174,7 @@
 							<tr class="long">
 							<th>상품 가입 대상</th>
 								<td>
-									<select name="planFor" id="div" disabled="disabled">
+									<select name="planFor" id="div">
 										<option>가입 대상 선택</option>
 										<option>기업 고객용</option>
 										<option selected="selected">일반 고객용</option>
@@ -185,7 +185,7 @@
 							<tr>    
 								<th>상품 가입 대상 등급</th>
 								<td>
-									<select name="planForDetail" id="div" disabled="disabled">
+									<select name="planForDetail" id="div">
 										<option>세부 선택</option>  
 										<option>VIP 등급용</option>
 										<option selected="selected">일반 등급용</option>
@@ -199,7 +199,7 @@
 							<tr class="long">
 							<th>상품 가입 대상</th>
 								<td>
-									<select name="planFor" id="div" disabled="disabled">
+									<select name="planFor" id="div">
 										<option>가입 대상 선택</option>
 										<option selected="selected">기업 고객용</option>
 										<option>일반 고객용</option>
@@ -210,7 +210,7 @@
 							<tr>    
 								<th>상품 가입 대상 등급</th>
 								<td>
-									<select name="planForDetail" id="div" disabled="disabled">
+									<select name="planForDetail" id="div">
 										<option>세부 선택</option>  
 										<option selected="selected">VIP 등급용</option>
 										<option>일반 등급용</option>
@@ -221,20 +221,20 @@
 						
 						<c:if test="${plan.planDiv =='BN' }">   
 							<tr class="long">
-							<th>상품 가입 대상</th>
+							<th>상품 가입 대상</th>   
 								<td>
-									<select name="planFor" id="div" disabled="disabled">
+									<select name="planFor" class="div">
 										<option>가입 대상 선택</option>
 										<option selected="selected">기업 고객용</option>
 										<option>일반 고객용</option>
 									</select>
-								</td>
-							</tr>   
-							
+								</td>   
+							</tr>            
+							  
 							<tr>    
-								<th>상품 가입 대상 등급</th>
-								<td>
-									<select name="planForDetail" id="div" disabled="disabled">
+								<th>상품 가입 대상 등급</th>   
+				   				<td>
+									<select name="planForDetail" class="div">
 										<option>세부 선택</option>  
 										<option>VIP 등급용</option>
 										<option selected="selected">일반 등급용</option>

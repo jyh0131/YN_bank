@@ -15,7 +15,24 @@ public class planUpdateHandler implements CommandHandler {
 		String planDetail = req.getParameter("planDetail");
 		String planName = req.getParameter("planName");
 		String planDesc = req.getParameter("planDesc");
-		String planDiv = req.getParameter("planDiv");
+		String planFor = req.getParameter("planFor");
+		String planForDetail = req.getParameter("planForDetail");
+		String planDiv = "";
+		String planDiv1 ="";
+		String planDiv2 = "";
+		   
+		if(planFor.equals("기업 고객용")) {
+			planDiv1 = "B";
+		}else if(planFor.equals("일반 고객용")) {
+			planDiv1 = "C";
+		}
+		if(planForDetail.equals("VIP 등급용")) {
+			planDiv2 = "V";
+		}else if(planForDetail.equals("일반 등급용")) {
+			planDiv2 = "N";
+		}
+		
+		planDiv = planDiv1 + planDiv2;
 		
 		Plan plan = new Plan(planCode, planDetail, planName, planDesc, planDiv);
 		service.editPlan(plan);  

@@ -1,17 +1,9 @@
 package com.yi.handler.emp;
 
-import java.io.File;
-import java.io.PrintWriter;
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.yi.dto.Department;
 import com.yi.dto.Employee;
 import com.yi.mvc.CommandHandler;

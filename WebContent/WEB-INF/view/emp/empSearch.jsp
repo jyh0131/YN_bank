@@ -11,146 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
+<link href="../listCSS.css" rel="stylesheet" />
 </head>
-<style>
-		* { font-family: 'Noto Sans KR', sans-serif; }
-		div#search {
-			width: 900px;
-			margin: 50px auto;
-			text-align: center;
-		}
-		
-		h2#menuLocation { width: 200px; height: 60px;  
-						  line-height: 60px; 
-						  margin: 0 500px;      
-						  border-bottom: 2px solid #e9ebec;}  
-		
-		div#search select {
-			width: 200px; height : 30px;
-			border: none;
-			font-size: 16px;
-			border: 1px solid goldenrod;;
-		}
-		
-		fieldset { position: relative;  
-				   top:10px; 
-		 		   display: inline-block;  
-		 		   padding: 0 0 0 40px;  
-		 		   background: #fff;  
-		 		   border: none;  
-		 		   border-radius: 5px; } 
-		 		   
-		input, button { position: relative;  
-						width: 200px;  height: 35px;  
-						padding: 0;  
-						display: inline-block;  
-						float: left; }
-		input {  color: #666;  
-		 		 z-index: 2; 
-		 		 border:none;  
-		 		 border-bottom: 1px solid goldenrod; }
-		input:focus {  outline: 0 none; } 
-
-	
-		button { z-index: 1;  
-				 width: 40px;  
-				 border: 0 none;  
-				 background: goldenrod;  
-				 cursor: pointer;  
-				 border-radius: 0 5px 5px 0;
-				 background-image: url("${pageContext.request.contextPath}/images/search.png");
-				 background-size: 25px; 
-				 background-repeat: no-repeat; 
-				 background-position: center;}
-		.fa-search { font-size: 1.4rem;  
-					 color: #29abe2;  
-					 z-index: 3;  
-					 top: 25%;  }
-		span#guide { font-weight: bold; 
-					 font-size: 15px;    
-					  }
-		
-		div#table {
-			width: 900px;
-			margin: 20px auto;
-		}
-		
-		div#table table {
-			border-collapse: collapse; 
-		}
-		
-		div#table th, td {
-			width: 200px; 
-			height: 30px;
-			text-align: center;
-			font-size: 15px;
-		}
-		
-		div#table tr:nth-child(odd) {
-			width: 200px; 
-			height: 30px;
-			text-align: center;
-			background: gainsboro;
-			font-size: 15px;
-		}
-		
-		div#table tr:hover td { background: goldenrod;}
-	#btnNone{
-	   margin-left:500px;
-	   width:150px;
-	   border:2px solid goldenrod;
-	   border-radius: 10px;
-	   background: none;
-	}	
-	#btnNone:hover {
-	  background: goldenrod;
-	  font-weight: bold;
-}
-
-  div#table th.thTel{
-      width: 300px;
-   }
-  span#coutOfEmp{
-      width:300px;
-      margin-left:500px;
-      font-weight: bold; 
-	  font-size: 15px;
-  }
-  span#avgSalary{
-      width:300px;
-      height:30px;
-      margin-left:100px; 
-      margin-bottom:0;
-      font-weight: bold; 
-	  font-size: 15px;
-  }
-  
-  /* 페이징 중앙 위치 처리 */	
-		div.sorter { height: 50px; margin-top: 20px;}
-		div.sorter ul.pagination {           
-			float:right; position:relative; left:-45%;     
-		}                
-		div.sorter ul.pagination li {     
-		float:left; position:relative; margin-right:20px; left:40%;        
-		}         
-		div.sorter ul.pagination li a {         
-			display: block;
-			width: 30px; 
-			height: 30px;              
-			border-radius: 10px;        
-			line-height: 30px;  
-			text-align: center;     
-			font-weight: bold;
-		}          
-		    
-		div#table tr:hover td { background: goldenrod;}
-       /*금액 오른쪽 정렬*/
-		div#table td.alright{
-		  text-align: right;
-		  padding-right:10px;
-		}
-  
-</style>
 <script>
 
     
@@ -321,7 +183,9 @@
 					    		//console.log(res.employee);
 					    	
 				        getAjaxData(res.paging,res.employee);
-			    }} });
+			      }
+			  } 
+		  });
 			  break; 
 			case "사원이름":
 					$.ajax({
@@ -337,7 +201,9 @@
 					    		//console.log(res.employee);
 					    	
 				        getAjaxData(res.paging,res.list);
-			    }} });
+			      }
+			  } 
+		  });
 			  break;  
 			case "부서(인사 or 고객)":
 				$.ajax({
@@ -354,7 +220,9 @@
 				    		//console.log(res.employee);
 				    	
 			        getAjaxData(res.paging,res.list);
-		    }} });
+		          }
+		       } 
+		   });
 			  break;  	
 			case "직급":
 				$.ajax({
@@ -370,9 +238,11 @@
 				    		//console.log(res.employee);
 				    	
 			        getAjaxData(res.paging,res.list);
-		    }} });
+		       }
+			}
+	    });
 			  break;
-		  }
+	 }
 		  
 	  }) //버튼 이벤트 끝나는 것 
 

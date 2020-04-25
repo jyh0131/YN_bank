@@ -42,9 +42,7 @@ public class custTSearchHandler implements CommandHandler {
 			    	//현재 페이지가 1이 아니면 첫 페이지를 계산해서 불러옴 (10, 20, 30...) 부터 10개 리스트 불러옴
 			    	startRow = (paging.getPageNo()-1)*10;
 			    } 
-			
-			//List<Customer> list = service.showCustomers();
-			
+		
 			List<Customer> listForBal = service.showCustomerWhoHas11Acc(startRow, paging.getPageSize());
 			
 			
@@ -55,6 +53,8 @@ public class custTSearchHandler implements CommandHandler {
 
 			return "/WEB-INF/view/cust/custTSearch.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
+			
+			
 			String search = req.getParameter("search"); //검색어
 			String div = req.getParameter("div"); //검색 조건
 			
@@ -62,7 +62,7 @@ public class custTSearchHandler implements CommandHandler {
 			switch(div) {
 			case "고객 코드":   
 				List<Customer> list = service.showCustomerWHas11AccByCode(search);
-				if(list.size()==0) {  
+				if(list == null ) {  
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om = new ObjectMapper();
@@ -85,7 +85,7 @@ public class custTSearchHandler implements CommandHandler {
 				List<Customer> list2 = new ArrayList<>();
 				list2 = service.showCustomerWHas11AccByName(search);
 				 
-				if(list2.size()==0) {
+				if(list2 == null) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om2 = new ObjectMapper();
@@ -106,7 +106,7 @@ public class custTSearchHandler implements CommandHandler {
 			case "연락처":
 				List<Customer> list3 = new ArrayList<>();
 				list3 = service.showCustomerWHas11AccByTel(search);
-				if(list3.size() == 0) {
+				if(list3 == null) {
 					HashMap<String,String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om3 = new ObjectMapper();

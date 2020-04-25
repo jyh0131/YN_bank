@@ -109,6 +109,77 @@
   }
 </style>
 <script>
+
+function getAjaxData(errMessage){
+	var div = $("#searchMenu option:selected").val();
+    var search = $("input[name='search']").val();
+
+    var $table = $("<table>").addClass("tableList");
+
+    var $menutr = $("<tr>");
+    var $menutd1 = $("<td>").html("사원코드");
+    var $menutd2 = $("<td>").html("사원이름");
+    var $menutd3 = $("<td>").html("직책");
+    var $menutd4 = $("<td>").html("권한");
+    var $menutd5 = $("<td>").html("월급");
+    var $menutd6 = $("<td>").html("연락처");
+    var $menutd7 = $("<td>").html("아이디");
+    var $menutd8 = $("<td>").html("부서");
+    $menutr.append($menutd1);
+    $menutr.append($menutd2);
+    $menutr.append($menutd3);
+    $menutr.append($menutd4);
+    $menutr.append($menutd5);
+    $menutr.append($menutd6);
+    $menutr.append($menutd7);
+    $menutr.append($menutd8);
+
+
+	  $.ajax({
+	    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
+	    type: "post", 
+	    data: {"search":search,"div":div},
+	    dataType: "json",
+	    success : function(res){
+	    	console.log(res);
+	    	if(res.error == "notExist"){
+	    		alert(errMessage);
+	    	}else{
+	    		
+	    		$(".tableList").remove();
+
+	    		$(res).each(function(i,obj){
+	    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
+	    			var $td1 = $("<td>").html(obj.empCode);
+	    			var $td2 = $("<td>").html(obj.empName);
+	    			var $td3 = $("<td>").html(obj.empTitle);
+	    			var $td4 = $("<td>").html(obj.empAuth);
+	    			var $td5 = $("<td>").html(obj.empSalary);
+	    			var $td6 = $("<td>").html(obj.empTel);
+	    			var $td7 = $("<td>").html(obj.empId);
+	    			var $td8 = $("<td>").html(obj.dept.deptName);
+               
+	    			$tr.append($td1);
+	    			$tr.append($td2);
+	    			$tr.append($td3);
+	    			$tr.append($td4);
+	    			$tr.append($td5);
+	    			$tr.append($td6);
+	    			$tr.append($td7);
+	    			$tr.append($td8);
+
+	    			
+	    			$table.append($menutr);
+	    			$table.append($tr);
+	    		})
+	    		//테이블 div
+	    		$("#table").append($table);
+	    	}
+	    }
+	  
+  })
+}
+   
    $(function(){
 	 //선택한 메뉴 보이도록 
 		$("#empAdd").show();
@@ -118,11 +189,9 @@
 		  $("#searchForEmp").val("");
 	  })
 	  $("button").eq(0).click(function(){
-		  var div = $("#searchMenu option:selected").val();
-	      var search = $("input[name='search']").val();
-    //			alert(search);
-    
-    
+		var div = $("#searchMenu option:selected").val();
+	    var search = $("input[name='search']").val();
+   
         var $table = $("<table>").addClass("tableList");
 
         var $menutr = $("<tr>");
@@ -142,8 +211,6 @@
         $menutr.append($menutd6);
         $menutr.append($menutd7);
         $menutr.append($menutd8);
-
-        
         
 		  switch(div) {
 			case "검색구분":
@@ -152,193 +219,24 @@
 			 
 			case "사원번호":
 				
+				getAjaxData("해당 사원번호를 가진 퇴사 사원이 존재하지 않습니다.");
 				
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
-				    type: "post", 
-				    data: {"search":search,"div":div},
-				    dataType: "json",
-				    success : function(res){
-				    	console.log(res);
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 사원입니다. 사원번호를 확인해주세요");
-				    	}else{
-				    		
-				    		$(".tableList").remove();
-		
-				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
-				    			var $td1 = $("<td>").html(obj.empCode);
-				    			var $td2 = $("<td>").html(obj.empName);
-				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
-				    			var $td6 = $("<td>").html(obj.empTel);
-				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html(obj.dept.deptName);
-	                         
-				    			$tr.append($td1);
-				    			$tr.append($td2);
-				    			$tr.append($td3);
-				    			$tr.append($td4);
-				    			$tr.append($td5);
-				    			$tr.append($td6);
-				    			$tr.append($td7);
-				    			$tr.append($td8);
-
-				    			
-				    			$table.append($menutr);
-				    			$table.append($tr);
-				    		})
-				    		//테이블 div
-				    		$("#table").append($table);
-				    	}
-				    }
-				  
-			    })
 			  break; 
 			case "사원이름":
 				
+				getAjaxData("해당 조건을 만족하는 사원이 없습니다.");
 				
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
-				    type: "post", 
-				    data: {"search":search,"div":div},
-				    dataType: "json",
-				    success : function(res){
-				    	console.log(res);
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 사원입니다");
-				    	
-				    	}else{
-				    		
-				    		$(".tableList").remove();
-				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
-				    			var $td1 = $("<td>").html(obj.empCode);
-				    			var $td2 = $("<td>").html(obj.empName);
-				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
-				    			var $td6 = $("<td>").html(obj.empTel);
-				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html(obj.dept.deptName);
-	                         
-				    			$tr.append($td1);
-				    			$tr.append($td2);
-				    			$tr.append($td3);
-				    			$tr.append($td4);
-				    			$tr.append($td5);
-				    			$tr.append($td6);
-				    			$tr.append($td7);
-				    			$tr.append($td8);
-
-				    			
-				    			
-				    			$table.append($tr);
-				    		})
-				    		//테이블 div
-				    		$("#table").append($table);
-				    	}
-				    }
-				  
-			    })
 			  break;  
 			case "부서(인사 or 고객)":
 				
-				
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
-				    type: "post", 
-				    data: {"search":search,"div":div},
-				    dataType: "json",
-				    success : function(res){
-				    	console.log(res);
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 부서입니다.");
-				    	}else{
-				    		
-				    		$(".tableList").remove();
-				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
-				    			var $td1 = $("<td>").html(obj.empCode);
-				    			var $td2 = $("<td>").html(obj.empName);
-				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
-				    			var $td6 = $("<td>").html(obj.empTel);
-				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html(obj.dept.deptName);
-	                         
-				    			$tr.append($td1);
-				    			$tr.append($td2);
-				    			$tr.append($td3);
-				    			$tr.append($td4);
-				    			$tr.append($td5);
-				    			$tr.append($td6);
-				    			$tr.append($td7);
-				    			$tr.append($td8);
-
-				    			
-				    			
-				    			$table.append($tr);
-				    		})
-				    		//테이블 div
-				    		$("#table").append($table);
-				    	}
-				    }
-				  
-			    })
+				getAjaxData("해당 부서가 존재하지 않거나 조건을 만족하는 데이터가 없습니다.");
+			
 			  break;  
 			
 			case "직급":
 				
+				getAjaxData("해당 직급이 존재하지 않거나 조건을 만족하는 데이터가 없습니다.");
 				
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empSearchRetired.do",
-				    type: "post", 
-				    data: {"search":search,"div":div},
-				    dataType: "json",
-				    success : function(res){
-				    	console.log(res);
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 직급입니다");
-				    	}else{
-				    		
-				    		$(".tableList").remove();
-				    		$table.append($menutr);
-				    		$(res).each(function(i,obj){
-				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
-				    			var $td1 = $("<td>").html(obj.empCode);
-				    			var $td2 = $("<td>").html(obj.empName);
-				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.empAuth);
-				    			var $td5 = $("<td>").html(obj.empSalary);
-				    			var $td6 = $("<td>").html(obj.empTel);
-				    			var $td7 = $("<td>").html(obj.empId);
-				    			var $td8 = $("<td>").html(obj.dept.deptName);
-	                         
-				    			$tr.append($td1);
-				    			$tr.append($td2);
-				    			$tr.append($td3);
-				    			$tr.append($td4);
-				    			$tr.append($td5);
-				    			$tr.append($td6);
-				    			$tr.append($td7);
-				    			$tr.append($td8);
-
-				    			
-				    			
-				    			$table.append($tr);
-				    		})
-				    		//테이블 div
-				    		$("#table").append($table);
-				    	}
-				    }
-				  
-			    })
 			  break;
 		  }
 		  
@@ -352,9 +250,7 @@
 		  location.href="${pageContext.request.contextPath}/emp/empDetailForRetired.do?empCode="+OneCode;
 	  })
 	  
-	   
    })
-
 
 </script>
 <body>

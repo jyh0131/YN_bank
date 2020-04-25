@@ -115,25 +115,114 @@
 		
 </style>
 <script>
+
+var ajax;
+var div;
+var search;
+
+function getAjaxData(ajaxPaging,ajaxKey){
+	div = $("#searchMenu option:selected").val();
+    search = $("input[name='search']").val();
+
+    var $table = $("<table>").addClass("tableList");
+
+    var $menutr = $("<tr>");
+    var $menutd1 = $("<td>").html("사원코드");
+    var $menutd2 = $("<td>").html("사원이름");
+    var $menutd3 = $("<td>").html("직책");
+    var $menutd4 = $("<td>").html("부서");
+    var $menutd5 = $("<td>").html("권한");
+   
+    $menutr.append($menutd1);
+    $menutr.append($menutd2);
+    $menutr.append($menutd3);
+    $menutr.append($menutd4);
+    $menutr.append($menutd5);
+    
+	  $.ajax({
+	    url: "${pageContext.request.contextPath}/emp/empAuth.do",
+	    type: "post", 
+	    data: {"search":search,"div":div},
+	    dataType: "json",
+	    success : function(res){
+	    	console.log(res);
+	    	if(res.error == "notExist"){
+	    		alert("존재하지 않는 사원입니다. 사원번호를 확인해주세요");
+	    	}else{
+	    		
+	    		$(".tableList").remove();   
+	    		$table.append($menutr);
+	    		$(ajaxKey).each(function(i,obj){
+	    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
+	    			var $td1 = $("<td>").html(obj.empCode);
+	    			var $td2 = $("<td>").html(obj.empName);
+	    			var $td3 = $("<td>").html(obj.empTitle);
+	    			var $td4 = $("<td>").html(obj.dept.deptName);
+	    			var $td5 = $("<td>").html(obj.empAuth);
+               
+	    			$tr.append($td1);
+	    			$tr.append($td2);
+	    			$tr.append($td3);
+	    			$tr.append($td4);
+	    			$tr.append($td5);
+	    			
+	    		
+	    			$table.append($tr);
+	    		})
+	    		//테이블 div
+	    		$("#table").append($table);
+	    		      
+	    		$(".sorter").remove();
+	    		$divSorter = $("<div>").addClass("sorter");
+	    		$ulPaging = $("<ul>").addClass("pagination");
+	    		$liPaging1 = $("<li>");
+	    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+	    		
+	    		$liPaging1.append($aPaging1);
+	    		$ulPaging.append($liPaging1);
+	    		
+	    		
+	    		for(var i=ajaxPaging.startPageNo; i<=ajaxPaging.endPageNo; i++){
+	    			$liPagingRepeat1 = $("<li>").addClass("active");
+		    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+		    		$liPagingRepeat2 = $("<li>");
+		    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+		    		
+		    		$liPagingRepeat1.append($aPagingRepeat1);
+		    		
+		    		$ulPaging.append($liPagingRepeat1);
+	    		}
+	    		
+	    		$liPaging2 = $("<li>");
+	    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+	    		
+	    		$liPaging2.append($aPaging2);
+	    		$ulPaging.append($liPaging2);
+	    		
+	    		$divSorter.append($ulPaging);
+	    		
+	    		$("#table").append($divSorter);
+	    		ajax = true;
+	    	}
+	    }
+	  
+  })
+	
+}
+
    $(function(){
 	   //목록보이기
 	  $("#empAuthAdd").show();
-	   
-	   
-	  var ajax;
-	   var div;
-	   var search;
+	  
 	  $("select").on("change",function(){
 		  $(".tableList").load(location.href+" .tableList");
 		  $("#searchForEmp").val("");
 	      $(".pagination").load(location.href+" .pagination li");   
 	  })
 	  $("button").eq(0).click(function(){
-		  div = $("#searchMenu option:selected").val();
-	      search = $("input[name='search']").val();
-    //			alert(search);
-       // console.log(div+":"+search);
-    
+		div = $("#searchMenu option:selected").val();
+	    search = $("input[name='search']").val();
+ 
         var $table = $("<table>").addClass("tableList");
 
         var $menutr = $("<tr>");
@@ -142,7 +231,6 @@
         var $menutd3 = $("<td>").html("직책");
         var $menutd4 = $("<td>").html("부서");
         var $menutd5 = $("<td>").html("권한");
-    
        
         $menutr.append($menutd1);
         $menutr.append($menutd2);
@@ -150,298 +238,79 @@
         $menutr.append($menutd4);
         $menutr.append($menutd5);
   
-        
-        
 		  switch(div) {
 			case "검색구분":
 				alert("검색 조건을 선택해주세요.");
 				  break;
 			 
 			case "사원번호":
+					$.ajax({
+					    url: "${pageContext.request.contextPath}/emp/empAuth.do",
+					    type: "post", 
+					    data: {"search":search,"div":div},
+					    dataType: "json",
+					    success : function(res){
+					    	//console.log(res);
+					    	if(res.error == "notExist"){   
+					    		alert("검색한 사원번호와 일치하는 사원이 존재하지 않습니다.");
+					    	}else{
+					    		//console.log(res.employee);
+					    	
+				        getAjaxData(res.paging,res.employee);
+			    }} });
 				
-				
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empAuth.do",
-				    type: "post", 
-				    data: {"search":search,"div":div},
-				    dataType: "json",
-				    success : function(res){
-				    	console.log(res);
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 사원입니다. 사원번호를 확인해주세요");
-				    	}else{
-				    		
-				    		$(".tableList").remove();   
-		    
-				    		$(res.employee).each(function(i,obj){
-				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
-				    			var $td1 = $("<td>").html(obj.empCode);
-				    			var $td2 = $("<td>").html(obj.empName);
-				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.dept.deptName);
-				    			var $td5 = $("<td>").html(obj.empAuth);
-	                         
-				    			$tr.append($td1);
-				    			$tr.append($td2);
-				    			$tr.append($td3);
-				    			$tr.append($td4);
-				    			$tr.append($td5);
-				    			
-				    			$table.append($menutr);
-				    			$table.append($tr);
-				    		})
-				    		//테이블 div
-				    		$("#table").append($table);
-				    		      
-				    		$(".sorter").remove();
-				    		$divSorter = $("<div>").addClass("sorter");
-				    		$ulPaging = $("<ul>").addClass("pagination");
-				    		$liPaging1 = $("<li>");
-				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
-				    		
-				    		$liPaging1.append($aPaging1);
-				    		$ulPaging.append($liPaging1);
-				    		
-				    		
-				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
-				    			$liPagingRepeat1 = $("<li>").addClass("active");
-					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
-					    		$liPagingRepeat2 = $("<li>");
-					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
-					    		
-					    		$liPagingRepeat1.append($aPagingRepeat1);
-					    		
-					    		$ulPaging.append($liPagingRepeat1);
-				    		}
-				    		
-				    		$liPaging2 = $("<li>");
-				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
-				    		
-				    		$liPaging2.append($aPaging2);
-				    		$ulPaging.append($liPaging2);
-				    		
-				    		$divSorter.append($ulPaging);
-				    		
-				    		$("#table").append($divSorter);
-				    		ajax = true;
-				    	}
-				    }
-				  
-			    })
 			  break; 
 			case "사원이름":
+					$.ajax({
+					    url: "${pageContext.request.contextPath}/emp/empAuth.do",
+					    type: "post", 
+					    data: {"search":search,"div":div},
+					    dataType: "json",
+					    success : function(res){
+					    	//console.log(res);
+					    	if(res.error == "notExist"){   
+					    		alert("조건을 만족하는 사원이 없습니다.");
+					    	}else{
+					    		//console.log(res.employee);
+					    	
+				        getAjaxData(res.paging,res.list);
+			    }} });
 				
-				
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empAuth.do",
-				    type: "post", 
-				    data: {"search":search,"div":div},
-				    dataType: "json",
-				    success : function(res){
-				    	console.log(res);
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 사원입니다");
-				    	
-				    	}else{
-				    		
-				    		$(".tableList").remove();
-				    		$table.append($menutr);
-				    		$(res.list).each(function(i,obj){
-				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
-				    			var $td1 = $("<td>").html(obj.empCode);
-				    			var $td2 = $("<td>").html(obj.empName);
-				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.dept.deptName);
-				    			var $td5 = $("<td>").html(obj.empAuth);
-	                         
-				    			$tr.append($td1);
-				    			$tr.append($td2);
-				    			$tr.append($td3);
-				    			$tr.append($td4);
-				    			$tr.append($td5);
-				    			
-				    			
-				    			$table.append($tr);
-				    		})
-				    		//테이블 div
-				    		$("#table").append($table);
-				    		
-				    		$(".sorter").remove();
-				    		$divSorter = $("<div>").addClass("sorter");
-				    		$ulPaging = $("<ul>").addClass("pagination");
-				    		$liPaging1 = $("<li>");
-				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
-				    		
-				    		$liPaging1.append($aPaging1);
-				    		$ulPaging.append($liPaging1);
-				    		
-				    		
-				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
-				    			$liPagingRepeat1 = $("<li>").addClass("active");
-					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
-					    		$liPagingRepeat2 = $("<li>");
-					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
-					    		
-					    		$liPagingRepeat1.append($aPagingRepeat1);
-					    		
-					    		$ulPaging.append($liPagingRepeat1);
-				    		}
-				    		
-				    		$liPaging2 = $("<li>");
-				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
-				    		
-				    		$liPaging2.append($aPaging2);
-				    		$ulPaging.append($liPaging2);
-				    		
-				    		$divSorter.append($ulPaging);
-				    		
-				    		$("#table").append($divSorter);
-				    		ajax = true;
-				    	}
-				    }
-				  
-			    })
 			  break;  
 			case "부서(인사 or 고객)":
-				
-				
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empAuth.do",
-				    type: "post", 
-				    data: {"search":search,"div":div},
-				    dataType: "json",
-				    success : function(res){
-				    	console.log(res);
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 부서입니다.");
-				    	}else{
-				    		
-				    		$(".tableList").remove();
-				    		$table.append($menutr);
-				    		$(res.list3).each(function(i,obj){
-				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
-				    			var $td1 = $("<td>").html(obj.empCode);
-				    			var $td2 = $("<td>").html(obj.empName);
-				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.dept.deptName);
-				    			var $td5 = $("<td>").html(obj.empAuth);
-	                         
-				    			$tr.append($td1);
-				    			$tr.append($td2);
-				    			$tr.append($td3);
-				    			$tr.append($td4);
-				    			$tr.append($td5);
-				    			
-				    			
-				    			$table.append($tr);
-				    		})
-				    		//테이블 div
-				    		$("#table").append($table);
-				    		
-				    		$(".sorter").remove();
-				    		$divSorter = $("<div>").addClass("sorter");
-				    		$ulPaging = $("<ul>").addClass("pagination");
-				    		$liPaging1 = $("<li>");
-				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
-				    		
-				    		$liPaging1.append($aPaging1);
-				    		$ulPaging.append($liPaging1);  
-				    		
-				    		
-				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
-				    			$liPagingRepeat1 = $("<li>").addClass("active");
-					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
-					    		
-					    		$liPagingRepeat1.append($aPagingRepeat1);
-					    		
-					    		$ulPaging.append($liPagingRepeat1);
-				    		}
-				    		
-				    		$liPaging2 = $("<li>");
-				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
-				    		
-				    		$liPaging2.append($aPaging2);
-				    		$ulPaging.append($liPaging2);
-				    		
-				    		$divSorter.append($ulPaging);
-				    		
-				    		$("#table").append($divSorter);
-				    		ajax = true;
-				    	}
-				    }
-				  
-			    })
-			  break;  
+					$.ajax({
+					    url: "${pageContext.request.contextPath}/emp/empSearch.do",
+					    type: "post", 
+					    data: {"search":search,"div":div},
+					    dataType: "json",
+					    success : function(res){
+					    	//console.log(res);
+					    	if(res.error == "notExist"){   
+					    		console.log(res.error);
+					    		alert("존재하지 않는 부서이거나 데이터가 존재하지 않습니다");
+					    	}else{
+					    		//console.log(res.employee);
+					    	
+				        getAjaxData(res.paging,res.list);
+			    }} });
+				  break;  	
 			
 			case "직급":
-				
-				
-				  $.ajax({
-				    url: "${pageContext.request.contextPath}/emp/empAuth.do",
+				$.ajax({
+				    url: "${pageContext.request.contextPath}/emp/empSearch.do",
 				    type: "post", 
 				    data: {"search":search,"div":div},
 				    dataType: "json",
 				    success : function(res){
-				    	console.log(res);
-				    	if(res.error == "notExist"){
-				    		alert("존재하지 않는 직급입니다");
+				    	//console.log(res);
+				    	if(res.error == "notExist"){   
+				    		alert("존재하지 않는 직급이거나 해당 직급을 가진 사원이 없습니다.");
 				    	}else{
-				    		
-				    		$(".tableList").remove();
-				    		$table.append($menutr);
-				    		$(res.list4).each(function(i,obj){
-				    			var $tr = $("<tr class='oneEmp'>").attr("data-empCode",obj.empCode);
-				    			var $td1 = $("<td>").html(obj.empCode);
-				    			var $td2 = $("<td>").html(obj.empName);
-				    			var $td3 = $("<td>").html(obj.empTitle);
-				    			var $td4 = $("<td>").html(obj.dept.deptName);
-				    			var $td5 = $("<td>").html(obj.empAuth);
-	                         
-				    			$tr.append($td1);
-				    			$tr.append($td2);
-				    			$tr.append($td3);
-				    			$tr.append($td4);
-				    			$tr.append($td5);
-				    			
-				    			
-				    			$table.append($tr);
-				    		})
-				    		//테이블 div
-				    		$("#table").append($table);
-				    		
-				    		$(".sorter").remove();
-				    		$divSorter = $("<div>").addClass("sorter");
-				    		$ulPaging = $("<ul>").addClass("pagination");
-				    		$liPaging1 = $("<li>");
-				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
-				    		
-				    		$liPaging1.append($aPaging1);
-				    		$ulPaging.append($liPaging1);
-				    		
-				    		
-				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
-				    			$liPagingRepeat1 = $("<li>").addClass("active");
-					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
-					    		
-					    		$liPagingRepeat1.append($aPagingRepeat1);
-					    		
-					    		$ulPaging.append($liPagingRepeat1);
-				    		}
-				    		
-				    		$liPaging2 = $("<li>");
-				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
-				    		
-				    		$liPaging2.append($aPaging2);
-				    		$ulPaging.append($liPaging2);
-				    		
-				    		$divSorter.append($ulPaging);
-				    		
-				    		$("#table").append($divSorter);
-				    		ajax = true;
-				    	}
-				    }
-				  
-			    })
+				    		//console.log(res.employee);
+				    	
+			        getAjaxData(res.paging,res.list);
+		      }} });
+				
 			  break;
 		  }
 		  
@@ -468,7 +337,6 @@
 				$("input[name='search']").val("");
 		  	}
 	  })
-	  
 	  
 	   //페이지 각 번호 클릭 시  
 		$(document).on("click", ".page",function() {

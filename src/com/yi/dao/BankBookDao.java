@@ -54,4 +54,10 @@ public interface BankBookDao {
 	//페이징
 	public abstract List<BankBook> showBankBooksByNormal(int startRow, int endRow) throws SQLException;
 	public abstract List<BankBook> showBankBooksByBusiness(int startRow, int endRow) throws SQLException;
+	public abstract List<BankBook> showBankBooksByAccountNum(BankBook bankbook, int startRow, int endRow) throws SQLException;
+	public abstract List<BankBook> showBankBooksByCustName(BankBook bankbook, int startRow, int endRow) throws SQLException;
+	public abstract List<BankBook> showBankBooksByPlanName(BankBook bankbook, int startRow, int endRow) throws SQLException;
+	public abstract List<BankBook> showBankBooksByDeposit(Customer customer, int startRow, int endRow) throws SQLException;
+	public abstract List<BankBook> showBankBooksBySaving(Customer customer, int startRow, int endRow) throws SQLException;
+	public abstract List<BankBook> showBankBooksByMinus(Customer customer, int startRow, int endRow) throws SQLException;
 }

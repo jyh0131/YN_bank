@@ -176,5 +176,23 @@ public class BankBookService {
 	public List<BankBook> showBankBooksByBusiness(int startRow, int endRow) throws SQLException {
 		return bankBookDao.showBankBooksByBusiness(startRow, endRow);
 	}
+	public List<BankBook> showBankBookByCustName(BankBook bankbook, int startRow, int endRow) throws SQLException {
+		return bankBookDao.showBankBooksByCustName(bankbook, startRow, endRow);
+	}
+	public List<BankBook> showBankBookByAccoutNum(BankBook bankbook, int startRow, int endRow) throws SQLException {
+		return bankBookDao.showBankBooksByAccountNum(bankbook, startRow, endRow);
+	}
+	public List<BankBook> showBankBookByPlanName(BankBook bankbook, int startRow, int endRow) throws SQLException {
+		return bankBookDao.showBankBooksByPlanName(bankbook,startRow,endRow);
+	}
+	public List<BankBook> showBankBookByDeposit(Customer customer,int startRow, int endRow) throws SQLException {
+		return bankBookDao.showBankBooksByDeposit(customer,startRow,endRow);
+	}
+	public List<BankBook> showBankBookBySaving(Customer customer,int startRow, int endRow) throws SQLException {
+		return bankBookDao.showBankBooksBySaving(customer,startRow,endRow);
+	}
+	public List<BankBook> showBankBookByMinus(Customer customer,int startRow, int endRow) throws SQLException {
+		return bankBookDao.showBankBooksByMinus(customer,startRow,endRow);
+	}
 
 }

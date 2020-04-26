@@ -134,6 +134,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function(){
+		var search;
+		var searchdiv;
+		var ajax;
 		$("#bankbookAdd").show();
 		$("#bankbookList").show();
 		$("button").eq(0).click(function() {
@@ -143,15 +146,15 @@
 				$("input[name='search']").val("");
 				break;
 			case "계좌번호":
-				var div = $("#searchMenu option:selected").val();
-				var search = $("input[name='search']").val();
+				searchdiv = $("#searchMenu option:selected").val();
+				search = $("input[name='search']").val();
 				if(search=="") {
 					alert("계좌번호를 입력하세요");
 					return;
 				}
 				$.ajax({
 					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv=${custdiv}",
-				    data: {search:search,div:div},
+					data: {search:search,searchdiv:searchdiv},
 				    type: "POST", 
 				    dataType: "json",
 				    success : function(res) {
@@ -161,8 +164,8 @@
 				    	}
 				    	else {
 				    		console.log(res);
-				    		$("#table table").remove();
-				    		var table = $("<table>");
+				    		$(".tableList").remove();
+				    		var table = $("<table>").addClass("tableList");
 				    		var tr = $("<tr>");
 				    		var th1 = $("<th>").html("계좌번호");
 				    		var th2 = $("<th>").html("고객이름");
@@ -172,7 +175,7 @@
 				    		var th6 = $("<th>").html("이자율");
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
 				    		table.append(tr);
-							$(res).each(function(i, obj) {
+							$(res.list).each(function(i, obj) {
 								var tr = $("<tr>").attr("data-accountNum",obj.accountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = []
 								a[0] = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
@@ -193,20 +196,52 @@
 								table.append(tr);
 							})
 							$("#table").append(table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	}
 				    }
 				})
 				break;
 			case "고객이름":
-				var div = $("#searchMenu option:selected").val();
-				var search = $("input[name='search']").val();
+				searchdiv = $("#searchMenu option:selected").val();
+				search = $("input[name='search']").val();
 				if(search=="") {
 					alert("고객 이름을 입력하세요");
 					return;
 				}
 				$.ajax({
 					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv=${custdiv}",
-				    data: {search:search,div:div},
+					data: {search:search,searchdiv:searchdiv},
 				    type: "POST", 
 				    dataType: "json",
 				    success : function(res) {
@@ -216,8 +251,8 @@
 				    	}
 				    	else {
 				    		console.log(res);
-				    		$("#table table").remove();
-				    		var table = $("<table>");
+				    		$(".tableList").remove();
+				    		var table = $("<table>").addClass("tableList");;
 				    		var tr = $("<tr>");
 				    		var th1 = $("<th>").html("계좌번호");
 				    		var th2 = $("<th>").html("고객이름");
@@ -227,7 +262,7 @@
 				    		var th6 = $("<th>").html("이자율");
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
 				    		table.append(tr);
-				    		$(res).each(function(i, obj) {
+				    		$(res.list).each(function(i, obj) {
 								var tr = $("<tr>").attr("data-accountNum",obj.accountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = []
 								a[0] = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
@@ -248,20 +283,52 @@
 								table.append(tr);
 							})
 							$("#table").append(table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	}
 				    }
 				})
 				break;
 			case "상품명":
-				var div = $("#searchMenu option:selected").val();
-				var search = $("input[name='search']").val();
+				searchdiv = $("#searchMenu option:selected").val();
+				search = $("input[name='search']").val();
 				if(search=="") {
 					alert("상품명을 입력하세요");
 					return;
 				}
 				$.ajax({
 					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv=${custdiv}",
-				    data: {search:search,div:div},
+					data: {search:search,searchdiv:searchdiv},
 				    type: "POST", 
 				    dataType: "json",
 				    success : function(res) {
@@ -271,8 +338,8 @@
 				    	}
 				    	else {
 				    		console.log(res);
-				    		$("#table table").remove();
-				    		var table = $("<table>");
+				    		$(".tableList").remove();
+				    		var table = $("<table>").addClass("tableList");;
 				    		var tr = $("<tr>");
 				    		var th1 = $("<th>").html("계좌번호");
 				    		var th2 = $("<th>").html("고객이름");
@@ -282,7 +349,7 @@
 				    		var th6 = $("<th>").html("이자율");
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
 				    		table.append(tr);
-				    		$(res).each(function(i, obj) {
+				    		$(res.list).each(function(i, obj) {
 								var tr = $("<tr>").attr("data-accountNum",obj.accountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = []
 								a[0] = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
@@ -303,20 +370,52 @@
 								table.append(tr);
 							})
 							$("#table").append(table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	}
 				    }
 				})
 				break;
 			case "통장상품":
-				var div = $("#searchMenu option:selected").val();
-				var search = $("input[name='search']").val();
+				searchdiv = $("#searchMenu option:selected").val();
+				search = $("input[name='search']").val();
 				if(search=="") {
 					alert("통장상품(예금,적금,마이너스 중 하나)을 입력하세요");
 					return;
 				}
 				$.ajax({
 					url: "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?custdiv=${custdiv}",
-				    data: {search:search,div:div},
+				    data: {search:search,searchdiv:searchdiv},
 				    type: "POST", 
 				    dataType: "json",
 				    success : function(res) {
@@ -331,8 +430,8 @@
 				    	}
 				    	else {
 				    		console.log(res);
-				    		$("#table table").remove();
-				    		var table = $("<table>");
+				    		$(".tableList").remove();
+				    		var table = $("<table>").addClass("tableList");;
 				    		var tr = $("<tr>");
 				    		var th1 = $("<th>").html("계좌번호");
 				    		var th2 = $("<th>").html("고객이름");
@@ -342,7 +441,7 @@
 				    		var th6 = $("<th>").html("이자율");
 				    		tr.append(th1).append(th2).append(th3).append(th4).append(th5).append(th6);
 				    		table.append(tr);
-				    		$(res).each(function(i, obj) {
+				    		$(res.list).each(function(i, obj) {
 								var tr = $("<tr>").attr("data-accountNum",obj.accountNum).attr("data-custName",obj.custCode.custName).addClass("pickedOne");
 								var a = []
 								a[0] = $("<a>").html(obj.accountNum).attr("href","${pageContext.request.contextPath}/bankwork/bankbook/detail.do?accountnum="+obj.accountNum+"&custname="+obj.custCode.custName);
@@ -363,16 +462,49 @@
 								table.append(tr);
 							})
 							$("#table").append(table);
+				    		
+				    		$(".sorter").remove();
+				    		$divSorter = $("<div>").addClass("sorter");
+				    		$ulPaging = $("<ul>").addClass("pagination");
+				    		$liPaging1 = $("<li>");
+				    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+				    		
+				    		$liPaging1.append($aPaging1);
+				    		$ulPaging.append($liPaging1);
+				    		
+				    		
+				    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+				    			$liPagingRepeat1 = $("<li>").addClass("active");
+					    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		$liPagingRepeat2 = $("<li>");
+					    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+					    		
+					    		$liPagingRepeat1.append($aPagingRepeat1);
+					    		
+					    		$ulPaging.append($liPagingRepeat1);
+				    		}
+				    		
+				    		$liPaging2 = $("<li>");
+				    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+				    		
+				    		$liPaging2.append($aPaging2);
+				    		$ulPaging.append($liPaging2);
+				    		
+				    		$divSorter.append($ulPaging);
+				    		
+				    		$("#table").append($divSorter);
+				    		ajax = true;
 				    	}
 				    }
 				})
 				break;
 			}
 		})
-		$("select").on("change", function() {
-			$("table").load(location.href + " table");
-			$("input[name='search']").val("");
-		})
+		$("select").on("change",function(){
+		  $(".tableList").load(location.href+" .tableList tr");
+		  $("input[name='search']").val("");
+		  $(".pagination").load(location.href+" .pagination li");
+	  }) 
 		
 		$(".pickedOne").click(function(){
 		  var accountNumForPick = $(this).attr("data-accountNum");
@@ -392,29 +524,93 @@
 		$("#btnMenu2").click(function() {
 			location.href = "${pageContext.request.contextPath}/bankbook/bankbook/terminationList.do?custdiv=${custdiv}";
 		})
-		 //페이지 각 번호 클릭 시  
 		$(document).on("click", ".page",function() {
-			var page = $(this).html();
-	        location.href = "${pageContext.request.contextPath}/bankwork/bankwork/mgn.do?div=0&page="+page;
+			if(ajax) {
+				var page = $(this).html();
+				ajax = false;
+		        location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page+"&search="+search+"&searchdiv="+searchdiv;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = $(this).html();
+					searchdiv = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page+"&search="+search+"&searchdiv="+searchdiv;
+				}
+				else {
+					var page = $(this).html();
+			        location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page;
+				}
+			}
+			
 		})   
 		
 		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
 		$(document).on("click", ".prev" , function(){
-			var page = ${paging.pageNo}-1;
-			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
-			if($(".page").size()==1){
-				return false;       
+			if(ajax) {
+				var page = ${paging.pageNo}-1;
+				//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+				if($(".page").size()==1){
+					return false;       
+				}
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page+"&search="+search+"&searchdiv="+searchdiv;
 			}
-			location.href = "${pageContext.request.contextPath}/bankwork/bankwork/mgn.do?div=0&page="+page;
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}-1;
+					if($(".page").size()==1){
+						return false;       
+					}
+					searchdiv = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page+"&search="+search+"&searchdiv="+searchdiv;
+				}
+				else {
+					var page = ${paging.pageNo}-1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){
+						return false;       
+					}
+					location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page;
+				}
+			}
+			
 		})  
 		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)    
 		$(document).on("click", ".next" , function(){
-			var page = ${paging.pageNo}+1;
-			//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
-			if($(".page").size()==1){         
-				return false;   
-			}       
-			location.href = "${pageContext.request.contextPath}/bankwork/bankwork/mgn.do?div=0&page="+page;
+			if(ajax) {
+				var page = ${paging.pageNo}+1;
+				if($(".page").size()==1){         
+					return false;   
+				} 
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page+"&search="+search+"&searchdiv="+searchdiv;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}+1;
+					if($(".page").size()==1){         
+						return false;   
+					} 
+					searchdiv = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					if($(".page").size()==1){         
+						return false;   
+					}
+					location.href = "${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page+"&search="+search+"&searchdiv="+searchdiv;
+				}
+				else {
+					var page = ${paging.pageNo}+1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){         
+						return false;   
+					}       
+					location.href ="${pageContext.request.contextPath}/bankwork/bankbook/mgn.do?div=${custdiv}&page="+page;
+				}
+			}
+			
 		})
 		   
 		$(document).on("mouseover", ".page", function(){
@@ -438,12 +634,27 @@
 		
 		$(document).on("mouseout", ".next", function(){  
 			$(this).css("background", "#fff");        
-		})      
+		})
+		var isPagingAjax = "${pagingAjax}"=="true"?true:false;
 	})
 </script>
 </head>
 <body>
 	<section>
+	<c:if test="${pagingAjax=='true'}">
+		<script>
+			$(function(){
+				var search = "${search}";
+				var div = "${searchdiv}";
+				$("#searchMenu option").each(function(i, obj) {
+					if($(obj).val()==div) {
+						$(obj).prop("selected",true);
+					}
+				})
+				$("input[name='search']").val(search);
+			})
+		</script>
+	</c:if>
 	<jsp:include page="../../include/menu.jsp"/>
 	<h2 id="menuLocation">일반 고객 통장 조회</h2>
 		<div id="search">
@@ -465,7 +676,7 @@
 		<button id="btnMenu2">해지 계좌 조회</button>
 		<div id="table">
 		<span><i class="fas fa-exclamation-circle"></i></span><span id="guide">통장 세부정보를 보려면 통장을 클릭하세요.</span>
-			<table>
+			<table class="tableList">
 				<tr>
 					<th>계좌번호</th>
 					<th>고객이름</th>

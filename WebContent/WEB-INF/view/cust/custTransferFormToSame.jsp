@@ -9,77 +9,22 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>    
+<link href="${pageContext.request.contextPath}/css/custTransferCSS.css" rel="stylesheet" />  
 </head>
-<style>
-	* { margin:0; padding:0; 
-		font-family: 'Noto Sans KR', sans-serif;
-		color: #252525; }
 
-	div#dummy { height: 75px; background: #292929;}			
-	#container { width: 1000px; margin: 30px auto;}
-	
-	/* 헤더 (입금 부분) */
-	div#header { background: goldenrod;
-			     height: 150px; }
-	div#header h1 { padding: 30px;  }
-	div#profile { background: whitesmoke;
-				  height: 600px;
-				  border-radius: 10px;
-				  padding: 50px;}
-				  
-	div#profile h2 { height: 50px;}
-	
-	
-	/* 고객 정보 부분 */
-	div#profileEdit { width:600px; 
-					  height: 450px; 
-					  overflow: hidden;
-					  margin-left: 200px;  }
-	div#profileEdit table { width: 500px;}
-	div#profileEdit table tr { height: 30px; }
-	div#profileEdit table th { width: 100px; height: 50px; text-align: left; }
-	div#profileEdit table td { width: 200px; text-align: center;
-							   padding-left: 70px; }
-	div#profileEdit table td input { width: 250px;
-									 background: whitesmoke;
-								     border: none; 
-								     margin: 10px 10px 10px 60px; 
-								     border-bottom: 1px solid gray;
-								     color: dimgray;}
-	
-	/* 버튼 */							     
-	div#submit {  width: 500px;  
-				 height: 80px; 
-				 margin-left: 300px;
-				 margin-top:30px; 
-				  }
-	div#submit input { width: 100px;  height: 40px;   
-					   border: none;  
-					   background: gray; 
-					   margin-left:20px; 
-					   font-size: 15px;
-					   color: whitesmoke;}		
-  
-    /* 에러 메세지 */
-  .errorMSG {
-	color: tomato;
-	display: none;
-	font-size: 12px;
-}
-
-					   				    
-</style>
 <script>
+   var firstAccountNum = "293133-11-";
 	$(function(){
 		//클릭한 메뉴만 보이게 하기
-		$("#transfer").show();
-		
+		$("#transfer").show();		
 		
 		//있는 계좌번호인지 판단 
 		$("#findAccNum").on("change",function(){
 			$(".errorMSG").css("display", "none");
 			$(".errorCust").html("");
 			var targetAccNum = $("#findAccNum").val();
+			
+			
 			//alert(targetAccNum);
 			
 			$.ajax({
@@ -103,10 +48,6 @@
 			
 		})
 		
-		
-		
-		
-		
 		//취소 클릭 시
 		$("#cancel").click(function() {
 			var choose = confirm("취소하시겠습니까? 리스트로 돌아갑니다.");
@@ -119,6 +60,11 @@
     	$("input[value='이체']").click(function(){
     		
     		$(".errorMSG").css("display", "none");
+    		var targetAccNum = $("#findAccNum").val();
+    		if(targetAccNum == firstAccountNum){
+				$("input[name='findAccNum']").next().css("display", "inline");
+				return false;
+			}
     		var transferAmount = $("input[name='transferAmount']").val();
     		var amountReg=/[0-9]/;
     		if(transferAmount == "" || amountReg.test(transferAmount) == false){

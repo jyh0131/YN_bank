@@ -158,3 +158,8 @@
 		  text-align: right;
 		  padding-right:10px;
 		}
+		
+		
+		span#guide { font-weight: bold; 
+					 font-size: 15px;    
+					  }

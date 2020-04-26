@@ -14,7 +14,7 @@
 </head>
 <%@include file="../include/menu.jsp"%>
 <%@include file="../include/sectionBar.jsp"%>
-<link href="../formCSS.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/empFormCSS.css" rel="stylesheet" />
 <script>
 	$(function() {
 		//선택한 메뉴 보이도록 

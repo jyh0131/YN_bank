@@ -13,7 +13,7 @@
 </head>
 <%@include file="../include/menu.jsp"%>
 <%@include file="../include/sectionBar.jsp"%>
-<link href="../formCSS.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/css/empFormCSS.css" rel="stylesheet" />
 <style>
 
 div#profileEdit table td input {

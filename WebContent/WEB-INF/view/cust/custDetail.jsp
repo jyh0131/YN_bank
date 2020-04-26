@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/formCSS.css" rel="stylesheet" />
 <script>
     $(function() {
     	
@@ -68,39 +69,7 @@
 </script>       
 </head>
 <style>
-	* { margin:0; padding:0; 
-		font-family: 'Noto Sans KR', sans-serif;
-		color: #252525; }
-	div#dummy { height: 75px; background: #292929;}
-	#container { width: 1000px; margin: 50px auto;}
-	/* 헤더(고객 세부 정보) */
-	div#header { background: goldenrod;
-			     height: 150px; }
-			     
-	div#header h1 { padding: 30px;  }
 	
-	/* 고객 정보 부분 */
-	div#profile { background: whitesmoke;
-				  height: 500px;
-				  border-radius: 10px;
-				  padding: 50px;}
-	div#profile h2 { height: 50px; }				  
-	
-	
-	div#profileEdit { width:600px; 
-					  overflow: hidden;
-					  margin-left: 200px;  }
-					  
-	div#profileEdit table { width: 500px; }
-	div#profileEdit table tr { height: 30px; }
-	div#profileEdit table th { width: 100px; text-align: left; }
-	div#profileEdit table td { width: 200px; text-align: center;}
-	div#profileEdit table td input { width: 250px;
-									 background: whitesmoke;
-								     border: none; 
-								     padding: 10px; 
-								     border-bottom: 1px solid gray;}
-									     
 	div#profileEdit table td select { width: 250px; margin: 20px 0;}	
 	
 	/* 버튼 */	

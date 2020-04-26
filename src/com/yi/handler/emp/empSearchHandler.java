@@ -265,7 +265,7 @@ public class empSearchHandler implements CommandHandler {
 
 			case "사원이름":
 				List<Employee> listAll = service.showPickedEmpList(search, 0);
-				if (listAll == null) {
+				if (listAll.size() == 0) {
 					HashMap<String, String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om2 = new ObjectMapper();
@@ -314,8 +314,9 @@ public class empSearchHandler implements CommandHandler {
 
 			case "부서(인사 or 고객)":
 				List<Employee> listAll3 = service.showPickedEmpByDept(search, 0);
-
-				if (listAll3 == null) {
+                 System.out.println(listAll3);
+                 
+				if (listAll3.size() == 0) {
 					HashMap<String, String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om3 = new ObjectMapper();
@@ -324,6 +325,7 @@ public class empSearchHandler implements CommandHandler {
 					PrintWriter out3 = res.getWriter();
 					out3.write(json3);
 					out3.flush();
+					System.out.println(map.toString());
 					break;
 				}
 				int totalCount3 = listAll3.size();// 전체 게시글 수 = (search)로 찾은 모든 사원 리스트의 길이
@@ -350,7 +352,7 @@ public class empSearchHandler implements CommandHandler {
 				// 리스트, 페이징을 같이 가져가기
 				HashMap<String, Object> listPageMap3 = new HashMap<>();
 				listPageMap3.put("paging", paging3);
-				listPageMap3.put("list3", list3);
+				listPageMap3.put("list", list3);
 				ObjectMapper om3 = new ObjectMapper();
 				String json3 = om3.writeValueAsString(listPageMap3);
 				res.setContentType("application/json;charset=UTF-8");
@@ -363,7 +365,7 @@ public class empSearchHandler implements CommandHandler {
 			case "직급":
 				List<Employee> listAll4 = service.showPickedEmpByTitle(search, 0);
 
-				if (listAll4 == null) {
+				if (listAll4.size() == 0) {
 					HashMap<String, String> map = new HashMap<>();
 					map.put("error", "notExist");
 					ObjectMapper om4 = new ObjectMapper();
@@ -398,7 +400,7 @@ public class empSearchHandler implements CommandHandler {
 				// 리스트, 페이징을 같이 가져가기
 				HashMap<String, Object> listPageMap4 = new HashMap<>();
 				listPageMap4.put("paging", paging4);
-				listPageMap4.put("list4", list4);
+				listPageMap4.put("list", list4);
 				ObjectMapper om4 = new ObjectMapper();
 				String json4 = om4.writeValueAsString(listPageMap4);
 				res.setContentType("application/json;charset=UTF-8");

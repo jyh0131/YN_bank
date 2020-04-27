@@ -1,5 +1,8 @@
 @charset "EUC-KR";
+
+
        * { font-family: 'Noto Sans KR', sans-serif; }
+      /* 검색 구분 부분 */
 		div#search {
 			width: 900px;
 			margin: 50px auto;
@@ -15,7 +18,7 @@
 			width: 200px; height : 30px;
 			border: none;
 			font-size: 16px;
-			border: 1px solid goldenrod;;
+			border: 1px solid goldenrod;
 		}
 		
 		fieldset { position: relative;  
@@ -55,7 +58,7 @@
 		span#guide { font-weight: bold; 
 					 font-size: 15px;    
 					  }
-		
+	/* 테이블 영역  */	
 		div#table {
 			width: 900px;
 			margin: 20px auto;
@@ -79,8 +82,6 @@
 			background: gainsboro;
 			font-size: 15px;
 		}
-		
-	div#table tr:hover td { background: goldenrod;}
 	
 	#btnNone{
 	   margin-left:500px;
@@ -89,10 +90,11 @@
 	   border-radius: 10px;
 	   background: none;
 	}	
+	
 	#btnNone:hover {
 	  background: goldenrod;
 	  font-weight: bold;
-}
+   }
 
   div#table th.thTel{
       width: 300px;
@@ -101,8 +103,8 @@
       width:300px;
       margin-left:500px;
       font-weight: bold; 
-	  font-size: 15px;
-  }
+ 	  font-size: 15px;
+   }
   span#avgSalary{
       width:300px;
       height:30px;
@@ -110,11 +112,11 @@
       margin-bottom:0;
       font-weight: bold; 
 	  font-size: 15px;
-  }
+    }
   
   	div#table th.thPlanName{
 		 width: 300px;
-		}
+	 }
 		
 		span.imgSpan{
 	   margin-left:0;
@@ -153,6 +155,7 @@
 		}          
 		    
 		div#table tr:hover td { background: goldenrod;}
+		
        /*금액 오른쪽 정렬*/
 		div#table td.alright{
 		  text-align: right;
@@ -163,3 +166,7 @@
 		span#guide { font-weight: bold; 
 					 font-size: 15px;    
 					  }
+					  
+					  
+					  
+	

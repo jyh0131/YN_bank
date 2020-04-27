@@ -10,8 +10,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
+<link href="${pageContext.request.contextPath}/css/listCSS.css" rel="stylesheet" />
 <style>
-		* { font-family: 'Noto Sans KR', sans-serif; }
+		
 		h2#menuLocation { width: 250px; height: 60px;  
 						  line-height: 60px; 
 						  margin: 0 500px;      
@@ -21,98 +22,22 @@
 			margin: 50px 0;
 			margin-left : 600px;
 			text-align: center;
-		}
-		
-		div#search select {
-			width: 200px; height : 30px;
-			border: none;
-			font-size: 16px;
-			border: 1px solid goldenrod;;
-		}
-		
-		fieldset { position: relative;  
-				   top:10px; 
-		 		   display: inline-block;  
-		 		   padding: 0 0 0 40px;  
-		 		   background: #fff;  
-		 		   border: none;  
-		 		   border-radius: 5px; } 
-		 		   
-		input, button { position: relative;  
-						width: 200px;  height: 35px;  
-						padding: 0;  
-						display: inline-block;  
-						float: left; }
-		input {  color: #666;  
-		 		 z-index: 2; 
-		 		 border:none;  
-		 		 border-bottom: 1px solid goldenrod; }
-		input:focus {  outline: 0 none; } 
+		}		
 
-	
-		button { z-index: 1;  
-				 width: 40px;  
-				 border: 0 none;  
-				 background: goldenrod;  
-				 cursor: pointer;  
-				 border-radius: 0 5px 5px 0;
-				 background-image: url("${pageContext.request.contextPath}/images/search.png");
-				 background-size: 25px; 
-				 background-repeat: no-repeat; 
-				 background-position: center;}
-		.fa-search { font-size: 1.4rem;  
-					 color: #29abe2;  
-					 z-index: 3;  
-					 top: 25%;  }
-		
-
-		span#guide { font-weight: bold; 
-					 font-size: 15px;    
-					  }
-		
 		div#table {
 			width: 1300px;
 			margin: 100px 0;
 			margin-left : 400px;
 		}
 		
-		div#table table {
-			border-collapse: collapse; 
-		}
-		
+	
 		div#table th, td {
 			width: 200px; 
 			height: 30px;
 			text-align: center;
 			font-size: 13px; 
 		}
-		
-		div#table tr:nth-child(odd) {
-			width: 200px; 
-			height: 30px;
-			text-align: center;
-			background: gainsboro;
-			font-size: 15px;
-		}
-		 /* 페이징 중앙 위치 처리 */	
-		div.sorter { height: 50px; margin-top: 20px;}
-		div.sorter ul.pagination {           
-			float:right; position:relative; left:-45%;     
-		}                
-		div.sorter ul.pagination li {     
-		float:left; position:relative; margin-right:20px; left:40%;        
-		}         
-		div.sorter ul.pagination li a {         
-			display: block;
-			width: 30px; 
-			height: 30px;              
-			border-radius: 10px;        
-			line-height: 30px;  
-			text-align: center;     
-			font-weight: bold;
-		}
-		
-		div#table tr:hover td { background: goldenrod;}
+
 		div#dummy { height: 75px; background: #292929;}
 		
 </style>

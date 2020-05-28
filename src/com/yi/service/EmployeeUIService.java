@@ -7,6 +7,7 @@ import com.yi.dao.EmployeeDao;
 import com.yi.dao.impl.EmployeeDaoImpl;
 import com.yi.dto.Department;
 import com.yi.dto.Employee;
+import com.yi.handler.paging.SearchCriteria;
 
 public class EmployeeUIService {
     private  EmployeeDao empDao;
@@ -208,9 +209,12 @@ public class EmployeeUIService {
  //페이징 처리
     
     //페이징을 위한 목록(전체)
-    public List<Employee> showExistEmployeeLimit(int startRow, int endRow){
-    	return empDao.selectExistEmployeeLimit(startRow, endRow);
+    public List<Employee> showExistEmployeeLimit(SearchCriteria cri){
+    	return empDao.selectExistEmployeeLimit(cri);
     }
+	public int getTotalSearchCount(SearchCriteria cri) {
+		return empDao.totalSearchCount(cri);
+	}
     //페이징을 위한 목록(코드로 검색)
     public Employee showExistEmployeeLimitByCode(String empCode, int startRow, int endRow) {
     	return empDao.selectExistEmployeeLimitByCode(empCode, startRow, endRow);

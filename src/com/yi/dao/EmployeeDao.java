@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.yi.dto.Department;
 import com.yi.dto.Employee;
+import com.yi.handler.paging.SearchCriteria;
 
 public interface EmployeeDao {
 	abstract Employee getEmpIdPass(Employee emp) throws SQLException;
@@ -46,7 +47,7 @@ public interface EmployeeDao {
 	//근무직원만
 	List<Employee> selectExistEmployee();
 	//페이징을 위한 목록 (전체)
-	List<Employee> selectExistEmployeeLimit(int startRow, int endRow);
+	List<Employee> selectExistEmployeeLimit(SearchCriteria cri);
 	//페이징을 위한 목록 (코드로 검색)
 	Employee selectExistEmployeeLimitByCode(String empCode, int startRow, int endRow);
 	//페이징을 위한 목록 (이름으로 검색)
@@ -98,4 +99,5 @@ public interface EmployeeDao {
 	//1인 평균 월급 구하기
 	int selectAvgOfSalary();
 	int selectTotalSalary();
+	int totalSearchCount(SearchCriteria cri);
 }

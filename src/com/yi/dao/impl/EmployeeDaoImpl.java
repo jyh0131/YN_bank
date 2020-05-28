@@ -15,6 +15,7 @@ import com.yi.dto.Customer;
 import com.yi.dto.Department;
 import com.yi.dto.Employee;
 import com.yi.dto.Plan;
+import com.yi.handler.paging.SearchCriteria;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 	String jdbcDriver = "jdbc:apache:commons:dbcp:bank";
@@ -1007,26 +1008,64 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return null;
 	}
-	
+		
 	//페이징 위한 select List문들
-
 	@Override
-	public List<Employee> selectExistEmployeeLimit(int startRow, int endRow) {
-		String sql="select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 order by empCode limit ?, ?";
-		ResultSet rs = null;
+	public List<Employee> selectExistEmployeeLimit(SearchCriteria cri) {
+		StringBuilder sqlBuilder = new StringBuilder("select empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0");
 		List<Employee> list = null;
-		try (Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql);){
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				list = new ArrayList<Employee>();
-				do {
-					list.add(getEmployee(rs));    
-				}while(rs.next());
+		if(cri.getSearchType()!=null) {
+			switch(cri.getSearchType()) {
+			case "사원번호":
+				sqlBuilder.append(" and empcode = ?");
+				break;
+			case "사원이름":
+				sqlBuilder.append(" and empname = ?");
+				break;
+			case "부서":
+				if(cri.getKeyword().equals("인사")) {
+					sqlBuilder.append(" and deptname = ?");
+				}
+				else if(cri.getKeyword().equals("고객")) {
+					sqlBuilder.append(" and deptname = ?");
+				}
+				break;
+			case "직급":
+				sqlBuilder.append(" and emptitle = ?");
+				break;
 			}
-			return list;
+			sqlBuilder.append(" order by empcode limit ?, ?");
+		}
+		else {
+			sqlBuilder.append(" order by empcode limit ?, ?");
+		}
+		String sql = sqlBuilder.toString();
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			if(cri.getSearchType()!=null) {
+				if(cri.getSearchType().equals("")) {
+					pstmt.setInt(1, cri.getPageStart());
+					pstmt.setInt(2, cri.getPerPageNum());
+				}
+				else {
+					pstmt.setString(1,cri.getKeyword());
+					pstmt.setInt(2, cri.getPageStart());
+					pstmt.setInt(3, cri.getPerPageNum());
+				}	
+			}
+			else {
+				pstmt.setInt(1, cri.getPageStart());
+				pstmt.setInt(2, cri.getPerPageNum());
+			}
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					list = new ArrayList<Employee>();
+					do {
+						list.add(getEmployee(rs));    
+					}while(rs.next());
+				}
+				return list;
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -1300,6 +1339,49 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return null;
 	}
-   
-	
+
+	@Override
+	public int totalSearchCount(SearchCriteria cri) {
+		int count = 0;
+		StringBuilder sqlBuilder = new StringBuilder("select count(empCode) from employee e left join department d on e.deptNo = d.deptNo where empRetire =0");
+		if(cri.getSearchType()!=null) {
+			switch(cri.getSearchType()) {
+			case "사원번호":
+				sqlBuilder.append(" and empcode = ?");
+				break;
+			case "사원이름":
+				sqlBuilder.append(" and empname = ?");
+				break;
+			case "부서":
+				if(cri.getKeyword().equals("인사")) {
+					sqlBuilder.append(" and deptname = ?");
+				}
+				else if(cri.getKeyword().equals("고객")) {
+					sqlBuilder.append(" and deptname = ?");
+				}
+				break;
+			case "직급":
+				sqlBuilder.append(" and emptitle = ?");
+				break;
+			}
+		}
+		String sql = sqlBuilder.toString();
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			if(cri.getSearchType()!=null) {
+				if(!cri.getSearchType().equals("")) {
+					pstmt.setString(1,cri.getKeyword());
+				}	
+			}
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					count = rs.getInt("count(empCode)");
+				}
+			}	
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

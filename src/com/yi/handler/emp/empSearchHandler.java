@@ -314,7 +314,7 @@ public class empSearchHandler implements CommandHandler {
 
 			case "부서(인사 or 고객)":
 				List<Employee> listAll3 = service.showPickedEmpByDept(search, 0);
-                 System.out.println(listAll3);
+               //  System.out.println(listAll3);
                  
 				if (listAll3.size() == 0) {
 					HashMap<String, String> map = new HashMap<>();

@@ -1007,6 +1007,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return null;
 	}
+	
+	//페이징 위한 select List문들
 
 	@Override
 	public List<Employee> selectExistEmployeeLimit(int startRow, int endRow) {

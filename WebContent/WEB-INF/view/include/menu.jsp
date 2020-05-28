@@ -81,7 +81,14 @@
 	nav div#menu a {  color: gainsboro;
 				     display: block;  }
 				     
-	section div#dummy { height: 75px; background: #292929;}						    
+	section div#dummy { height: 75px; background: #292929;}	
+	
+	
+	.active{
+      background: goldenrod;
+     }
+  
+  					    
 </style>
 <body>
 	<nav>

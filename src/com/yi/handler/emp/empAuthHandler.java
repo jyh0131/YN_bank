@@ -1,18 +1,13 @@
 package com.yi.handler.emp;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
 import com.yi.dto.Employee;
-import com.yi.dto.Plan;
-import com.yi.handler.paging.Paging;
+import com.yi.handler.paging.PageMaker;
+import com.yi.handler.paging.SearchCriteria;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.EmployeeUIService;
 
@@ -22,7 +17,28 @@ public class empAuthHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if (req.getMethod().equalsIgnoreCase("get")) {
-			String search = req.getParameter("search");
+			
+			int page = req.getParameter("page")==null?1:Integer.parseInt(req.getParameter("page"));
+			SearchCriteria cri = new SearchCriteria();
+			String searchType = req.getParameter("searchType");
+			String keyword = req.getParameter("keyword");
+			cri.setPage(page);
+			cri.setSearchType(searchType);
+			cri.setKeyword(keyword);
+			List<Employee> list = service.showExistEmployeeLimit(cri);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(service.getTotalSearchCount(cri));
+		
+			req.setAttribute("list", list);
+			req.setAttribute("cri", cri);
+			
+			req.setAttribute("pageMaker",pageMaker);
+			
+			return "/WEB-INF/view/emp/empAuthList.jsp";
+			
+			/* String search = req.getParameter("search");
 			String div = req.getParameter("div");
 			if (div == null && search == null) {
 
@@ -255,9 +271,10 @@ public class empAuthHandler implements CommandHandler {
 					return "/WEB-INF/view/emp/empAuthList.jsp";
 
 				}
-			}
+			} */
 			// 포스트일때 -------------------------------------------------------------------------------------------------------------------------------------
-		} else if (req.getMethod().equalsIgnoreCase("post")) {
+		} 
+		/* else if (req.getMethod().equalsIgnoreCase("post")) {
 			String search = req.getParameter("search");
 			String div = req.getParameter("div");
 
@@ -471,7 +488,7 @@ public class empAuthHandler implements CommandHandler {
 
 			}
 
-		}
+		}  */
 
 		return null;
 	}

@@ -11,10 +11,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/6f2f0f2d95.js"></script>
 <link href="${pageContext.request.contextPath}/css/listCSS.css" rel="stylesheet" />
+<style>
+  
+</style>
 </head>
 <script>
 
-var ajax;
+/* var ajax;
 var div;
 var search;
 
@@ -107,8 +110,11 @@ function getAjaxData(ajaxPaging,ajaxKey){
   })
 	
 }
-
+ */
    $(function(){
+	   
+	   var searchType;
+	   var keyword;
 	   //목록보이기
 	  $("#empAuthAdd").show();
 	  
@@ -118,10 +124,24 @@ function getAjaxData(ajaxPaging,ajaxKey){
 	      $(".pagination").load(location.href+" .pagination li");   
 	  })
 	  $("button").eq(0).click(function(){
-		div = $("#searchMenu option:selected").val();
-	    search = $("input[name='search']").val();
+		searchType = $("#searchMenu option:selected").val();
+		keyword = $("input[name='search']").val();
+	    
+	    if(searchType=="검색구분") {
+			alert("검색 구분을 선택해주세요"); 
+			return false;
+		}
+	    if(searchType=="부서") {
+			if(keyword !="고객" || keyword !="부서" ){
+				
+				alert("부서 혹은 고객으로만 검색 가능합니다.")
+				return false;
+			}
+
+		}
+		location.href = "empAuth.do?searchType="+searchType+"&keyword="+keyword;
  
-        var $table = $("<table>").addClass("tableList");
+        /* var $table = $("<table>").addClass("tableList");
 
         var $menutr = $("<tr>");
         var $menutd1 = $("<td>").html("사원코드");
@@ -210,13 +230,14 @@ function getAjaxData(ajaxPaging,ajaxKey){
 		      }} });
 				
 			  break;
-		  }
+		  } */
 		  
 	  }) //버튼 끝남 
 	  
 	  //각 줄을 클릭할 때마다 내가 부여한 data-empCode를 받아오기 
 	  //동적인거라 document
 	  $(document).on("click",".oneEmp",function(){
+
 		  var OneCode = $(this).attr("data-empCode");
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empAuthDetail.do?empCode="+OneCode;
@@ -236,7 +257,7 @@ function getAjaxData(ajaxPaging,ajaxKey){
 		  	}
 	  })
 	  
-	   //페이지 각 번호 클릭 시  
+/* 	   //페이지 각 번호 클릭 시  
 		$(document).on("click", ".page",function() {
 			if(ajax) {
 				var page = $(this).html();
@@ -323,9 +344,9 @@ function getAjaxData(ajaxPaging,ajaxKey){
 					location.href = "${pageContext.request.contextPath}/emp/empAuth.do?page="+page;
 				}
 			}
-		})
+		}) */
 		
-		$(document).on("mouseover", ".page", function(){
+	/* 	$(document).on("mouseover", ".page", function(){
 			$(this).css("background", "goldenrod");
 		})
 		$(document).on("mouseout", ".page", function(){  
@@ -347,7 +368,9 @@ function getAjaxData(ajaxPaging,ajaxKey){
 		$(document).on("mouseout", ".next", function(){  
 			$(this).css("background", "#fff");        
 		})
-		var isPagingAjax = "${pagingAjax}"=="true"?true:false;
+		var isPagingAjax = "${pagingAjax}"=="true"?true:false; */
+	
+	
    })
 
 
@@ -375,7 +398,7 @@ function getAjaxData(ajaxPaging,ajaxKey){
 				    <option>검색구분</option>
 					<option>사원번호</option>
 					<option>사원이름</option>
-					<option>부서(인사 or 고객)</option>
+					<option>부서</option>
 					<option>직급</option>
 					
 				</select>    
@@ -414,19 +437,16 @@ function getAjaxData(ajaxPaging,ajaxKey){
 		</table>
 		<div class="sorter">   
 		      <ul class="pagination">
-		        <li><a href="#" class="prev">Prev</a></li>
-		              <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
-		                  <c:choose>
-		                      <c:when test="${i eq paging.pageNo}">
-		                <li class="active"><a href="#" class="page">${i}</a></li>
-		                      </c:when>
-		                      <c:otherwise>
-		                        <li><a href="#" class="page">${i}</a></li>
-		                      </c:otherwise>
-		                  </c:choose>
-		              </c:forEach>
-		        <li><a href="#" class="next">Next</a></li>
-		      </ul>
+				<c:if test="${pageMaker.prev == true}">
+					<li><a href="empAuth.do?page=${pageMaker.startPage-1}&searchType=${cri.searchType}&keyword=${cri.keyword}">&laquo;</a></li>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+					<li class="${cri.page==idx?'active':''}"><a href="empAuth.do?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">${idx}</a></li>
+				</c:forEach>
+				<c:if test="${pageMaker.next == true}">
+					<li><a href="empAuth.do?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">&raquo;</a></li>
+				</c:if>
+			</ul>
 		    </div>  
 		</div>
 		
@@ -439,6 +459,13 @@ function getAjaxData(ajaxPaging,ajaxKey){
 		          %>
 		   </script>
 		</c:if>
+		
+		<c:if test="${fn:length(list)==0}">
+        	<script>
+        		alert("검색 결과가 존재하지 않습니다");
+        		location.href="empAuth.do";
+        	</script>
+        </c:if>
 		</section>
 </body>
 </html>

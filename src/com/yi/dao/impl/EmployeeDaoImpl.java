@@ -1072,133 +1072,60 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return null;
 	}
 
+	
 	@Override
-	public Employee selectExistEmployeeLimitByCode(String empCode, int startRow, int endRow) {
-		String sql ="select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 and empCode= ? order by empCode limit ?,?";
-		ResultSet rs = null;
-		
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-			PreparedStatement pstmt = con.prepareStatement(sql);){
-			pstmt.setString(1, empCode);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				Employee employee = new Employee();
-				employee = getEmployee(rs);
-				
-				return employee;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	@Override
-	public List<Employee> selectExistEmployeeLimitByName(String empName, int startRow, int endRow) {
-		String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 and empName like ? order by empCode limit ?,?";
-		ResultSet rs = null;
-		List<Employee> list = null;
-		
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-			PreparedStatement pstmt = con.prepareStatement(sql);){     
-			pstmt.setString(1, "%"+empName+"%");
-			pstmt.setInt(2, startRow);    
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				list = new ArrayList<>();
-				do {
-					list.add(getEmployee(rs));
-				}while(rs.next());
-				return list;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-
-	@Override
-	public List<Employee> selectExistEmployeeLimitByDept(String deptName, int startRow, int endRow) {
-		String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 and d.deptName like ? order by empCode limit ?, ?";
-		ResultSet rs = null;
-		List<Employee> list = null;
-		
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-			PreparedStatement pstmt = con.prepareStatement(sql);){     
-			pstmt.setString(1, "%"+deptName+"%");
-			pstmt.setInt(2, startRow);    
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				list = new ArrayList<>();
-				do {
-					list.add(getEmployee(rs));
-				}while(rs.next());
-				return list;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-
-	@Override
-	public List<Employee> selectExistEmployeeLimitByTitle(String title, int startRow, int endRow) {
-		String sql = "select  empCode, empName, empTitle, empAuth, empSalary, empTel, empId, empPwd, d.deptName, d.deptNo from employee e left join department d on e.deptNo = d.deptNo where empRetire =0 and e.empTitle like ? order by empCode limit ?, ?";
-		ResultSet rs = null;
-		List<Employee> list = null;
-		
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-			PreparedStatement pstmt = con.prepareStatement(sql);){     
-			pstmt.setString(1, "%"+title+"%");
-			pstmt.setInt(2, startRow);    
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				list = new ArrayList<>();
-				do {
-					list.add(getEmployee(rs));
-				}while(rs.next());
-				return list;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-
-	@Override
-	public List<Employee> selectEmployeeByPerformLimit(int startRow, int endRow) {
-		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+	public List<Employee> selectEmployeeByPerformLimit(SearchCriteria cri) {
+		StringBuilder sqlBuilder =new StringBuilder("select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
 				"				from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
-				"				group by e.`empCode`order by bonus desc, perf desc limit ?,? ";
-		List<Employee> list = new ArrayList<Employee>();
-		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareStatement(sql);){
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+				"				group by e.`empCode` ");
+		List<Employee> list = null;
+		if(cri.getSearchType()!=null) {
+			switch(cri.getSearchType()) {
+			case "사원번호":
+				sqlBuilder.append(" and e.empcode = ?");
+				break;
+			case "사원이름":
+				sqlBuilder.append(" and e.empname = ?");
+				break;
+			case "직급":
+				sqlBuilder.append(" and e.emptitle = ?");
+				break;
+			}
+			sqlBuilder.append(" order by bonus desc, perf desc limit ?, ?");
+		}
+		else {
+			sqlBuilder.append(" order by bonus desc, perf desc limit ?, ?");
+		}
+		String sql = sqlBuilder.toString();
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			if(cri.getSearchType()!=null) {
+				if(cri.getSearchType().equals("")) {
+					pstmt.setInt(1, cri.getPageStart());
+					pstmt.setInt(2, cri.getPerPageNum());
+				}
+				else {
+					pstmt.setString(1,cri.getKeyword());
+					pstmt.setInt(2, cri.getPageStart());
+					pstmt.setInt(3, cri.getPerPageNum());
+				}	
+			}
+			else {
+				pstmt.setInt(1, cri.getPageStart());
+				pstmt.setInt(2, cri.getPerPageNum());
+			}
 			try(ResultSet rs = pstmt.executeQuery()) {
-				while(rs.next()) {
-					list.add(getEmpPerform(rs));
+				if(rs.next()) {
+					list = new ArrayList<Employee>();
+					do {
+						list.add(getEmpPerform(rs));    
+					}while(rs.next());
 				}
 				return list;
-			}
+			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 		return null;
 	}
 
@@ -1376,6 +1303,46 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			try(ResultSet rs = pstmt.executeQuery()) {
 				if(rs.next()) {
 					count = rs.getInt("count(empCode)");
+				}
+			}	
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	@Override
+	public int totalSearchCountBonus(SearchCriteria cri) {
+		int count = 0;
+		StringBuilder sqlBuilder = new StringBuilder("select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"				from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
+				"				group by e.`empCode`order by bonus desc, perf desc ");
+		if(cri.getSearchType()!=null) {
+			switch(cri.getSearchType()) {
+			case "사원번호":
+				sqlBuilder.append(" and e.empcode = ?");
+				break;
+			case "사원이름":
+				sqlBuilder.append(" and e.empname = ?");
+				break;
+
+			case "직급":
+				sqlBuilder.append(" and e.emptitle = ?");
+				break;
+			}
+		}
+		String sql = sqlBuilder.toString();
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			if(cri.getSearchType()!=null) {
+				if(!cri.getSearchType().equals("")) {
+					pstmt.setString(1,cri.getKeyword());
+				}	
+			}
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					count = rs.getInt("count(e.empCode)");
 				}
 			}	
 		}

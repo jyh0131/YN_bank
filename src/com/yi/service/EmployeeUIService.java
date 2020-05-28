@@ -170,11 +170,7 @@ public class EmployeeUIService {
     	return empDao.selectEmployeeByPerform();
     }
     
-  //페이징 목록 (사원 실적까지 포함 limit)
-    public List<Employee> showEmployeeByPerformLimit(int startRow, int endRow){
-    	return empDao.selectEmployeeByPerformLimit(startRow, endRow);
-    }
-    
+ 
     //타겟 상품으로 실적 조회
     public List<Employee> showEmpPerformanceByTarget(String pCode){
     	return empDao.selectEmployeeByPerformByTarget(pCode);
@@ -215,22 +211,10 @@ public class EmployeeUIService {
 	public int getTotalSearchCount(SearchCriteria cri) {
 		return empDao.totalSearchCount(cri);
 	}
-    //페이징을 위한 목록(코드로 검색)
-    public Employee showExistEmployeeLimitByCode(String empCode, int startRow, int endRow) {
-    	return empDao.selectExistEmployeeLimitByCode(empCode, startRow, endRow);
-    }
-    
-    //페이징을 위한 목록(이름으로 검색)
-    public List<Employee> showExistEmployeeLimitByName(String empName, int startRow, int endRow) {
-    	return empDao.selectExistEmployeeLimitByName(empName, startRow, endRow);
-    }
-    //페이징을 위한 목록(부서로 검색)
-    public List<Employee> showExistEmployeeLimitByDept(String deptName, int startRow, int endRow) {
-    	return empDao.selectExistEmployeeLimitByDept(deptName, startRow, endRow);
-    }
-    //페이징을 위한 목록(직급으로 검색)
-    public List<Employee> showExistEmployeeLimitByTitle(String title, int startRow, int endRow) {
-    	return empDao.selectExistEmployeeLimitByTitle(title, startRow, endRow);
+
+	 //페이징 목록 (사원 실적까지 포함 limit)
+    public List<Employee> showEmployeeByPerformLimit(SearchCriteria cri){
+    	return empDao.selectEmployeeByPerformLimit(cri);
     }
     
     public List<Employee> showEmpPerformanceByTarget(String pCode, int startRow, int endRow){

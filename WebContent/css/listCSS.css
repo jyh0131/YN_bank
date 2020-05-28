@@ -139,10 +139,10 @@
   /* ÆäÀÌÂ¡ Áß¾Ó À§Ä¡ Ã³¸® */	
 		div.sorter { height: 50px; margin-top: 20px;}
 		div.sorter ul.pagination {           
-			float:right; position:relative; left:-45%;     
+			float:right; position:relative; left:-50%;     
 		}                
 		div.sorter ul.pagination li {     
-		float:left; position:relative; margin-right:20px; left:40%;        
+		float:left; position:relative; margin-right:20px; left:55%;        
 		}         
 		div.sorter ul.pagination li a {         
 			display: block;

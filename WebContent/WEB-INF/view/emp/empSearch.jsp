@@ -28,6 +28,14 @@
 				alert("검색 구분을 선택해주세요"); 
 				return false;
 			}
+			   if(searchType=="부서") {
+					if(keyword !="고객" || keyword !="부서" ){
+						
+						alert("부서 혹은 고객으로만 검색 가능합니다.")
+						return false;
+					}
+
+				}
 			location.href = "empSearch.do?searchType="+searchType+"&keyword="+keyword;
 	  })
 	  

@@ -1,17 +1,14 @@
 package com.yi.handler.emp;
 
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
 import com.yi.dto.Employee;
 import com.yi.dto.Plan;
-import com.yi.handler.paging.Paging;
+import com.yi.handler.paging.PageMaker;
+import com.yi.handler.paging.SearchCriteria;
 import com.yi.mvc.CommandHandler;
 import com.yi.service.EmployeeUIService;
 import com.yi.service.PlanService;
@@ -23,44 +20,28 @@ public class empRealBonusHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if (req.getMethod().equalsIgnoreCase("get")) {
-			/*String search = req.getParameter("search");
-			String div = req.getParameter("div");
-			if (div == null && search == null) {
+			int page = req.getParameter("page")==null?1:Integer.parseInt(req.getParameter("page"));
+			SearchCriteria cri = new SearchCriteria();
+			String searchType = req.getParameter("searchType");
+			String keyword = req.getParameter("keyword");
+			cri.setPage(page);
+			cri.setSearchType(searchType);
+			cri.setKeyword(keyword);
+			List<Employee> list = service.showEmployeeByPerformLimit(cri);
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(service.getTotalSearchCount(cri));
 
-				int size = service.showEmpPerformance().size();
-				// System.out.println(list);
-				req.setAttribute("size", size);
-
-				int page = req.getParameter("page") == null ? 1 : Integer.parseInt(req.getParameter("page"));
-				Paging paging = new Paging();
-				paging.makePaging();
-				paging.setPageNo(page); // get방식의 parameter값으로 반은 page변수, 현재 페이지 번호
-				paging.setPageSize(10); // 한페이지에 불러낼 게시물의 개수 지정
-				paging.setTotalCount(size);
-
-				// 첫번째 row 계산
-				int startRow = 0;
-				if (paging.getPageNo() == 1) {
-					// 현재 페이지가 1이면 0부터 10개 리스트 불러옴
-					startRow = 0;
-				} else {
-					// 현재 페이지가 1이 아니면 첫 페이지를 계산해서 불러옴 (10, 20, 30...) 부터 10개 리스트 불러옴
-					startRow = (paging.getPageNo() - 1) * 10;
-				}
-				List<Employee> list = service.showEmployeeByPerformLimit(startRow, paging.getPageSize());
-
-				req.setAttribute("list", list);
-				req.setAttribute("paging", paging);
-				String mem1 = list.get(0).getEmpCode();
-				String mem2 = list.get(1).getEmpCode();
-				String mem3 = list.get(2).getEmpCode();
-
-				req.setAttribute("mem1", mem1);
-				req.setAttribute("mem2", mem2);
-				req.setAttribute("mem3", mem3);
-
-				List<Plan> planList = planService.showPlans();
-				req.setAttribute("planList", planList);*/
+			req.setAttribute("list", list);
+			req.setAttribute("cri", cri);
+	
+			
+			//상품목록
+			List<Plan> planList = planService.showPlans();
+			req.setAttribute("planList", planList);
+			req.setAttribute("pageMaker",pageMaker);	
+				
+				
 				return "/WEB-INF/view/emp/empRealBonusList.jsp";
 			}
 

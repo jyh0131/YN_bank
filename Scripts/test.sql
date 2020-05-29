@@ -4,6 +4,10 @@ use bank;
 -- 노티스 
 select * from notice n ;
 
+
+select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName
+							from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0 and e.`empName` ='테스트'
+							group by e.`empCode` order by bonus desc, perf desc	  ;
 -- 페이징 테스트
 select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit order by accountTransDate desc limit 0,10;
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = "11" or "12" or "13" limit 0,8;

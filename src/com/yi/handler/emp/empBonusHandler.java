@@ -32,10 +32,11 @@ public class empBonusHandler implements CommandHandler {
 			req.setAttribute("cri", cri);
 			
 			
-			req.setAttribute("mem1", list.get(0).getEmpCode());
-			req.setAttribute("mem2", list.get(1).getEmpCode());
-			req.setAttribute("mem3", list.get(2).getEmpCode());
-
+//			if(list.size() == service.showExistEmpList().size()) {
+//			req.setAttribute("mem1", list.get(0).getEmpCode());
+//			req.setAttribute("mem2", list.get(1).getEmpCode());
+//			req.setAttribute("mem3", list.get(2).getEmpCode());
+//			}
 			req.setAttribute("pageMaker",pageMaker);
 			
 		  

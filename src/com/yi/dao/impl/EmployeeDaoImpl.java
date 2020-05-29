@@ -123,12 +123,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}catch (Exception e) {
 			e.printStackTrace();
 
-			/*if(e.getMessage().contains("PRIMARY")) {
-				JOptionPane.showMessageDialog(null, emp.getEmpCode()+ "사원번호 중복입니다");
-				empPanel.getDlgEmp().setVisible(true);
-				
-				return 0;
-			} 이 부분은 다시 짜셔야 할 것 같습니다*/
 		}
 		
 		return 0;
@@ -982,7 +976,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 
-   //타겟상품
+   //타겟상품 상품별로 실적 계산하기위한 구문
 	@Override
 	public List<Employee> selectEmployeeByPerformByTarget(String pCode) {
 		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
@@ -1077,7 +1071,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> selectEmployeeByPerformLimit(SearchCriteria cri) {
 		StringBuilder sqlBuilder =new StringBuilder("select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
 				"				from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
-				"				group by e.`empCode` ");
+				"				 ");
 		List<Employee> list = null;
 		if(cri.getSearchType()!=null) {
 			switch(cri.getSearchType()) {
@@ -1091,10 +1085,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				sqlBuilder.append(" and e.emptitle = ?");
 				break;
 			}
-			sqlBuilder.append(" order by bonus desc, perf desc limit ?, ?");
+			sqlBuilder.append("group by e.`empCode` order by bonus desc, perf desc limit ?, ?");
 		}
 		else {
-			sqlBuilder.append(" order by bonus desc, perf desc limit ?, ?");
+			sqlBuilder.append("group by e.`empCode` order by bonus desc, perf desc limit ?, ?");
 		}
 		String sql = sqlBuilder.toString();
 		try (Connection con = DriverManager.getConnection(jdbcDriver);

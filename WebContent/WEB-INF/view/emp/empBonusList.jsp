@@ -53,7 +53,8 @@ var keyword;
 			return false;
 		}
 	   if(searchType=="부서") {
-			if(keyword !="고객" || keyword !="부서" ){
+	    	var deptString = '고객부서';
+			if(deptString.indexOf(keyword) == -1 ){
 				
 				alert("부서 혹은 고객으로만 검색 가능합니다.")
 				return false;

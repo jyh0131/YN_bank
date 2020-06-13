@@ -12,6 +12,10 @@ select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode))
 select dw, custname, accountnum, amount, accountbalance, accountTransDate from cust_dw_audit order by accountTransDate desc limit 0,10;
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where substr(b.accountNum, 8,2) = "11" or "12" or "13" limit 0,8;
 select c.cardnum,cs.custcode,cs.custname,p.plancode,p.planname,c.cardsecucode,c.cardissuedate,c.cardlimit,c.cardbalance from card c left join customer cs on c.custcode = cs.custcode left join plan p on p.planCode = c.plancode where cs.custDiv = 0;
+select count(if(count(e.`empCode`)) != 1,1,1), e.`empCode` ,e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`group by e.`empCode`order by bonus desc, perf;
+select count(*) from (select  e.`empCode` ,e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`group by e.`empCode`order by bonus desc, perf) numnum;
+
+
 -- 송금 구현 위한테스트
 select * from bankbook b ;
 select c.custCode, c.custName, c.custCredit, accountNum, accountBalance, c.custDiv from customer c join bankbook b on c.custCode = b.custCode where c.custName like '%김%' and substr(accountNum, 8,2) = '11';

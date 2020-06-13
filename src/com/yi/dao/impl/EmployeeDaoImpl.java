@@ -1232,34 +1232,84 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return null;
 	}
-
+//타겟 상품별 실적 조회 페이징을 위한 구문
 	@Override
-	public List<Employee> selectEmployeeByPerformByTarget(String pCode, int startRow, int endRow) {
-		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
-				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
-				"where p.planCode =?\r\n" + 
-				"group by e.`empCode`order by bonus desc, perf desc limit ?,?";
+	public List<Employee> selectEmployeeByPerformByTarget(SearchCriteria cri) {
+		StringBuilder sqlBuilder =new StringBuilder("select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`");
+		
+		List<Employee> list = null;
+		if(cri.getSearchType() != null) {
+			sqlBuilder.append("where p.planCode =?");
+		}
+		    sqlBuilder.append("group by e.`empCode`order by bonus desc, perf desc limit ?,?");
+		    
+	    String sql = sqlBuilder.toString();   
+
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareStatement(sql);){
-			
-			pstmt.setString(1, pCode);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			List<Employee> list = new ArrayList<Employee>();
-			try(ResultSet rs = pstmt.executeQuery();){
-				while(rs.next()) {
-			
-				list.add(getEmpPerform(rs));
-    
-		     	}
-			  return list;
+			if(cri.getSearchType()!=null) {
+				if(cri.getSearchType().equals("aa")) {
+					pstmt.setString(1,cri.getKeyword());
+					pstmt.setInt(2, cri.getPageStart());
+					pstmt.setInt(3, cri.getPerPageNum());
+				}
+				else {
+					
+					pstmt.setInt(1, cri.getPageStart());
+					pstmt.setInt(2, cri.getPerPageNum());
+				}	
 			}
+			else {
+				pstmt.setInt(1, cri.getPageStart());
+				pstmt.setInt(2, cri.getPerPageNum());
+			}
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					list = new ArrayList<Employee>();
+					do {
+						list.add(getEmpPerform(rs));    
+					}while(rs.next());
+				}
+				return list;
+			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 		return null;
 	}
+	
+	@Override
+	public int targetBonusCount(SearchCriteria cri) {
+		int count = 0;
+		StringBuilder sqlBuilder = new StringBuilder("select count(*) from (select count(e.empCode), e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName "
+				+ "from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`");
+		if(cri.getSearchType()!=null) {
+			sqlBuilder.append(" where p.planCode =?");
+		}
+		sqlBuilder.append("group by e.`empCode`order by bonus desc, perf desc limit ?,?) numnum");
+		
+		String sql = sqlBuilder.toString();
+		try (Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			if(cri.getSearchType()!=null) {
+				if(!cri.getSearchType().equals("aa")) {
+					pstmt.setString(1,cri.getKeyword());
+				}	
+			}
+			try(ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					count = rs.getInt("count(*)");
+				}
+			}	
+		}
+		catch (SQLException e) {
+		
+		}
+		return count;
+	}
+	
+	
 
 	@Override
 	public int totalSearchCount(SearchCriteria cri) {
@@ -1309,8 +1359,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public int totalSearchCountBonus(SearchCriteria cri) {
 		int count = 0;
-		StringBuilder sqlBuilder = new StringBuilder("select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
-				"				from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
+		StringBuilder sqlBuilder = new StringBuilder("select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) "
+				+ "as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"				from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` "
+				+ "left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
 				"				group by e.`empCode`order by bonus desc, perf desc ");
 		if(cri.getSearchType()!=null) {
 			switch(cri.getSearchType()) {
@@ -1345,4 +1397,60 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return count;
 	}
+	
+	
+	@Override
+	public List<Employee> selectEmployeeByPerformLimit(int startRow, int endRow) {
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"				from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode` where empRetire =0\r\n" + 
+				"				group by e.`empCode`order by bonus desc, perf desc limit ?,? ";
+		List<Employee> list = new ArrayList<Employee>();
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					list.add(getEmpPerform(rs));
+				}
+				return list;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Employee> selectEmployeeByPerformByTarget(String pCode, int startRow, int endRow) {
+		String sql="select e.empCode, e.empName, e.empTitle, count(if(p.custCode=null,0,p.custCode)) as perf , if(count(if(p.custCode=null,0,p.custCode))>=10,e.`empSalary`*0.1,0) as bonus, pl.`planDetail` as pCode, pl.`planName` as pName\r\n" + 
+				"from employee e left join performance p on e.`empCode` = p.`empCode`  left join customer c on p.`custCode`=c.`custCode` left join plan pl on pl.`planCode` = p.`planCode`\r\n" + 
+				"where p.planCode =?\r\n" + 
+				"group by e.`empCode`order by bonus desc, perf desc limit ?,?";
+		try(Connection con = DriverManager.getConnection(jdbcDriver);
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			
+			pstmt.setString(1, pCode);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			List<Employee> list = new ArrayList<Employee>();
+			try(ResultSet rs = pstmt.executeQuery();){
+				while(rs.next()) {
+			
+				list.add(getEmpPerform(rs));
+    
+		     	}
+			  return list;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+   
+
+
+	
 }

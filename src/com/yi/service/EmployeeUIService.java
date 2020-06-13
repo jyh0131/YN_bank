@@ -215,8 +215,25 @@ public class EmployeeUIService {
     	return empDao.selectEmployeeByPerformLimit(cri);
     }
     
+    public List<Employee> showEmpPerformanceByTarget(SearchCriteria cri){
+    	return empDao.selectEmployeeByPerformByTarget(cri);
+    }
+    
+    public int getTargetBonusCount(SearchCriteria cri) {
+    	return empDao.targetBonusCount(cri);
+    }
+    
+    
+  //페이징 목록 (사원 실적까지 포함 limit)
+    public List<Employee> showEmployeeByPerformLimit(int startRow, int endRow){
+    	return empDao.selectEmployeeByPerformLimit(startRow, endRow);
+    }
+    
+    //타겟 상품으로 실적 조회
+    public List<Employee> showEmpPerformanceByTarget2(String pCode){
+    	return empDao.selectEmployeeByPerformByTarget(pCode);
+    }
     public List<Employee> showEmpPerformanceByTarget(String pCode, int startRow, int endRow){
     	return empDao.selectEmployeeByPerformByTarget(pCode, startRow, endRow);
     }
-    
 }

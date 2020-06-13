@@ -13,15 +13,15 @@
 <link href="${pageContext.request.contextPath}/css/listCSS.css" rel="stylesheet" />
 </head>
 <script>
-var searchType;
-var keyword;
    $(function(){
 	   //메뉴보이기
 	   $("#empBonusList").show();
 	   $("#empRealBonusList").show();
-
+	   var ajax;
+	   var div;
+	   var search;
 	  //랭크 탑3의 코드를 불러옴  
-	//  var rankMemCode = ["${mem1}","${mem2}","${mem3}"];
+	  var rankMemCode = ["${mem1}","${mem2}","${mem3}"];
 	  //alert(rankMemCode[0]);
 	  //alert($(".tdForRank").children().eq(1).html());
 	  
@@ -31,7 +31,7 @@ var keyword;
 		  $(".pagination").load(location.href+" .pagination li");
 	  })
 	  
-/* 	 $(document).on("mouseover",".tdForRank",function(){
+	 $(document).on("mouseover",".tdForRank",function(){
 		 var page = ${paging.pageNo};
          if(page == 1){
 		 if($(this).children().eq(1).html() == rankMemCode[0]){
@@ -42,20 +42,105 @@ var keyword;
 			 $(this).children().eq(0).html("<img src='YN_bank../../../images/ranking3.png' class='rankingImg'>");
 		 }
         }
-	 }) */
+	 })
 	 
 
 	  
 	  $("button").eq(0).click(function(){
-		 searchType = $("#searchMenu option:selected").val();
-		 keyword = $("input[name='search']").val();
+		 div = $("#searchMenu option:selected").val();
+	     search = $("input[name='search']").val();
 
-         if(searchType =="상품조회"){
+         if(div =="상품조회"){
         	 alert("상품을 선택하세요");
         	 return false;
          }
-         location.href = "empRealBonus.do?searchType="+searchType+"&keyword="+keyword;
+         
+         var $table = $("<table>").addClass("tableList");
+         
+         
+         var $menutr = $("<tr>");
+         var $menutd1 = $("<td>").html("사원코드");
+         var $menutd2 = $("<td>").html("사원이름");
+         var $menutd3 = $("<td>").html("직책");
+         var $menutd4 = $("<td>").html("해당 실적");
+         var $menutd5 = $("<td>").html("인센티브");
+         
+         $menutr.append($menutd1);
+         $menutr.append($menutd2);
+         $menutr.append($menutd3);
+         $menutr.append($menutd4);
+         $menutr.append($menutd5);
+         
 
+		  $.ajax({
+		    url: "${pageContext.request.contextPath}/emp/empRealBonus.do",
+		    type: "post", 
+		    data: {"search":search,"div":div},
+		    dataType: "json",
+		    success : function(res){
+		    	console.log(res);
+		    	if(res.error == "notExist"){
+		    		alert("해당 상품의 실적이 존재하지 않습니다.");
+		    	}else{
+		    		
+		    		$(".tableList").remove();
+		    		$table.append($menutr);
+
+		    		$(res.list).each(function(i,obj){
+		    			var $tr = $("<tr class='oneEmp'>").attr('data-empCode',obj.empCode).attr('data-perf',obj.perf);
+		    			var $td1 = $("<td>").html(obj.empCode);
+		    			var $td2 = $("<td>").html(obj.empName);
+		    			var $td3 = $("<td>").html(obj.empTitle);
+		    			var $td4 = $("<td>").html(obj.perf);
+		    			var $td5 = $("<td>").html(obj.bonus);
+
+                    
+		    			$tr.append($td1);
+		    			$tr.append($td2);
+		    			$tr.append($td3);
+		    			$tr.append($td4);
+		    			$tr.append($td5);
+		
+		
+		    			$table.append($tr);
+		    		})
+		    		//테이블 div
+		    		$("#table").append($table);
+		    		$(".sorter").remove();
+		    		$divSorter = $("<div>").addClass("sorter");
+		    		$ulPaging = $("<ul>").addClass("pagination");
+		    		$liPaging1 = $("<li>");
+		    		$aPaging1 = $("<a>").attr("href", "#").addClass("prev").html("Prev");
+		    		
+		    		$liPaging1.append($aPaging1);
+		    		$ulPaging.append($liPaging1);
+		    		
+		    		
+		    		for(var i=res.paging.startPageNo; i<=res.paging.endPageNo; i++){
+		    			$liPagingRepeat1 = $("<li>").addClass("active");
+			    		$aPagingRepeat1 = $("<a>").attr("href", "#").addClass("page").html(i);
+			    		$liPagingRepeat2 = $("<li>");
+			    		$aPagingRepeat2 = $("<a>").attr("href", "#").addClass("page").html(i);
+			    		
+			    		$liPagingRepeat1.append($aPagingRepeat1);
+			    		
+			    		$ulPaging.append($liPagingRepeat1);
+		    		}
+		    		
+		    		$liPaging2 = $("<li>");
+		    		$aPaging2 = $("<a>").attr("href", "#").addClass("next").html("Next");
+		    		
+		    		$liPaging2.append($aPaging2);
+		    		$ulPaging.append($liPaging2);
+		    		
+		    		$divSorter.append($ulPaging);
+		    		
+		    		$("#table").append($divSorter);
+		    		ajax = true;
+		    	}
+		    }
+		  
+	    })
 	  })//버튼클릭끝나는거
 	   
 	    //각 줄을 클릭할 때마다 내가 부여한 data-empCode를 받아오기 
@@ -80,11 +165,18 @@ var keyword;
 		  //alert(OneCode);
 		  location.href="${pageContext.request.contextPath}/emp/empBonusDetail.do?empCode="+OneCode;
 	  })
-
+	  /* 	 $("select#searchMenu").on("change",function(){
+		$("table").load(location.href+" table");
+		 var planName = $("select#searchMenu").val();
+		// alert(planName);
+		  $("#searchForEmp").val(planName);
+	  }) */
+	
 	  
 	   $("select").on("change", function() {
 		   var pCode = $("select#searchMenu").val();
-
+		  // alert(pCode);
+		  //alert($("#searchForEmp").val(pCode));
 		   $("#searchForEmp").val(pCode);
 		  	var href = location.href;
 		  	href = href.substring(0, href.indexOf("?"));
@@ -97,7 +189,118 @@ var keyword;
 				//$("input[name='search']").val("");
 		  	}
 	  })
-	
+	  
+	  //페이지 각 번호 클릭 시  
+		$(document).on("click", ".page",function() {
+			if(ajax) {
+				var page = $(this).html();
+				ajax = false;
+		        location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = $(this).html();
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = $(this).html();
+			        location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+				}
+			}
+		})   
+		
+		//prev 클릭시 이전 번호로 돌아감 (paging.pageNo = 현재 페이지 넘버)
+		$(document).on("click", ".prev" , function(){
+			if(ajax) {
+				var page = ${paging.pageNo}-1;
+				//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+				if($(".page").size()==1){
+					return false;       
+				}
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}-1;
+					if($(".page").size()==1){
+						return false;       
+					}
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = ${paging.pageNo}-1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){
+						return false;       
+					}
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+				}
+			}
+		})  
+		//next 클릭시  다음 번호로 넘어감 (paging.pageNo = 현재 페이지 넘버)    
+		$(document).on("click", ".next" , function(){
+			if(ajax) {
+				var page = ${paging.pageNo}+1;
+				if($(".page").size()==1){         
+					return false;   
+				} 
+				ajax = false;
+				location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+			}
+			else {
+				if(isPagingAjax) {
+					var page = ${paging.pageNo}+1;
+					if($(".page").size()==1){         
+						return false;   
+					} 
+					div = $("#searchMenu option:selected").val();
+					search = $("input[name='search']").val();
+					if($(".page").size()==1){         
+						return false;   
+					}
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page+"&search="+search+"&div="+div;
+				}
+				else {
+					var page = ${paging.pageNo}+1;
+					//.page 태그(페이징의 번호)가 1개 밖에 없을 경우(1페이지 밖에 없을 경우) prev, next 버튼으로 이동 제한
+					if($(".page").size()==1){         
+						return false;   
+					}       
+					location.href = "${pageContext.request.contextPath}/emp/empRealBonus.do?page="+page;
+				}
+			}
+		})
+		
+		$(document).on("mouseover", ".page", function(){
+			$(this).css("background", "goldenrod");
+		})
+		$(document).on("mouseout", ".page", function(){  
+			$(this).css("background", "#fff");
+		})
+		
+		$(document).on("mouseover", ".prev", function(){
+			$(this).css("background", "goldenrod");
+		})
+		
+		$(document).on("mouseover", ".next", function(){
+			$(this).css("background", "goldenrod");
+		})
+		
+		$(document).on("mouseout", ".prev", function(){  
+			$(this).css("background", "#fff");
+		})
+		
+		$(document).on("mouseout", ".next", function(){  
+			$(this).css("background", "#fff");        
+		})
+	  
+		var isPagingAjax = "${pagingAjax}"=="true"?true:false;
    })
 
 
@@ -168,17 +371,20 @@ var keyword;
 				</span>
 		</table>
 		<div class="sorter">   
-		       <ul class="pagination">
-				<c:if test="${pageMaker.prev == true}">
-					<li><a href="empRealBonus.do?page=${pageMaker.startPage-1}&searchType=${cri.searchType}&keyword=${cri.keyword}">&laquo;</a></li>
-				</c:if>
-				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-					<li class="${cri.page==idx?'active':''}"><a href="empRealBonus.do?page=${idx}&searchType=${cri.searchType}&keyword=${cri.keyword}">${idx}</a></li>
-				</c:forEach>
-				<c:if test="${pageMaker.next == true}">
-					<li><a href="empRealBonus.do?page=${pageMaker.endPage+1}&searchType=${cri.searchType}&keyword=${cri.keyword}">&raquo;</a></li>
-				</c:if>
-			</ul>
+		      <ul class="pagination">
+		        <li><a href="#" class="prev">Prev</a></li>
+		              <c:forEach var="i" begin="${paging.startPageNo}" end="${paging.endPageNo}" step="1">
+		                  <c:choose>
+		                      <c:when test="${i eq paging.pageNo}">
+		                <li class="active"><a href="#" class="page">${i}</a></li>
+		                      </c:when>
+		                      <c:otherwise>
+		                        <li><a href="#" class="page">${i}</a></li>
+		                      </c:otherwise>
+		                  </c:choose>
+		              </c:forEach>
+		        <li><a href="#" class="next">Next</a></li>
+		      </ul>
 		    </div> 
 		</div>   
 		</section>

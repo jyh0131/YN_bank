@@ -56,7 +56,9 @@ public interface EmployeeDao {
 	//실적관련 사원 리스트
 	List<Employee> selectEmployeeByPerform();
 	List<Employee> selectEmployeeByPerformByTarget(String pCode);
-	List<Employee> selectEmployeeByPerformByTarget(String pCode , int startRow, int endRow );
+	List<Employee> selectEmployeeByPerformByTarget(SearchCriteria cri);
+	int targetBonusCount(SearchCriteria cri);
+	
 	
 	//실적관련 사원 페이징 리스트
 	List<Employee> selectEmployeeByPerformLimit(SearchCriteria cri);
@@ -70,6 +72,10 @@ public interface EmployeeDao {
 	
 	//실적 랭킹
 	List<Employee> selectRank();
+	
+	//실적관련 사원 페이징 리스트
+		List<Employee> selectEmployeeByPerformLimit(int startRow, int endRow);
+		List<Employee> selectEmployeeByPerformByTarget(String pCode , int startRow, int endRow );
 	
 	//다이얼로그에 달 부서 리스트
     List<Department> selectDeptByAll();

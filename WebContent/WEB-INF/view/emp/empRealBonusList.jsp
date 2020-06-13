@@ -277,28 +277,7 @@
 			}
 		})
 		
-		$(document).on("mouseover", ".page", function(){
-			$(this).css("background", "goldenrod");
-		})
-		$(document).on("mouseout", ".page", function(){  
-			$(this).css("background", "#fff");
-		})
-		
-		$(document).on("mouseover", ".prev", function(){
-			$(this).css("background", "goldenrod");
-		})
-		
-		$(document).on("mouseover", ".next", function(){
-			$(this).css("background", "goldenrod");
-		})
-		
-		$(document).on("mouseout", ".prev", function(){  
-			$(this).css("background", "#fff");
-		})
-		
-		$(document).on("mouseout", ".next", function(){  
-			$(this).css("background", "#fff");        
-		})
+
 	  
 		var isPagingAjax = "${pagingAjax}"=="true"?true:false;
    })

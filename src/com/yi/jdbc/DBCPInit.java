@@ -23,7 +23,8 @@ public class DBCPInit extends HttpServlet {
 	}
 	private void loadJDBCDriver() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+//			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mariadb.jdbc.Driver");
 		}
 		catch(Exception e) {
 			throw new RuntimeException("fail to load JDBC Driver",e);
@@ -31,9 +32,9 @@ public class DBCPInit extends HttpServlet {
 	}
 	private void initConnectionPool() {
 		try {
-			String url = "jdbc:mysql://localhost:3306/bank?useUnicode=true&characterEncoding=utf8";
-			String user = "root";
-			String password = "rootroot";
+			String url = "mariadb://localhost:3306/bank?useUnicode=true&characterEncoding=utf8";
+			String user = "pink";
+			String password = "pink333";
 			ConnectionFactory conFactory = new DriverManagerConnectionFactory(url, user,password);
 			PoolableConnectionFactory poolableConFactory = new PoolableConnectionFactory(conFactory, null);
 			poolableConFactory.setValidationQuery("select 1");

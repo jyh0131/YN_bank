@@ -10,7 +10,7 @@ public class MySQLDriverLoader extends HttpServlet {
 		// TODO Auto-generated method stub
 		super.init();
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mariadb.jdbc.Driver");
 		}
 		catch(Exception e) {
 			e.printStackTrace();

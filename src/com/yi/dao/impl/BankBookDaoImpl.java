@@ -377,7 +377,7 @@ public class BankBookDaoImpl implements BankBookDao {
 	@Override
 	public int updateCardBalance(Customer customer) throws SQLException {
 		int res = -1;
-		String sql = "update Card set CardBalance = ? where custCode=? and accountNum =?";
+		String sql = "update card set cardBalance = ? where custCode=? and accountNum =?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
 				PreparedStatement pstmt = con.prepareCall(sql)) {
 			pstmt.setLong(1, customer.getBankbook().getAccountBalance());

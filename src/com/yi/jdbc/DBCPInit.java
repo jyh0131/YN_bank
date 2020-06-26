@@ -24,7 +24,7 @@ public class DBCPInit extends HttpServlet {
 	private void loadJDBCDriver() {
 		try {
 //			Class.forName("com.mysql.jdbc.Driver");
-			Class.forName("com.mariadb.jdbc.Driver");
+			Class.forName("org.mariadb.jdbc.Driver");
 		}
 		catch(Exception e) {
 			throw new RuntimeException("fail to load JDBC Driver",e);

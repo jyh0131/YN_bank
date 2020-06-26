@@ -32,7 +32,7 @@ public class DBCPInit extends HttpServlet {
 	}
 	private void initConnectionPool() {
 		try {
-			String url = "mariadb://localhost:3306/bank?useUnicode=true&characterEncoding=utf8";
+			String url = "jdbc:mariadb://localhost:3306/bank?useUnicode=true&characterEncoding=utf8";
 			String user = "pink";
 			String password = "pink333";
 			ConnectionFactory conFactory = new DriverManagerConnectionFactory(url, user,password);

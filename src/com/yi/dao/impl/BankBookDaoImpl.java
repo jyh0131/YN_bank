@@ -379,7 +379,7 @@ public class BankBookDaoImpl implements BankBookDao {
 		int res = -1;
 		String sql = "update card set cardBalance = ? where custCode=? and accountNum =?";
 		try(Connection con = DriverManager.getConnection(jdbcDriver);
-				PreparedStatement pstmt = con.prepareCall(sql)) {
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setLong(1, customer.getBankbook().getAccountBalance());
 			pstmt.setString(2, customer.getCustCode());
 			pstmt.setString(3, customer.getBankbook().getAccountNum());
